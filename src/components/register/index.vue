@@ -140,7 +140,7 @@ export default {
       }, 1000);
 
       this.$axios
-        .post("/api/getvfcode", {
+        .post("/api/visitor/getvfcode", {
           phoneNumber: this.phone,
         })
         .then((res) => {
@@ -155,6 +155,7 @@ export default {
         });
     },
     submit: function () {
+      console.log(this.registerForm)
       this.$axios
         .post("/api/visitor/register", {
           username: this.registerForm.username,
