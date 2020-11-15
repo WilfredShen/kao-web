@@ -55,7 +55,10 @@
                 ></el-input>
               </el-col>
               <el-col :span="9">
-                <el-button style="width: 100%">
+                <el-button
+                  style="width: 100%; padding-left: 0; padding-right: 0; text-align: center"
+                  @click="getCode"
+                >
                   <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
                   <span v-if="status.resend === -1">获取验证码</span>
                   <span v-else>重新获取</span>
@@ -78,10 +81,12 @@
       </el-main>
       <el-footer>
         <div style="text-align: right">
-          <span
+          <router-link
+            :to="{ path: '/login'}"
             style="text-decoration: underline; cursor: pointer"
-            @click="$router.push('/login')"
-          >前往登录</span>
+          >
+            前往登录
+          </router-link>
         </div>
       </el-footer>
     </el-container>
@@ -102,39 +107,19 @@ export default {
       },
       registerRules: {
         username: [
-          {
-            required: true,
-            message: "用户名不能为空",
-            trigger: "blur",
-          },
+          {required: true, message: "用户名不能为空", trigger: "blur",},
         ],
         password: [
-          {
-            required: true,
-            message: "密码不能为空",
-            trigger: "blur",
-          },
+          {required: true, message: "密码不能为空", trigger: "blur",},
         ],
         confPass: [
-          {
-            required: true,
-            message: "密码不能为空",
-            trigger: "blur",
-          },
+          {required: true, message: "密码不能为空", trigger: "blur",},
         ],
         phone: [
-          {
-            required: true,
-            message: "手机号不能为空",
-            trigger: "blur",
-          },
+          {required: true, message: "手机号不能为空", trigger: "blur",},
         ],
         code: [
-          {
-            required: true,
-            message: "验证码不能为空",
-            trigger: "blur",
-          },
+          {required: true, message: "验证码不能为空", trigger: "blur",},
         ],
       },
       status: {
@@ -142,23 +127,51 @@ export default {
         showConfPass: false,
         resend: -1,
       },
-      code: "",
     };
   },
   methods: {
     getCode: function () {
+      if (this.status.resend > 0)
+        return;
+      this.status.resend = 60;
+      const timer = setInterval(() => {
+        this.status.resend--;
+        if (this.status.resend === 0) clearInterval(timer);
+      }, 1000);
+
+      this.$axios
+        .post("/api/getvfcode", {
+          phoneNumber: this.phone,
+        })
+        .then((res) => {
+          if (res.data.state === 200) {
+            console.log(res.data.message);
+          } else {
+            console.log(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
     },
     submit: function () {
-      this.$refs["registerForm"].validate((res) => {
-        console.log(this.$refs["registerForm"])
-        console.log(res)
-      })
-      console.log(this.registerForm)
-    },
-  },
-  computed: {
-    verifyCode: function () {
-      return this.registerForm.code === this.code;
+      this.$axios
+        .post("/api/visitor/register", {
+          username: this.registerForm.username,
+          password: this.registerForm.password,
+          phoneNumber: this.registerForm.phone,
+          verificationCode: this.registerForm.code,
+        })
+        .then((res) => {
+          if (res.data.state === 200) {
+            this.$router.push("/");
+          } else {
+            console.log(res.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
     },
   },
 };

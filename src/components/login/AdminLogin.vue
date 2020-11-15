@@ -1,8 +1,8 @@
 <template>
-  <div id="login-wrapper">
+  <div id="admin-login-wrapper">
     <el-container>
       <el-header>
-        <span>登录</span>
+        <span>管理员登录</span>
       </el-header>
       <el-main>
         <el-form
@@ -34,29 +34,13 @@
           </el-form-item>
         </el-form>
       </el-main>
-      <el-footer>
-        <div style="text-align: right">
-          <router-link
-            :to="{ path: '/register' }"
-            style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
-          >
-            注册账号
-          </router-link>
-          <router-link
-            :to="{ path: '/forgot' }"
-            style="text-decoration: underline; cursor: pointer;"
-          >
-            忘记密码
-          </router-link>
-        </div>
-      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "AdminLogin",
   data() {
     return {
       loginForm: {
@@ -78,24 +62,13 @@ export default {
   },
   methods: {
     submit: function () {
-      this.$axios
-        .post("/api/visitor/login", {
-          username: this.loginForm.username,
-          password: this.loginForm.password,
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
   },
-};
+}
 </script>
 
 <style scoped>
-#login-wrapper {
+#admin-login-wrapper {
   width: 25%;
   margin: auto;
   min-width: 450px;
