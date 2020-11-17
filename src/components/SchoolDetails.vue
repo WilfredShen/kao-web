@@ -24,7 +24,7 @@
         </div>
 
         <div class="result" style="margin-top: 50px">
-            <el-table :data="tabledata" :header-cell-style="{background:'#eef1f6',color:'#606266'}">
+            <el-table :data="tabledata" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
                 <el-table-column prop="school_id_name" label="学校代码及名称" align="center"></el-table-column>
                 <el-table-column prop="major_rank" label="指定专业评级" align="center"></el-table-column>
                 <el-table-column prop="rank" label="指定排名" align="center"></el-table-column>
