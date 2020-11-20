@@ -12,6 +12,6 @@ Vue.prototype.$axios = axios
 import router from './router'
 
 new Vue({
-  render: h => h(App),
+  render: h => h(Self),
   router
 }).$mount('#app')
