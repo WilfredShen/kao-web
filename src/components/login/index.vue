@@ -55,49 +55,49 @@
 </template>
 
 <script>
-export default {
-  name: "Login",
-  data() {
-    return {
-      loginForm: {
-        username: "",
-        password: "",
-      },
-      loginRules: {
-        username: [
-          {required: true, message: "用户名不能为空", trigger: "blur",},
-        ],
-        password: [
-          {required: true, message: "密码不能为空", trigger: "blur",},
-        ],
-      },
-      status: {
-        showPassword: false,
-      },
+    export default {
+        name: "Login",
+        data() {
+            return {
+                loginForm: {
+                    username: "",
+                    password: "",
+                },
+                loginRules: {
+                    username: [
+                        {required: true, message: "用户名不能为空", trigger: "blur",},
+                    ],
+                    password: [
+                        {required: true, message: "密码不能为空", trigger: "blur",},
+                    ],
+                },
+                status: {
+                    showPassword: false,
+                },
+            };
+        },
+        methods: {
+            submit: function () {
+                this.$axios
+                    .post("/api/visitor/login", {
+                        username: this.loginForm.username,
+                        password: this.loginForm.password,
+                    })
+                    .then((res) => {
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            },
+        },
     };
-  },
-  methods: {
-    submit: function () {
-      this.$axios
-        .post("/api/visitor/login", {
-          username: this.loginForm.username,
-          password: this.loginForm.password,
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-};
 </script>
 
 <style scoped>
-#login-wrapper {
-  width: 25%;
-  margin: auto;
-  min-width: 450px;
-}
+  #login-wrapper {
+    width: 25%;
+    margin: auto;
+    min-width: 450px;
+  }
 </style>
