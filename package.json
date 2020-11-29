@@ -10,10 +10,15 @@
   "dependencies": {
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+<<<<<<< HEAD
     "echarts": "^4.9.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.7",
     "vuex": "^3.5.1"
+=======
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.7"
+>>>>>>> 6a11c12626f042e559b9256082a88e24950a12aa
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -42,9 +47,13 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
+<<<<<<< HEAD
     "rules": {
       "indent": 0
     }
+=======
+    "rules": {}
+>>>>>>> 6a11c12626f042e559b9256082a88e24950a12aa
   },
   "browserslist": [
     "> 1%",

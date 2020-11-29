@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
     <div class="divstyle">
       <img class="imgsty" src="./assets/logo11.png">
       <div class="header_sty">
@@ -34,10 +35,14 @@
       <br><br><br><br><br><br><br>
       <router-view style="margin: 0 12%"/>
     </div>
+=======
+    <router-view></router-view>
+>>>>>>> 6a11c12626f042e559b9256082a88e24950a12aa
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
     export default {
         name: "App",
         data() {
@@ -100,4 +105,25 @@
   .header_sty {
     margin: 10px 0 0 130px;
   }
+=======
+
+export default {
+  name: "App",
+};
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+a {
+  color: #000000;
+}
+>>>>>>> 6a11c12626f042e559b9256082a88e24950a12aa
 </style>

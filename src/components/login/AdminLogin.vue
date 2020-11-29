@@ -39,6 +39,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
     export default {
         name: "AdminLogin",
         data() {
@@ -74,3 +75,40 @@
     min-width: 450px;
   }
 </style>
+=======
+export default {
+  name: "AdminLogin",
+  data() {
+    return {
+      loginForm: {
+        username: "",
+        password: "",
+      },
+      loginRules: {
+        username: [
+          {required: true, message: "用户名不能为空", trigger: "blur",},
+        ],
+        password: [
+          {required: true, message: "密码不能为空", trigger: "blur",},
+        ],
+      },
+      status: {
+        showPassword: false,
+      },
+    };
+  },
+  methods: {
+    submit: function () {
+    },
+  },
+}
+</script>
+
+<style scoped>
+#admin-login-wrapper {
+  width: 25%;
+  margin: auto;
+  min-width: 450px;
+}
+</style>
+>>>>>>> 6a11c12626f042e559b9256082a88e24950a12aa
