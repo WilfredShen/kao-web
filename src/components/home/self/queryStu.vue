@@ -59,17 +59,18 @@
 </template>
 
 <script>
-export default {
-  name: ""
-}
+    export default {
+        name: ""
+    }
 </script>
 
 <style scoped>
-.datepick{
-  width: 150px;
-}
-.selection{
-  display: flex;
-  align-items: center;
-}
+  .datepick {
+    width: 150px;
+  }
+
+  .selection {
+    display: flex;
+    align-items: center;
+  }
 </style>

@@ -4,7 +4,8 @@
       <img class="imgsty" src="./assets/logo11.png">
       <div class="header_sty">
         <span class="spanstyle">教育部学科评估管理系统</span>
-        <el-menu :default-active= "activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal"
+                 @select="handleSelect">
           <router-link tag="Kao" to="/" class="nav-i">
             <el-menu-item index="1">首页</el-menu-item>
           </router-link>
@@ -37,61 +38,66 @@
 </template>
 
 <script>
-export default {
-  name: "App",
-  data () {
-    return {
-      activeIndex:"1",
-      activeIndex2:"1"
-    }
-  },
-  methods:{
-    handleSelect (key, keyPath) {
-      console.log(key, keyPath)
-    }
-  }
-};
+    export default {
+        name: "App",
+        data() {
+            return {
+                activeIndex: "1",
+                activeIndex2: "1"
+            }
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath)
+            }
+        }
+    };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-a {
-  color: #000000;
-}
-.divstyle {
-  position:absolute;
-  /*width:80%;*/
-  background:white;
-  margin:0 9%;
-}
-.el-menu-item{
-  font-size:15px;
-}
-.nav-i {
-  display:inline-block;
-  justify-content:space-around;
-  width:100px;
-  text-align:center;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
 
-.imgsty{
-  width:17%;
-  top:-10px;
-  position:absolute;
-}
+  a {
+    color: #000000;
+  }
 
-.spanstyle{
-  font-weight:bold;
-  font-size:25px;
-  position:relative;
-  color:black;
-}
-.header_sty {
-  margin:10px 0 0 130px;
-}
+  .divstyle {
+    position: absolute;
+    /*width:80%;*/
+    background: white;
+    margin: 0 9%;
+  }
+
+  .el-menu-item {
+    font-size: 15px;
+  }
+
+  .nav-i {
+    display: inline-block;
+    justify-content: space-around;
+    width: 100px;
+    text-align: center;
+  }
+
+  .imgsty {
+    width: 17%;
+    top: -10px;
+    position: absolute;
+  }
+
+  .spanstyle {
+    font-weight: bold;
+    font-size: 25px;
+    position: relative;
+    color: black;
+  }
+
+  .header_sty {
+    margin: 10px 0 0 130px;
+  }
 </style>

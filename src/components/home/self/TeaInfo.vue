@@ -14,31 +14,32 @@
 </template>
 
 <script>
-export default {
-  data(){
-    return{
-      items:[
-        {label:'联系电话：',show: require('@/assets/eye.png'),edit:require('@/assets/pencil.png')},
-        {label:'邮箱地址：',show: require('@/assets/eye.png'),edit:require('@/assets/pencil.png')},
-        {label:'姓名：',show: require('@/assets/eye.png'),edit:require('@/assets/transparent.png')},
-        {label:'年龄：',show: require('@/assets/eye.png'),edit:require('@/assets/transparent.png')},
-        {label:'性别：',show: require('@/assets/eye.png'),edit:require('@/assets/transparent.png')},
-        {label:'所属院校：',show: require('@/assets/eye.png'),edit:require('@/assets/pencil.png')},
-        {label:'所属专业：',show: require('@/assets/eye.png'),edit:require('@/assets/pencil.png')},
-        {label:'研究方向：',show: require('@/assets/eye.png'),edit:require('@/assets/pencil.png')},
-      ]
+    export default {
+        data() {
+            return {
+                items: [
+                    {label: '联系电话：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+                    {label: '邮箱地址：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+                    {label: '姓名：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+                    {label: '年龄：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+                    {label: '性别：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+                    {label: '所属院校：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+                    {label: '所属专业：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+                    {label: '研究方向：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+                ]
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped>
-.changeColor{
-  background-color: #eef1f6;
-}
-.img{
-  width: 25px;
-  height: 25px;
-  margin-right: 20px
-}
+  .changeColor {
+    background-color: #eef1f6;
+  }
+
+  .img {
+    width: 25px;
+    height: 25px;
+    margin-right: 20px
+  }
 </style>

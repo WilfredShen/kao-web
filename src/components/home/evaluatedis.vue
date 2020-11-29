@@ -5,15 +5,15 @@
       高校评估结果快捷查询（第四轮）
       </span>
     </div>
-    <div  style="margin: 10px 10px 10px 10px">
+    <div style="margin: 10px 10px 10px 10px">
       <el-container style="width: 1000px">
         <el-aside class="bor1" style="padding: 1.6rem; background-color: white;width: 200px">
           <div class="discipline-options">
             <div
-                class="discipline-option"
-                v-for="(d, index) in discipline"
-                :key="index"
-                @click="
+              class="discipline-option"
+              v-for="(d, index) in discipline"
+              :key="index"
+              @click="
               selected.dindex = index;
               selected.mindex = 0;
             "
@@ -25,14 +25,14 @@
           </div>
         </el-aside>
         <el-main style="padding: 0">
-          <el-container >
+          <el-container>
             <el-aside class="bor1" style="padding: 1.6rem; background-color: #e8e8e8 ;width: 200px">
               <div class="major-options">
                 <div
-                    class="major-option"
-                    v-for="(m, index) in discipline[selected.dindex].major"
-                    :key="index"
-                    @click="selected.mindex = index"
+                  class="major-option"
+                  v-for="(m, index) in discipline[selected.dindex].major"
+                  :key="index"
+                  @click="selected.mindex = index"
                 >
                 <span>
                   {{ `${m.mid} ${m.mname}` }}
@@ -40,7 +40,7 @@
                 </div>
               </div>
             </el-aside>
-            <el-main class="bor1"  >
+            <el-main class="bor1">
               <div style="text-align: center">
                   <span style="font-size: 17px;font-weight: bold">
                     {{ `${this.discipline[this.selected.dindex].major[this.selected.mindex].mid} ${this.discipline[this.selected.dindex].major[this.selected.mindex].mname}` }}
@@ -61,133 +61,184 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      discipline: [
-        {
-          did: 1,
-          dname: '人文社科类',
-          major: [
-            {
-              mid: 101,
-              mname: '哲学'
-            },
-            {
-              mid: 102,
-              mname: '理论经济学'
+    export default {
+        data() {
+            return {
+                searchcid: '',
+                searchmid: '',
+                searchresult: '',
+                discipline:[],
+                // discipline: [
+                //     {
+                //         did,
+                //         dname,
+                //         major[
+                //             {
+                //                 mid,
+                //                 mname
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         did: 2,
+                //         dname: '理学',
+                //         major: [
+                //             {
+                //                 mid: 201,
+                //                 mname: 'm201'
+                //             },
+                //             {
+                //                 mid: 202,
+                //                 mname: 'm202'
+                //             }
+                //         ]
+                //     }
+                // ],
+                evaluation: [
+                    {
+                        mid: 101,
+                        cid: 10001,
+                        cname: 'c10001',
+                        result: 'A+'
+                    },
+                    {
+                        mid: 101,
+                        cid: 10002,
+                        cname: 'c10002',
+                        result: 'A'
+                    },
+                    {
+                        mid: 102,
+                        cid: 10001,
+                        cname: 'c10001',
+                        result: 'B+'
+                    },
+                    {
+                        mid: 102,
+                        cid: 10002,
+                        cname: 'c10002',
+                        result: 'A+'
+                    },
+                    {
+                        mid: 201,
+                        cid: 10004,
+                        cname: 'c10004',
+                        result: 'A+'
+                    },
+                    {
+                        mid: 202,
+                        cid: 10006,
+                        cname: 'c10006',
+                        result: 'A+'
+                    }
+                ],
+                selected: {
+                    dindex: 0,
+                    mindex: 0
+                }
             }
-          ]
         },
-        {
-          did: 2,
-          dname: '理学',
-          major: [
-            {
-              mid: 201,
-              mname: 'm201'
+        computed: {
+            showEvaluation: function () {
+                var list = []
+                for (var index in this.evaluation) {
+                    if (
+                        // eslint-disable-next-line eqeqeq
+                        this.evaluation[index].mid ==
+                        this.discipline[this.selected.dindex].major[this.selected.mindex].mid
+                    ) {
+                        list.push(this.evaluation[index])
+                    }
+                }
+                return list
             },
-            {
-              mid: 202,
-              mname: 'm202'
+            showmajor: function () {
+                return this.discipline[this.selected.dindex].major[this.selected.mindex]
             }
-          ]
+        },
+        watch: {
+            selected: {
+                handler: function (newVal) {
+                    this.selected = newVal
+                },
+                deep: true
+            }
+        },
+        created() {
+            this.axios.get("/api/base/evaluation",{
+                round:0
+            })
+            .then((res)=>{
+                console.log(res.data.data)
+            }).catch((res)=>{
+                console.log(res)
+            })
+        },
+        mounted() {
+            discipline: [],
+            // this.$axios.all([
+            //     this.$axios.get("/api/base/evaluation",{
+            //         round:0
+            //     }),
+            //     this.$axios.get("/api/meta/discipline")
+            // ]).then((res)=>{
+            //     console.log(res.data.data);
+            // }).catch((err)=>{
+            //     console.log(err)
+            // })
+            // this.$axios.get("/api/base/evaluation", {
+            //     params: {
+            //         round: 0,
+            //     }
+            // }).then((res) => {
+            //     // console.log("data" + res.data);
+            //     console.log(res.data.data);
+            //     console.log(res);
+            // }).catch((err) => {
+            //         console.log(err);
+            //     }),
+            //
+            this.$axios.get("/api/meta/discipline", {
+
+            }).then((res) => {
+                res.forEach((row)=>{
+                  this.discipline.push(row.data.data)
+                })
+                console.log(res.data.data);
+            }).catch((err) => {
+                console.log(err);
+            })
         }
-      ],
-      evaluation: [
-        {
-          mid: 101,
-          cid: 10001,
-          cname: 'c10001',
-          result: 'A+'
-        },
-        {
-          mid: 101,
-          cid: 10002,
-          cname: 'c10002',
-          result: 'A'
-        },
-        {
-          mid: 102,
-          cid: 10001,
-          cname: 'c10001',
-          result: 'B+'
-        },
-        {
-          mid: 102,
-          cid: 10002,
-          cname: 'c10002',
-          result: 'A+'
-        },
-        {
-          mid: 201,
-          cid: 10004,
-          cname: 'c10004',
-          result: 'A+'
-        },
-        {
-          mid: 202,
-          cid: 10006,
-          cname: 'c10006',
-          result: 'A+'
-        }
-      ],
-      selected: {
-        dindex: 0,
-        mindex: 0
-      }
     }
-  },
-  computed: {
-    showEvaluation: function () {
-      var list = []
-      for (var index in this.evaluation) {
-        if (
-            // eslint-disable-next-line eqeqeq
-            this.evaluation[index].mid ==
-            this.discipline[this.selected.dindex].major[this.selected.mindex].mid
-        ) { list.push(this.evaluation[index]) }
-      }
-      return list
-    },
-    showmajor: function () {
-      return this.discipline[this.selected.dindex].major[this.selected.mindex]
-    }
-  },
-  watch: {
-    selected: {
-      handler: function (newVal) {
-        this.selected = newVal
-      },
-      deep: true
-    }
-  }
-}
 </script>
 
-<style  scoped>
+<style scoped>
 
-.demo-wrapper {
-  margin: auto;
-  border: 1px solid black;
-}
-.title1{
-  margin: 30px 0 30px 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.dis{
-  margin: 5px 0px;
-}
-.bor1{
-  border: 1px solid gray;
-}
-.discipline-option, .major-option {
-  cursor: pointer;
-  /*光标在当前标签悬浮时显示的内容*/
-  /*&:hover {*/
-  /*background-color: #ffffff;*/
-  /*}*/
-  margin: 5px 0;
-}
+  .demo-wrapper {
+    margin: auto;
+    border: 1px solid black;
+  }
+
+  .title1 {
+    margin: 30px 0 30px 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .dis {
+    margin: 5px 0px;
+  }
+
+  .bor1 {
+    border: 1px solid gray;
+  }
+
+  .discipline-option, .major-option {
+    cursor: pointer;
+    /*光标在当前标签悬浮时显示的内容*/
+    /*&:hover {*/
+    /*background-color: #ffffff;*/
+    /*}*/
+    margin: 5px 0;
+  }
 </style>

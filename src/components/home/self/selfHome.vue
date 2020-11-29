@@ -12,21 +12,21 @@
 </template>
 
 <script>
-export default {
-  data(){
-    return{
-      tabledata:[{
-        focus_school:'湖南大学',
-        info_type:'高校新闻',
-        up_date:'2020-11-12'
-      },{
-        focus_school:'蓝翔技术学校',
-        info_type:'夏令营',
-        up_date:'2020-11-13'
-      }]
+    export default {
+        data() {
+            return {
+                tabledata: [{
+                    focus_school: '湖南大学',
+                    info_type: '高校新闻',
+                    up_date: '2020-11-12'
+                }, {
+                    focus_school: '蓝翔技术学校',
+                    info_type: '夏令营',
+                    up_date: '2020-11-13'
+                }]
+            }
+        }
     }
-  }
-}
 </script>
 
 <style scoped>
