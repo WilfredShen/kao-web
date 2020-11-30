@@ -27,30 +27,30 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                school_collect: [{
-                    school_id_name: '01湖南大学',
-                    major_id_name: '01软件工程',
-                }, {
-                    school_id_name: '02中南大学',
-                    major_id_name: '01软件工程',
-                }],
-                teacher_collect: [{
-                    school_id_name: '01湖南大学',
-                    teacher_name: '边耐政',
-                    tel: '135-12341234',
-                    address: '湖南省长沙市',
-                }, {
-                    school_id_name: '01湖南大学',
-                    teacher_name: '戴牡红',
-                    tel: '135-12341234',
-                    address: '湖南省长沙市',
-                }]
-            }
-        }
+  export default {
+    data() {
+      return {
+        school_collect: [{
+          school_id_name: '01湖南大学',
+          major_id_name: '01软件工程',
+        }, {
+          school_id_name: '02中南大学',
+          major_id_name: '01软件工程',
+        }],
+        teacher_collect: [{
+          school_id_name: '01湖南大学',
+          teacher_name: '边耐政',
+          tel: '135-12341234',
+          address: '湖南省长沙市',
+        }, {
+          school_id_name: '01湖南大学',
+          teacher_name: '戴牡红',
+          tel: '135-12341234',
+          address: '湖南省长沙市',
+        }]
+      }
     }
+  }
 </script>
 
 <style scoped>

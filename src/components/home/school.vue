@@ -20,14 +20,14 @@
 </template>
 
 <script>
-    export default {
-        name: 'school',
-        data() {
-            return {
-                input: ''
-            }
-        }
+  export default {
+    name: 'school',
+    data() {
+      return {
+        input: ''
+      }
     }
+  }
 </script>
 
 <style scoped>

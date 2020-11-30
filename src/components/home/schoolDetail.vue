@@ -40,36 +40,36 @@
 </template>
 
 <script>
-    export default {
-        name: "",
-        data() {
-            return {
-                input: '',
-                rank_sys: '请选择排名体系',
-                rank: '全部',
-                tabledata: [{
-                    school_id_name: '01湖南大学',
-                    major_rank: '计算机科学与技术 B+',
-                    rank: '40'
-                }, {
-                    school_id_name: '02蓝翔技术学校',
-                    major_rank: '挖掘机 A+',
-                    rank: '1'
-                }]
-            }
-        },
-        methods: {
-            handleCommand(command) {
-                this.rank_sys = command
-            },
-            handleRank(command) {
-                this.rank = command
-            },
-            schoolclik: function () {
-                this.$router.push({path: '/school'})
-            }
-        }
+  export default {
+    name: "",
+    data() {
+      return {
+        input: '',
+        rank_sys: '请选择排名体系',
+        rank: '全部',
+        tabledata: [{
+          school_id_name: '01湖南大学',
+          major_rank: '计算机科学与技术 B+',
+          rank: '40'
+        }, {
+          school_id_name: '02蓝翔技术学校',
+          major_rank: '挖掘机 A+',
+          rank: '1'
+        }]
+      }
+    },
+    methods: {
+      handleCommand(command) {
+        this.rank_sys = command
+      },
+      handleRank(command) {
+        this.rank = command
+      },
+      schoolclik: function () {
+        this.$router.push({path: '/school'})
+      }
     }
+  }
 </script>
 
 <style scoped>

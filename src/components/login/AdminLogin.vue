@@ -39,32 +39,32 @@
 </template>
 
 <script>
-    export default {
-        name: "AdminLogin",
-        data() {
-            return {
-                loginForm: {
-                    username: "",
-                    password: "",
-                },
-                loginRules: {
-                    username: [
-                        {required: true, message: "用户名不能为空", trigger: "blur",},
-                    ],
-                    password: [
-                        {required: true, message: "密码不能为空", trigger: "blur",},
-                    ],
-                },
-                status: {
-                    showPassword: false,
-                },
-            };
+  export default {
+    name: "AdminLogin",
+    data() {
+      return {
+        loginForm: {
+          username: "",
+          password: "",
         },
-        methods: {
-            submit: function () {
-            },
+        loginRules: {
+          username: [
+            {required: true, message: "用户名不能为空", trigger: "blur",},
+          ],
+          password: [
+            {required: true, message: "密码不能为空", trigger: "blur",},
+          ],
         },
-    }
+        status: {
+          showPassword: false,
+        },
+      };
+    },
+    methods: {
+      submit: function () {
+      },
+    },
+  }
 </script>
 
 <style scoped>

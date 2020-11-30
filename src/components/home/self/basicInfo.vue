@@ -14,28 +14,28 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                items: [
-                    {
-                        label: '用户ID：',
-                        show: require('@/assets/transparent.png'),
-                        edit: require('@/assets/transparent.png')
-                    },
-                    {
-                        label: '用户名：',
-                        show: require('@/assets/transparent.png'),
-                        edit: require('@/assets/transparent.png')
-                    },
-                    {label: '手机号码：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '邮箱地址：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '实名认证：', show: require('@/assets/transparent.png'), edit: require('@/assets/warn.png')},
-                    {label: '身份认证：', show: require('@/assets/transparent.png'), edit: require('@/assets/pencil.png')},
-                ]
-            }
-        }
+  export default {
+    data() {
+      return {
+        items: [
+          {
+            label: '用户ID：',
+            show: require('@/assets/transparent.png'),
+            edit: require('@/assets/transparent.png')
+          },
+          {
+            label: '用户名：',
+            show: require('@/assets/transparent.png'),
+            edit: require('@/assets/transparent.png')
+          },
+          {label: '手机号码：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '邮箱地址：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '实名认证：', show: require('@/assets/transparent.png'), edit: require('@/assets/warn.png')},
+          {label: '身份认证：', show: require('@/assets/transparent.png'), edit: require('@/assets/pencil.png')},
+        ]
+      }
     }
+  }
 </script>
 
 <style scoped>

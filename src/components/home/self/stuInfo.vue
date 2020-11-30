@@ -14,24 +14,24 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                items: [
-                    {label: '联系电话：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '邮箱地址：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '姓名：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
-                    {label: '年龄：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
-                    {label: '性别：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
-                    {label: '本科就读高校：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '本科就读专业：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '本科毕业时间：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '预期专业：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
-                    {label: '可被导师查询：', show: require('@/assets/transparent.png'), edit: require('@/assets/pencil.png')},
-                ]
-            }
-        }
+  export default {
+    data() {
+      return {
+        items: [
+          {label: '联系电话：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '邮箱地址：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '姓名：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+          {label: '年龄：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+          {label: '性别：', show: require('@/assets/eye.png'), edit: require('@/assets/transparent.png')},
+          {label: '本科就读高校：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '本科就读专业：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '本科毕业时间：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '预期专业：', show: require('@/assets/eye.png'), edit: require('@/assets/pencil.png')},
+          {label: '可被导师查询：', show: require('@/assets/transparent.png'), edit: require('@/assets/pencil.png')},
+        ]
+      }
     }
+  }
 </script>
 
 <style scoped>

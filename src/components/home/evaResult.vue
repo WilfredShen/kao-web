@@ -87,98 +87,98 @@
 </template>
 
 <script>
-    export default {
-        name: "evaluateresult",
-        data() {
-            return {
-                options: [{
-                    value: "选项1",
-                    label: "第一轮"
-                }, {
-                    value: "选项2",
-                    label: "第二轮"
-                }, {
-                    value: "选项3",
-                    label: "第三轮"
-                }, {
-                    value: "选项4",
-                    label: "第四轮"
-                }],
-                value: "",
-                option2: [{
-                    value2: "选项1",
-                    label2: "人文社科类",
-                    majors: [
-                        {
-                            mid: "0101",
-                            mname: "哲学"
-                        },
-                        {
-                            mid: "0102",
-                            mname: "理论经济学"
-                        }
-                    ]
-                }, {
-                    value2: "选项2",
-                    label2: "理学",
-                    majors: [
-                        {
-                            mid: "0701",
-                            mname: "数学"
-                        },
-                        {
-                            mid: "0702",
-                            mname: "物理学"
-                        }
-                    ]
-                }, {
-                    value2: "选项3",
-                    label2: "工学",
-                    majors: [
-                        {
-                            mid: "0801",
-                            mname: "力学"
-                        },
-                        {
-                            mid: "0802",
-                            mname: "机械工程"
-                        }
-                    ]
-                }, {
-                    value2: "选项4",
-                    label2: "农学",
-                    majors: [
-                        {
-                            mid: "0901",
-                            mname: "作物学"
-                        },
-                        {
-                            mid: "0902",
-                            mname: "园艺学"
-                        }
-                    ]
-                }],
-                value2: "",
-                option4: [{
-                    value4: "选项1",
-                    label4: "A+"
-                }, {
-                    value4: "选项2",
-                    label4: "A"
-                }, {
-                    value4: "选项3",
-                    label4: "A-"
-                }, {
-                    value4: "选项4",
-                    label4: "B"
-                }],
-                value4: "",
-                selected: {
-                    dindex: 0
-                }
+  export default {
+    name: "evaluateresult",
+    data() {
+      return {
+        options: [{
+          value: "选项1",
+          label: "第一轮"
+        }, {
+          value: "选项2",
+          label: "第二轮"
+        }, {
+          value: "选项3",
+          label: "第三轮"
+        }, {
+          value: "选项4",
+          label: "第四轮"
+        }],
+        value: "",
+        option2: [{
+          value2: "选项1",
+          label2: "人文社科类",
+          majors: [
+            {
+              mid: "0101",
+              mname: "哲学"
+            },
+            {
+              mid: "0102",
+              mname: "理论经济学"
             }
+          ]
+        }, {
+          value2: "选项2",
+          label2: "理学",
+          majors: [
+            {
+              mid: "0701",
+              mname: "数学"
+            },
+            {
+              mid: "0702",
+              mname: "物理学"
+            }
+          ]
+        }, {
+          value2: "选项3",
+          label2: "工学",
+          majors: [
+            {
+              mid: "0801",
+              mname: "力学"
+            },
+            {
+              mid: "0802",
+              mname: "机械工程"
+            }
+          ]
+        }, {
+          value2: "选项4",
+          label2: "农学",
+          majors: [
+            {
+              mid: "0901",
+              mname: "作物学"
+            },
+            {
+              mid: "0902",
+              mname: "园艺学"
+            }
+          ]
+        }],
+        value2: "",
+        option4: [{
+          value4: "选项1",
+          label4: "A+"
+        }, {
+          value4: "选项2",
+          label4: "A"
+        }, {
+          value4: "选项3",
+          label4: "A-"
+        }, {
+          value4: "选项4",
+          label4: "B"
+        }],
+        value4: "",
+        selected: {
+          dindex: 0
         }
+      }
     }
+  }
 </script>
 
 <style>
