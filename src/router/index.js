@@ -31,30 +31,6 @@ export default new VueRouter({
       name: NewsList,
       path:'/NewsList',
       component: NewsList
-    },{
-      name: SelfHome,
-      path:'/',
-      component: SelfHome
-    },{
-      name: BasicInfo,
-      path:'/BasicInfo',
-      component: BasicInfo
-    },{
-      name: Collect,
-      path:'/Collect',
-      component: Collect
-    },{
-      name: QueryStu,
-      path:'/QueryStu',
-      component: QueryStu
-    },{
-      name: StuInfo,
-      path:'/StuInfo',
-      component: StuInfo
-    },{
-      name: TeaInfo,
-      path:'/TeaInfo',
-      component: TeaInfo
     }
   ],
 })

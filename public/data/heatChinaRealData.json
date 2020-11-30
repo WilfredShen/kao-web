@@ -75,21 +75,5 @@
   {"name": "常州", "value": 64},
   {"name": "潍坊", "value": 65},
   {"name": "重庆", "value": 66},
-  {"name": "台州", "value": 67},
-  {"name": "南京", "value": 67},
-  {"name": "乌鲁木齐", "value": 84},
-  {"name": "枣庄", "value": 84},
-  {"name": "杭州", "value": 84},
-  {"name": "淄博", "value": 85},
-  {"name": "鞍山", "value": 86},
-  {"name": "溧阳", "value": 86},
-  {"name": "库尔勒", "value": 86},
-  {"name": "安阳", "value": 90},
-  {"name": "开封", "value": 90},
-  {"name": "济南", "value": 92},
-  {"name": "德阳", "value": 93},
-  {"name": "温州", "value": 95},
-  {"name": "九江", "value": 96},
-  {"name": "邯郸", "value": 98},
-  {"name": "大庆", "value": 279}
+  {"name": "台州", "value": 67}
 ]
