@@ -8,16 +8,6 @@ export function readFile(file) {
     })
 }
 
-export let character = {
-    name:{
-        text:'姓名',
-        type:'string'
-    },
-    school:{
-        text:'学校名',
-        type:'string'
-    }
-}
 
 
 

@@ -58,13 +58,13 @@
             </div>
             <div id="show" style="width: 40%;display: flex;flex-direction: column">
                 <el-row style="display: flex;justify-content: space-around">
-                    <el-button size="small">导出为EXCEL</el-button>
-                    <el-button size="small">导出为CSV</el-button>
-                    <el-button size="small">打印</el-button>
+                    <el-button size="small" @click="exportEXCEL('xlsx')">导出为EXCEL</el-button>
+                    <el-button size="small" @click="exportEXCEL('csv')">导出为CSV</el-button>
+                    <el-button size="small" @click="printparams()">打印</el-button>
                 </el-row>
                 <el-table :data="mapresult" stripe style="width: 100%">
-                    <el-table-column label="地区"  prop="where" align="center"></el-table-column>
-                    <el-table-column label="人数"  prop="count" align="center"></el-table-column>
+                    <el-table-column label="地区"  prop="name" align="center"></el-table-column>
+                    <el-table-column label="人数"  prop="value" align="center"></el-table-column>
                 </el-table>
             </div>
         </div>
@@ -93,9 +93,13 @@
 </template>
 
 <script>
-import { readFile,character } from '../../assets/lib/utils'
-import { schoolList,getSchRegion, } from '../../assets/lib/getResult'
+    // ,character
+import { readFile } from '../../assets/lib/utils'
+import { getResultTest,getSchRegion } from '../../assets/lib/getResult'
+import {getMap} from '../../assets/lib/ChinaMapShow'
+import {getschool} from '../../assets/lib/homeserve'
 import xlsx from 'xlsx';
+
 
     export default {
         name: "",
@@ -105,53 +109,97 @@ import xlsx from 'xlsx';
                 fileList:[],//excel文件列表
                 checkboxGroup1:[],
                 bcols:[],//有几行
-                sch_fields:[],
-                rowbegin:0,
-                rowend:0,
-                schfiled:'选择学校名称字段',
+                sch_fields:[],//可能是学校的字段
+                rowbegin:0,//开始行
+                rowend:0,//结束行
+                schfiled:'选择学校名称字段',//用户选择的学校字段
                 mapresult:[],
                 otherdata:[],
                 schNames:[],
+                excelDatas:[],//表格内拿到的所有数据
+                err_schname:true,//是否正确获取了学校列
+                school_id:[],//获取全部的学校代码和名字
+                name_id:[]//代码和名字对应
             }
         },
         methods: {
             handleIndexBegin(command){
                 this.rowbegin = command;
-                this.$message('click on itembegin ' + this.rowbegin);
             },
             handleIndexEnd(command){
                 this.rowend = command;
-                this.$message('click on itemend ' + this.region_num['湖北']+" "+this.region_num['北京']);
             },
             handleSchField(command){
                 this.schfiled = command;
                 this.$message('click on schfiled ' + this.schfiled);
             },
-            getResult(){
-                this.mapresult = [];
-                console.log("传入的学校有"+this.schNames);
-                schoolList.then(res=>{
-                    // console.log("school"+res);
-                    var name_id = [];
-                    for (let i=0;i<res.length;i++){
-                        name_id[res[i].cname] = res[i].cid;
-                    }
-                    for (let i=0;i<this.schNames.length;i++){
-                        getSchRegion(name_id[this.schNames[i]]).then(res=>{
-                            var loc = res.location;
-                            let i = 0;
-                            for (i=0;i<this.mapresult.length;i++){
-                                if (this.mapresult[i].where === loc){
-                                    this.mapresult[i].count +=1;
-                                    break;
-                                }
-                            }
-                            if (i===this.mapresult.length){
-                                this.mapresult.push({where: loc,count: 1});
-                            }
-                        })
-                    }
+            printparams(){
+                this.schNames = [];
+                console.log(this.mapresult.length);
+                if (this.rowbegin>this.rowend || this.rowbegin===0){
+                    this.$message("左侧行数应小于右侧行数");
+                    return;
+                }
+                for (let i=this.rowbegin-1;i<this.rowend;i++){
+                    this.schNames.push(this.excelDatas[i][this.schfiled]);
+                }
+                console.log("schnamelen = "+this.schNames.length)
+                getResultTest(this.schNames).then(res=>{
+                    this.mapresult = res;
+                    console.log(res);
+                    console.log("res = "+JSON.stringify(res));
                 })
+            },
+            getResult(){
+                this.schNames = [];
+                if (this.rowbegin>this.rowend || this.rowbegin===0){
+                    this.$message("左侧行数应小于右侧行数");
+                    return;
+                }
+                for (let i=this.rowbegin-1;i<this.rowend;i++){
+                    this.schNames.push(this.excelDatas[i][this.schfiled]);
+                }
+
+                console.log("schNames len = "+this.schNames.length);
+
+                for (let i=0;i<this.schNames.length;i++){
+                    getSchRegion(this.name_id[this.schNames[i]]).then(res=>{
+                        var loc = res.location;
+                        let i = 0;
+                        for (i=0;i<this.mapresult.length;i++){
+                            if (this.mapresult[i].name === loc){
+                                this.mapresult[i].value +=1;
+                                break;
+                            }
+                        }
+                        if (i===this.mapresult.length){
+                            this.mapresult.push({name: loc,value: 1});
+                        }
+                        getMap(this.mapresult);
+                    }).catch(error=>{
+                        console.log(error);
+                        this.err_schname = false;
+                    })
+                }
+
+            },
+            exportEXCEL(type){
+                console.log("进入了导出EXCEL函数")
+                let arr = this.mapresult.map(item=>{
+                    return {
+                        地区:item.name,
+                        人数:item.value,
+                    };
+                });
+                let sheet = xlsx.utils.json_to_sheet(arr);
+                let book = xlsx.utils.book_new();
+                xlsx.utils.book_append_sheet(book,sheet,"sheet1");
+                if (type === 'xlsx'){
+                    xlsx.writeFile(book,`user${new Date().getTime()}.xlsx`);
+                }else {
+                    xlsx.writeFile(book,`user${new Date().getTime()}.csv`);
+                }
+
             },
             async handleChange(ev){
               let file = ev.raw;
@@ -163,7 +211,7 @@ import xlsx from 'xlsx';
               let data = await readFile(file);
               let workbook = xlsx.read(data,{type:'binary'});
 
-              let worksheet = workbook.Sheets[workbook.SheetNames[0]];
+              let worksheet = workbook.Sheets[workbook.SheetNames[1]];
               data = xlsx.utils.sheet_to_json(worksheet);
               console.log(data);
 
@@ -176,37 +224,25 @@ import xlsx from 'xlsx';
                   this.sch_fields.push({'field':hdr});
               }
 
-              var datalen = data.length;
+              let datalen = data.length;
               for (var i = 1;i<=datalen;i++){
                   this.bcols.push({'page':i});
               }
 
-
-              let arr=[];
-              console.log("data = "+data);
-              data.forEach(item=>{
-                 let obj = {};
-                 for (let key in character){
-                     // eslint-disable-next-line no-prototype-builtins
-                     if (!character.hasOwnProperty(key))break;
-                     let v = character[key],
-                         text = v.text,
-                         type = v.type;
-                     v = item[text] || "";
-                     type === "string"?(v=String(v)):null;
-                     type === "number"?(v=Number(v)):null;
-                     obj[key] = v;
-                 }
-                 arr.push(obj);
-
-              });
-              console.log(arr[0].school);
-              for (let i=0;i<arr.length;i++){
-                  this.schNames.push(arr[i].school);
-              }
+              this.excelDatas = data;
             },
         },
-
+        mounted() {
+             getMap([]);
+        },
+        created() {
+            getschool().then(res=>{
+                this.school_id = res.data;
+                for (let i=0;i<this.school_id.length;i++){
+                    this.name_id[this.school_id[i].cname] = this.school_id[i].cid;
+                }
+            })
+        }
     }
 
 </script>
