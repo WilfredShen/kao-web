@@ -39,6 +39,11 @@ export default new VueRouter({
       component: () => import('@/components/demo/info-demo'),
     },
     {
+      path: '/analysis',
+      name: 'Analysis',
+      component: () => import('@/components/analysis/Analysis'),
+    },
+    {
       path: '/*',
       name: '404',
       component: () => import('@/components/HelloWorld'),
