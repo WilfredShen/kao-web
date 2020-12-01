@@ -1,20 +1,20 @@
 <template>
   <div id="app">
+<!--    <div >-->
+<!--      <Header/>-->
+<!--    </div>-->
     <div>
-      <Header/>
-    </div>
-    <div style="padding-top:120px;">
       <router-view style="margin-left:12%;margin-right: 12%"/>
     </div>
   </div>
 </template>
 
 <script>
-  import Header from "./components/home/Header";
+  // import Header from "./components/home/Header";
 
   export default {
     name: "App",
-    components: {Header},
+    // components: {Header},
     data() {
       return {
         activeIndex: "1",

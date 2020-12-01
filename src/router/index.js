@@ -43,33 +43,40 @@ export default new VueRouter({
     },
     {
       path: '/',
-      name: 'home',
-      component: () => import('@/components/home/Home')
-    },
-    {
-      path: '/evaResult',
-      name: 'evaluatearesult',
-      component: () => import('@/components/home/evaResult')
-    },
-    {
-      path: '/schoolDetail',
-      name: 'schoolDetail',
-      component: () => import('@/components/home/schoolDetail'),
-    },
-    {
-      path: '/school',
-      name: 'school',
-      component: () => import('@/components/home/school')
-    },
-    {
-      path: '/campCard',
-      name: 'campCard',
-      component: () => import('@/components/home/campCard')
-    },
-    {
-      path: '/Analysis',
-      name: 'Analysis',
-      component: () => import('@/components/home/Analysis')
+      name: 'header',
+      component: () => import('@/components/home/Header'),
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('@/components/home/Home')
+        },
+        {
+          path: 'evaResult',
+          name: 'evaluatearesult',
+          component: () => import('@/components/home/evaResult')
+        },
+        {
+          path: '/schoolDetail',
+          name: 'schoolDetail',
+          component: () => import('@/components/home/schoolDetail'),
+        },
+        {
+          path: '/school',
+          name: 'school',
+          component: () => import('@/components/home/school')
+        },
+        {
+          path: '/campCard',
+          name: 'campCard',
+          component: () => import('@/components/home/campCard')
+        },
+        {
+          path: '/Analysis',
+          name: 'Analysis',
+          component: () => import('@/components/home/Analysis')
+        }
+      ]
     },
     {
       path: '/self',
@@ -107,6 +114,7 @@ export default new VueRouter({
           component: () => import('@/components/home/self/stuInfo')
         }
       ]
-    },
-  ],
+    }
+
+  ]
 })

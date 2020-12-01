@@ -3,6 +3,7 @@
     <img class="imgsty" src="@/assets/logo11.png">
     <div class="header_sty">
       <span class="spanstyle">教育部学科评估管理系统</span>
+      <el-button size="mini" style="float: right"> 登录</el-button>
       <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal"
                @select="handleSelect">
         <router-link tag="Kao" to="/" class="nav-i">
@@ -28,6 +29,8 @@
         </router-link>
       </el-menu>
     </div>
+    <br>
+    <router-view/>
   </div>
 </template>
 
@@ -39,7 +42,7 @@
 
 <style scoped>
   .imgsty {
-    width: 17%;
+    width: 12%;
     top: -10px;
     position: absolute;
   }
@@ -64,7 +67,7 @@
 
   .divstyle {
     position: absolute;
-    /*width:80%;*/
+    width:80%;
     background: white;
     margin: 0 9%;
   }
