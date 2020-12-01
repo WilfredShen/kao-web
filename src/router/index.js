@@ -114,7 +114,11 @@ export default new VueRouter({
           component: () => import('@/components/home/self/stuInfo')
         }
       ]
-    }
-
+    },
+    {
+      path: '/*',
+      name: '404',
+      component: () => import('@/components/HelloWorld'),
+    },
   ]
 })

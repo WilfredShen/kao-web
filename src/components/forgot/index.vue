@@ -163,10 +163,13 @@
             verificationCode: this.forgotForm.code,
           })
           .then((res) => {
-            if (res.data.state === 200) {
-              this.$router.push("/");
+            if (res.data.status === 200) {
+              this.$message.success("修改密码成功！即将跳转至登录界面...");
+              setTimeout(() => {
+                this.$router.push("/login");
+              }, 3000);
             } else {
-              console.log(res.data);
+              this.$message.error("注册失败！");
             }
           })
           .catch((err) => {

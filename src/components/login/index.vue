@@ -37,7 +37,7 @@
       <el-footer>
         <div style="text-align: right">
           <router-link
-            :to="{ path: '/register' }"
+            :to="{ path: '/register'}"
             style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
           >
             注册账号
@@ -84,7 +84,20 @@
             password: this.loginForm.password,
           })
           .then((res) => {
-            console.log(res);
+            if (res.data.status === 200) {
+              let callback = this.$route.query.callback;
+              if (callback) {
+                this.$message.success("登陆成功！即将跳转至原界面...");
+              } else {
+                callback = "/";
+                this.$message.success("登陆成功！即将跳转至主页...");
+              }
+              setTimeout(() => {
+                this.$router.push(callback.toString());
+              }, 3000);
+            } else {
+              this.$message.error("用户名或密码错误！");
+            }
           })
           .catch((err) => {
             console.log(err);
