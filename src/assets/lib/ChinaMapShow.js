@@ -37,11 +37,10 @@ export function getMap(region_value) {
             bottom: 60,
             left: 20,
             pieces: [ // 自定义『分段式视觉映射组件（visualMapPiecewise）』的每一段的范围，以及每一段的文字，以及每一段的特别的样式
-                {gt: 1, lte: 10, label: '1-10人', color: '#6ad86e'}, // (900, 1000]
-                {gt: 10, lte: 50, label: '10-50人', color: '#ffeb3b'}, // (310, 500]
-                {gt: 50, lte: 100, label: '50-100人', color: '#ff9800'}, // (200, 300]
-                {gt: 100, lte: 1000, label: '100人以上', color: 'orangered'}, // (10, 200]
-                {value: 0, label: '无数据', color: '#999'} // [0]
+                {gt: 0, lte: 10, label: '1-10人', color: '#6ad86e'},
+                {gt: 10, lte: 50, label: '11-50人', color: '#ffeb3b'},
+                {gt: 50, lte: 100, label: '51-100人', color: '#ff9800'},
+                {gt: 100, lte: 1000, label: '101人以上', color: 'orangered'},
             ]
         },
         // geo配置详解： https://echarts.baidu.com/option.html#geo
@@ -69,36 +68,6 @@ export function getMap(region_value) {
                     show: true
                 },
                 // 这是需要配置地图上的某个地区的数据，根据后台的返回的数据进行拼接（下面是我定义的假数据）
-                // data: [{
-                //     'name': '北京',
-                //     'value': 599,
-                //     'perf': '0.501s', // 性能
-                //     'downloadSpeep': '1.221MB/s', // 下载速度
-                //     'usability': '100%', // 可用性
-                //     'point': '250' // 监测点
-                // }, {
-                //     'name': '上海',
-                //     'value': 22
-                // }, {
-                //     'name': '黑龙江',
-                //     'value': 44
-                // }, {
-                //     'name': '新疆',
-                //     'value': 999,
-                //     'perf': '0.501s', // 性能
-                //     'downloadSpeep': '1.221MB/s', // 下载速度
-                //     'usability': '100%', // 可用性
-                //     'point': '250' // 监测点
-                // }, {
-                //     'name': '深圳',
-                //     'value': 92
-                // }, {
-                //     'name': '湖北',
-                //     'value': 810
-                // }, {
-                //     'name': '四川',
-                //     'value': 453
-                // }]
                 data:region_value
             }
         ]

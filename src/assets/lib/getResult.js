@@ -9,10 +9,17 @@ export const schoolList = new Promise((resolve, reject) => {
     })
 })
 
-export function getSchRegion(schid) {
+export function getSchRegion(schids,) {
+    console.log("刚进入getSchRegion时"+schids.length);
+
     return new Promise((resolve, reject) => {
-        axios.get(`/api/base/college?cid=${schid}`,{
+        axios.get("/api/base/college",{
+            params: {
+                cidList:schids.join(",")
+            },
         }).then((res=>{
+            console.log("进入了getSchRegion后"+res.data.data.length);
+            console.log("status = "+res.status)
             resolve(res.data.data);
         })).catch((error)=>{
             reject(error);
@@ -46,8 +53,8 @@ export function getResultTest(schNames) {
                     console.log(error);
                 })
             }
+            resolve(mapresult);
         })
-        console.log(mapresult.length)
-        resolve(mapresult)
     })
 }
+

@@ -26,7 +26,6 @@ export function getmajor() {
 export function getschool() {
   return new Promise((resolve, reject) => {
     axios.get('/api/meta/college', {}).then((res) => {
-      console.log(resolve);
       resolve(res.data);
     }).catch((err) => {
       reject(err.data);
