@@ -94,101 +94,101 @@
 </template>
 
 <script>
-export default {
-  name: "Register",
-  data() {
-    return {
-      registerForm: {
-        username: "",
-        password: "",
-        confPass: "",
-        phone: "",
-        code: "",
-      },
-      registerRules: {
-        username: [
-          {required: true, message: "用户名不能为空", trigger: "blur",},
-        ],
-        password: [
-          {required: true, message: "密码不能为空", trigger: "blur",},
-        ],
-        confPass: [
-          {required: true, message: "密码不能为空", trigger: "blur",},
-        ],
-        phone: [
-          {required: true, message: "手机号不能为空", trigger: "blur",},
-        ],
-        code: [
-          {required: true, message: "验证码不能为空", trigger: "blur",},
-        ],
-      },
-      status: {
-        showPassword: false,
-        showConfPass: false,
-        resend: -1,
-      },
-    };
-  },
-  methods: {
-    getCode: function () {
-      if (this.status.resend > 0)
-        return;
-      this.status.resend = 60;
-      const timer = setInterval(() => {
-        this.status.resend--;
-        if (this.status.resend === 0) clearInterval(timer);
-      }, 1000);
+  export default {
+    name: "Register",
+    data() {
+      return {
+        registerForm: {
+          username: "",
+          password: "",
+          confPass: "",
+          phone: "",
+          code: "",
+        },
+        registerRules: {
+          username: [
+            {required: true, message: "用户名不能为空", trigger: "blur",},
+          ],
+          password: [
+            {required: true, message: "密码不能为空", trigger: "blur",},
+          ],
+          confPass: [
+            {required: true, message: "密码不能为空", trigger: "blur",},
+          ],
+          phone: [
+            {required: true, message: "手机号不能为空", trigger: "blur",},
+          ],
+          code: [
+            {required: true, message: "验证码不能为空", trigger: "blur",},
+          ],
+        },
+        status: {
+          showPassword: false,
+          showConfPass: false,
+          resend: -1,
+        },
+      };
+    },
+    methods: {
+      getCode: function () {
+        if (this.status.resend > 0)
+          return;
+        this.status.resend = 60;
+        const timer = setInterval(() => {
+          this.status.resend--;
+          if (this.status.resend === 0) clearInterval(timer);
+        }, 1000);
 
-      this.$axios
-        .post("/api/visitor/getvfcode", {
-          phoneNumber: this.phone,
-        })
-        .then((res) => {
-          if (res.data.state === 200) {
-            console.log(res.data.message);
-          } else {
-            console.log(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err.data);
-        });
+        this.$axios
+          .post("/api/visitor/getvfcode", {
+            phoneNumber: this.phone,
+          })
+          .then((res) => {
+            if (res.data.state === 200) {
+              console.log(res.data.message);
+            } else {
+              console.log(res.data.message);
+            }
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+      },
+      submit: function () {
+        console.log(this.registerForm)
+        this.$axios
+          .post("/api/visitor/register", {
+            username: this.registerForm.username,
+            password: this.registerForm.password,
+            phoneNumber: this.registerForm.phone,
+            verificationCode: this.registerForm.code,
+          })
+          .then((res) => {
+            if (res.data.status === 200) {
+              this.$message.success("注册成功！即将跳转至登录界面...");
+              setTimeout(() => {
+                this.$router.push("/login");
+              }, 3000);
+            } else {
+              this.$message.error("注册失败！");
+            }
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+      },
     },
-    submit: function () {
-      console.log(this.registerForm)
-      this.$axios
-        .post("/api/visitor/register", {
-          username: this.registerForm.username,
-          password: this.registerForm.password,
-          phoneNumber: this.registerForm.phone,
-          verificationCode: this.registerForm.code,
-        })
-        .then((res) => {
-          if (res.data.status === 200) {
-            this.$message.success("注册成功！即将跳转至登录界面...");
-            setTimeout(() => {
-              this.$router.push("/login");
-            }, 3000);
-          } else {
-            this.$message.error("注册失败！");
-          }
-        })
-        .catch((err) => {
-          console.log(err.data);
-        });
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-#register-wrapper {
-  width: 25%;
-  margin: auto;
-  min-width: 450px;
-}
+  #register-wrapper {
+    width: 25%;
+    margin: auto;
+    min-width: 450px;
+  }
 
-.el-icon-view {
-  cursor: pointer;
-}
+  .el-icon-view {
+    cursor: pointer;
+  }
 </style>

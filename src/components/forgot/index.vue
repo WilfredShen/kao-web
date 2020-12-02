@@ -94,100 +94,100 @@
 </template>
 
 <script>
-export default {
-  name: "Forgot",
-  data() {
-    return {
-      forgotForm: {
-        username: "",
-        password: "",
-        confPass: "",
-        phone: "",
-        code: "",
-      },
-      forgotRules: {
-        username: [
-          {required: true, message: "用户名不能为空", trigger: "blur",},
-        ],
-        password: [
-          {required: true, message: "密码不能为空", trigger: "blur",},
-        ],
-        confPass: [
-          {required: true, message: "密码不能为空", trigger: "blur",},
-        ],
-        phone: [
-          {required: true, message: "手机号不能为空", trigger: "blur",},
-        ],
-        code: [
-          {required: true, message: "验证码不能为空", trigger: "blur",},
-        ],
-      },
-      status: {
-        showPassword: false,
-        showConfPass: false,
-        resend: -1,
-      },
-    };
-  },
-  methods: {
-    getCode: function () {
-      if (this.status.resend > 0)
-        return;
-      this.status.resend = 60;
-      const timer = setInterval(() => {
-        this.status.resend--;
-        if (this.status.resend === 0) clearInterval(timer);
-      }, 1000);
+  export default {
+    name: "Forgot",
+    data() {
+      return {
+        forgotForm: {
+          username: "",
+          password: "",
+          confPass: "",
+          phone: "",
+          code: "",
+        },
+        forgotRules: {
+          username: [
+            {required: true, message: "用户名不能为空", trigger: "blur",},
+          ],
+          password: [
+            {required: true, message: "密码不能为空", trigger: "blur",},
+          ],
+          confPass: [
+            {required: true, message: "密码不能为空", trigger: "blur",},
+          ],
+          phone: [
+            {required: true, message: "手机号不能为空", trigger: "blur",},
+          ],
+          code: [
+            {required: true, message: "验证码不能为空", trigger: "blur",},
+          ],
+        },
+        status: {
+          showPassword: false,
+          showConfPass: false,
+          resend: -1,
+        },
+      };
+    },
+    methods: {
+      getCode: function () {
+        if (this.status.resend > 0)
+          return;
+        this.status.resend = 60;
+        const timer = setInterval(() => {
+          this.status.resend--;
+          if (this.status.resend === 0) clearInterval(timer);
+        }, 1000);
 
-      this.$axios
-        .post("/api/getvfcode", {
-          phoneNumber: this.phone,
-        })
-        .then((res) => {
-          if (res.data.state === 200) {
-            console.log(res.data.message);
-          } else {
-            console.log(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err.data);
-        });
+        this.$axios
+          .post("/api/getvfcode", {
+            phoneNumber: this.phone,
+          })
+          .then((res) => {
+            if (res.data.state === 200) {
+              console.log(res.data.message);
+            } else {
+              console.log(res.data.message);
+            }
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+      },
+      submit: function () {
+        this.$axios
+          .post("/api/visitor/forgetpassword", {
+            username: this.forgotForm.username,
+            password: this.forgotForm.password,
+            phoneNumber: this.forgotForm.phone,
+            verificationCode: this.forgotForm.code,
+          })
+          .then((res) => {
+            if (res.data.status === 200) {
+              this.$message.success("修改密码成功！即将跳转至登录界面...");
+              setTimeout(() => {
+                this.$router.push("/login");
+              }, 3000);
+            } else {
+              this.$message.error("注册失败！");
+            }
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+      },
     },
-    submit: function () {
-      this.$axios
-        .post("/api/visitor/forgetpassword", {
-          username: this.forgotForm.username,
-          password: this.forgotForm.password,
-          phoneNumber: this.forgotForm.phone,
-          verificationCode: this.forgotForm.code,
-        })
-        .then((res) => {
-          if (res.data.status === 200) {
-            this.$message.success("修改密码成功！即将跳转至登录界面...");
-            setTimeout(() => {
-              this.$router.push("/login");
-            }, 3000);
-          } else {
-            this.$message.error("注册失败！");
-          }
-        })
-        .catch((err) => {
-          console.log(err.data);
-        });
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-#forgot-wrapper {
-  width: 25%;
-  margin: auto;
-  min-width: 450px;
-}
+  #forgot-wrapper {
+    width: 25%;
+    margin: auto;
+    min-width: 450px;
+  }
 
-.el-icon-view {
-  cursor: pointer;
-}
+  .el-icon-view {
+    cursor: pointer;
+  }
 </style>
