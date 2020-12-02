@@ -16,19 +16,10 @@
             <div id="data_scale">
                 <p style="margin-right: 20px">数据范围:</p>
                 <div style="display: flex;align-items: center;">
-                    <el-dropdown  size="small" split-button trigger="click" @command="handleIndexBegin">
-                        {{rowbegin}}
-                        <el-dropdown-menu slot="dropdown" id="dropdown_begin">
-                            <el-dropdown-item v-for="(item,index) in bcols" :key="index" :command="item.page">{{item.page}}</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-input v-model="rowbegin" size="mini" style="width: 150px"></el-input>
                     <p style="margin-right: 20px;margin-left: 20px">—</p>
-                    <el-dropdown size="small" split-button trigger="click" @command="handleIndexEnd">
-                          {{rowend}}
-                        <el-dropdown-menu slot="dropdown" id="dropdown_end">
-                            <el-dropdown-item v-for="(item,index) in bcols" :key="index" :command="item.page">{{item.page}}</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-input v-model="rowend" size="mini" style="width: 150px"></el-input>
+                    <p style="margin-left: 20px">请输入 1-{{datalen}} 之间的数字</p>
                 </div>
             </div>
             <div id="field_map" style="display: flex;align-items: center">
@@ -42,7 +33,7 @@
             </div>
 
             <div id="conditions">
-                <el-checkbox-group v-model="checkboxGroup1" size="medium">
+                <el-checkbox-group v-model="checkboxGroup" size="medium">
                     <el-checkbox label="地区"  border style="width: 100px;margin-right: 0px"></el-checkbox>
                     <el-checkbox label="985"  border style="width: 100px;margin-right: 0px"></el-checkbox>
                     <el-checkbox label="211"  border style="width: 100px"></el-checkbox>
@@ -54,15 +45,15 @@
         </div>
 <!--        地图分析结果-->
         <div class="map" style="width: 100%;display: flex">
-            <div id="region" style="width: 60%;height: 600px">
+            <div id="region" style="width: 60%;height: 600px;">
             </div>
             <div id="show" style="width: 40%;display: flex;flex-direction: column">
                 <el-row style="display: flex;justify-content: space-around">
-                    <el-button size="small" @click="exportEXCEL('xlsx')">导出为EXCEL</el-button>
-                    <el-button size="small" @click="exportEXCEL('csv')">导出为CSV</el-button>
-                    <el-button size="small" @click="printparams()">打印</el-button>
+                    <el-button size="small" @click="exportEXCEL('xlsx','region')">导出为EXCEL</el-button>
+                    <el-button size="small" @click="exportEXCEL('csv','region')">导出为CSV</el-button>
+                    <el-button size="small" @click="printtest()">打印</el-button>
                 </el-row>
-                <el-table :data="mapresult" stripe style="width: 100%">
+                <el-table :data="mapresult" stripe style="width: 100%" >
                     <el-table-column label="地区"  prop="name" align="center"></el-table-column>
                     <el-table-column label="人数"  prop="value" align="center"></el-table-column>
                 </el-table>
@@ -82,8 +73,8 @@
                     </el-table>
                 </div>
                 <div style="width: 20%;display: flex;flex-direction: column;justify-content: space-around">
-                    <el-button style="width: 150px;margin-left: 10px">导出为EXCEL</el-button>
-                    <el-button style="width: 150px">导出为CSV</el-button>
+                    <el-button style="width: 150px;margin-left: 10px" @click="exportEXCEL('xlsx','other')">导出为EXCEL</el-button>
+                    <el-button style="width: 150px" @click="exportEXCEL('csv','ohter')">导出为CSV</el-button>
                     <el-button style="width: 100px">打印</el-button>
                 </div>
             </div>
@@ -95,9 +86,9 @@
 <script>
     // ,character
 import { readFile } from '../../assets/lib/utils'
-import { getResultTest,getSchRegion } from '../../assets/lib/getResult'
-import {getMap} from '../../assets/lib/ChinaMapShow'
-import {getschool} from '../../assets/lib/homeserve'
+import { getSchRegion } from '../../assets/lib/getResult'
+import { getMap } from '../../assets/lib/ChinaMapShow'
+import { getschool } from '../../assets/lib/homeserve'
 import xlsx from 'xlsx';
 
 
@@ -105,24 +96,27 @@ import xlsx from 'xlsx';
         name: "",
         data(){
             return{
-                limitUpload:1,//上传excel时，同时允许上传的最大数
-                fileList:[],//excel文件列表
-                checkboxGroup1:[],
-                bcols:[],//有几行
+                checkboxGroup:[],
+                datalen:1,//表格有多少行数据
                 sch_fields:[],//可能是学校的字段
+                schfiled:'选择学校名称字段',//用户选择的学校字段
                 rowbegin:0,//开始行
                 rowend:0,//结束行
-                schfiled:'选择学校名称字段',//用户选择的学校字段
-                mapresult:[],
-                otherdata:[],
-                schNames:[],
+                mapresult:[],//地图分析结果
+                otherdata:[],//其他（学校等级）分析结果
+                schNames:[],//待分析学校名列表
+                schIDs:[],//待分析学校ID列表
+                schInfo:[],//待分析的学校详情
                 excelDatas:[],//表格内拿到的所有数据
-                err_schname:true,//是否正确获取了学校列
                 school_id:[],//获取全部的学校代码和名字
-                name_id:[]//代码和名字对应
+                name_id:[]//名字和代码对应
             }
         },
         methods: {
+            printtest(){
+                this.$message("test!")
+                this.$message("box group"+this.checkboxGroup)
+            },
             handleIndexBegin(command){
                 this.rowbegin = command;
             },
@@ -133,64 +127,130 @@ import xlsx from 'xlsx';
                 this.schfiled = command;
                 this.$message('click on schfiled ' + this.schfiled);
             },
-            printparams(){
-                this.schNames = [];
-                console.log(this.mapresult.length);
-                if (this.rowbegin>this.rowend || this.rowbegin===0){
-                    this.$message("左侧行数应小于右侧行数");
-                    return;
+            //根据选项选择展示内容
+            contains(arr, obj) {
+                var i = arr.length;
+                while (i--) {
+                    if (arr[i] === obj) {
+                        return true;
+                    }
                 }
-                for (let i=this.rowbegin-1;i<this.rowend;i++){
-                    this.schNames.push(this.excelDatas[i][this.schfiled]);
+                return false;
+            },
+            checkshow(){
+                console.log("进入！checkshow");
+                console.log("进入时 = "+sum);
+                var sum = 0;
+                if (this.contains(this.checkboxGroup,'地区')){
+                    sum += 1;
                 }
-                console.log("schnamelen = "+this.schNames.length)
-                getResultTest(this.schNames).then(res=>{
-                    this.mapresult = res;
-                    console.log(res);
-                    console.log("res = "+JSON.stringify(res));
-                })
+                if (this.contains(this.checkboxGroup,'985')){
+                    sum += 10;
+                }
+                if (this.contains(this.checkboxGroup,'211')){
+                    sum += 100;
+                }
+                console.log("sum = "+sum);
+                return sum;
             },
             getResult(){
+                var showwhat = this.checkshow();
                 this.schNames = [];
+                this.mapresult = [];
+                this.schIDs = [];
+                this.otherdata = [];
                 if (this.rowbegin>this.rowend || this.rowbegin===0){
                     this.$message("左侧行数应小于右侧行数");
                     return;
                 }
+                let index = 0;
                 for (let i=this.rowbegin-1;i<this.rowend;i++){
                     this.schNames.push(this.excelDatas[i][this.schfiled]);
+                    this.schIDs.push(this.name_id[this.schNames[index++]]);
                 }
 
-                console.log("schNames len = "+this.schNames.length);
+                this.schIDs = this.schIDs.sort();
+                var tempID = this.schIDs[0];
+                var stucount = new Map();//学校学生人数统计
+                var beginindex = 0;
+                var anaID = [];
+                let regini = 0;
 
-                for (let i=0;i<this.schNames.length;i++){
-                    getSchRegion(this.name_id[this.schNames[i]]).then(res=>{
-                        var loc = res.location;
-                        let i = 0;
-                        for (i=0;i<this.mapresult.length;i++){
-                            if (this.mapresult[i].name === loc){
-                                this.mapresult[i].value +=1;
-                                break;
-                            }
-                        }
-                        if (i===this.mapresult.length){
-                            this.mapresult.push({name: loc,value: 1});
+                for (;regini<this.schIDs.length;regini++){
+                    if (this.schIDs[regini] !== tempID){
+                        let tid = this.schIDs[beginindex];
+                        tempID = this.schIDs[regini]//记录当前的id，即下一个id
+                        stucount.set(tid,0);//初始化学校ID对应人数为0
+                        anaID.push(tid);//将之前的加入待分析id中
+                        stucount.set(tid,regini-beginindex);//学校人数统计加入
+                        beginindex = regini;//更换新起始坐标
+                    }
+                }
+                anaID.push(this.schIDs[beginindex]);
+                stucount.set(this.schIDs[beginindex],regini-beginindex);
+
+                //anaID相同学校已过滤
+                getSchRegion(anaID).then(res=>{
+                    this.schInfo = res;
+                    var regiondict = new Map(),regionset = new Set();
+
+                    var schinfolen = this.schInfo.length;
+                    for (let i=0;i<schinfolen;i++){//初始化set
+                        let loc = this.schInfo[i].location;
+                        regiondict.set(loc,0)
+                        regionset.add(loc);
+                    }
+                    for (let i=0;i<schinfolen;i++){//对于每个学校ID对应的地址
+                        let loc = this.schInfo[i].location;
+                        regiondict.set(loc,regiondict.get(loc)+stucount.get(this.schInfo[i].cid))//加上学校人数
+                    }
+                    if (showwhat%2===1){
+                        for (let s of regionset){
+                            this.mapresult.push({name:s,value:regiondict.get(s)});
                         }
                         getMap(this.mapresult);
-                    }).catch(error=>{
-                        console.log(error);
-                        this.err_schname = false;
-                    })
+                    }else {
+                        getMap([]);
+                    }
+
+                    var nine = 0,two = 0;//nine为985/211 two为211
+                    for (let i=0;i<schinfolen;i++){
+                        if (this.schInfo[i].level!=null){
+                            if (this.schInfo[i].level.length>3){
+                                nine += stucount.get(this.schInfo[i].cid);
+                            }else {
+                                two += stucount.get(this.schInfo[i].cid);
+                            }
+                        }
+                    }
+                    if (showwhat>=10 && showwhat!==100 && showwhat!==101){
+                        this.otherdata.push({depend:'985/211',count:nine,ratio:(nine/(this.rowend-this.rowbegin+1)).toFixed(2)});
+                    }
+                    if (showwhat>=100){
+                        this.otherdata.push({depend:'211',count: two,ratio: (two/(this.rowend-this.rowbegin+1)).toFixed(2)});
+                    }
+                })
+            },
+            exportEXCEL(type,isregion){
+                console.log("进入了导出EXCEL函数")
+                let arr ;
+                if (isregion === 'region'){
+                    arr = this.mapresult.map(item=>{
+                        return {
+                            地区:item.name,
+                            人数:item.value,
+                        };
+                    });
+                }else {
+                    arr = this.otherdata.map(item=>{
+                        return {
+                            等级:item.depend,
+                            人数:item.count,
+                            比例:item.ratio,
+                        };
+                    });
                 }
 
-            },
-            exportEXCEL(type){
-                console.log("进入了导出EXCEL函数")
-                let arr = this.mapresult.map(item=>{
-                    return {
-                        地区:item.name,
-                        人数:item.value,
-                    };
-                });
                 let sheet = xlsx.utils.json_to_sheet(arr);
                 let book = xlsx.utils.book_new();
                 xlsx.utils.book_append_sheet(book,sheet,"sheet1");
@@ -205,7 +265,6 @@ import xlsx from 'xlsx';
               let file = ev.raw;
               if (!file) return;
 
-              this.bcols = [];
               this.sch_fields = [];
 
               let data = await readFile(file);
@@ -224,10 +283,7 @@ import xlsx from 'xlsx';
                   this.sch_fields.push({'field':hdr});
               }
 
-              let datalen = data.length;
-              for (var i = 1;i<=datalen;i++){
-                  this.bcols.push({'page':i});
-              }
+              this.datalen = data.length;
 
               this.excelDatas = data;
             },
@@ -238,9 +294,11 @@ import xlsx from 'xlsx';
         created() {
             getschool().then(res=>{
                 this.school_id = res.data;
+                console.log("传入的学校值"+this.school_id[1].cname);
                 for (let i=0;i<this.school_id.length;i++){
                     this.name_id[this.school_id[i].cname] = this.school_id[i].cid;
                 }
+                console.log("学校名和代码对应"+this.name_id['三峡大学']+" "+this.name_id['北京大学']);
             })
         }
     }
