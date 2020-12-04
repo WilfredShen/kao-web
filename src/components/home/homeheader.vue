@@ -1,4 +1,4 @@
-<template>
+<template style="margin-left:12%;margin-right: 12%">
   <div class="divstyle">
     <img class="imgsty" style="float: left" src="@/assets/logo11.png">
     <div class="header_sty">
@@ -6,25 +6,25 @@
       <el-button size="mini" style="float: right"> 登录</el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
-          <el-menu-item index="1">首页</el-menu-item>
+          <el-menu-item>首页</el-menu-item>
         </router-link>
         <router-link to="/homeevaresult" class="nav-i">
-          <el-menu-item index="2">评估结果</el-menu-item>
+          <el-menu-item>评估结果</el-menu-item>
         </router-link>
         <router-link to="/homeschooldetail" class="nav-i">
-          <el-menu-item index="3">学校详情</el-menu-item>
+          <el-menu-item>学校详情</el-menu-item>
         </router-link>
         <router-link to="/homecampcard" class="nav-i">
-          <el-menu-item index="4">夏令营</el-menu-item>
+          <el-menu-item>夏令营</el-menu-item>
         </router-link>
         <router-link to="/" class="nav-i">
-          <el-menu-item index="5">九月推免</el-menu-item>
+          <el-menu-item>九月推免</el-menu-item>
         </router-link>
         <router-link to="/homeanalysis" class="nav-i">
-          <el-menu-item index="6">生源分析</el-menu-item>
+          <el-menu-item>生源分析</el-menu-item>
         </router-link>
         <router-link to="/selfheader" class="nav-i">
-          <el-menu-item index="7">个人主页</el-menu-item>
+          <el-menu-item>个人主页</el-menu-item>
         </router-link>
       </el-menu>
     </div>

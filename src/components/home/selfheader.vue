@@ -1,4 +1,4 @@
-<template>
+<template style="margin-left:12%;margin-right: 12%">
   <div style="height: 800px">
     <div class="choices" style="float:left; border-right: solid 1px;width: 10%;height: 100%">
       <!--            头像和用户名-->

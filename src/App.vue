@@ -4,7 +4,7 @@
     <!--      <Header/>-->
     <!--    </div>-->
     <div>
-      <router-view style="margin-left:12%;margin-right: 12%"/>
+      <router-view/>
     </div>
   </div>
 </template>
