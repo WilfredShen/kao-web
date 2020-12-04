@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-<!--    <div >-->
-<!--      <Header/>-->
-<!--    </div>-->
+    <!--    <div >-->
+    <!--      <Header/>-->
+    <!--    </div>-->
     <div>
       <router-view style="margin-left:12%;margin-right: 12%"/>
     </div>

@@ -45,8 +45,8 @@
 
       <div id="conditions">
         <el-checkbox-group v-model="checkboxGroup1" size="medium">
-          <el-checkbox label="地区" border style="width: 100px;margin-right: 0px"></el-checkbox>
-          <el-checkbox label="985" border style="width: 100px;margin-right: 0px"></el-checkbox>
+          <el-checkbox label="地区" border style="width: 100px;margin-right: 0"></el-checkbox>
+          <el-checkbox label="985" border style="width: 100px;margin-right: 0"></el-checkbox>
           <el-checkbox label="211" border style="width: 100px"></el-checkbox>
         </el-checkbox-group>
       </div>

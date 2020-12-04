@@ -2,7 +2,7 @@
   <div style="padding: 40px 10px 10px 10px">
     <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">
       <div v-for="(item,index) in items" :key="index"
-           style="display: flex;align-items: center;width: 60%" v-bind:class="{changeColor:index%2==0}">
+           style="display: flex;align-items: center;width: 60%" v-bind:class="{changeColor:index%2===0}">
         <div style="width: 30%;text-align: right"><p>{{item.label}}</p></div>
         <div style="width: 70%;text-align: right;">
           <img class="img" v-bind:src="item.show">

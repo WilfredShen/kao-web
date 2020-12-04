@@ -1,30 +1,29 @@
 <template>
   <div class="divstyle">
-    <img class="imgsty" src="@/assets/logo11.png">
+    <img class="imgsty" style="float: left" src="@/assets/logo11.png">
     <div class="header_sty">
       <span class="spanstyle">教育部学科评估管理系统</span>
       <el-button size="mini" style="float: right"> 登录</el-button>
-      <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal"
-               @select="handleSelect">
-        <router-link tag="Kao" to="/" class="nav-i">
+      <el-menu :router="true" class="el-menu-demo" mode="horizontal">
+        <router-link to="/" class="nav-i">
           <el-menu-item index="1">首页</el-menu-item>
         </router-link>
-        <router-link tag="EvaluateResult" to="/evaResult" class="nav-i">
+        <router-link to="/homeevaresult" class="nav-i">
           <el-menu-item index="2">评估结果</el-menu-item>
         </router-link>
-        <router-link tag="school" to="/schoolDetail" class="nav-i">
+        <router-link to="/homeschooldetail" class="nav-i">
           <el-menu-item index="3">学校详情</el-menu-item>
         </router-link>
-        <router-link tag="Sum" to="/campCard" class="nav-i">
+        <router-link to="/homecampcard" class="nav-i">
           <el-menu-item index="4">夏令营</el-menu-item>
         </router-link>
-        <router-link tag="sep" to="/" class="nav-i">
+        <router-link to="/" class="nav-i">
           <el-menu-item index="5">九月推免</el-menu-item>
         </router-link>
-        <router-link tag="student" to="/Analysis" class="nav-i">
+        <router-link to="/homeanalysis" class="nav-i">
           <el-menu-item index="6">生源分析</el-menu-item>
         </router-link>
-        <router-link tag="self" to="/self" class="nav-i">
+        <router-link to="/selfheader" class="nav-i">
           <el-menu-item index="7">个人主页</el-menu-item>
         </router-link>
       </el-menu>
@@ -35,16 +34,12 @@
 </template>
 
 <script>
-  export default {
-    name: "Header"
-  }
 </script>
 
 <style scoped>
   .imgsty {
-    width: 12%;
-    top: -10px;
-    position: absolute;
+    width: 10%;
+    top: 0;
   }
 
   .spanstyle {
@@ -55,7 +50,7 @@
   }
 
   .header_sty {
-    margin: 10px 0 0 130px;
+    margin: 10px 0 0 12%;
   }
 
   .nav-i {
@@ -66,8 +61,7 @@
   }
 
   .divstyle {
-    position: absolute;
-    width:80%;
+    width: 80%;
     background: white;
     margin: 0 9%;
   }

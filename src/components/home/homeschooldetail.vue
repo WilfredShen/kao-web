@@ -79,7 +79,7 @@
   }
 
   .router-link-active {
-    color: $ color-theme;
+    /*color: $ color-theme;*/
   }
 
 </style>
