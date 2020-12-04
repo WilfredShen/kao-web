@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import queryStu from "@/components/home/self/queryStu";
-import selfHome from "@/components/home/self/selfHome";
-import stuInfo from "@/components/home/self/stuInfo";
 
 Vue.use(VueRouter)
 
@@ -43,82 +40,80 @@ export default new VueRouter({
     },
     {
       path: '/',
-      name: 'header',
-      component: () => import('@/components/home/Header'),
+      component: () => import('@/components/home/homeheader'),
       children: [
         {
           path: '',
           name: 'home',
-          component: () => import('@/components/home/Home')
+          component: () => import('@/components/home/home')
         },
         {
-          path: 'evaResult',
-          name: 'evaluatearesult',
-          component: () => import('@/components/home/evaResult')
+          path: 'homeevaresult',
+          name: 'homeevaresult',
+          component: () => import('@/components/home/homeevaresult')
         },
         {
-          path: '/schoolDetail',
+          path: 'homeschooldetail',
           name: 'schoolDetail',
-          component: () => import('@/components/home/schoolDetail'),
+          component: () => import('@/components/home/homeschooldetail'),
         },
         {
-          path: '/school',
+          path: 'homeschool',
           name: 'school',
-          component: () => import('@/components/home/school')
+          component: () => import('@/components/home/homeschool')
         },
         {
-          path: '/campCard',
+          path: 'homecampcard',
           name: 'campCard',
-          component: () => import('@/components/home/campCard')
+          component: () => import('@/components/home/homecampcard')
         },
         {
-          path: '/Analysis',
+          path: 'homeanalysis',
           name: 'Analysis',
-          component: () => import('@/components/home/Analysis')
+          component: () => import('@/components/home/homeanalysis')
         }
       ]
     },
     {
-      path: '/self',
-      name: 'self',
-      component: () => import('@/components/home/self'),
+      path: '/selfheader',
+      component: () => import('@/components/home/selfheader'),
       children: [
         {
-          path: '/self/TeaInfo',
+          path: 'selfteainfo',
           name: 'TeaInfo',
-          component: () => import('@/components/home/self/TeaInfo')
+          component: () => import('@/components/home/self/selfteainfo')
         },
         {
-          path: '/self/basicInfo',
+          path: 'selfbasicinfo',
           name: 'basicInfo',
-          component: () => import('@/components/home/self/basicInfo')
+          component: () => import('@/components/home/self/selfbasicinfo')
         },
         {
-          path: '/self/collect',
+          path: 'selfcollect',
           name: 'collect',
-          component: () => import('@/components/home/self/collect')
+          component: () => import('@/components/home/self/selfcollect')
         },
         {
-          path: '/self/queryStu',
-          name: queryStu,
-          component: () => import('@/components/home/self/queryStu')
+          path: 'selfquerystu',
+          name: 'queryStu',
+          component: () => import('@/components/home/self/selfquerystu')
         },
         {
-          path: '/self/selfHome',
-          name: selfHome,
-          component: () => import('@/components/home/self/selfHome')
+          path: '',
+          name: 'selfHome',
+          component: () => import('@/components/home/self/selfhome')
         },
         {
-          path: '/self/stuInfo',
-          name: stuInfo,
-          component: () => import('@/components/home/self/stuInfo')
+          path: 'selfstuinfo',
+          name: 'stuInfo',
+          component: () => import('@/components/home/self/selfstuinfo')
         }
       ]
     },
-    {
-      path: '/*',
-      name: '404',
-      component: () => import('@/components/HelloWorld'),
-    },
+    // {
+    //   path: '/*',
+    //   name: '404',
+    //   component: () => import('@/components/HelloWorld'),
+    // },
   ]
 })

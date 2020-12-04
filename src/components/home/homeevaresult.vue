@@ -88,7 +88,6 @@
 
 <script>
   export default {
-    name: "evaluateresult",
     data() {
       return {
         options: [{
