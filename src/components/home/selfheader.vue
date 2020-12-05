@@ -4,7 +4,7 @@
       <!--            头像和用户名-->
       <div class="userinfo">
         <el-avatar shape="square" :size="80" :src="imgurl"></el-avatar>
-        <p>个人用户名</p>
+        <p>{{$store.state.username}}</p>
       </div>
 
       <div class="index" style="display: flex;flex-direction: column;align-items: start">

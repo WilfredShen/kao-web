@@ -85,10 +85,7 @@
 </template>
 
 <script>
-  import {getdiscipline} from "../../interface/homeserve";
-  import {getmajor} from "../../interface/homeserve";
-  import {getschool} from "../../interface/homeserve";
-  import {getsomeresult} from "../../interface/homeserve";
+  import {getdiscipline,getmajor,getschool,getsomeresult} from "../../assets/lib/homeserve";
 
   export default {
     data() {

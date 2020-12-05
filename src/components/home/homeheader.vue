@@ -3,7 +3,7 @@
     <img class="imgsty" style="float: left" src="@/assets/logo11.png">
     <div class="header_sty">
       <span class="spanstyle">教育部学科评估管理系统</span>
-      <el-button size="mini" style="float: right"> 登录</el-button>
+      <el-button size="mini" style="float: right" @click="$router.push('/login')"> 登录</el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
           <el-menu-item>首页</el-menu-item>
