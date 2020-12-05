@@ -70,7 +70,7 @@ export default new VueRouter({
         {
           path: 'homeanalysis',
           name: 'Analysis',
-          component: () => import('@/components/home/homeanalysis')
+          component: () => import('@/components/analysis/Analysis')
         }
       ]
     },
