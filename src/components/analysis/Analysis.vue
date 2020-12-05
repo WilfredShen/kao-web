@@ -85,9 +85,8 @@
 </template>
 
 <script>
-  // ,character
   import {readFile} from '../../assets/lib/utils'
-  import {getSchRegion} from '../../assets/lib/getResult'
+  import {getSchRegion} from '../../assets/lib/getSchRegion'
   import {getMap} from '../../assets/lib/ChinaMapShow'
   import {getschool} from '../../assets/lib/homeserve'
   import xlsx from 'xlsx';
@@ -303,11 +302,9 @@
     created() {
       getschool().then(res => {
         this.school_id = res.data;
-        console.log("传入的学校值" + this.school_id[1].cname);
         for (let i = 0; i < this.school_id.length; i++) {
           this.name_id[this.school_id[i].cname] = this.school_id[i].cid;
         }
-        console.log("学校名和代码对应" + this.name_id['三峡大学'] + " " + this.name_id['北京大学']);
       })
     }
   }
