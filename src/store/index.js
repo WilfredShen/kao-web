@@ -8,10 +8,18 @@ const store = new Vuex.Store({
   },
   state:{
     username:'',
+    identify:'尚未选择身份',
+    realname:'尚未实名认证',
   },
   mutations:{
     setUsername(state,name){
       state.username = name;
+    },
+    setindentify(state,id){
+      state.identify = id;
+    },
+    setrealname(state,msg){
+      state.realname = msg;
     }
   }
 })
