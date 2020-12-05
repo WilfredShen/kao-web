@@ -1,4 +1,5 @@
 import echarts from 'echarts';
+
 require('echarts/map/js/china');
 
 export function getMap(region_value) {

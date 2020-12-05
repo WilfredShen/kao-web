@@ -49,7 +49,7 @@ export default new VueRouter({
         },
         {
           path: 'homeevaresult',
-          name: 'homeevaresult',
+          name: 'evaresult',
           component: () => import('@/components/home/homeevaresult')
         },
         {

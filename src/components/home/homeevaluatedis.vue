@@ -13,10 +13,7 @@
               class="discipline-option"
               v-for="(d, index) in discipline"
               :key="index"
-              @click="
-              selected.did = discipline[index].did;
-              selected.mindex = 0;
-            "
+              @click="setselected(index)"
             >
             <span>
               {{ d.dname }}
@@ -85,10 +82,10 @@
 </template>
 
 <script>
-  import {getdiscipline} from "../../interface/homeserve";
-  import {getmajor} from "../../interface/homeserve";
-  import {getschool} from "../../interface/homeserve";
-  import {getsomeresult} from "../../interface/homeserve";
+  import {getdiscipline} from "../../assets/lib/homeserve";
+  import {getmajor} from "../../assets/lib/homeserve";
+  import {getschool} from "../../assets/lib/homeserve";
+  import {getsomeresult} from "../../assets/lib/homeserve";
 
   export default {
     data() {
@@ -193,6 +190,12 @@
       }).catch((err) => {
         console.log(err)
       });
+    },
+    methods: {
+      setselected(index) {
+        this.selected.did = this.discipline[index].did;
+        this.selected.mindex = 0;
+      }
     }
   }
 </script>

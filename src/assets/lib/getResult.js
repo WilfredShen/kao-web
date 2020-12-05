@@ -21,6 +21,7 @@ export function getSchRegion(schids,) {
       console.log("status = " + res.status)
       resolve(res.data.data);
     })).catch((error) => {
+      console.log("错误", error)
       reject(error);
     })
   })
