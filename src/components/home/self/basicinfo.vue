@@ -14,8 +14,8 @@
 
       <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
       <div class="funcbtn" v-show="!ismodify">
-        <el-button type="primary" @click="commitmodify()">确认修改</el-button>
-        <el-button @click="canclemodify()">取消修改</el-button>
+        <el-button type="primary" @click="commitModify()">确认修改</el-button>
+        <el-button @click="cancleModify()">取消修改</el-button>
       </div>
 
       <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button type="primary" @command="handleCommand">
@@ -26,7 +26,8 @@
         </el-dropdown-menu>
       </el-dropdown>
 
-      <el-button v-if="ismodify" type="primary" style="margin-left: 10px" @click="verifyrn(),verifyid()">实名与身份认证
+      <el-button id="verify" v-if="ismodify" type="primary" style="margin-left: 10px" @click="verifyrn(),verifyid()">
+        实名与身份认证
       </el-button>
     </div>
   </div>
@@ -34,7 +35,7 @@
 
 <script>
   import axios from 'axios';
-  import {updateUserInfo} from '../../../assets/lib/getSelf'
+  import {updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -42,13 +43,10 @@
         ismodify: true,
         newphone: '',
         newemail: '',
-        hasvfrn: false,//已经验证过实名
         hasvfid: false,//已经验证过身份
         identity: "选择身份",
         uid: '',
         uname: '',
-        phone: null,
-        email: null,
         varified: '',
         accountType: '',
         items: [
@@ -83,19 +81,10 @@
       modify() {
         this.ismodify = !this.ismodify;
       },
-      commitmodify() {
-        var postphone, postemail;
-        if (this.newphone === '') {
-          postphone = this.phone;
-        } else {
-          postphone = this.newphone;
-        }
-
-        if (this.newemail === '') {
-          postemail = this.email;
-        } else {
-          postemail = this.newemail;
-        }
+      commitModify() {
+        let postphone, postemail;
+        postphone = this.newphone === '' ? null : this.newphone;
+        postemail = this.newemail === '' ? null : this.newemail;
 
         updateUserInfo(postphone, postemail).then(res => {
           console.log(res);
@@ -105,7 +94,7 @@
           this.setSelfInfo();
         })
       },
-      canclemodify() {
+      cancleModify() {
         this.ismodify = !this.ismodify;
       },
       setSelfInfo() {
@@ -114,11 +103,16 @@
             let item = res.data.data;
             this.items[0].content = item.uid;
             this.items[1].content = item.username;
-            this.$store.commit('setUsername', item.username);
             this.items[2].content = item.phone;
             this.items[3].content = item.email;
-            this.items[4].content = this.$store.state.realname;
-            this.items[5].content = this.$store.state.identify;
+            this.items[4].content = item.verified ? "已实名认证" : "未完成验证";
+            if (item.accountType === 'tutor') {
+              this.items[5].content = '研究生秘书';
+            } else if (item.accountType === 'student') {
+              this.items[5].content = '学生';
+            } else {
+              this.items[5].content = '尚未验证';
+            }
           })
           .catch(err => {
             console.log("错误", err);
@@ -142,31 +136,35 @@
         this.$store.commit('setrealname', '已实名认证');
       },
       verifyid() {
+        if (this.items[5].content.length !== 4) {
+          this.$message("您已认证为" + this.items[5].content + "，不得重复验证");
+          return;
+        }
         if (this.identity === '学生') {
           axios.post("/api/vf/student", {
             'cid': '10010',
-            'sid': '2018101'
+            'sid': this.$store.state.uid,
           })
             .then(res => {
               console.log(res.status)
               if (res.status === 200) {
-                this.items[5].content = this.identity;
+                this.$message("认证学生成功！")
               }
             })
         } else if (this.identity === '研究生秘书') {
           axios.post("/api/vf/tutor", {
             'cid': '10010',
-            'tid': '201820'
+            'tid': this.$store.state.uid,
           })
             .then(res => {
               console.log(res.status)
               if (res.status === 200) {
-                this.items[5].content = this.identity;
+                this.$message("认证研究生秘书成功！")
               }
             })
         }
-        this.$store.commit('setindentify', this.identity);
-
+        this.items[5].content = this.identity;
+        location.reload();
       }
     },
     created() {

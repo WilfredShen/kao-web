@@ -55,7 +55,8 @@
 </template>
 
 <script>
-  import {getUserid} from '../../assets/lib/getSelf'
+
+  import {getUserid} from '../../assets/lib/getAndSetSelf'
 
   export default {
     name: "Login",
@@ -94,10 +95,14 @@
                 callback = "/";
                 this.$message.success("登陆成功！即将跳转至主页...");
               }
-              getUserid().then(res => {
-                console.log("登录时的res" + res);
-                this.$store.commit("setuid", res);
-              });
+
+              //登录后即设置uid
+              getUserid().then(res=>{
+                this.$store.commit("setuid",res)
+              })
+
+
+
               setTimeout(() => {
                 this.$router.push(callback.toString());
               }, 3000);

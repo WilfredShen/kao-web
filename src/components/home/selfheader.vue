@@ -4,27 +4,30 @@
       <!--            头像和用户名-->
       <div class="userinfo">
         <el-avatar shape="square" :size="80" :src="imgurl"></el-avatar>
-        <p>{{$store.state.username}}</p>
+        <p>{{username}}</p>
       </div>
 
       <div class="index" style="display: flex;flex-direction: column;align-items: start">
         <router-link :to="{path:'/selfheader'}">
-          <el-link id="self_home">主页</el-link>
+          <el-link id="selfhome">主页</el-link>
         </router-link>
         <router-link :to="{path:'/selfheader/basicinfo'}">
-          <el-link id="basic_info">基本信息</el-link>
+          <el-link id="basicinfo">基本信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/collect'}">
+        <router-link :to="{path:'/selfheader/collect'}" v-if="isstu">
           <el-link id="collect">收藏夹</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/stuinfo'}">
-          <el-link id="stu_info">学生信息</el-link>
+        <router-link :to="{path:'/selfheader/stuinfo'}" v-if="isstu">
+          <el-link id="stuinfo">学生信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/teaInfo'}">
-          <el-link id="tea_info">导师信息</el-link>
+        <router-link :to="{path:'/selfheader/teaInfo'}" v-if="istut">
+          <el-link id="teainfo">导师信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/querystu'}">
-          <el-link id="query_stu">查询学生</el-link>
+        <router-link :to="{path:'/selfheader/querystu'}" v-if="istut">
+          <el-link id="querystu">查询学生</el-link>
+        </router-link>
+        <router-link :to="{path:'/'}">
+          <el-link id="tohome">返回首页</el-link>
         </router-link>
       </div>
     </div>
@@ -38,12 +41,32 @@
 </template>
 
 <script>
+
+  import {getUserName,getLimit} from '../../assets/lib/getAndSetSelf'
+
   export default {
     data() {
       return {
+        username:'',
+        isstu:false,
+        istut:false,
         imgurl: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       }
     },
+    created() {
+      getUserName().then(res=>{
+        console.log("获得的用户名"+res);
+        this.username = res;
+      });
+      getLimit().then(res=>{
+        console.log("获得的权限"+res);
+        if (res==='student'){
+          this.isstu = true;
+        }else if (res==='tutor'){
+          this.istut = true;
+        }
+      })
+    }
   }
 </script>
 
@@ -54,7 +77,7 @@
     width: 100px;
   }
 
-  #self_home, #basic_info, #collect, #stu_info, #tea_info, #query_stu {
+  #selfhome, #basicinfo, #collect, #stuinfo, #teainfo, #querystu ,#tohome{
     margin: 20px 0 0 25px;
   }
 </style>
