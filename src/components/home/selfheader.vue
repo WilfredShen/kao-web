@@ -11,19 +11,19 @@
         <router-link :to="{path:'/selfheader'}">
           <el-link id="self_home">主页</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/selfbasicinfo'}">
+        <router-link :to="{path:'/selfheader/basicinfo'}">
           <el-link id="basic_info">基本信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/selfcollect'}">
+        <router-link :to="{path:'/selfheader/collect'}">
           <el-link id="collect">收藏夹</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/selfstuinfo'}">
+        <router-link :to="{path:'/selfheader/stuinfo'}">
           <el-link id="stu_info">学生信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/selfteaInfo'}">
+        <router-link :to="{path:'/selfheader/teaInfo'}">
           <el-link id="tea_info">导师信息</el-link>
         </router-link>
-        <router-link :to="{path:'/selfheader/selfquerystu'}">
+        <router-link :to="{path:'/selfheader/querystu'}">
           <el-link id="query_stu">查询学生</el-link>
         </router-link>
       </div>

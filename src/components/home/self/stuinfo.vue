@@ -32,48 +32,48 @@
   export default {
     data() {
       return {
-        ismodify:true,
-        test:'',
-        newphone:'',
-        newemail:'',
-        newcollege:'',
-        newmajor:'',
-        newgradt:'',
-        newexpect:'',
+        ismodify: true,
+        test: '',
+        newphone: '',
+        newemail: '',
+        newcollege: '',
+        newmajor: '',
+        newgradt: '',
+        newexpect: '',
         items: [
-          {label: '联系电话：',content:''},
-          {label: '邮箱地址：',content: ''},
-          {label: '姓名：',content: ''},
-          {label: '年龄：',content: ''},
-          {label: '性别：',content: ''},
-          {label: '本科就读高校：',content: ''},
-          {label: '本科就读专业：',content: ''},
-          {label: '本科毕业时间：',content: ''},
-          {label: '预期专业：',content: ''},
+          {label: '联系电话：', content: ''},
+          {label: '邮箱地址：', content: ''},
+          {label: '姓名：', content: ''},
+          {label: '年龄：', content: ''},
+          {label: '性别：', content: ''},
+          {label: '本科就读高校：', content: ''},
+          {label: '本科就读专业：', content: ''},
+          {label: '本科毕业时间：', content: ''},
+          {label: '预期专业：', content: ''},
         ]
       }
     },
-    methods:{
-      modify(){
+    methods: {
+      modify() {
         this.ismodify = !this.ismodify;
       },
-      canclemodify(){
+      canclemodify() {
         this.ismodify = !this.ismodify;
         console.log(this.$store.state.uid);
       },
-      commitmodify(){
+      commitmodify() {
         console.log(this.test);
       }
     },
     created() {
-      axios.get("/api/stu/get_stu_info",{
-        params:{
-          uid:this.$store.state.uid
+      axios.get("/api/stu/get_stu_info", {
+        params: {
+          uid: this.$store.state.uid
         }
       })
-      .then(res=>{
-        console.log(res);
-      }).catch(error=>{
+        .then(res => {
+          console.log(res);
+        }).catch(error => {
         console.log(error);
       })
     }
@@ -91,11 +91,11 @@
     margin-right: 20px
   }
 
-  .funcbtn{
+  .funcbtn {
     margin-top: 30px;
   }
 
-  .newinfo{
+  .newinfo {
     width: 80%;
   }
 </style>

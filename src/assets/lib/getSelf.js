@@ -1,5 +1,6 @@
 import axios from 'axios';
-export function updateUserInfo(postphone,postemail) {
+
+export function updateUserInfo(postphone, postemail) {
   return new Promise(((resolve, reject) => {
     axios.post("/api/user/update_user_msg", {
       'phoneNumber': postphone,
