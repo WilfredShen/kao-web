@@ -21,8 +21,8 @@
       <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button type="primary" @command="handleCommand">
         {{identity}}
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="学生">学生</el-dropdown-item>
-          <el-dropdown-item command="研究生秘书">研究生秘书</el-dropdown-item>
+          <el-dropdown-item command="学生" >学生</el-dropdown-item>
+          <el-dropdown-item command="研究生秘书" >研究生秘书</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
@@ -33,7 +33,7 @@
 
 <script>
   import axios from 'axios';
-
+  import {updateUserInfo} from '../../../assets/lib/selfserve'
   export default {
     data() {
       return {
@@ -45,8 +45,8 @@
         identity:"选择身份",
         uid: '',
         uname: '',
-        phone: '',
-        email: '',
+        phone: null,
+        email: null,
         varified: '',
         accountType: '',
         items: [
@@ -82,24 +82,26 @@
         this.ismodify = !this.ismodify;
       },
       commitmodify() {
-        console.log("进入了提交");
-        console.log("newphone = " + this.newphone);
-        console.log("newemail = " + this.newemail);
-        axios.post("/api/user/update_user_msg", {
-          'phoneNumber': this.newphone,
-          'email': this.newemail,
-          'accountType': '',
+        var postphone,postemail;
+        if (this.newphone===''){
+          postphone = this.phone;
+        }else {
+          postphone = this.newphone;
+        }
+
+        if (this.newemail===''){
+          postemail = this.email;
+        }else {
+          postemail = this.newemail;
+        }
+
+        updateUserInfo(postphone,postemail).then(res=>{
+          console.log(res);
+          this.ismodify = !this.ismodify;
+          this.newphone = '';
+          this.newemail = '';
+          this.setSelfInfo();
         })
-          .then(res => {
-            console.log(res.status);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-        this.ismodify = !this.ismodify;
-        this.newphone = '';
-        this.newemail = '';
-        this.setSelfInfo();
       },
       canclemodify() {
         this.ismodify = !this.ismodify;
@@ -108,7 +110,6 @@
         axios.get("/api/user/get_user_info")
           .then(res => {
             let item = res.data.data;
-            console.log(item);
             this.items[0].content = item.uid;
             this.items[1].content = item.username;
             this.$store.commit('setUsername', item.username);
@@ -163,11 +164,11 @@
             })
         }
         this.$store.commit('setindentify', this.identity);
+
       }
     },
     created() {
       this.setSelfInfo();
-
     },
   }
 </script>

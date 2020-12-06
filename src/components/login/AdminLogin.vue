@@ -71,10 +71,10 @@
             if (res.data.status === 200) {
               let callback = this.$route.query.callback;
               if (callback) {
-                this.$message.success("登陆成功！即将跳转至原界面...");
+                this.$message.success("登录成功！即将跳转至原界面...");
               } else {
                 callback = "/";
-                this.$message.success("登陆成功！即将跳转至主页...");
+                this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {
                 this.$router.push(callback.toString());

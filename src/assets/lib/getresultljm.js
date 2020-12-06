@@ -14,7 +14,6 @@ export function disciplineList() {
 export function majorList() {
     return new Promise((resolve, reject) => {
         axios.get("/api/meta/major", {}).then((res => {
-            //    console.log("res",res.data)
             resolve(res.data.data);
         })).catch((error) => {
             reject(error);
