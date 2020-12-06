@@ -13,10 +13,7 @@
               class="discipline-option"
               v-for="(d, index) in discipline"
               :key="index"
-              @click="
-              selected.did = discipline[index].did;
-              selected.mindex = 0;
-            "
+              @click="setselected(index)"
             >
             <span>
               {{ d.dname }}
@@ -190,6 +187,12 @@
       }).catch((err) => {
         console.log(err)
       });
+    },
+    methods: {
+      setselected(index) {
+        this.selected.did = this.discipline[index].did;
+        this.selected.mindex = 0;
+      }
     }
   }
 </script>
