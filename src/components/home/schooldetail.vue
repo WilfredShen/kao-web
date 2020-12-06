@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import {getmajor, getschool, getsomeresult} from "../../assets/lib/homeserve";
+  import {getmajor, getschool, getsomeresult} from "../../assets/lib/getHomeServe";
 
   export default {
     name: "",
@@ -203,7 +203,7 @@
       },
       schoolclik(cid) {
         localStorage.setItem('schoolcid', cid);
-        this.$router.push({path: '/homeschool'})
+        this.$router.push({path: '/school'})
       },
     },
     created() {

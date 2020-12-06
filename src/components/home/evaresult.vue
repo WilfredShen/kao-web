@@ -13,10 +13,10 @@
         </span>
         <el-select v-model="sround" placeholder="请选择" size="mini">
           <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
           </el-option>
         </el-select>
       </div>
@@ -27,10 +27,10 @@
         </span>
         <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getmajorlist">
           <el-option
-                  v-for="item in disciplines"
-                  :key="item.did"
-                  :label="item.dname"
-                  :value="item.did">
+            v-for="item in disciplines"
+            :key="item.did"
+            :label="item.dname"
+            :value="item.did">
           </el-option>
         </el-select>
       </div>
@@ -41,10 +41,10 @@
         </span>
         <el-select v-model="majorCode" placeholder="请选择" size="mini">
           <el-option
-                  v-for="item in majors"
-                  :key="item.mid"
-                  :label="item.mid+item.mname"
-                  :value="item.mid">
+            v-for="item in majors"
+            :key="item.mid"
+            :label="item.mid+item.mname"
+            :value="item.mid">
           </el-option>
         </el-select>
       </div>
@@ -55,10 +55,10 @@
         </span>
         <el-select v-model="level" multiple placeholder="请选择" size="mini">
           <el-option
-                  v-for="item in option4"
-                  :key="item.value4"
-                  :label="item.value4"
-                  :value="item.label4"
+            v-for="item in option4"
+            :key="item.value4"
+            :label="item.value4"
+            :value="item.label4"
           >
           </el-option>
         </el-select>
@@ -112,19 +112,21 @@
     name: "evaluateresult",
     data() {
       return {
-        options: [{
-          value: "1",
-          label: "第一轮"
-        }, {
-          value: "2",
-          label: "第二轮"
-        }, {
-          value: "3",
-          label: "第三轮"
-        }, {
-          value: "4",
-          label: "第四轮"
-        }],
+        options: [
+          //   {
+          //   value: "1",
+          //   label: "第一轮"
+          // }, {
+          //   value: "2",
+          //   label: "第二轮"
+          // },
+          {
+            value: "3",
+            label: "第三轮"
+          }, {
+            value: "4",
+            label: "第四轮"
+          }],
         value: "",
         option4: [{
           value4: "A+ / 95-100",
@@ -148,7 +150,7 @@
           value4: "C+ / 68-70",
           label4: "C+"
         }, {
-          value4: "C / 65-68" ,
+          value4: "C / 65-68",
           label4: "C"
         }, {
           value4: "C- / 60-65",
@@ -294,9 +296,9 @@
           console.log("tmplist" + this.tmplist);
         });
       },
-      schoolclik(cid){
-        localStorage.setItem('schoolcid',cid);
-        this.$router.push({path: '/homeschool'})
+      schoolclik(cid) {
+        localStorage.setItem('schoolcid', cid);
+        this.$router.push({path: '/school'})
       },
     },
     mounted() {

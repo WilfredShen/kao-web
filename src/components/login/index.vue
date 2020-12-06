@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import {getUserid} from '../../assets/lib/selfserve'
+  import {getUserid} from '../../assets/lib/getSelf'
 
   export default {
     name: "Login",
@@ -94,9 +94,9 @@
                 callback = "/";
                 this.$message.success("登陆成功！即将跳转至主页...");
               }
-              getUserid().then(res=>{
-                console.log("登录时的res"+res);
-                this.$store.commit("setuid",res);
+              getUserid().then(res => {
+                console.log("登录时的res" + res);
+                this.$store.commit("setuid", res);
               });
               setTimeout(() => {
                 this.$router.push(callback.toString());

@@ -1,4 +1,5 @@
 import echarts from 'echarts';
+
 require('echarts/map/js/china');
 
 export function getMap(region_value) {
@@ -17,13 +18,12 @@ export function getMap(region_value) {
         } else { // 为了防止没有定义数据的时候报错写的
           pcount = 0
         }
-        let htmlStr = `
+        return `
           <div style='font-size:18px;'> ${params.name}</div>
           <p style='text-align:left;margin-top:-10px;'>
 	          人数：${pcount}<br/>
           </p>
         `
-        return htmlStr
       }
       // backgroundColor:"#ff7f50",//提示标签背景颜色
       // textStyle:{color:"#fff"} //提示标签字体颜色

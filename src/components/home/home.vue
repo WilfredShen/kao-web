@@ -27,7 +27,7 @@
     <div class="b2">
       <p>{{ msg }}</p>
       <ul style="font-size: 13px">
-        <div class="li_style">
+        <div class="li-style">
           <a
             href="https://news.pku.edu.cn/xwzh/4caa9d0a4c1e4b1b8bce77be841ec12e.htm"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;中国数学会再设专业分会
@@ -36,7 +36,7 @@
           </a>
         </div>
         <br/>
-        <div class="li_style">
+        <div class="li-style">
           <a
             href="http://2021.tsinghua.edu.cn/info/1002/1051.htm"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;【致辞讲话】习近平向清华大学经济管理学院顾问委员会2020年会议致辞祝贺委员会成立20周年
@@ -44,7 +44,7 @@
           </a>
         </div>
         <br/>
-        <div class="li_style">
+        <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24077.htm"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;第四届全球华人国学大典在京举行 许倬云、陈来获终身成就奖
@@ -52,7 +52,7 @@
           </a>
         </div>
         <br/>
-        <div class="li_style">
+        <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24039.htm"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;助推湖南自由贸易试验区建设专家座谈会召开
@@ -60,7 +60,7 @@
           </a>
         </div>
         <br/>
-        <div class="li_style">
+        <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24040.htm"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;《千年学府 其命惟新》系列专题片研讨会在岳麓书院举行
@@ -70,18 +70,18 @@
       </ul>
     </div>
     <div style="padding-top: 400px">
-      <homeevaluatedis/>
+      <evaluatedis/>
     </div>
   </div>
 </template>
 
 <script>
-  import homeevaluatedis from '@/components/home/homeevaluatedis.vue';
+  import evaluatedis from '@/components/home/evaluatedis.vue';
 
   export default {
     name: 'home',
     components: {
-      homeevaluatedis
+      evaluatedis
     },
     data() {
       return {
@@ -129,7 +129,7 @@
     target: new;
   }
 
-  .li_style {
+  .li-style {
     width: 90%;
     padding: 2px 10px;
     border: 1px solid black;

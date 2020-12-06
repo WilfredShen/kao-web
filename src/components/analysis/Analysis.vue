@@ -88,7 +88,7 @@
   import {readFile} from '../../assets/lib/utils'
   import {getSchRegion} from '../../assets/lib/getSchRegion'
   import {getMap} from '../../assets/lib/ChinaMapShow'
-  import {getschool} from '../../assets/lib/homeserve'
+  import {getschool} from '../../assets/lib/getHomeServe'
   import xlsx from 'xlsx';
 
 

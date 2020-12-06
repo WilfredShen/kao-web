@@ -8,19 +8,19 @@
         <router-link to="/" class="nav-i">
           <el-menu-item>首页</el-menu-item>
         </router-link>
-        <router-link to="/homeevaresult" class="nav-i">
+        <router-link to="/evaresult" class="nav-i">
           <el-menu-item>评估结果</el-menu-item>
         </router-link>
-        <router-link to="/homeschooldetail" class="nav-i">
+        <router-link to="/schooldetail" class="nav-i">
           <el-menu-item>学校详情</el-menu-item>
         </router-link>
-        <router-link to="/homecampcard" class="nav-i">
+        <router-link to="/campcard" class="nav-i">
           <el-menu-item>夏令营</el-menu-item>
         </router-link>
         <router-link to="/" class="nav-i">
           <el-menu-item>九月推免</el-menu-item>
         </router-link>
-        <router-link to="/homeanalysis" class="nav-i">
+        <router-link to="/analysis" class="nav-i">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
         <router-link to="/selfheader" class="nav-i">

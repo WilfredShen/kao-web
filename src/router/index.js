@@ -40,7 +40,7 @@ export default new VueRouter({
     },
     {
       path: '/',
-      component: () => import('@/components/home/homeheader'),
+      component: () => import('@/components/home/header'),
       children: [
         {
           path: '',
@@ -48,27 +48,27 @@ export default new VueRouter({
           component: () => import('@/components/home/home')
         },
         {
-          path: 'homeevaresult',
+          path: 'evaresult',
           name: 'homeevaresult',
-          component: () => import('@/components/home/homeevaresult')
+          component: () => import('@/components/home/evaresult')
         },
         {
-          path: 'homeschooldetail',
+          path: 'schooldetail',
           name: 'schoolDetail',
-          component: () => import('@/components/home/homeschooldetail'),
+          component: () => import('@/components/home/schooldetail'),
         },
         {
-          path: 'homeschool',
+          path: 'school',
           name: 'school',
-          component: () => import('@/components/home/homeschool')
+          component: () => import('@/components/home/school')
         },
         {
-          path: 'homecampcard',
+          path: 'campcard',
           name: 'campCard',
-          component: () => import('@/components/home/homecampcard')
+          component: () => import('@/components/home/campcard')
         },
         {
-          path: 'homeanalysis',
+          path: 'analysis',
           name: 'Analysis',
           component: () => import('@/components/analysis/Analysis')
         }
@@ -79,24 +79,24 @@ export default new VueRouter({
       component: () => import('@/components/home/selfheader'),
       children: [
         {
-          path: 'selfteainfo',
+          path: 'teainfo',
           name: 'TeaInfo',
-          component: () => import('@/components/home/self/selfteainfo')
+          component: () => import('@/components/home/self/teainfo')
         },
         {
-          path: 'selfbasicinfo',
+          path: 'basicinfo',
           name: 'basicInfo',
-          component: () => import('@/components/home/self/selfbasicinfo')
+          component: () => import('@/components/home/self/basicinfo')
         },
         {
-          path: 'selfcollect',
+          path: 'collect',
           name: 'collect',
-          component: () => import('@/components/home/self/selfcollect')
+          component: () => import('@/components/home/self/collect')
         },
         {
-          path: 'selfquerystu',
+          path: 'querystu',
           name: 'queryStu',
-          component: () => import('@/components/home/self/selfquerystu')
+          component: () => import('@/components/home/self/querystu')
         },
         {
           path: '',
@@ -104,9 +104,9 @@ export default new VueRouter({
           component: () => import('@/components/home/self/selfhome')
         },
         {
-          path: 'selfstuinfo',
+          path: 'stuinfo',
           name: 'stuInfo',
-          component: () => import('@/components/home/self/selfstuinfo')
+          component: () => import('@/components/home/self/stuinfo')
         }
       ]
     },
