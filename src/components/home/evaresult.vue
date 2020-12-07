@@ -26,7 +26,7 @@
         <span style="font-size:14px">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getmajorlist">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorlist">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -63,7 +63,7 @@
           >
           </el-option>
         </el-select>
-        <el-button size="medium" round @click="gettmpresults" style="margin-left:10px">确定</el-button>
+        <el-button size="medium" round @click="getTmpResults" style="margin-left:10px">确定</el-button>
       </div>
     </div>
     <br>
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-  import {disciplineList, majorList, schoolList, getevaluationList} from '../../assets/lib/getresultljm'
+  import {disciplineList, majorList, schoolList, getEvaluationList} from '../../assets/lib/getResultLjm'
 
 
   export default {
@@ -188,24 +188,24 @@
       }
     },
     methods: {
-      getschoollist() {
+      getSchoollist() {
         schoolList().then(res => {
           this.schools = res;
         });
       },
-      getdisciplinelist() {
+      getDisciplinelist() {
         disciplineList().then(res => {
           this.disciplines = res;
           // console.log(this.disciplines)
         });
       },
-      getmajorListall() {
+      getMajorListall() {
         majorList().then(res => {
           this.allmajors = res;
           // console.log(this.disciplines)
         });
       },
-      getmajorlist(id) {
+      getMajorlist(id) {
         this.majors = [];
         majorList().then(res => {
           for (let i = 0; i < res.length; i++) {
@@ -229,8 +229,8 @@
           }
         }
       },
-      gettmpresults() {
-        getevaluationList(this.sround).then(res => {
+      getTmpResults() {
+        getEvaluationList(this.sround).then(res => {
           this.tmplist = [];
           for (let i = 0; i < res.length; i++) {
             //         console.log("majorcode"+this.majorCode);
@@ -305,9 +305,9 @@
       },
     },
     mounted() {
-      this.getdisciplinelist();
-      this.getschoollist();
-      this.getmajorListall();
+      this.getDisciplinelist();
+      this.getSchoollist();
+      this.getMajorListall();
     },
   }
 </script>

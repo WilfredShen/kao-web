@@ -47,27 +47,27 @@
                 </span>
                 <br><br/>
               </div>
-              <el-row style="margin-left: 8%;margin-bottom: 0;font-weight: bold; width: 90%">
-                <el-col :span="6">
+              <el-row style="margin-left: 12%;margin-bottom: 0;font-weight: bold; width: 90%">
+                <el-col :span="8">
                   <div class="grid-content bg-purple">评估结果</div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="8">
                   <div class="grid-content bg-purple">学校代码</div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="8">
                   <div class="grid-content bg-purple">学校名称</div>
                 </el-col>
               </el-row>
               <el-scrollbar style="height: 400px">
-                <div class="dis" v-for="(item, index) in showEvaluation" :key="index">
-                  <el-row style="margin-left: 8%;width: 90%">
-                    <el-col :span="6">
+                <div class="div-style" v-for="(item, index) in showEvaluation" :key="index">
+                  <el-row style="margin-left: 13%;width: 90%">
+                    <el-col :span="8">
                       <div class="grid-content bg-purple">{{item.result}}</div>
                     </el-col>
-                    <el-col :span="6">
+                    <el-col :span="8">
                       <div class="grid-content bg-purple">{{item.cid}}</div>
                     </el-col>
-                    <el-col :span="6" style="width: 40%">
+                    <el-col :span="8">
                       <div class="grid-content bg-purple">{{item.cname}}</div>
                     </el-col>
                   </el-row>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import {getdiscipline, getmajor, getschool, getsomeresult} from "../../assets/lib/getHomeServe";
+  import {getDiscipline, getMajor, getSchool, getSomeResult} from "../../assets/lib/getHomeServe";
 
   export default {
     data() {
@@ -158,13 +158,13 @@
     evaluation:list
      */
     created() {
-      getdiscipline().then((res) => {
+      getDiscipline().then((res) => {
         this.discipline = res.data;
         // console.log("discipline", this.discipline);
       }).catch((err) => {
         console.log(err);
       });
-      getmajor().then((res) => {
+      getMajor().then((res) => {
         this.major = res.data;
         // res.data.forEach(row => {
         //   this.majormap[row.mid] = {mname: row.mname, did: row.did}
@@ -173,7 +173,7 @@
       }).catch((err) => {
         console.log(err)
       });
-      getschool().then((res) => {
+      getSchool().then((res) => {
         res.data.forEach(row => {
           this.schoolmap[row.cid] = {cname: row.cname}
         })
@@ -181,12 +181,13 @@
       }).catch((err) => {
         console.log(err)
       });
-      getsomeresult().then((res) => {
+      getSomeResult().then((res) => {
         this.evaluation = res.data;
         // console.log("evaluation", this.evaluation);
       }).catch((err) => {
         console.log(err)
       });
+      console.log(this.$store.state.identify);
     },
     methods: {
       setselected(index) {
@@ -210,7 +211,7 @@
     font-weight: bold;
   }
 
-  .dis {
+  .div-style {
     margin: 5px 0;
   }
 

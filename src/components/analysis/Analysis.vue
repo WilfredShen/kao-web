@@ -35,8 +35,8 @@
 
       <div id="conditions">
         <el-checkbox-group v-model="checkboxGroup" size="medium">
-          <el-checkbox label="地区" border style="width: 100px;margin-right: 0px"></el-checkbox>
-          <el-checkbox label="985" border style="width: 100px;margin-right: 0px"></el-checkbox>
+          <el-checkbox label="地区" border style="width: 100px;margin-right: 0"></el-checkbox>
+          <el-checkbox label="985" border style="width: 100px;margin-right: 0"></el-checkbox>
           <el-checkbox label="211" border style="width: 100px"></el-checkbox>
         </el-checkbox-group>
       </div>
@@ -90,7 +90,7 @@
   import {readFile} from '../../assets/lib/utils'
   import {getSchRegion} from '../../assets/lib/getSchRegion'
   import {getMap} from '../../assets/lib/ChinaMapShow'
-  import {getschool} from '../../assets/lib/getHomeServe'
+  import {getSchool} from '../../assets/lib/getHomeServe'
   import xlsx from 'xlsx';
 
 
@@ -302,7 +302,7 @@
       getMap([]);
     },
     created() {
-      getschool().then(res => {
+      getSchool().then(res => {
         this.school_id = res.data;
         for (let i = 0; i < this.school_id.length; i++) {
           this.name_id[this.school_id[i].cname] = this.school_id[i].cid;
