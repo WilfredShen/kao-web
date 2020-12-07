@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import {schooldetail} from '../../assets/lib/getresultljm';
+  import {schoolDetail} from '../../assets/lib/getResultLjm';
 
   export default {
     name: 'school',
@@ -50,8 +50,8 @@
       }
     },
     methods: {
-      getschooldetail(cid) {
-        schooldetail(cid).then(res => {
+      getSchooldetail(cid) {
+        schoolDetail(cid).then(res => {
           console.log("res", res)
           this.school_details = res[0];
           console.log("schoool_details" + this.school_details.cname);
@@ -60,7 +60,7 @@
     },
     created() {
       this.school_cid.push(localStorage.getItem('schoolcid'));
-      this.getschooldetail(this.school_cid);
+      this.getSchooldetail(this.school_cid);
       console.log("school", this.school_details)
     }
   }

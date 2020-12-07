@@ -2,7 +2,7 @@
   <div style="height: 800px">
     <div class="choices" style="float:left; border-right: solid 1px;width: 10%;height: 100%">
       <!--            头像和用户名-->
-      <div class="userinfo">
+      <div class="user-info">
         <el-avatar shape="square" :size="80" :src="imgurl"></el-avatar>
         <p>{{username}}</p>
       </div>
@@ -71,7 +71,7 @@
 </script>
 
 <style scoped>
-  .userinfo {
+  .user-info {
     margin-left: 20px;
     margin-top: 20px;
     width: 100px;

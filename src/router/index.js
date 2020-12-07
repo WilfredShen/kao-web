@@ -45,7 +45,7 @@ export default new VueRouter({
         {
           path: '',
           name: 'home',
-          component: () => import('@/components/home/home')
+          component: () => import('@/components/home/index')
         },
         {
           path: 'evaresult',

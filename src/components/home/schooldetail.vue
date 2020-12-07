@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import {getmajor, getschool, getsomeresult} from "../../assets/lib/getHomeServe";
+  import {getMajor, getSchool, getSomeResult} from "../../assets/lib/getHomeServe";
 
   export default {
     name: "",
@@ -207,7 +207,7 @@
       },
     },
     created() {
-      getmajor()
+      getMajor()
         .then((res) => {
           //this.major = res.data;
           res.data.forEach(row => {
@@ -218,7 +218,7 @@
         .catch((err) => {
           console.log(err)
         });
-      getschool()
+      getSchool()
         .then((res) => {
           this.school = res.data;
           this.fsresult = res.data;
@@ -230,7 +230,7 @@
         .catch((err) => {
           console.log(err)
         });
-      getsomeresult()
+      getSomeResult()
         .then((res) => {
           this.evalresult = res.data;
           // console.log("evaluation", this.evaluation);

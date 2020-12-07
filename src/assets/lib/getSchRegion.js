@@ -6,11 +6,13 @@ export function getSchRegion(schids,) {
       params: {
         cidList: schids.join(",")
       },
-    }).then((res => {
-      resolve(res.data.data);
-    })).catch((error) => {
-      reject(error);
     })
+      .then((res => {
+        resolve(res.data.data);
+      }))
+      .catch((error) => {
+        reject(error);
+      })
   })
 }
 

@@ -1,8 +1,8 @@
 <template style="margin-left:12%;margin-right: 12%">
-  <div class="divstyle">
-    <img class="imgsty" style="float: left" src="@/assets/logo11.png">
-    <div class="header_sty">
-      <span class="spanstyle">教育部学科评估管理系统</span>
+  <div class="div-style">
+    <img class="img-style" style="float: left" src="@/assets/logo11.png">
+    <div class="header-sty">
+      <span class="span-style">教育部学科评估管理系统</span>
       <el-button size="mini" style="float: right" @click="$router.push('/login')"> 登录</el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
@@ -37,19 +37,19 @@
 </script>
 
 <style scoped>
-  .imgsty {
+  .img-style {
     width: 10%;
     top: 0;
   }
 
-  .spanstyle {
+  .span-style {
     font-weight: bold;
     font-size: 25px;
     position: relative;
     color: black;
   }
 
-  .header_sty {
+  .header-sty {
     margin: 10px 0 0 12%;
   }
 
@@ -60,7 +60,7 @@
     text-align: center;
   }
 
-  .divstyle {
+  .div-style {
     width: 80%;
     background: white;
     margin: 0 9%;
