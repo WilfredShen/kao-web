@@ -16,7 +16,8 @@
             v-for="item in options"
             :key="item.value"
             :label="item.label"
-            :value="item.value">
+            :value="item.value"
+          :disabled="item.disabled">
           </el-option>
         </el-select>
       </div>
@@ -113,13 +114,15 @@
     data() {
       return {
         options: [
-          //   {
-          //   value: "1",
-          //   label: "第一轮"
-          // }, {
-          //   value: "2",
-          //   label: "第二轮"
-          // },
+            {
+            value: "1",
+            label: "第一轮",
+              disabled: true
+          }, {
+            value: "2",
+            label: "第二轮",
+            disabled: true
+          },
           {
             value: "3",
             label: "第三轮"
@@ -315,7 +318,6 @@
   }
 
   .marg {
-
     margin: 10px 20px;
   }
 
