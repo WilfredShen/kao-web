@@ -309,6 +309,8 @@
       this.getSchoollist();
       this.getMajorListall();
     },
+    created() {
+    }
   }
 </script>
 

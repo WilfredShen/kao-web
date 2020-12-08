@@ -163,7 +163,7 @@
               }
             })
         }
-        this.items[5].content = this.identity;
+
         location.reload();
       }
     },

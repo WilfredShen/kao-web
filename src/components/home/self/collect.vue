@@ -30,25 +30,42 @@
   export default {
     data() {
       return {
-        school_collect: [{
-          school_id_name: '01湖南大学',
-          major_id_name: '01软件工程',
-        }, {
-          school_id_name: '02中南大学',
-          major_id_name: '01软件工程',
-        }],
-        teacher_collect: [{
-          school_id_name: '01湖南大学',
-          teacher_name: '边耐政',
-          tel: '135-12341234',
-          address: '湖南省长沙市',
-        }, {
-          school_id_name: '01湖南大学',
-          teacher_name: '戴牡红',
-          tel: '135-12341234',
-          address: '湖南省长沙市',
-        }]
+        school_collect: [],
+        teacher_collect: [],
       }
+    },
+    created() {
+      this.$axios.get("/api/favor/q/major")
+        .then(res => {
+          console.log(res.data);
+          let item = res.data.data;
+          for (let i = 0; i < item.length; i++) {
+            this.school_collect.push({
+              'school_id_name': item.cid + " " + item.cname,
+              'major_id_name': item.mid + " " + item.mname,
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+
+      this.$axios.get("/api/favor/q/major")
+        .then(res => {
+          console.log(res.data);
+          let item = res.data.data;
+          for (let i = 0; i < item.length; i++) {
+            this.teacher_collect.push({
+              'school_id_name': item.cid + " " + item.cname,
+              'teacher_name': item.name,
+              'tel': item.contactPhone,
+              'address': item.contactEmail,
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 </script>
