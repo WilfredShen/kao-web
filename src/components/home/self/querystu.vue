@@ -4,9 +4,9 @@
       <div>
         <div class="selection">
           <p>毕业时间：</p>
-          <el-date-picker class="datepick" type="year" placeholder="起"></el-date-picker>
+          <el-date-picker class="DatePick" type="year" placeholder="起" v-model="BeginY"></el-date-picker>
           <p style="margin-left: 10px;margin-right: 10px">—</p>
-          <el-date-picker class="datepick" type="year" placeholder="止"></el-date-picker>
+          <el-date-picker class="DatePick" type="year" placeholder="止" v-model="EndY"></el-date-picker>
         </div>
         <div class="selection">
           <p>本科高校：</p>
@@ -39,7 +39,7 @@
           <div class="selection" style="width: 20%">
             <el-button>导出为EXCEL</el-button>
             <el-button>导出为CSV</el-button>
-            <el-button>打印</el-button>
+            <el-button @click="test()">打印</el-button>
           </div>
         </div>
       </div>
@@ -60,12 +60,22 @@
 
 <script>
   export default {
-    name: ""
+    data(){
+      return{
+        BeginY:'',
+        EndY:'',
+      }
+    },
+    methods:{
+      test(){
+        console.log(this.BeginY+" "+this.EndY);
+      }
+    }
   }
 </script>
 
 <style scoped>
-  .datepick {
+  .DatePick {
     width: 150px;
   }
 

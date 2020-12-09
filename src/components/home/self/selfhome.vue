@@ -2,11 +2,22 @@
   <div style="padding: 40px 10px 10px 10px">
     <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;width: 60%;height: 550px">
       <p>最近消息：</p>
-      <el-table :data="tabledata" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
-        <el-table-column prop="focus_school" label="关注的高校" align="center"></el-table-column>
-        <el-table-column prop="info_type" label="信息类型" align="center"></el-table-column>
-        <el-table-column prop="up_date" label="更新日期" align="center"></el-table-column>
-      </el-table>
+      <div style="width: 100%">
+        <table style="width: 100%">
+          <tr>
+            <th class="myth" style="height: 80px;text-align: center;">关注的高校</th>
+            <th class="myth">信息类型</th>
+            <th class="myth">新闻链接</th>
+            <th class="myth">更新日期</th>
+          </tr>
+          <tr v-for="(item,index) in tableData" :key="index" v-bind:class="index%2!==0 ? 'change-color' : ''">
+            <td class="tds">{{item.focus_school}}</td>
+            <td class="tds">{{item.info_type}}</td>
+            <td class="tds"><a :href="'http://'+item.link_to">链接</a></td>
+            <td class="tds">{{item.up_date}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -15,20 +26,42 @@
   export default {
     data() {
       return {
-        tabledata: [{
-          focus_school: '湖南大学',
-          info_type: '高校新闻',
-          up_date: '2020-11-12'
-        }, {
-          focus_school: '蓝翔技术学校',
-          info_type: '夏令营',
-          up_date: '2020-11-13'
-        }]
+        tableData: []
       }
+    },
+    created() {
+      this.$axios.get("/api/favor/q/news")
+        .then(res => {
+          console.log(res)
+          let item = res.data.data;
+          for (let i = 0; i < item.length; i++) {
+            this.tableData.push({
+              'focus_school': item.cname,
+              'info_type': item.type,
+              'link_to': item.officialLink,
+              'up_date': item.Timestamp.toString()
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 </script>
 
 <style scoped>
+  .myth {
+    background-color: #eef1f6;
+  }
 
+  .change-color {
+    background-color: #eef1f6;
+  }
+
+  .tds {
+    width: 25%;
+    height: 60px;
+    text-align: center;
+  }
 </style>

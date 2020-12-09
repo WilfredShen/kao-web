@@ -101,8 +101,6 @@
                 this.$store.commit("setuid",res)
               })
 
-
-
               setTimeout(() => {
                 this.$router.push(callback.toString());
               }, 3000);
