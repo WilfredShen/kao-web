@@ -63,7 +63,7 @@ export function getSomeResult() {
 //最近新闻
 export function getLatestNews() {
   return new Promise((resolve, reject) => {
-    axios.get('/api/base/evaluation', {})
+    axios.get('/api/base/latest-news', {})
       .then((res) => {
         console.log(resolve);
         resolve(res.data);

@@ -296,7 +296,7 @@
               }
             }
           }
-          console.log("tmplist" + this.tmplist);
+          console.log("tmplist", this.tmplist);
         });
       },
       schoolclik(cid) {

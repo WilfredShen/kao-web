@@ -187,6 +187,7 @@
       }).catch((err) => {
         console.log(err)
       });
+      //显示身份选择
       console.log(this.$store.state.identify);
     },
     methods: {

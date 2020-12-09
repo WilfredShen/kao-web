@@ -3,24 +3,26 @@
     <div>
       <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always">
         <el-carousel-item>
-          <img src="@/assets/111.jpeg" alt="">
-          <h3>中国数学会再设专业分会 医学数学交叉助力健康中国——中国数学会医学数学专业委员会成立仪式在北大举行</h3>
+          <!--          <a href="http://2021.tsinghua.edu.cn/info/1002/1051.htm" target="_Blank">-->
+          <img :src="latenews[0].image" alt="">
+          <h3>{{latenews[0].title}}</h3>
+          <!--          </a>-->
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/222.jpg" alt="">
-          <h3>【致辞讲话】习近平向清华大学经济管理学院顾问委员会2020年会议致辞祝贺委员会成立20周年</h3>
+          <img :src="latenews[1].image" alt="">
+          <h3>{{latenews[1].title}}</h3>
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/333.png" alt="">
-          <h3>第四届全球华人国学大典在京举行 许倬云、陈来获终身成就奖</h3>
+          <img :src="latenews[2].image" alt="">
+          <h3>{{latenews[2].title}}</h3>
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/444.jpg" alt="">
-          <h3>助推湖南自由贸易试验区建设专家座谈会召开</h3>
+          <img :src="latenews[3].image" alt="">
+          <h3>{{latenews[3].title}}</h3>
         </el-carousel-item>
         <el-carousel-item>
-          <img src="@/assets/555.jpg" alt="">
-          <h3>《千年学府 其命惟新》系列专题片研讨会在岳麓书院举行</h3>
+          <img :src="latenews[4].image" alt="">
+          <h3>{{latenews[4].title}}</h3>
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -30,41 +32,40 @@
         <div class="li-style">
           <a
             href="https://news.pku.edu.cn/xwzh/4caa9d0a4c1e4b1b8bce77be841ec12e.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;中国数学会再设专业分会
-            医学数学交叉助力健康中国——中国数学会医学数学专业委员会成立仪式在北大举行
-            <br/><span style="float: right">2020/12/03</span><br/>
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
+            <br/><span style="float: right">{{latenews[0].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
             href="http://2021.tsinghua.edu.cn/info/1002/1051.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;【致辞讲话】习近平向清华大学经济管理学院顾问委员会2020年会议致辞祝贺委员会成立20周年
-            <br/><span style="float: right">2020/12/04</span><br/>
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
+            <br/><span style="float: right">{{latenews[1].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24077.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;第四届全球华人国学大典在京举行 许倬云、陈来获终身成就奖
-            <br/><span style="float: right">2020/11/30</span><br/>
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
+            <br/><span style="float: right">{{latenews[2].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24039.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;助推湖南自由贸易试验区建设专家座谈会召开
-            <br/><span style="float: right">2020/11/26</span><br/>
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
+            <br/><span style="float: right">{{latenews[3].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
             href="http://news.hnu.edu.cn/info/1102/24040.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;《千年学府 其命惟新》系列专题片研讨会在岳麓书院举行
-            <br/><span style="float: right">2020/11/26</span><br/>
+            target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
+            <br/><span style="float: right">{{latenews[4].date}}</span><br/>
           </a>
         </div>
       </ul>
@@ -77,6 +78,7 @@
 
 <script>
   import evaluatedis from '@/components/home/evaluatedis.vue';
+  import {getLatestNews} from "../../assets/lib/getHomeServe";
 
   export default {
     name: 'home',
@@ -85,8 +87,18 @@
     },
     data() {
       return {
-        msg: '最新消息'
+        msg: '最新消息',
+        latenews: [],
       }
+    },
+    created() {
+      getLatestNews().then((res) => {
+        this.latenews = res.data;
+        // console.log("latenews",this.latenews);
+      })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   }
 </script>
