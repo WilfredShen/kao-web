@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="choose" style="display: flex;flex-direction: column;justify-content: space-around">
+      <p style="margin-right: 10px;padding-left: 0;font-weight: bold;font-size: 17px">筛选条件：</p>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">模糊查找 : </p>
-        <el-input size="small" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher"
+        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher"
                   @focus="cleansearch" clearable></el-input>
       </div>
       <div style="display: flex;align-items: center;">
-        <p style="margin-right: 10px;padding-left: 0">专业筛选 : </p>
-        <el-dropdown style="margin-right: 10px" size="small" split-button trigger="click"
+        <p style="margin-right: 10px;padding-left: 0">评价体系 : </p>
+        <el-dropdown style="margin-right: 10px" size="mini" split-button trigger="click"
                      @command="handleCommand">
           {{rank_sys}}
           <el-dropdown-menu slot="dropdown">
@@ -74,7 +75,7 @@
     data: function () {
       return {
         input: '',
-        rank_sys: '请选择排名体系',
+        rank_sys: '请选择评价体系',
         rank: '等级：',
         tabledata: [],
         option4: [{
@@ -121,10 +122,21 @@
       },
       //模糊查询
       fuzzySearcher() {
+        let fsinput = this.input.trim().split(/\s+/);
+        console.log("fsinput", fsinput);
         this.fsresult = [];
+        let flag = 1;
         for (let i = 0; i < this.school.length; i++) {
           let temp = this.school[i].cname;
-          if (temp.match(this.input)) {
+          for (let j = 0; j < fsinput.length; j++) {
+            flag = 1;
+            // console.log(temp.match(fsinput[j]));
+            if (temp.match(fsinput[j]) == null) {
+              flag = 0;
+              break;
+            }
+          }
+          if (flag) {
             this.fsresult.push(this.school[i]);
           }
         }
@@ -132,8 +144,44 @@
       },
       //查询按钮
       getsearch() {
-        if (this.input === "undefined" || this.input === null || this.input === "") {
-          this.$confirm('没有进行模糊查询，此操作将在所有参评学校中查询！', '提示', {
+        //sort函数
+        let compare = function (obj1, obj2) {
+          let val1 = obj1.result;
+          let val2 = obj2.result;
+          let result;
+
+          if (obj1.cid < obj2.cid) {
+            result = -1;
+          } else if (obj1.cid > obj2.cid) {
+            return 1;
+          } else {
+            if (val1[0] < val2[0]) {
+              result = -1;
+            } else if (val1[0] > val2[0]) {
+              result = 1;
+            } else {//字母相同，判断加减号
+              if (val1.length < val2.length) {
+                if (val2[1] === "+") result = 1;
+                else result = -1;
+              } else if (val1.length > val2.length) {
+                if (val1[1] === "+") result = -1;
+                else result = 1;
+              } else {
+                if (val1[1] < val2[1]) {
+                  result = -1;
+                } else if (val1[1] > val2[1]) {
+                  result = 1;
+                } else {
+                  result = 0;
+                }
+              }
+            }
+          }
+          return result;
+        };
+
+        if (this.input === "undefined" || this.input === null || this.input === "") {//没有进行模糊查询
+          this.$confirm('没有进行模糊查询，此操作将导致在所有参评学校中查询！', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -141,12 +189,16 @@
             .then(() => {
               this.afterfilter = this.evalresult;
               //筛选等级
-              console.log(this.level);
-              let list = [];
-              for (let i = 0; i < this.level.length; i++) {
-                list = list.concat(this.afterfilter.filter(item => item.result === this.level[i]));
+              console.log("level", this.level);
+
+              if (this.level.length > 0) {
+                let list = [];
+                for (let i = 0; i < this.level.length; i++) {
+                  list = list.concat(this.afterfilter.filter(item => item.result === this.level[i]));
+                }
+                this.afterfilter = list;
               }
-              this.afterfilter = list;
+
               //增加学校名称属性
               this.afterfilter.forEach(item => {
                 this.$set(item, 'cname', "")
@@ -161,11 +213,12 @@
               for (let i = 0; i < this.afterfilter.length; i++) {
                 this.afterfilter[i].mname = this.major[this.afterfilter[i].mid].mname;
               }
-              // console.log("after",this.afterfilter);
+              this.afterfilter = this.afterfilter.sort(compare);
+              console.log("after", this.afterfilter);
             })
             .catch(() => {
             })
-        } else {
+        } else {//进行了模糊查询
           this.afterfilter = [];
           for (let i = 0; i < this.fsresult.length; i++) {
             this.afterfilter = this.afterfilter.concat(this.evalresult.filter(item => item.cid === this.fsresult[i].cid));
@@ -195,6 +248,14 @@
             this.afterfilter[i].mname = this.major[this.afterfilter[i].mid].mname;
           }
           // console.log("after",this.afterfilter);
+
+          if (this.afterfilter.length == 0) {
+            this.$alert('无符合筛选条件的学校！', '提示', {
+              confirmButtonText: '确定',
+            });
+          } else {
+            this.afterfilter = this.afterfilter.sort(compare);
+          }
         }
       },
       cleansearch() {
@@ -245,7 +306,7 @@
 <style scoped>
   .choose, .result {
     border: solid 1px darkgrey;
-    padding: 35px 20px 35px 20px;
+    padding: 5px 20px 5px 20px;
   }
 
   .grid-content {
