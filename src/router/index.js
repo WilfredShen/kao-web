@@ -34,11 +34,6 @@ export default new VueRouter({
       component: () => import('@/components/forgot')
     },
     {
-      path: '/infodemo',
-      name: 'InfoDemo',
-      component: () => import('@/components/demo/info-demo'),
-    },
-    {
       path: '/',
       component: () => import('@/components/home/header'),
       children: [

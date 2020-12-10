@@ -56,8 +56,8 @@
         </el-row>
         <el-table :data="mapresult" stripe style="width: 100%">
           <el-scrollbar style="height: 100px">
-          <el-table-column label="地区" prop="name" align="center"></el-table-column>
-          <el-table-column label="人数" prop="value" align="center"></el-table-column>
+            <el-table-column label="地区" prop="name" align="center"></el-table-column>
+            <el-table-column label="人数" prop="value" align="center"></el-table-column>
           </el-scrollbar>
         </el-table>
       </div>
