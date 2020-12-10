@@ -13,11 +13,11 @@
         </span>
         <el-select v-model="sround" placeholder="请选择" size="mini">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          :disabled="item.disabled">
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled">
           </el-option>
         </el-select>
       </div>
@@ -28,10 +28,10 @@
         </span>
         <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorlist">
           <el-option
-            v-for="item in disciplines"
-            :key="item.did"
-            :label="item.dname"
-            :value="item.did">
+              v-for="item in disciplines"
+              :key="item.did"
+              :label="item.dname"
+              :value="item.did">
           </el-option>
         </el-select>
       </div>
@@ -42,10 +42,10 @@
         </span>
         <el-select v-model="majorCode" placeholder="请选择" size="mini">
           <el-option
-            v-for="item in majors"
-            :key="item.mid"
-            :label="item.mid+item.mname"
-            :value="item.mid">
+              v-for="item in majors"
+              :key="item.mid"
+              :label="item.mid+item.mname"
+              :value="item.mid">
           </el-option>
         </el-select>
       </div>
@@ -56,10 +56,10 @@
         </span>
         <el-select v-model="level" multiple placeholder="请选择" size="mini">
           <el-option
-            v-for="item in option4"
-            :key="item.value4"
-            :label="item.value4"
-            :value="item.label4"
+              v-for="item in option4"
+              :key="item.value4"
+              :label="item.value4"
+              :value="item.label4"
           >
           </el-option>
         </el-select>
@@ -96,7 +96,9 @@
       </div>
     </div>
     <div style="float:right;margin-top: 10px">
-      <el-button size="medium" round>一键收藏</el-button>
+      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setfavormajor()"
+                 style="margin-left:10px">一键收藏
+      </el-button>
     </div>
     <div style="float:right;margin-right:5px;margin-top:10px">
       <el-button size="medium" round>打印</el-button>
@@ -106,22 +108,26 @@
 </template>
 
 <script>
-  import {disciplineList, majorList, schoolList, getEvaluationList} from '../../assets/lib/getResultLjm'
-
+  import {
+    disciplineList,
+    majorList,
+    schoolList,
+    getEvaluationList,
+    setfavouritemajor
+  } from '../../assets/lib/getResultLjm'
 
   export default {
     name: "evaluateresult",
     data() {
       return {
         options: [
-            {
+          {
             value: "1",
             label: "第一轮",
-              disabled: true
+            disabled: true
           }, {
             value: "2",
             label: "第二轮",
-            disabled: true
           },
           {
             value: "3",
@@ -173,18 +179,8 @@
         majorCode: "",//学科代码
         level: [], //等级数组
         tmplist: [],
-        /*
-       evaluation:
-      {    mid:"",
-             mname:"",
-             cid:"",
-             cname:"",
-             level:""
-      }
-      evaluations:[
-
-       ] //查询出的评估结果
-     */
+        isidentity: "",
+        favormajors: [],
       }
     },
     methods: {
@@ -232,6 +228,7 @@
       getTmpResults() {
         getEvaluationList(this.sround).then(res => {
           this.tmplist = [];
+          this.favormajors = [];
           for (let i = 0; i < res.length; i++) {
             //         console.log("majorcode"+this.majorCode);
             //        console.log("resmid"+res[i].mid);
@@ -296,20 +293,45 @@
               }
             }
           }
-          console.log("tmplist", this.tmplist);
+          console.log("tmplist" + this.tmplist);
+          if (this.tmplist.length <= 0) {
+            this.$message("无数据")
+          }
+          for (let i = 0; i < this.tmplist.length; i++) {
+            this.favormajors.push({
+              majorCid: this.tmplist[i].cid,
+              majorMid: this.tmplist[i].mid,
+            });
+          }
         });
+      },
+      setfavormajor() {
+        setfavouritemajor(this.favormajors).then(res => {
+          //  console.log(res);
+          console.log("状态码" + res.status);
+          if (res.status === 200) {
+            console.log("全部收藏成功！");
+            this.$message("全部收藏成功！");
+
+          } else if (res.status === 400) {
+            console.log("收藏失败！");
+            this.$message("收藏失败！");
+          } else if (res.status === 1090) {
+            console.log("部分收藏成功！");
+            this.$message("部分收藏成功！")
+          }
+        })
       },
       schoolclik(cid) {
         localStorage.setItem('schoolcid', cid);
         this.$router.push({path: '/school'})
       },
     },
-    mounted() {
+    created() {
       this.getDisciplinelist();
       this.getSchoollist();
       this.getMajorListall();
-    },
-    created() {
+      this.isidentity = this.$store.state.uid;
     }
   }
 </script>

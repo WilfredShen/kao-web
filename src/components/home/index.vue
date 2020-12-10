@@ -31,40 +31,40 @@
       <ul style="font-size: 13px">
         <div class="li-style">
           <a
-            href="https://news.pku.edu.cn/xwzh/4caa9d0a4c1e4b1b8bce77be841ec12e.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
+              href="https://news.pku.edu.cn/xwzh/4caa9d0a4c1e4b1b8bce77be841ec12e.htm"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
             <br/><span style="float: right">{{latenews[0].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            href="http://2021.tsinghua.edu.cn/info/1002/1051.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
+              href="http://2021.tsinghua.edu.cn/info/1002/1051.htm"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
             <br/><span style="float: right">{{latenews[1].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24077.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
+              href="http://news.hnu.edu.cn/info/1102/24077.htm"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
             <br/><span style="float: right">{{latenews[2].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24039.htm"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
+              href="http://news.hnu.edu.cn/info/1102/24039.htm"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
             <br/><span style="float: right">{{latenews[3].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24040.htm"
-            target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
+              href="http://news.hnu.edu.cn/info/1102/24040.htm"
+              target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
             <br/><span style="float: right">{{latenews[4].date}}</span><br/>
           </a>
         </div>
