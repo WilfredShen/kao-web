@@ -22,13 +22,14 @@
         <div class="selection">
 
           <p>本科学类：</p>
-            <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
-              <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
-            </el-select>
+          <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
+            <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
+          </el-select>
 
           <p>本科专业：</p>
           <el-select v-model="major" filterable placeholder="请选择">
-            <el-option v-for="item in majors" :key="item.mid" :value="item.mname" :label="item.mid+item.mname"></el-option>
+            <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
+                       :label="item.mid+item.mname"></el-option>
           </el-select>
 
         </div>
@@ -37,10 +38,11 @@
           <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
             <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
           </el-select>
-<!--          collapse-tags multiple-->
+          <!--          collapse-tags multiple-->
           <p>预期专业：</p>
-          <el-select v-model="exMajor"  filterable  placeholder="请选择">
-            <el-option v-for="item in majors" :key="item.mid" :value="item.mname" :label="item.mid+item.mname"></el-option>
+          <el-select v-model="exMajor" filterable placeholder="请选择">
+            <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
+                       :label="item.mid+item.mname"></el-option>
           </el-select>
         </div>
         <div class="selection">
@@ -71,94 +73,94 @@
 
 <script>
 
-  import {majorList,disciplineList} from "../../../assets/lib/getResultLjm";
+  import {majorList, disciplineList} from "../../../assets/lib/getResultLjm";
   import xlsx from "xlsx";
 
   export default {
-    data(){
-      return{
-        BeginY:'',
-        EndY:'',
-        SchLevel:'请选择',
-        Stu_info:[],
-        disciplines:[],//学类
-        majors:[],//专业
-        discipline:'',//选择的学类
+    data() {
+      return {
+        BeginY: '',
+        EndY: '',
+        SchLevel: '请选择',
+        Stu_info: [],
+        disciplines: [],//学类
+        majors: [],//专业
+        discipline: '',//选择的学类
         // major:[],//选择的专业
-        major:'',
-        exDiscipline:'',//预期学类
+        major: '',
+        exDiscipline: '',//预期学类
         // exMajor:[]//预期专业
-        exMajor:'',
+        exMajor: '',
       }
     },
-    methods:{
-      handleSchField(command){
+    methods: {
+      handleSchField(command) {
         this.SchLevel = command;
       },
-      getDisciplines(){
+      getDisciplines() {
         disciplineList()
-        .then(res=>{
-          console.log(res);
-          this.disciplines = res;
-        })
-        .catch(err=>{
-          console.log(err);
-        })
+          .then(res => {
+            console.log(res);
+            this.disciplines = res;
+          })
+          .catch(err => {
+            console.log(err);
+          })
       },
       getMajors(id) {
         this.majors = [];
         majorList()
-        .then(res=>{
-          console.log(res);
-          for (let i=0;i<res.length;i++){
-            if (res[i].did === id){
-              this.majors.push(res[i]);
+          .then(res => {
+            console.log(res);
+            for (let i = 0; i < res.length; i++) {
+              if (res[i].did === id) {
+                this.majors.push(res[i]);
+              }
             }
-          }
-        })
-        .catch(error=>{
-          console.log(error)
-        })
+          })
+          .catch(error => {
+            console.log(error)
+          })
       },
-      myScreen(){
-        console.log("major len = "+this.major.length);
+      myScreen() {
+        console.log("major len = " + this.major.length);
         console.log(this.major[0])
-        this.$axios.get("/api/tutor/get_queryableStu_msg",{
-          params:{
-            'beginDate':this.BeginY,
-            'endDate':this.EndY,
-            'collegeLevel':this.SchLevel,
-            'major':this.major,
-            'expectedMajor':this.exMajor
+        this.$axios.get("/api/tutor/get_queryableStu_msg", {
+          params: {
+            'beginDate': this.BeginY,
+            'endDate': this.EndY,
+            'collegeLevel': this.SchLevel,
+            'major': this.major,
+            'expectedMajor': this.exMajor
           }
-        }).then(res=>{
+        }).then(res => {
           console.log(res);
           let items = res.data.data;
-          for (let i=0;i<items.length;i++){
+          for (let i = 0; i < items.length; i++) {
             this.Stu_info.push({
-              'name':items[i].name,
-              'school':items[i].college,
-              'major':items[i].major,
-              'exMajor':items[i].expectedMajor,
-              'tel':items[i].phone,
-              'email':items[i].email
+              'name': items[i].name,
+              'school': items[i].college,
+              'major': items[i].major,
+              'exMajor': items[i].expectedMajor,
+              'tel': items[i].phone,
+              'email': items[i].email
             })
           }
-        }).catch(err=>{
-          console.log("查询学生报错"+err);
+        }).catch(err => {
+          console.log("查询学生报错" + err);
         })
       },
       exportEXCEL(type) {
         console.log("进入了导出EXCEL函数")
         let arr;
-        arr = this.Stu_info.map(item=>{
-          return{
-            "姓名":item.name,
-            "学校":item.school,
-            "本科专业":item.major,
-            "预期专业":item.exMajor,
-            "联系电话":item.tel,
-            "邮箱地址":item.email
+        arr = this.Stu_info.map(item => {
+          return {
+            "姓名": item.name,
+            "学校": item.school,
+            "本科专业": item.major,
+            "预期专业": item.exMajor,
+            "联系电话": item.tel,
+            "邮箱地址": item.email
           }
         })
 

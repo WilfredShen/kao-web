@@ -50,7 +50,7 @@
         varified: '',
         accountType: '',
         items: [
-          {label: '用户ID：',content: '',},
+          {label: '用户ID：', content: '',},
           {label: '用户名：', content: '',},
           {label: '手机号码：', content: '',},
           {label: '邮箱地址：', content: '',},
@@ -146,8 +146,8 @@
             })
         }
 
-        getLimit().then(res=>{
-          this.$store.commit("setlimit",res);
+        getLimit().then(res => {
+          this.$store.commit("setlimit", res);
         })
 
         location.reload();

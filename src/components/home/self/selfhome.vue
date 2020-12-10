@@ -39,7 +39,7 @@
               'focus_school': item[i].cname,
               'info_type': item[i].type,
               'link_to': item[i].officialLink,
-              'up_date': item[i].updateTime.substring(0,10)
+              'up_date': item[i].updateTime.substring(0, 10)
             })
           }
         })

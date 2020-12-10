@@ -25,67 +25,67 @@
 
 <script>
 
-  import {updateTeaInfo,updateUserInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateTeaInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
       return {
         ismodify: true,
-        newphone:'',
-        newemail:'',
-        newcollege:'',
-        newmajor:'',
-        newresearch:'',
+        newphone: '',
+        newemail: '',
+        newcollege: '',
+        newmajor: '',
+        newresearch: '',
         items: [
-          {label: '联系电话：',content:''},
-          {label: '邮箱地址：',content:''},
-          {label: '姓名：',content:''},
-          {label: '年龄：',content:''},
-          {label: '性别：',content:''},
-          {label: '所属院校：',content:''},
-          {label: '所属专业：',content:''},
-          {label: '研究方向：',content:''},
+          {label: '联系电话：', content: ''},
+          {label: '邮箱地址：', content: ''},
+          {label: '姓名：', content: ''},
+          {label: '年龄：', content: ''},
+          {label: '性别：', content: ''},
+          {label: '所属院校：', content: ''},
+          {label: '所属专业：', content: ''},
+          {label: '研究方向：', content: ''},
         ]
       }
     },
-    methods:{
+    methods: {
       modify() {
         this.ismodify = !this.ismodify;
       },
       cancleModify() {
         this.ismodify = !this.ismodify;
       },
-      commitModify(){
-        let pphone,pemail,pcollege,pmajor,presearch;
+      commitModify() {
+        let pphone, pemail, pcollege, pmajor, presearch;
         pphone = this.newphone === '' ? this.items[0].content : this.newphone;
         pemail = this.newemail === '' ? this.items[1].content : this.newemail;
         pcollege = this.newcollege === '' ? this.items[5].content : this.newcollege;
         pmajor = this.newmajor === '' ? this.items[6].content : this.newmajor;
         presearch = this.newresearch === '' ? this.items[7].content : this.newresearch;
-        updateTeaInfo(pphone,pemail,pcollege,pmajor,presearch)
-        .then(res=>{
-          console.log(res);
-          this.ismodify = !this.ismodify;
-          this.newphone = '';
-          this.newemail = '';
-          this.newcollege = '';
-          this.newmajor = '';
-          this.newresearch = '';
-          this.setTeoInfo();
-        })
+        updateTeaInfo(pphone, pemail, pcollege, pmajor, presearch)
+          .then(res => {
+            console.log(res);
+            this.ismodify = !this.ismodify;
+            this.newphone = '';
+            this.newemail = '';
+            this.newcollege = '';
+            this.newmajor = '';
+            this.newresearch = '';
+            this.setTeoInfo();
+          })
 
-        updateUserInfo(pphone,pemail)
-        .then(res=>{
-          console.log(res);
-        })
-        .catch(err=>{
-          console.log("研究生秘书修改基本信息有问题"+err);
-        })
+        updateUserInfo(pphone, pemail)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log("研究生秘书修改基本信息有问题" + err);
+          })
       },
-      setTeoInfo(){
+      setTeoInfo() {
         this.$axios.get("/api/tutor/get_tutor_msg")
           .then(res => {
-            console.log("teainfo = "+res);
+            console.log("teainfo = " + res);
             let item = res.data.data;
             this.items[0].content = item.phone;
             this.items[1].content = item.email;

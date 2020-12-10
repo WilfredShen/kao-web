@@ -42,27 +42,27 @@
 
 <script>
 
-  import {getUserName,getLimit} from '../../assets/lib/getAndSetSelf'
+  import {getUserName, getLimit} from '../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
       return {
-        username:'',
-        isstu:false,
-        istut:false,
+        username: '',
+        isstu: false,
+        istut: false,
         imgurl: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       }
     },
     created() {
-      getUserName().then(res=>{
-        console.log("获得的用户名"+res);
+      getUserName().then(res => {
+        console.log("获得的用户名" + res);
         this.username = res;
       });
-      getLimit().then(res=>{
-        console.log("获得的权限"+res);
-        if (res==='student'){
+      getLimit().then(res => {
+        console.log("获得的权限" + res);
+        if (res === 'student') {
           this.isstu = true;
-        }else if (res==='tutor'){
+        } else if (res === 'tutor') {
           this.istut = true;
         }
       })
@@ -77,7 +77,7 @@
     width: 100px;
   }
 
-  #selfhome, #basicinfo, #collect, #stuinfo, #teainfo, #querystu ,#tohome{
+  #selfhome, #basicinfo, #collect, #stuinfo, #teainfo, #querystu, #tohome {
     margin: 20px 0 0 25px;
   }
 </style>

@@ -12,7 +12,9 @@
           <tr v-for="(item,index) in school_collect" :key="index" v-bind:class="index%2!==0?'change-color':''">
             <td class="tds">{{item.school_id_name}}</td>
             <td class="tds">{{item.major_id_name}}</td>
-            <td class="tds"><el-button @click="cancle(index)">取消收藏</el-button></td>
+            <td class="tds">
+              <el-button @click="cancle(index)">取消收藏</el-button>
+            </td>
           </tr>
         </table>
       </div>
@@ -25,37 +27,37 @@
     data() {
       return {
         school_collect: [],
-        cids:[],
-        mids:[]
+        cids: [],
+        mids: []
       }
     },
-    methods:{
-      cancle(index){
-        console.log("index = "+index);
+    methods: {
+      cancle(index) {
+        console.log("index = " + index);
         console.log(this.cids[index]);
         console.log(this.mids[index]);
-        this.$axios.post("/api/favor/d/major",{
-          'majorCid':this.cids[index],
-          'majorMid':this.mids[index]
+        this.$axios.post("/api/favor/d/major", {
+          'majorCid': this.cids[index],
+          'majorMid': this.mids[index]
         })
-        .then(res=>{
-          console.log(res);
-          this.school_collect = [];
-          this.setCollectInfo();
-        })
-        .catch(err=>{
-          console.log("取消收藏有错误"+err)
-        })
+          .then(res => {
+            console.log(res);
+            this.school_collect = [];
+            this.setCollectInfo();
+          })
+          .catch(err => {
+            console.log("取消收藏有错误" + err)
+          })
       },
-      setCollectInfo(){
+      setCollectInfo() {
         this.$axios.get("/api/favor/q/major")
           .then(res => {
             console.log(res.data);
             let item = res.data.data;
             for (let i = 0; i < item.length; i++) {
               this.school_collect.push({
-                'school_id_name': item[i].cid+" "+item[i].cname,
-                'major_id_name': item[i].mid+" "+item[i].mname,
+                'school_id_name': item[i].cid + " " + item[i].cname,
+                'major_id_name': item[i].mid + " " + item[i].mname,
               })
               this.cids.push(item[i].cid);
               this.mids.push(item[i].mid);
