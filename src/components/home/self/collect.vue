@@ -3,24 +3,18 @@
     <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">
       <div>
         <p>高校收藏列表：</p>
-        <el-table :data="school_collect" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border
-                  stripe>
-          <el-table-column prop="school_id_name" label="高校名称及代码" align="center"></el-table-column>
-          <el-table-column prop="major_id_name" label="专业名称及代码" align="center"></el-table-column>
-          <el-table-column label="取消收藏" align="center"></el-table-column>
-        </el-table>
-      </div>
-      <el-divider></el-divider>
-      <div>
-        <p>导师收藏列表：</p>
-        <el-table :data="teacher_collect" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border
-                  stripe>
-          <el-table-column prop="school_id_name" label="高校名称及代码" align="center"></el-table-column>
-          <el-table-column prop="teacher_name" label="导师姓名" align="center"></el-table-column>
-          <el-table-column prop="tel" label="联系电话" align="center"></el-table-column>
-          <el-table-column prop="address" label="邮箱地址" align="center"></el-table-column>
-          <el-table-column label="取消收藏" align="center"></el-table-column>
-        </el-table>
+        <table style="width: 100%">
+          <tr>
+            <th class="myth">高校名称及代码</th>
+            <th class="myth">专业名称及代码</th>
+            <th class="myth">取消收藏</th>
+          </tr>
+          <tr v-for="(item,index) in school_collect" :key="index" v-bind:class="index%2!==0?'change-color':''">
+            <td class="tds">{{item.school_id_name}}</td>
+            <td class="tds">{{item.major_id_name}}</td>
+            <td class="tds"><el-button @click="cancle(index)">取消收藏</el-button></td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -31,45 +25,68 @@
     data() {
       return {
         school_collect: [],
-        teacher_collect: [],
+        cids:[],
+        mids:[]
       }
     },
-    created() {
-      this.$axios.get("/api/favor/q/major")
-        .then(res => {
-          console.log(res.data);
-          let item = res.data.data;
-          for (let i = 0; i < item.length; i++) {
-            this.school_collect.push({
-              'school_id_name': item.cid + " " + item.cname,
-              'major_id_name': item.mid + " " + item.mname,
-            })
-          }
+    methods:{
+      cancle(index){
+        console.log("index = "+index);
+        console.log(this.cids[index]);
+        console.log(this.mids[index]);
+        this.$axios.post("/api/favor/d/major",{
+          'majorCid':this.cids[index],
+          'majorMid':this.mids[index]
         })
-        .catch(error => {
-          console.log(error);
+        .then(res=>{
+          console.log(res);
+          this.school_collect = [];
+          this.setCollectInfo();
         })
+        .catch(err=>{
+          console.log("取消收藏有错误"+err)
+        })
+      },
+      setCollectInfo(){
+        this.$axios.get("/api/favor/q/major")
+          .then(res => {
+            console.log(res.data);
+            let item = res.data.data;
+            for (let i = 0; i < item.length; i++) {
+              this.school_collect.push({
+                'school_id_name': item[i].cid+" "+item[i].cname,
+                'major_id_name': item[i].mid+" "+item[i].mname,
+              })
+              this.cids.push(item[i].cid);
+              this.mids.push(item[i].mid);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
+    },
 
-      this.$axios.get("/api/favor/q/major")
-        .then(res => {
-          console.log(res.data);
-          let item = res.data.data;
-          for (let i = 0; i < item.length; i++) {
-            this.teacher_collect.push({
-              'school_id_name': item.cid + " " + item.cname,
-              'teacher_name': item.name,
-              'tel': item.contactPhone,
-              'address': item.contactEmail,
-            })
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        })
+    created() {
+      this.setCollectInfo();
     }
   }
 </script>
 
 <style scoped>
+  .myth {
+    height: 80px;
+    text-align: center;
+    background-color: #eef1f6;
+  }
 
+  .change-color {
+    background-color: #eef1f6;
+  }
+
+  .tds {
+    width: 25%;
+    height: 60px;
+    text-align: center;
+  }
 </style>

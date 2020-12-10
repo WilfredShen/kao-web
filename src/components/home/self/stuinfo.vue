@@ -27,7 +27,7 @@
 
 <script>
 
-  import {updateStuInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateStuInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -68,21 +68,29 @@
         pgradt = this.newgradt === '' ? this.items[7].content : this.newgradt;
         pexpm = this.newexpect === '' ? this.items[8].content : this.newexpect;
         let uid = this.$store.state.uid;
-        updateStuInfo(uid,pphone,pemail,pcollege,pmajor,pexpm,pgradt)
-        .then(res=>{
-          console.log(res);
-          this.ismodify = !this.ismodify;
-          this.newphone = '';
-          this.newemail = '';
-          this.newcollege = '';
-          this.newmajor = '';
-          this.newgradt = '';
-          this.newexpect = '';
-          this.setStuInfo();
-        })
-        .catch(error=>{
-          console.log("stu info 有问题"+error)
-        })
+        updateStuInfo(uid, pphone, pemail, pcollege, pmajor, pexpm, pgradt)
+          .then(res => {
+            console.log(res);
+            this.ismodify = !this.ismodify;
+            this.newphone = '';
+            this.newemail = '';
+            this.newcollege = '';
+            this.newmajor = '';
+            this.newgradt = '';
+            this.newexpect = '';
+            this.setStuInfo();
+          })
+          .catch(error => {
+            console.log("stu info 有问题" + error)
+          });
+
+        updateUserInfo(pphone, pemail)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log("学生修改基本信息有问题" + err)
+          })
       },
       setStuInfo() {
         this.$axios.get("/api/stu/get_stu_info", {
@@ -103,7 +111,7 @@
             this.items[7].content = item.graduationDate;
             this.items[8].content = item.expectedMajor;
           }).catch(error => {
-          console.log(error);
+          console.log("学生信息请求失败" + error);
         })
       },
     },

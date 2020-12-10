@@ -25,7 +25,7 @@
 
 <script>
 
-  import {updateTeaInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateTeaInfo,updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -72,6 +72,14 @@
           this.newmajor = '';
           this.newresearch = '';
           this.setTeoInfo();
+        })
+
+        updateUserInfo(pphone,pemail)
+        .then(res=>{
+          console.log(res);
+        })
+        .catch(err=>{
+          console.log("研究生秘书修改基本信息有问题"+err);
         })
       },
       setTeoInfo(){
