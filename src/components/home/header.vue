@@ -18,9 +18,6 @@
         <router-link to="/campcard" class="nav-i">
           <el-menu-item>夏令营</el-menu-item>
         </router-link>
-        <router-link to="/" class="nav-i">
-          <el-menu-item>九月推免</el-menu-item>
-        </router-link>
         <router-link to="/analysis" class="nav-i">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
@@ -53,6 +50,8 @@
           this.istut = true;
         }
       })
+      //获取夏令营信息
+      this.$store.dispatch('getCamps');
     }
   }
 </script>

@@ -75,6 +75,8 @@
           this.newemail = '';
           this.setSelfInfo();
         })
+
+
       },
       cancleModify() {
         this.ismodify = !this.ismodify;
