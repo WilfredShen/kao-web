@@ -35,7 +35,7 @@
 
 <script>
   import axios from 'axios';
-  import {updateUserInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateUserInfo, getLimit} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -50,30 +50,12 @@
         varified: '',
         accountType: '',
         items: [
-          {
-            label: '用户ID：',
-            content: '',
-          },
-          {
-            label: '用户名：',
-            content: '',
-          },
-          {
-            label: '手机号码：',
-            content: '',
-          },
-          {
-            label: '邮箱地址：',
-            content: '',
-          },
-          {
-            label: '实名认证：',
-            content: '',
-          },
-          {
-            label: '身份认证：',
-            content: '',
-          },
+          {label: '用户ID：', content: '',},
+          {label: '用户名：', content: '',},
+          {label: '手机号码：', content: '',},
+          {label: '邮箱地址：', content: '',},
+          {label: '实名认证：', content: '',},
+          {label: '身份认证：', content: '',},
         ]
       }
     },
@@ -93,6 +75,8 @@
           this.newemail = '';
           this.setSelfInfo();
         })
+
+
       },
       cancleModify() {
         this.ismodify = !this.ismodify;
@@ -163,6 +147,10 @@
               }
             })
         }
+
+        getLimit().then(res => {
+          this.$store.commit("setlimit", res);
+        })
 
         location.reload();
       }

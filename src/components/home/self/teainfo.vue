@@ -25,7 +25,7 @@
 
 <script>
 
-  import {updateTeaInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateTeaInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -73,11 +73,18 @@
             this.newresearch = '';
             this.setTeoInfo();
           })
+        updateUserInfo(pphone, pemail)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log("研究生秘书修改基本信息有问题" + err);
+          })
       },
       setTeoInfo() {
         this.$axios.get("/api/tutor/get_tutor_msg")
           .then(res => {
-            console.log("teainfo = ", res);
+            console.log("teainfo = " + res);
             let item = res.data.data;
             this.items[0].content = item.phone;
             this.items[1].content = item.email;

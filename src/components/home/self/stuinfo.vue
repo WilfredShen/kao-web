@@ -27,7 +27,7 @@
 
 <script>
 
-  import {updateStuInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateStuInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
     data() {
@@ -82,6 +82,14 @@
           })
           .catch(error => {
             console.log("stu info 有问题" + error)
+          });
+
+        updateUserInfo(pphone, pemail)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log("学生修改基本信息有问题" + err)
           })
       },
       setStuInfo() {
@@ -103,7 +111,7 @@
             this.items[7].content = item.graduationDate;
             this.items[8].content = item.expectedMajor;
           }).catch(error => {
-          console.log(error);
+          console.log("学生信息请求失败" + error);
         })
       },
     },

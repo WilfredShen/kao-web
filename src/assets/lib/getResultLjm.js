@@ -69,3 +69,17 @@ export function schoolDetail(cid) {
       })
   })
 }
+
+export function setfavouritemajor(favorlist) {
+  console.log("favor" + favorlist)
+  return new Promise((resolve, reject) => {
+    axios.post("/api/favor/p/major", favorlist)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+        console.log("获取失败！")
+      })
+  })
+}

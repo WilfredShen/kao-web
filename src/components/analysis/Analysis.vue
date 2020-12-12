@@ -127,7 +127,7 @@
       },
       handleSchField(command) {
         this.schfiled = command;
-        this.$message('click on schfiled ' + this.schfiled);
+        // this.$message('click on schfiled ' + this.schfiled);
       },
       //根据选项选择展示内容
       contains(arr, obj) {

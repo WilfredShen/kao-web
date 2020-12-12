@@ -13,7 +13,7 @@
           <tr v-for="(item,index) in tableData" :key="index" v-bind:class="index%2!==0 ? 'change-color' : ''">
             <td class="tds">{{item.focus_school}}</td>
             <td class="tds">{{item.info_type}}</td>
-            <td class="tds"><a :href="'http://'+item.link_to">链接</a></td>
+            <td class="tds"><a :href="item.link_to" target="_blank">链接</a></td>
             <td class="tds">{{item.up_date}}</td>
           </tr>
         </table>
@@ -36,10 +36,10 @@
           let item = res.data.data;
           for (let i = 0; i < item.length; i++) {
             this.tableData.push({
-              'focus_school': item.cname,
-              'info_type': item.type,
-              'link_to': item.officialLink,
-              'up_date': item.Timestamp.toString()
+              'focus_school': item[i].cname,
+              'info_type': item[i].type,
+              'link_to': item[i].officialLink,
+              'up_date': item[i].updateTime.substring(0, 10)
             })
           }
         })
