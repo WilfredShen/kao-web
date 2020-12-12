@@ -73,7 +73,6 @@
             this.newresearch = '';
             this.setTeoInfo();
           })
-
         updateUserInfo(pphone, pemail)
           .then(res => {
             console.log(res);

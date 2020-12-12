@@ -69,7 +69,7 @@
         postemail = this.newemail === '' ? null : this.newemail;
 
         updateUserInfo(postphone, postemail).then(res => {
-          console.log(res);
+          console.log("修改成功", res);
           this.ismodify = !this.ismodify;
           this.newphone = '';
           this.newemail = '';

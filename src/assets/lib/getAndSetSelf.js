@@ -87,7 +87,7 @@ export function updateUserInfo(postphone, postemail) {
       'accountType': null,
     })
       .then(res => {
-        console.log(res.status);
+        console.log("成功", res);
         resolve(res.status);
       })
       .catch(error => {

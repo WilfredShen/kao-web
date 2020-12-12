@@ -37,8 +37,14 @@
       <el-footer>
         <div style="text-align: right">
           <router-link
-              :to="{ path: '/register'}"
-              style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
+            :to="{ path: '/a/login'}"
+            style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
+          >
+            管理员登录
+          </router-link>
+          <router-link
+            :to="{ path: '/register'}"
+            style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
           >
             注册账号
           </router-link>

@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     realname: '尚未实名认证',
     isstu: false,//是学生身份
     istut: false,//是研究生身份
+    ismanager: false,//是管理员身份
     camps:[],
   },
   mutations: {

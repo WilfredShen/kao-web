@@ -13,11 +13,11 @@
         </span>
         <el-select v-model="sround" placeholder="请选择" size="mini">
           <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled">
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+            :disabled="item.disabled">
           </el-option>
         </el-select>
       </div>
