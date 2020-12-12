@@ -39,41 +39,41 @@ export function getLimit() {
   })
 }
 
-export function updateStuInfo(uid,phone,email,college,major,expmajor,gradt) {
+export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt) {
 
   return new Promise((resolve, reject) => {
-    axios.post("/api/stu/update_stu_info",{
-      'queryable':true,
-      'uid':uid,
-      'phoneNumber':phone,
-      'email':email,
-      'college':college,
-      'major':major,
-      'expectedMajor':expmajor,
-      'graduationDate':gradt
+    axios.post("/api/stu/update_stu_info", {
+      'queryable': true,
+      'uid': uid,
+      'phoneNumber': phone,
+      'email': email,
+      'college': college,
+      'major': major,
+      'expectedMajor': expmajor,
+      'graduationDate': gradt
     })
-      .then(res=>{
+      .then(res => {
         resolve(res);
       })
-      .catch(err=>{
+      .catch(err => {
         reject(err);
       })
   })
 }
 
-export function updateTeaInfo(phone,email,college,major,research) {
+export function updateTeaInfo(phone, email, college, major, research) {
   return new Promise((resolve, reject) => {
-    axios.post("/api/tutor/update_tutor_msg",{
-      'phoneNumber':phone,
-      'email':email,
-      'college':college,
-      'major':major,
-      'research':research
+    axios.post("/api/tutor/update_tutor_msg", {
+      'phoneNumber': phone,
+      'email': email,
+      'college': college,
+      'major': major,
+      'research': research
     })
-      .then(res=>{
+      .then(res => {
         resolve(res);
       })
-      .catch(err=>{
+      .catch(err => {
         reject(err);
       })
   })
@@ -87,7 +87,7 @@ export function updateUserInfo(postphone, postemail) {
       'accountType': null,
     })
       .then(res => {
-        console.log(res.status);
+        console.log("成功", res);
         resolve(res.status);
       })
       .catch(error => {

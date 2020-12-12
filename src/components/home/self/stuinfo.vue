@@ -68,21 +68,21 @@
         pgradt = this.newgradt === '' ? this.items[7].content : this.newgradt;
         pexpm = this.newexpect === '' ? this.items[8].content : this.newexpect;
         let uid = this.$store.state.uid;
-        updateStuInfo(uid,pphone,pemail,pcollege,pmajor,pexpm,pgradt)
-        .then(res=>{
-          console.log(res);
-          this.ismodify = !this.ismodify;
-          this.newphone = '';
-          this.newemail = '';
-          this.newcollege = '';
-          this.newmajor = '';
-          this.newgradt = '';
-          this.newexpect = '';
-          this.setStuInfo();
-        })
-        .catch(error=>{
-          console.log("stu info 有问题"+error)
-        })
+        updateStuInfo(uid, pphone, pemail, pcollege, pmajor, pexpm, pgradt)
+          .then(res => {
+            console.log(res);
+            this.ismodify = !this.ismodify;
+            this.newphone = '';
+            this.newemail = '';
+            this.newcollege = '';
+            this.newmajor = '';
+            this.newgradt = '';
+            this.newexpect = '';
+            this.setStuInfo();
+          })
+          .catch(error => {
+            console.log("stu info 有问题" + error)
+          })
       },
       setStuInfo() {
         this.$axios.get("/api/stu/get_stu_info", {

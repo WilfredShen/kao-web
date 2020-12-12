@@ -58,7 +58,7 @@
                   <div class="grid-content bg-purple">学校名称</div>
                 </el-col>
               </el-row>
-              <el-scrollbar style="height: 400px">
+              <el-scrollbar style="height: 400px" v-if="showEvaluation">
                 <div class="div-style" v-for="(item, index) in showEvaluation" :key="index">
                   <el-row style="margin-left: 13%;width: 90%">
                     <el-col :span="8">
@@ -143,6 +143,7 @@
           }
           return result;
         };
+        // console.log(Myeval.sort(compare));
         return Myeval.sort(compare)
       }
     },
@@ -181,10 +182,11 @@
       }).catch((err) => {
         console.log(err)
       });
-      getSomeResult().then((res) => {
-        this.evaluation = res.data;
-        // console.log("evaluation", this.evaluation);
-      }).catch((err) => {
+      getSomeResult()
+        .then((res) => {
+          this.evaluation = res.data;
+          // console.log("evaluation", this.evaluation);
+        }).catch((err) => {
         console.log(err)
       });
       //显示身份选择

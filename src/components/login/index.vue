@@ -37,6 +37,12 @@
       <el-footer>
         <div style="text-align: right">
           <router-link
+            :to="{ path: '/a/login'}"
+            style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
+          >
+            管理员登录
+          </router-link>
+          <router-link
             :to="{ path: '/register'}"
             style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
           >
@@ -97,8 +103,8 @@
               }
 
               //登录后即设置uid
-              getUserid().then(res=>{
-                this.$store.commit("setuid",res)
+              getUserid().then(res => {
+                this.$store.commit("setuid", res)
               })
 
               setTimeout(() => {

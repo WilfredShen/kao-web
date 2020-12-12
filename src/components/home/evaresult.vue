@@ -17,7 +17,7 @@
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          :disabled="item.disabled">
+            :disabled="item.disabled">
           </el-option>
         </el-select>
       </div>
@@ -114,10 +114,10 @@
     data() {
       return {
         options: [
-            {
+          {
             value: "1",
             label: "第一轮",
-              disabled: true
+            disabled: true
           }, {
             value: "2",
             label: "第二轮",

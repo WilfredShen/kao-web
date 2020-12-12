@@ -63,7 +63,7 @@
     methods: {
       submit: function () {
         this.$axios
-          .post("/api/visitor/login", {
+          .post("/api/admin/login", {
             username: this.loginForm.username,
             password: this.loginForm.password,
           })
@@ -73,7 +73,7 @@
               if (callback) {
                 this.$message.success("登录成功！即将跳转至原界面...");
               } else {
-                callback = "/";
+                callback = "/manager";
                 this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {
@@ -84,6 +84,7 @@
             }
           })
           .catch((err) => {
+            console.log(this.loginForm.password);
             console.log(err);
           });
       },

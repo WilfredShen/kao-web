@@ -60,15 +60,15 @@
 
 <script>
   export default {
-    data(){
-      return{
-        BeginY:'',
-        EndY:'',
+    data() {
+      return {
+        BeginY: '',
+        EndY: '',
       }
     },
-    methods:{
-      test(){
-        console.log(this.BeginY+" "+this.EndY);
+    methods: {
+      test() {
+        console.log(this.BeginY + " " + this.EndY);
       }
     }
   }

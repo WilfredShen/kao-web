@@ -1,37 +1,46 @@
 <template>
   <div>
     <div>
-      <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always">
+      <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always"
+                   v-if="latenews.length">
         <el-carousel-item>
-          <!--          <a href="http://2021.tsinghua.edu.cn/info/1002/1051.htm" target="_Blank">-->
-          <img :src="latenews[0].image" alt="">
-          <h3>{{latenews[0].title}}</h3>
-          <!--          </a>-->
+          <a :href="this.latenews[0].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latenews[0].image" alt="">
+            <h3>{{latenews[0].title}}</h3>
+          </a>
         </el-carousel-item>
         <el-carousel-item>
-          <img :src="latenews[1].image" alt="">
-          <h3>{{latenews[1].title}}</h3>
+          <a :href="this.latenews[1].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latenews[1].image" alt="">
+            <h3>{{latenews[1].title}}</h3>
+          </a>
         </el-carousel-item>
         <el-carousel-item>
-          <img :src="latenews[2].image" alt="">
-          <h3>{{latenews[2].title}}</h3>
+          <a :href="this.latenews[2].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latenews[2].image" alt="">
+            <h3>{{latenews[2].title}}</h3>
+          </a>
         </el-carousel-item>
         <el-carousel-item>
-          <img :src="latenews[3].image" alt="">
-          <h3>{{latenews[3].title}}</h3>
+          <a :href="this.latenews[3].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latenews[3].image" alt="">
+            <h3>{{latenews[3].title}}</h3>
+          </a>
         </el-carousel-item>
         <el-carousel-item>
-          <img :src="latenews[4].image" alt="">
-          <h3>{{latenews[4].title}}</h3>
+          <a :href="this.latenews[4].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latenews[4].image" alt="">
+            <h3>{{latenews[4].title}}</h3>
+          </a>
         </el-carousel-item>
       </el-carousel>
     </div>
     <div class="b2">
       <p>{{ msg }}</p>
-      <ul style="font-size: 13px">
+      <ul style="font-size: 13px" v-if="latenews.length">
         <div class="li-style">
           <a
-            href="https://news.pku.edu.cn/xwzh/4caa9d0a4c1e4b1b8bce77be841ec12e.htm"
+            :href="this.latenews[0].officialLink"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
             <br/><span style="float: right">{{latenews[0].date}}</span><br/>
           </a>
@@ -39,7 +48,7 @@
         <br/>
         <div class="li-style">
           <a
-            href="http://2021.tsinghua.edu.cn/info/1002/1051.htm"
+            :href="this.latenews[1].officialLink"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
             <br/><span style="float: right">{{latenews[1].date}}</span><br/>
           </a>
@@ -47,7 +56,7 @@
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24077.htm"
+            :href="this.latenews[2].officialLink"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
             <br/><span style="float: right">{{latenews[2].date}}</span><br/>
           </a>
@@ -55,7 +64,7 @@
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24039.htm"
+            :href="this.latenews[3].officialLink"
             target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
             <br/><span style="float: right">{{latenews[3].date}}</span><br/>
           </a>
@@ -63,7 +72,7 @@
         <br/>
         <div class="li-style">
           <a
-            href="http://news.hnu.edu.cn/info/1102/24040.htm"
+            :href="this.latenews[4].officialLink"
             target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
             <br/><span style="float: right">{{latenews[4].date}}</span><br/>
           </a>
