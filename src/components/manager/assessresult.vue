@@ -115,7 +115,6 @@
             this.tabledata[i].cname = this.school[this.tabledata[i].cid].cname;
             this.tabledata[i].mname = this.major[this.tabledata[i].mid].mname;
           } else {
-            // console.log("cuowu!",i);
             flag = false;
             break;
           }
@@ -150,14 +149,25 @@
             .then((res) => {
               console.log(res);
               for (let i = 0; i < this.tabledata.length; i++) {
-                uploadEvaluation(this.tabledata[i].cid, this.tabledata[i].mid, this.tabledata[i].result, this.round)
+                console.log(this.tabledata[i].cid + '', this.tabledata[i].mid, this.tabledata[i].result, parseInt(this.round));
+                uploadEvaluation(this.tabledata[i].cid, this.tabledata[i].mid, this.tabledata[i].result, parseInt(this.round))
                   .then((res) => {
                     console.log("上传成功", res);
+                    this.$message({
+                      showClose: true,
+                      message: '上传成功！',
+                      type: 'success'
+                    });
                     this.tabledata = [];
                     this.showfile = false;
                     this.round = '';
                   })
                   .catch((err) => {
+                    this.$message({
+                      showClose: true,
+                      message: '上传失败！',
+                      type: 'error'
+                    });
                     console.log(err);
                   })
               }
@@ -189,7 +199,6 @@
         .catch((err) => {
           console.log(err)
         });
-
     }
   }
 </script>
