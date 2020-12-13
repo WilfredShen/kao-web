@@ -11,10 +11,12 @@ export function uploadEvaluation(cid, mid, result, round) {
     })
       .then((res) => {
         resolve(res);
+        console.log("成功", cid, mid, result, round);
       })
       .catch((err) => {
         reject(err.data);
-        console.log(err)
+        console.log(err);
+        console.log("失败", cid, mid, result, round);
       })
   })
 }
@@ -25,7 +27,7 @@ export function updateEvaluation(cid, mid, result, round) {
     axios.post('/api/admin/update_evaluation', {
       "cid": cid,
       "mid": mid,
-      "result": result,
+      "newResult": result,
       "round": round,
     })
       .then((res) => {
