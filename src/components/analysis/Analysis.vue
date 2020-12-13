@@ -54,12 +54,12 @@
           <el-button size="small" @click="exportEXCEL('csv','region')">导出为CSV</el-button>
           <el-button size="small" @click="printtest()">打印</el-button>
         </el-row>
-        <el-table :data="mapresult" stripe style="width: 100%">
-          <el-scrollbar style="height: 100px">
+        <el-scrollbar style="height: 500px">
+          <el-table :data="mapresult" stripe style="width: 100%">
             <el-table-column label="地区" prop="name" align="center"></el-table-column>
             <el-table-column label="人数" prop="value" align="center"></el-table-column>
-          </el-scrollbar>
-        </el-table>
+          </el-table>
+        </el-scrollbar>
       </div>
     </div>
     <!--其他数据分析-->

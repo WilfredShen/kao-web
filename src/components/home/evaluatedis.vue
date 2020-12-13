@@ -165,6 +165,8 @@
       }).catch((err) => {
         console.log(err);
       });
+
+
       getMajor().then((res) => {
         this.major = res.data;
         // res.data.forEach(row => {
@@ -174,14 +176,20 @@
       }).catch((err) => {
         console.log(err)
       });
+
       getSchool().then((res) => {
         res.data.forEach(row => {
           this.schoolmap[row.cid] = {cname: row.cname}
+          this.$store.commit("setSchMap", {
+            cname: row.cname,
+            cid: row.cid
+          });
         })
         // console.log("school", this.schoolmap);
       }).catch((err) => {
         console.log(err)
       });
+
       getSomeResult()
         .then((res) => {
           this.evaluation = res.data;
