@@ -190,6 +190,18 @@
           console.log(err)
         });
 
+      this.$axios.post("/api/admin/upload_evaluation", {
+        cid: "10010",
+        mid: "1010",
+        result: "B",
+        round: "1"
+      })
+        .then(res => {
+          console.log("请求成功" + res)
+        })
+        .catch(error => {
+          console.log("请求失败" + error)
+        })
     }
   }
 </script>

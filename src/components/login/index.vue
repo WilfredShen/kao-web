@@ -6,24 +6,24 @@
       </el-header>
       <el-main>
         <el-form
-            ref="loginForm"
-            :model="loginForm"
-            :rules="loginRules"
-            label-position="left"
-            label-width="80px"
+          ref="loginForm"
+          :model="loginForm"
+          :rules="loginRules"
+          label-position="left"
+          label-width="80px"
         >
           <el-form-item label="用户名" prop="username">
             <el-input
-                v-model="loginForm.username"
-                aria-placeholder="请输入用户名"
+              v-model="loginForm.username"
+              aria-placeholder="请输入用户名"
             >
             </el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
-                v-model="loginForm.password"
-                :type="status.showPassword ? '' : 'password'"
-                aria-placeholder="请输入密码"
+              v-model="loginForm.password"
+              :type="status.showPassword ? '' : 'password'"
+              aria-placeholder="请输入密码"
             >
             </el-input>
           </el-form-item>
@@ -49,8 +49,8 @@
             注册账号
           </router-link>
           <router-link
-              :to="{ path: '/forgot' }"
-              style="text-decoration: underline; cursor: pointer;"
+            :to="{ path: '/forgot' }"
+            style="text-decoration: underline; cursor: pointer;"
           >
             忘记密码
           </router-link>

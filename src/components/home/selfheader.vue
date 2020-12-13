@@ -35,7 +35,9 @@
     <div class="main" style="float:right;width: 89%;height: 100%">
       <div id="top" style="height: 50px; width: 100%;border-bottom: 1px solid">
       </div>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>

@@ -21,10 +21,10 @@
         {{rank}}
         <el-select v-model="level" multiple placeholder="请选择" size="mini" style="width: 40%">
           <el-option
-              v-for="item in option4"
-              :key="item.value4"
-              :label="item.value4"
-              :value="item.label4"
+            v-for="item in option4"
+            :key="item.value4"
+            :label="item.value4"
+            :value="item.label4"
           >
           </el-option>
         </el-select>

@@ -28,10 +28,10 @@
         </span>
         <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorlist">
           <el-option
-              v-for="item in disciplines"
-              :key="item.did"
-              :label="item.dname"
-              :value="item.did">
+            v-for="item in disciplines"
+            :key="item.did"
+            :label="item.dname"
+            :value="item.did">
           </el-option>
         </el-select>
       </div>
@@ -42,10 +42,10 @@
         </span>
         <el-select v-model="majorCode" placeholder="请选择" size="mini">
           <el-option
-              v-for="item in majors"
-              :key="item.mid"
-              :label="item.mid+item.mname"
-              :value="item.mid">
+            v-for="item in majors"
+            :key="item.mid"
+            :label="item.mid+item.mname"
+            :value="item.mid">
           </el-option>
         </el-select>
       </div>
@@ -56,10 +56,10 @@
         </span>
         <el-select v-model="level" multiple placeholder="请选择" size="mini">
           <el-option
-              v-for="item in option4"
-              :key="item.value4"
-              :label="item.value4"
-              :value="item.label4"
+            v-for="item in option4"
+            :key="item.value4"
+            :label="item.value4"
+            :value="item.label4"
           >
           </el-option>
         </el-select>

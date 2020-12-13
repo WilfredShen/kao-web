@@ -10,10 +10,10 @@
         <el-aside class="bor1" style="padding: 1.6rem; background-color: white;width: 20%">
           <div class="discipline-options">
             <div
-                class="discipline-option"
-                v-for="(d, index) in discipline"
-                :key="index"
-                @click="setselected(index)"
+              class="discipline-option"
+              v-for="(d, index) in discipline"
+              :key="index"
+              @click="setselected(index)"
             >
             <span>
               {{ d.dname }}
@@ -26,10 +26,10 @@
             <el-aside class="bor1" style="padding: 1.6rem; background-color: #e8e8e8 ;width: 30%">
               <div class="major-options">
                 <div
-                    class="major-option"
-                    v-for="(m, index) in getmajors"
-                    :key="index"
-                    @click="selected.mindex = index"
+                  class="major-option"
+                  v-for="(m, index) in getmajors"
+                  :key="index"
+                  @click="selected.mindex = index"
                 >
                   <span>
                   {{ `${m.mid} ${m.mname}` }}
@@ -165,6 +165,8 @@
       }).catch((err) => {
         console.log(err);
       });
+
+
       getMajor().then((res) => {
         this.major = res.data;
         // res.data.forEach(row => {
@@ -174,14 +176,20 @@
       }).catch((err) => {
         console.log(err)
       });
+
       getSchool().then((res) => {
         res.data.forEach(row => {
           this.schoolmap[row.cid] = {cname: row.cname}
+          this.$store.commit("setSchMap", {
+            cname: row.cname,
+            cid: row.cid
+          });
         })
         // console.log("school", this.schoolmap);
       }).catch((err) => {
         console.log(err)
       });
+
       getSomeResult()
         .then((res) => {
           this.evaluation = res.data;
