@@ -40,40 +40,40 @@
       <ul style="font-size: 13px" v-if="latenews.length">
         <div class="li-style">
           <a
-            :href="this.latenews[0].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
+              :href="this.latenews[0].officialLink"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[0].title}}
             <br/><span style="float: right">{{latenews[0].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.latenews[1].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
+              :href="this.latenews[1].officialLink"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[1].title}}
             <br/><span style="float: right">{{latenews[1].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.latenews[2].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
+              :href="this.latenews[2].officialLink"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[2].title}}
             <br/><span style="float: right">{{latenews[2].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.latenews[3].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
+              :href="this.latenews[3].officialLink"
+              target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latenews[3].title}}
             <br/><span style="float: right">{{latenews[3].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.latenews[4].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
+              :href="this.latenews[4].officialLink"
+              target="_Blank" style="text-decoration: none;display: block">{{latenews[4].title}}
             <br/><span style="float: right">{{latenews[4].date}}</span><br/>
           </a>
         </div>
