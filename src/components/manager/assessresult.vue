@@ -1,47 +1,46 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;width: 70%;">
-      <el-form>
-        <el-form-item label="选择轮次：">
-          <el-select v-model="round" placeholder="请选择轮次">
-            <el-option label="1" value="1"></el-option>
-            <el-option label="2" value="2"></el-option>
-            <el-option label="3" value="3"></el-option>
-            <el-option label="4" value="4"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div style="display: flex;align-items: center">
-        <el-upload action accept=".xlsx,.xls"
-                   :auto-upload="false"
-                   :on-change="handleChange"
-                   :on-preview="handlePreview"
-                   :show-file-list=showfile
-                   :before-remove="beforeRemove"
-                   :on-remove="handleRemove"
-                   :file-list="fileList"
-        >
-          <el-button plain size="small" style="margin-left: 10px">上传文件</el-button>
-          <!--          <a href="@/public/评估结果.xls" download="上传评估结果.xls">点击下载样例文件</a>-->
-        </el-upload>
+  <div style="padding: 10px 20px 40px 20px;width: 90%;">
+    <el-form>
+      <el-form-item label="选择轮次：">
+        <el-select v-model="round" placeholder="请选择轮次">
+          <el-option label="1" value="1"></el-option>
+          <el-option label="2" value="2"></el-option>
+          <el-option label="3" value="3"></el-option>
+          <el-option label="4" value="4"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <div>
+      <el-upload action accept=".xlsx,.xls"
+                 :auto-upload="false"
+                 :on-change="handleChange"
+                 :on-preview="handlePreview"
+                 :show-file-list=showfile
+                 :before-remove="beforeRemove"
+                 :on-remove="handleRemove"
+                 :file-list="fileList"
+      >
+        <el-button plain style="background-color: #456268;color: white">上传文件</el-button>
+        <!--          <a href="@/public/评估结果.xls" download="上传评估结果.xls">点击下载样例文件</a>-->
+      </el-upload>
 
-      </div>
-      <el-divider></el-divider>
-      <el-scrollbar style="height: 400px">
-        <div>
-          <el-table :data="tabledata" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
-            <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
-            <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>
-            <el-table-column prop="cid" label="高校代码" align="center"></el-table-column>
-            <el-table-column prop="cname" label="高校名称" align="center"></el-table-column>
-            <el-table-column prop="result" label="评估结果" align="center"></el-table-column>
-          </el-table>
-        </div>
-      </el-scrollbar>
-      <el-button type="primary" style="min-width: 200px;margin-top: 50px" @click="upload">
-        确认上传
-      </el-button>
     </div>
+    <el-divider></el-divider>
+    <div>
+      <el-table :data="tabledata"
+                :header-cell-style="{background:'#79A3B1',color:'black'}" border
+                stripe max-height="400px">
+        <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
+        <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>
+        <el-table-column prop="cid" label="高校代码" align="center"></el-table-column>
+        <el-table-column prop="cname" label="高校名称" align="center"></el-table-column>
+        <el-table-column prop="result" label="评估结果" align="center"></el-table-column>
+      </el-table>
+    </div>
+    <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white" v-if="up"
+               @click="upload">
+      确认上传
+    </el-button>
   </div>
 </template>
 
@@ -63,6 +62,7 @@
         school: {},
         major: {},
         showfile: true,//显示文件列表
+        up: false
       }
     },
     methods: {
@@ -132,7 +132,7 @@
               console.log(err);
             })
         }
-        // console.log("excel",this.tabledata);
+        this.up = true;
       },
       upload() {
         if (this.round === null || this.round === '' || this.round === "undefined") {
@@ -176,7 +176,16 @@
               console.log(err);
             })
         }
-      }
+      },
+      // tableRowClassName({row,rowIndex}) {
+      //   console.log("roe",row);
+      //   if (rowIndex%2 === 0) {
+      //     return 'warning-row';
+      //   } else if (rowIndex%2 === 1) {
+      //     return 'success-row';
+      //   }
+      //   return '';
+      // }
     },
     created() {
       getSchool()
@@ -219,4 +228,18 @@
   .el-scrollbar__wrap {
     overflow-x: hidden;
   }
+
+  .el-form-item__label {
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
+  }
+
+  /*.el-table .warning-row {*/
+  /*  background: white;*/
+  /*}*/
+
+  /*.el-table .success-row {*/
+  /*  background: #D0E8F2;*/
+  /*}*/
 </style>

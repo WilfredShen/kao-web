@@ -2,7 +2,7 @@
   <div>
 
     <div v-for="(item,index) in items" :key="index"
-         style="display: flex;align-items: center;width: 50%;height: 60px;"
+         style="display: flex;align-items: center;width: 50%;height: 50px;"
          v-bind:class="index%2===0 ? 'change-color' : ''">
       <div style="width: 35%;text-align: right"><span class="info">{{item.label}}</span></div>
       <div style="width: 65%;text-align: left;">
@@ -12,13 +12,14 @@
       </div>
     </div>
 
-    <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
+    <el-button class="funcbtn" v-show="ismodify" style="background-color: #456268;color: white" @click="modify()">修改信息
+    </el-button>
     <div class="funcbtn" v-show="!ismodify">
-      <el-button type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #456268;color: white" @click="commitModify()">确认修改</el-button>
+      <el-button style="background-color: #456268;color: white" @click="cancleModify()">取消修改</el-button>
     </div>
 
-    <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button type="primary" @command="handleCommand">
+    <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button @command="handleCommand">
       {{identity}}
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="学生">学生</el-dropdown-item>
@@ -26,7 +27,8 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-button id="verify" v-if="ismodify" type="primary" style="margin-left: 10px" @click="verifyrn(),verifyid()">
+    <el-button id="verify" v-if="ismodify" style="margin-left: 10px;background-color: #456268;color: white"
+               @click="verifyrn(),verifyid()">
       实名与身份认证
     </el-button>
   </div>

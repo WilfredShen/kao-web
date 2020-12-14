@@ -72,28 +72,28 @@ export default new VueRouter({
     {
       path: '/manager',
       component: () => import('@/components/manager/manager'),
-      children: [
-        {
-          path: 'changeresult',
-          name: 'changeresult',
-          component: () => import('@/components/manager/changeresult')
-        },
-        {
-          path: 'uploadnews',
-          name: 'uploadnews',
-          component: () => import('@/components/manager/uploadnews'),
-        },
-        {
-          path: 'assessresult',
-          name: 'assessresult',
-          component: () => import('@/components/manager/assessresult')
-        },
-        {
-          path: 'newslist',
-          name: 'newslist',
-          component: () => import('@/components/manager/newslist')
-        },
-      ]
+      // children: [
+      //   {
+      //     path: 'changeresult',
+      //     name: 'changeresult',
+      //     component: () => import('@/components/manager/changeresult')
+      //   },
+      //   {
+      //     path: 'uploadnews',
+      //     name: 'uploadnews',
+      //     component: () => import('@/components/manager/uploadnews'),
+      //   },
+      //   {
+      //     path: 'assessresult',
+      //     name: 'assessresult',
+      //     component: () => import('@/components/manager/assessresult')
+      //   },
+      //   {
+      //     path: 'newslist',
+      //     name: 'newslist',
+      //     component: () => import('@/components/manager/newslist')
+      //   },
+      // ]
     },
     {
       path: '/selfmain',
