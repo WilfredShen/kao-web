@@ -156,7 +156,7 @@
       },
       submit: function () {
         this.$axios
-          .post("/api/visitor/forgetpassword", {
+          .post("/api/visitor/update_password", {
             username: this.forgotForm.username,
             password: this.forgotForm.password,
             phoneNumber: this.forgotForm.phone,

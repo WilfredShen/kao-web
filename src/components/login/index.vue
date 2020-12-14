@@ -49,8 +49,8 @@
             注册账号
           </router-link>
           <router-link
-              :to="{ path: '/forgot' }"
-              style="text-decoration: underline; cursor: pointer;"
+            :to="{ path: '/pwd' }"
+            style="text-decoration: underline; cursor: pointer;"
           >
             忘记密码
           </router-link>
