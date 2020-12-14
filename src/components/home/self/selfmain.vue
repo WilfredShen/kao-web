@@ -92,63 +92,36 @@
     },
     data() {
       return {
-        selfhome: true,
-        basicinfo: false,
-        collect: false,
-        stuinfo: false,
-        teainfo: false,
-        querystu: false,
+        selected: 1,
         isstu: false,
         istut: false,
         username: '',
         img: require("@/assets/logo11.png")
       }
     },
+    computed: {
+      selfhome: function () {
+        return this.selected === 1;
+      },
+      basicinfo: function () {
+        return this.selected === 2;
+      },
+      collect: function () {
+        return this.selected === 3;
+      },
+      stuinfo: function () {
+        return this.selected === 4;
+      },
+      teainfo: function () {
+        return this.selected === 5;
+      },
+      querystu: function () {
+        return this.selected === 6;
+      },
+    },
     methods: {
       clearAll(val) {
-        if (val === 1) {
-          this.selfhome = true;
-          this.basicinfo = false;
-          this.collect = false;
-          this.stuinfo = false;
-          this.teainfo = false;
-          this.querystu = false;
-        } else if (val === 2) {
-          this.selfhome = false;
-          this.basicinfo = true;
-          this.collect = false;
-          this.stuinfo = false;
-          this.teainfo = false;
-          this.querystu = false;
-        } else if (val === 3) {
-          this.selfhome = false;
-          this.basicinfo = false;
-          this.collect = true;
-          this.stuinfo = false;
-          this.teainfo = false;
-          this.querystu = false;
-        } else if (val === 4) {
-          this.selfhome = false;
-          this.basicinfo = false;
-          this.collect = false;
-          this.stuinfo = true;
-          this.teainfo = false;
-          this.querystu = false;
-        } else if (val === 5) {
-          this.selfhome = false;
-          this.basicinfo = false;
-          this.collect = false;
-          this.stuinfo = false;
-          this.teainfo = true;
-          this.querystu = false;
-        } else if (val === 6) {
-          this.selfhome = false;
-          this.basicinfo = false;
-          this.collect = false;
-          this.stuinfo = false;
-          this.teainfo = false;
-          this.querystu = true;
-        }
+        this.selected = val;
       },
     },
     created() {
