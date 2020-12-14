@@ -49,7 +49,7 @@
             注册账号
           </router-link>
           <router-link
-            :to="{ path: '/forgot' }"
+            :to="{ path: '/pwd' }"
             style="text-decoration: underline; cursor: pointer;"
           >
             忘记密码

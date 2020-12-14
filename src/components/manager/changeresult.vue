@@ -52,13 +52,13 @@
           <el-input v-model="row.mid"></el-input>
         </el-form-item>
         <el-form-item label="专业名称">
-          <el-input v-model="row.mname"></el-input>
+          <el-input v-model="row.mname" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="学校代码">
           <el-input v-model="row.cid"></el-input>
         </el-form-item>
         <el-form-item label="学校名称">
-          <el-input v-model="row.cname"></el-input>
+          <el-input v-model="row.cname" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="评估结果">
           <el-input v-model="row.result"></el-input>
