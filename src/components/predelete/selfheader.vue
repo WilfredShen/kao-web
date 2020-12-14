@@ -55,6 +55,14 @@
         imgurl: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       }
     },
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      }
+    },
     created() {
       getUserName().then(res => {
         console.log("获得的用户名" + res);
