@@ -13,12 +13,12 @@
         </div>
       </el-card>
       <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          layout="prev,pager,next"
-          background
-          :total=currentTotal
-          :page-size=pageSize
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="prev,pager,next"
+        background
+        :total=currentTotal
+        :page-size=pageSize
       >
       </el-pagination>
     </div>
@@ -82,7 +82,7 @@
     margin-bottom: 5px;
   }
 
-  .el-link{
+  .el-link {
     width: 10%;
 
   }
