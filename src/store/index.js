@@ -9,12 +9,14 @@ const store = new Vuex.Store({
   modules: {},
   state: {
     uid: '',
+    cid: '',
     identify: '尚未选择身份',
     realname: '尚未实名认证',
     isstu: false,//是学生身份
     istut: false,//是研究生身份
     ismanager: false,//是管理员身份
-    camps: [],
+    camps: [],//夏令营
+    schoolMap: {},
   },
   mutations: {
     setindentify(state, id) {
@@ -26,6 +28,9 @@ const store = new Vuex.Store({
     setuid(state, id) {
       state.uid = id;
     },
+    setcid(state, cid) {
+      state.cid = cid;
+    },
     setlimit(state, msg) {
       if (msg === 'tutor') state.istut = true;
       else if (msg === 'student') state.isstu = true;
@@ -34,6 +39,9 @@ const store = new Vuex.Store({
       for (let i = 0; i < camps.length; i++) {
         state.camps.push(camps[i]);
       }
+    },
+    setSchMap(state, data) {
+      state.schoolMap[data.cid] = data.cname;
     }
   },
   actions: {
@@ -43,7 +51,7 @@ const store = new Vuex.Store({
           console.log("获取夏令营成功" + res.data);
           context.commit('setCamps', res.data.data);
         })
-    }
+    },
   },
   getters: {}
 })

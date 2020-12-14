@@ -96,7 +96,7 @@
       </div>
     </div>
     <div style="float:right;margin-top: 10px">
-      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setfavormajor()"
+      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setFavorMajor()"
                  style="margin-left:10px">一键收藏
       </el-button>
     </div>
@@ -113,7 +113,7 @@
     majorList,
     schoolList,
     getEvaluationList,
-    setfavouritemajor
+    setFavouriteMajor
   } from '../../assets/lib/getResultLjm'
 
   export default {
@@ -305,8 +305,8 @@
           }
         });
       },
-      setfavormajor() {
-        setfavouritemajor(this.favormajors).then(res => {
+      setFavorMajor() {
+        setFavouriteMajor(this.favormajors).then(res => {
           //  console.log(res);
           console.log("状态码" + res.status);
           if (res.status === 200) {
@@ -323,8 +323,9 @@
         })
       },
       schoolclik(cid) {
-        localStorage.setItem('schoolcid', cid);
-        this.$router.push({path: '/school'})
+        //localStorage.setItem('schoolcid', cid);
+        this.$store.commit('setcid', cid);
+        this.$router.push({path: '/school'});
       },
     },
     created() {
