@@ -19,5 +19,30 @@ export function getCookie(value) {
 }
 
 
+export function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+export function checkMobile(str) {
+  const re = /^1\d{10}$/;
+  return re.test(str);
+}
+
+export function checkEmail(str) {
+  const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+  if (re.test(str)) {
+    alert("正确");
+  } else {
+    alert("错误");
+  }
+}
+
+export function isPasswd(s) {
+  const paTrn = /^(\w){6,20}$/;
+  return paTrn.exec(s);
+}
 
 

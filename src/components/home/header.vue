@@ -4,6 +4,9 @@
     <div class="header-sty">
       <span class="span-style">教育部学科评估管理系统</span>
       <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录
+
+      </el-button>
+      <el-button size="mini" style="float: right" @click="dealsignout" v-if="hasLogin"> 退出登录
       </el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
@@ -21,7 +24,7 @@
         <router-link to="/analysis" class="nav-i">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
-        <router-link to="/selfheader" class="nav-i" v-if="hasLogin">
+        <router-link to="/selfmain" class="nav-i" v-if="hasLogin">
           <el-menu-item>个人主页</el-menu-item>
         </router-link>
       </el-menu>
@@ -35,6 +38,7 @@
 
 <script>
   import {getLimit} from "../../assets/lib/getAndSetSelf";
+  import {setCookie} from "../../assets/lib/utils";
 
   export default {
     data() {
@@ -56,6 +60,15 @@
       })
       //获取夏令营信息
       this.$store.dispatch('getCamps');
+    },
+    methods: {
+      dealsignout() {
+        this.$message("退出登录");
+        setCookie("uid", "", 0);
+        setCookie("adminId", "", 0);
+        setCookie("accessToken", "", 0);
+        this.hasLogin = false;
+      }
     }
   }
 </script>

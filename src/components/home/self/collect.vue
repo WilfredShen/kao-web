@@ -1,9 +1,9 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">
-      <div>
-        <p>高校收藏列表：</p>
-        <table style="width: 100%">
+  <div>
+    <div>
+      <span style="font-size: 20px;">高校收藏列表：</span>
+      <el-scrollbar style="height: 500px">
+        <table style="width: 100%;margin-top: 25px">
           <tr>
             <th class="myth">高校名称及代码</th>
             <th class="myth">专业名称及代码</th>
@@ -17,7 +17,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -79,16 +79,18 @@
   .myth {
     height: 80px;
     text-align: center;
-    background-color: #eef1f6;
+    background-color: #79A3B1;
+    font-size: 20px;
   }
 
   .change-color {
-    background-color: #eef1f6;
+    background-color: #D0E8F2;
   }
 
   .tds {
     width: 25%;
     height: 60px;
     text-align: center;
+    font-size: 20px;
   }
 </style>

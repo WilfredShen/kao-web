@@ -1,35 +1,34 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">
+  <div>
 
-      <div v-for="(item,index) in items" :key="index"
-           style="display: flex;align-items: center;width: 60%" v-bind:class="index%2===0 ? 'change-color' : ''">
-        <div style="width: 30%;text-align: right"><p>{{item.label}}</p></div>
-        <div style="width: 70%;text-align: left;">
-          <p v-if="ismodify || index<2 || index>3">{{item.content}}</p>
-          <el-input style="width: 80%" v-if="index===2 && !ismodify" v-model="newphone"></el-input>
-          <el-input style="width: 80%" v-if="index===3 && !ismodify" v-model="newemail"></el-input>
-        </div>
+    <div v-for="(item,index) in items" :key="index"
+         style="display: flex;align-items: center;width: 50%;height: 60px;"
+         v-bind:class="index%2===0 ? 'change-color' : ''">
+      <div style="width: 35%;text-align: right"><span class="info">{{item.label}}</span></div>
+      <div style="width: 65%;text-align: left;">
+        <span class="info" style="padding-left: 15px" v-if="ismodify || index<2 || index>3">{{item.content}}</span>
+        <el-input style="width: 80%" v-if="index===2 && !ismodify" v-model="newphone"></el-input>
+        <el-input style="width: 80%" v-if="index===3 && !ismodify" v-model="newemail"></el-input>
       </div>
-
-      <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
-      <div class="funcbtn" v-show="!ismodify">
-        <el-button type="primary" @click="commitModify()">确认修改</el-button>
-        <el-button @click="cancleModify()">取消修改</el-button>
-      </div>
-
-      <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button type="primary" @command="handleCommand">
-        {{identity}}
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="学生">学生</el-dropdown-item>
-          <el-dropdown-item command="研究生秘书">研究生秘书</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-
-      <el-button id="verify" v-if="ismodify" type="primary" style="margin-left: 10px" @click="verifyrn(),verifyid()">
-        实名与身份认证
-      </el-button>
     </div>
+
+    <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
+    <div class="funcbtn" v-show="!ismodify">
+      <el-button type="primary" @click="commitModify()">确认修改</el-button>
+      <el-button @click="cancleModify()">取消修改</el-button>
+    </div>
+
+    <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button type="primary" @command="handleCommand">
+      {{identity}}
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="学生">学生</el-dropdown-item>
+        <el-dropdown-item command="研究生秘书">研究生秘书</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+
+    <el-button id="verify" v-if="ismodify" type="primary" style="margin-left: 10px" @click="verifyrn(),verifyid()">
+      实名与身份认证
+    </el-button>
   </div>
 </template>
 
@@ -56,7 +55,7 @@
           {label: '邮箱地址：', content: '',},
           {label: '实名认证：', content: '',},
           {label: '身份认证：', content: '',},
-        ]
+        ],
       }
     },
     methods: {
@@ -75,7 +74,6 @@
           this.newemail = '';
           this.setSelfInfo();
         })
-
 
       },
       cancleModify() {
@@ -163,10 +161,14 @@
 
 <style scoped>
   .change-color {
-    background-color: #eef1f6;
+    background-color: #D0E8F2;
   }
 
   .funcbtn {
     margin-top: 30px;
+  }
+
+  .info {
+    font-size: 18px;
   }
 </style>

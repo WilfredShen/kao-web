@@ -1,9 +1,9 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;width: 60%;height: 550px">
-      <p>最近消息：</p>
-      <div style="width: 100%">
-        <table style="width: 100%">
+  <div>
+    <span style="font-size: 20px;">最近消息：</span>
+    <div style="width: 100%">
+      <el-scrollbar style="height: 500px">
+        <table style="width: 100%;margin-top: 25px">
           <tr>
             <th class="myth" style="height: 80px;text-align: center;">关注的高校</th>
             <th class="myth">信息类型</th>
@@ -17,7 +17,7 @@
             <td class="tds">{{item.up_date}}</td>
           </tr>
         </table>
-      </div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -35,9 +35,12 @@
           console.log(res)
           let item = res.data.data;
           for (let i = 0; i < item.length; i++) {
+            let type = item[i].type;
+            if (type === 'summer_camp') type = "夏令营";
+            else type = "新闻";
             this.tableData.push({
               'focus_school': item[i].cname,
-              'info_type': item[i].type,
+              'info_type': type,
               'link_to': item[i].officialLink,
               'up_date': item[i].updateTime.substring(0, 10)
             })
@@ -52,16 +55,18 @@
 
 <style scoped>
   .myth {
-    background-color: #eef1f6;
+    background-color: #79A3B1;
+    font-size: 20px;
   }
 
   .change-color {
-    background-color: #eef1f6;
+    background-color: #D0E8F2;
   }
 
   .tds {
     width: 25%;
     height: 60px;
     text-align: center;
+    font-size: 20px;
   }
 </style>

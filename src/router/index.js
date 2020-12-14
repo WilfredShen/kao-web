@@ -70,42 +70,6 @@ export default new VueRouter({
       ]
     },
     {
-      path: '/selfheader',
-      component: () => import('@/components/home/selfheader'),
-      children: [
-        {
-          path: 'teainfo',
-          name: 'TeaInfo',
-          component: () => import('@/components/home/self/teainfo')
-        },
-        {
-          path: 'basicinfo',
-          name: 'basicInfo',
-          component: () => import('@/components/home/self/basicinfo')
-        },
-        {
-          path: 'collect',
-          name: 'collect',
-          component: () => import('@/components/home/self/collect')
-        },
-        {
-          path: 'querystu',
-          name: 'queryStu',
-          component: () => import('@/components/home/self/querystu')
-        },
-        {
-          path: '',
-          name: 'selfHome',
-          component: () => import('@/components/home/self/selfhome')
-        },
-        {
-          path: 'stuinfo',
-          name: 'stuInfo',
-          component: () => import('@/components/home/self/stuinfo')
-        }
-      ]
-    },
-    {
       path: '/manager',
       component: () => import('@/components/manager/manager'),
       children: [
@@ -131,6 +95,10 @@ export default new VueRouter({
         },
       ]
     },
+    {
+      path: '/selfmain',
+      component: () => import('@/components/home/self/selfmain'),
+    }
     // {
     //   path: '/*',
     //   name: '404',
