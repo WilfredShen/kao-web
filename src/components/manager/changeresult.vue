@@ -32,9 +32,9 @@
           <el-table-column prop="cname" label="高校名称" align="center"></el-table-column>
           <el-table-column prop="result" label="评估结果" align="center"></el-table-column>
           <el-table-column
-              fixed="right"
-              label="操作"
-              width="100px">
+            fixed="right"
+            label="操作"
+            width="100px">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="handleClick(scope.$index,scope.row)">编辑</el-button>
             </template>

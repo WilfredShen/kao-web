@@ -3,7 +3,7 @@
     <img class="img-style" style="float: left" src="@/assets/logo11.png">
     <div class="header-sty">
       <span class="span-style">教育部学科评估管理系统</span>
-      <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!istut && !isstu"> 登录
+      <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录
       </el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
@@ -21,7 +21,7 @@
         <router-link to="/analysis" class="nav-i">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
-        <router-link to="/selfheader" class="nav-i" v-if="isstu||istut">
+        <router-link to="/selfheader" class="nav-i" v-if="hasLogin">
           <el-menu-item>个人主页</el-menu-item>
         </router-link>
       </el-menu>
@@ -40,10 +40,12 @@
     data() {
       return {
         isstu: false,
-        istut: false
+        istut: false,
+        hasLogin: false
       }
     },
     created() {
+      this.hasLogin = this.$store.state.uid !== '';
       getLimit().then(res => {
         console.log("首页获得的权限" + res);
         if (res === 'student') {

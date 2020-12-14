@@ -13,11 +13,11 @@
         </span>
         <el-select v-model="sround" placeholder="请选择" size="mini">
           <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled">
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+            :disabled="item.disabled">
           </el-option>
         </el-select>
       </div>
@@ -28,10 +28,10 @@
         </span>
         <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorlist">
           <el-option
-              v-for="item in disciplines"
-              :key="item.did"
-              :label="item.dname"
-              :value="item.did">
+            v-for="item in disciplines"
+            :key="item.did"
+            :label="item.dname"
+            :value="item.did">
           </el-option>
         </el-select>
       </div>
@@ -42,10 +42,10 @@
         </span>
         <el-select v-model="majorCode" placeholder="请选择" size="mini">
           <el-option
-              v-for="item in majors"
-              :key="item.mid"
-              :label="item.mid+item.mname"
-              :value="item.mid">
+            v-for="item in majors"
+            :key="item.mid"
+            :label="item.mid+item.mname"
+            :value="item.mid">
           </el-option>
         </el-select>
       </div>
@@ -56,10 +56,10 @@
         </span>
         <el-select v-model="level" multiple placeholder="请选择" size="mini">
           <el-option
-              v-for="item in option4"
-              :key="item.value4"
-              :label="item.value4"
-              :value="item.label4"
+            v-for="item in option4"
+            :key="item.value4"
+            :label="item.value4"
+            :value="item.label4"
           >
           </el-option>
         </el-select>
@@ -96,7 +96,7 @@
       </div>
     </div>
     <div style="float:right;margin-top: 10px">
-      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setfavormajor()"
+      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setFavorMajor()"
                  style="margin-left:10px">一键收藏
       </el-button>
     </div>
@@ -113,7 +113,7 @@
     majorList,
     schoolList,
     getEvaluationList,
-    setfavouritemajor
+    setFavouriteMajor
   } from '../../assets/lib/getResultLjm'
 
   export default {
@@ -305,8 +305,8 @@
           }
         });
       },
-      setfavormajor() {
-        setfavouritemajor(this.favormajors).then(res => {
+      setFavorMajor() {
+        setFavouriteMajor(this.favormajors).then(res => {
           //  console.log(res);
           console.log("状态码" + res.status);
           if (res.status === 200) {
@@ -323,8 +323,9 @@
         })
       },
       schoolclik(cid) {
-        localStorage.setItem('schoolcid', cid);
-        this.$router.push({path: '/school'})
+        //localStorage.setItem('schoolcid', cid);
+        this.$store.commit('setcid', cid);
+        this.$router.push({path: '/school'});
       },
     },
     created() {

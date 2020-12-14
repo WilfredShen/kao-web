@@ -20,8 +20,7 @@
           <el-input class="input" v-model="content" type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="图片：">
-          <el-upload :limit="1" action :auto-upload="false" :show-file-list="false"
-                     :on-change="uploadImage">
+          <el-upload :limit="1" action :auto-upload="false" :show-file-list="false">
             <el-button>选择图片</el-button>
           </el-upload>
         </el-form-item>

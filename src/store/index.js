@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   modules: {},
   state: {
     uid: '',
+    cid: '',
     identify: '尚未选择身份',
     realname: '尚未实名认证',
     isstu: false,//是学生身份
@@ -26,6 +27,9 @@ const store = new Vuex.Store({
     },
     setuid(state, id) {
       state.uid = id;
+    },
+    setcid(state, cid) {
+      state.cid = cid;
     },
     setlimit(state, msg) {
       if (msg === 'tutor') state.istut = true;

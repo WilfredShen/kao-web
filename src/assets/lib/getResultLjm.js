@@ -70,7 +70,7 @@ export function schoolDetail(cid) {
   })
 }
 
-export function setfavouritemajor(favorlist) {
+export function setFavouriteMajor(favorlist) {
   console.log("favor" + favorlist)
   return new Promise((resolve, reject) => {
     axios.post("/api/favor/p/major", favorlist)
@@ -80,6 +80,59 @@ export function setfavouritemajor(favorlist) {
       .catch(err => {
         reject(err);
         console.log("获取失败！")
+      })
+  })
+}
+
+export function setFavouriteTutor(favorlist) {
+  return new Promise((resolve, reject) => {
+    axios.post("/api/favor/p/tutor", favorlist)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+        console.log("获取失败！")
+      })
+  })
+}
+
+export function rankList(scid) {
+  return new Promise((resolve, reject) => {
+    axios.get(`/api/base/latest-college-rank?cid=${scid}`, {})
+      .then((res => {
+        // console.log("res",res.data)
+        resolve(res.data.data);
+      }))
+      .catch((error) => {
+        reject(error);
+      })
+  })
+}
+
+export function rateList(scid) {
+  return new Promise((resolve, reject) => {
+    axios.get(`/api/base/acceptance-rate?cid=${scid}`, {})
+      .then((res => {
+        // console.log("res",res.data)
+        resolve(res.data.data);
+      }))
+      .catch((error) => {
+        reject(error);
+      })
+  })
+}
+
+export function tutorList(scid) {
+  return new Promise((resolve, reject) => {
+    axios.get(`/api/base/tutor?cid=${scid}`, {})
+      .then((res => {
+        // console.log("res",res.data)
+        console.log("导师信息", res.data)
+        resolve(res.data.data);
+      }))
+      .catch((error) => {
+        reject(error);
       })
   })
 }
