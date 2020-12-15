@@ -1,9 +1,10 @@
 <template>
   <el-container class="container">
-    <el-header class="header">
+    <el-header class="header" height="80px" style="margin-bottom: 20px">
       <el-row>
         <el-col :span="16" class="headerlogo">
           <div class="grid-content bg-purple">
+            <img class="img-style" style="float: left" src="@/assets/logo11.png">
           </div>
         </el-col>
         <el-col :span="8" class="rightsection">
@@ -171,5 +172,11 @@
   .rightsection {
     line-height: 60px;
     text-align: center;
+  }
+
+  .img-style {
+    width: 10%;
+    top: 0;
+    margin-left: 7%;
   }
 </style>

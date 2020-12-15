@@ -1,11 +1,11 @@
 <template>
   <div>
-    <span style="font-size: 20px;">最近消息：</span>
+    <span style="font-size: 20px;font-weight: bold">最近消息</span>
     <div style="width: 100%">
       <el-scrollbar style="height: 500px">
         <table style="width: 100%;margin-top: 25px">
           <tr>
-            <th class="myth" style="height: 80px;text-align: center;">关注的高校</th>
+            <th class="myth" style="height: 60px;text-align: center;">关注的高校</th>
             <th class="myth">信息类型</th>
             <th class="myth">新闻链接</th>
             <th class="myth">更新日期</th>
@@ -56,7 +56,7 @@
 <style scoped>
   .myth {
     background-color: #79A3B1;
-    font-size: 20px;
+    font-size: 17px;
   }
 
   .change-color {
@@ -65,8 +65,8 @@
 
   .tds {
     width: 25%;
-    height: 60px;
+    height: 50px;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
   }
 </style>

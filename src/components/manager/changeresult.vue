@@ -1,8 +1,8 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;width: 80%;">
+  <div>
+    <div style="padding: 10px 20px 40px 20px;width: 90%;">
       <el-form>
-        <el-form-item label="选择轮次：">
+        <el-form-item label="选择轮次:" style="margin-left: 12px">
           <el-select v-model.number="round" placeholder="请选择轮次" size="small" @change="getEvaluation">
             <el-option label="1" value="1"></el-option>
             <el-option label="2" value="2"></el-option>
@@ -12,20 +12,23 @@
         </el-form-item>
       </el-form>
       <el-divider></el-divider>
-      <el-form ref="ruleForm" label-width="80px">
-        <el-form-item label="专业查询">
+      <el-form label-width="100px" style="margin-bottom: 60px">
+        <el-form-item label="专业查询:">
           <el-input v-model="searchmajor" size="small" style="width: 30%" placeholder="模糊查询" clearable></el-input>
           <span style="margin-left: 10px;color: dimgray">(多个专业查询，以空格相隔)</span>
         </el-form-item>
-        <el-form-item label="学校查询">
+        <el-form-item label="学校查询:">
           <el-input v-model="searchschool" size="small" style="width: 30%" placeholder="模糊查询" clearable></el-input>
-          <el-button type="primary" style="float: right;margin:0 20px 10px 10px" @click="getResult">查询</el-button>
+          <el-button style="float: right;margin:0 20px 10px 10px;background-color: #456268;color: white"
+                     @click="getResult">查询
+          </el-button>
           <span style="margin-left: 10px;color: dimgray">(多个学校模糊查询关键字，以空格相隔，查找同时存在这些关键字的学校)</span>
         </el-form-item>
 
       </el-form>
       <div>
-        <el-table :data="tabledata" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
+        <el-table :data="tabledata" :header-cell-style="{background:'#79A3B1',color:'black'}" border stripe
+                  style="font-size: 16px">
           <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
           <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>
           <el-table-column prop="cid" label="高校代码" align="center"></el-table-column>
@@ -34,7 +37,8 @@
           <el-table-column
             fixed="right"
             label="操作"
-            width="100px">
+            width="100px"
+            align="center">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="handleClick(scope.$index,scope.row)">编辑</el-button>
             </template>
@@ -42,11 +46,11 @@
         </el-table>
       </div>
 
-      <el-button type="primary" style="min-width: 200px;margin-top: 50px">
+      <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white">
         确认修改
       </el-button>
     </div>
-    <el-dialog title="修改评估结果" :visible.sync="dialogFormVisible">
+    <el-dialog title="修改评估结果" :visible.sync="dialogFormVisible" style="font-size: 20px;font-weight: bold">
       <el-form>
         <el-form-item label="专业代码">
           <el-input v-model="row.mid"></el-input>
@@ -66,7 +70,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="confirmUpdate">确 定</el-button>
+        <el-button @click="confirmUpdate" style="background-color: #456268;color: white">确 定</el-button>
       </div>
     </el-dialog>
   </div>

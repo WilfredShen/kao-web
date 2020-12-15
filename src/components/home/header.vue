@@ -67,7 +67,8 @@
         setCookie("uid", "", 0);
         setCookie("adminId", "", 0);
         setCookie("accessToken", "", 0);
-        this.hasLogin = false;
+        this.$store.commit('setuid', '');
+        location.reload();
       }
     }
   }
