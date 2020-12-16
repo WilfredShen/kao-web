@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="8" class="rightsection">
           <div class="grid-content bg-purple-light" style="margin-top: 15px">
-            <span style="font-size: 20px;color: white;font-weight: bold">欢迎管理员！</span>
+            <span style="font-size: 20px;color: black;font-weight: bold">欢迎管理员！</span>
           </div>
         </el-col>
       </el-row>
@@ -33,6 +33,10 @@
             <i class="el-icon-reading"></i>
             <span slot="title" style="font-size: 15px">更新新闻列表</span>
           </el-menu-item>
+          <el-menu-item index="/">
+            <i class="el-icon-s-home"></i>
+            <span slot="title" style="font-size: 15px">返回首页</span>
+          </el-menu-item>
         </el-menu>
         <!--        <el-image :src="img" style="width: 200px;height: 150px;margin-top: 50px"></el-image>-->
       </el-aside>
@@ -47,7 +51,7 @@
           <uploadnews v-if="uploadnews"></uploadnews>
         </keep-alive>
         <keep-alive>
-          <newsupdate v-if="newsupdate"></newsupdate>
+          <newslist v-if="newsupdate"></newslist>
         </keep-alive>
       </el-main>
     </el-container>
@@ -104,14 +108,14 @@
   import assessresult from "./assessresult";
   import changeresult from "./changeresult";
   import uploadnews from "./uploadnews";
-  import newsupdate from "./newsupdate";
+  import newslist from "./newslist";
 
   export default {
     components: {
       assessresult,
       changeresult,
       uploadnews,
-      newsupdate,
+      newslist,
     },
     data() {
       return {
@@ -148,7 +152,7 @@
   }
 
   .header {
-    background: #456268;
+    background: #d6e4f0;
     color: #000;
   }
 
@@ -157,6 +161,11 @@
     width: 50px;
     height: 600px;
     text-align: center;
+  }
+
+  .main {
+    /* height: 100%; */
+    color: #212121;
   }
 
   .main {

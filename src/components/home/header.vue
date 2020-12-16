@@ -21,7 +21,7 @@
         <router-link to="/campcard" class="nav-i">
           <el-menu-item>夏令营</el-menu-item>
         </router-link>
-        <router-link to="/analysis" class="nav-i">
+        <router-link to="/analysis" class="nav-i" v-if="istut">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
         <router-link to="/selfmain" class="nav-i" v-if="hasLogin">

@@ -27,7 +27,7 @@ export function setCookie(cname, cvalue, exdays) {
 }
 
 export function checkMobile(str) {
-  const re = /^1\d{10}$/;
+  const re = /^1[0-9]{10}$/;
   return re.test(str);
 }
 
@@ -45,4 +45,8 @@ export function isPasswd(s) {
   return paTrn.exec(s);
 }
 
+export function checkPass(str) {
+  const re = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{6,10}$/;
+  return re.test(str);
+}
 

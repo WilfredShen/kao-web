@@ -31,10 +31,10 @@
         <el-input class="input" v-model="link" placeholder="单行输入"></el-input>
       </el-form-item>
     </el-form>
-    <el-button style="min-width: 150px;margin-top: 50px;background-color: #456268;color: white" @click="commit()">
+    <el-button style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white" @click="commit()">
       确认修改
     </el-button>
-    <el-button style="min-width: 150px;margin-top: 50px;background-color: #456268;color: white" @click="cancle()">
+    <el-button style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white" @click="cancle()">
       取消修改
     </el-button>
   </div>

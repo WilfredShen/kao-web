@@ -1,21 +1,19 @@
 <template>
-  <div style="padding: 40px 10px 10px 10px">
-    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;width: 60%;height: 550px">
-      <el-scrollbar style="height: 500px">
-        <el-table :data="tableData" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
-          <el-table-column prop="up_time" label="上传时间" align="center"></el-table-column>
-          <el-table-column prop="admin_id" label="管理员ID" align="center"></el-table-column>
-          <el-table-column prop="school_name" label="高校名称" align="center"></el-table-column>
-          <el-table-column prop="title" label="标题" align="center"></el-table-column>
-          <el-table-column prop="edit" label="编辑" align="center">
-            <el-button size="small" @click="edit()">编辑</el-button>
-          </el-table-column>
-        </el-table>
-      </el-scrollbar>
-      <el-dialog :visible.sync="editNews" :width="width">
-        <newsupdate @eIfCommit="ifEdit($event)"></newsupdate>
-      </el-dialog>
-    </div>
+  <div>
+    <el-scrollbar style="height: 550px">
+      <el-table :data="tableData" :header-cell-style="{background:'#1e56a0',color:'white'}" border stripe>
+        <el-table-column prop="up_time" label="上传时间" align="center"></el-table-column>
+        <el-table-column prop="admin_id" label="管理员ID" align="center"></el-table-column>
+        <el-table-column prop="school_name" label="高校名称" align="center"></el-table-column>
+        <el-table-column prop="title" label="标题" align="center"></el-table-column>
+        <el-table-column prop="edit" label="编辑" align="center">
+          <el-button size="small" @click="edit()">编辑</el-button>
+        </el-table-column>
+      </el-table>
+    </el-scrollbar>
+    <el-dialog :visible.sync="editNews" :width="width">
+      <newsupdate @eIfCommit="ifEdit($event)"></newsupdate>
+    </el-dialog>
   </div>
 </template>
 

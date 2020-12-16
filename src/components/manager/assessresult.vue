@@ -20,7 +20,7 @@
                  :on-remove="handleRemove"
                  :file-list="fileList"
       >
-        <el-button plain style="background-color: #456268;color: white">上传文件</el-button>
+        <el-button plain style="background-color: #1e56a0;color: white">上传文件</el-button>
         <!--          <a href="@/public/评估结果.xls" download="上传评估结果.xls">点击下载样例文件</a>-->
       </el-upload>
 
@@ -28,7 +28,7 @@
     <el-divider></el-divider>
     <div>
       <el-table :data="tabledata"
-                :header-cell-style="{background:'#79A3B1',color:'black'}" border
+                :header-cell-style="{background:'#1e56a0',color:'white'}" border
                 stripe max-height="400px">
         <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
         <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>

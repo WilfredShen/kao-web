@@ -306,6 +306,8 @@
         });
       },
       setFavorMajor() {
+        console.log("进入一键收藏")
+        console.log(this.$store.state.uid);
         setFavouriteMajor(this.favormajors).then(res => {
           //  console.log(res);
           console.log("状态码" + res.status);

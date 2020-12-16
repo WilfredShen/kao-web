@@ -2,10 +2,11 @@
   <div>
     <!--    <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">-->
     <div v-for="(item,index) in items" :key="index"
-         style="display: flex;align-items: center;width: 60%" v-bind:class="index%2===0 ? 'change-color' : ''">
-      <div style="width: 30%;text-align: right"><p>{{item.label}}</p></div>
+         style="display: flex;align-items: center;width: 50%;height: 60px"
+         v-bind:class="index%2===0 ? 'change-color' : ''">
+      <div style="width: 30%;text-align: right"><span class="info">{{item.label}}</span></div>
       <div style="width: 70%;text-align: left;">
-        <p v-if="ismodify || (index<5 && index>1)">{{item.content}}</p>
+        <span class="info" v-if="ismodify || (index<5 && index>1)">{{item.content}}</span>
         <el-input class="newinfo" v-if="index===0 && !ismodify" v-model="newphone"></el-input>
         <el-input class="newinfo" v-if="index===1 && !ismodify" v-model="newemail"></el-input>
         <el-input class="newinfo" v-if="index===5 && !ismodify" v-model="newcollege"></el-input>
@@ -14,10 +15,12 @@
       </div>
     </div>
 
-    <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
+    <el-button style="background-color: #1e56a0;color: white" class="funcbtn" type="primary" v-show="ismodify"
+               @click="modify()">修改信息
+    </el-button>
     <div class="funcbtn" v-show="!ismodify">
-      <el-button type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
     </div>
     <!--    </div>-->
   </div>
@@ -107,7 +110,7 @@
 
 <style scoped>
   .change-color {
-    background-color: #eef1f6;
+    background-color: #d6e4f0;
   }
 
   .funcbtn {
@@ -116,5 +119,9 @@
 
   .newinfo {
     width: 80%;
+  }
+
+  .info {
+    font-size: 18px;
   }
 </style>
