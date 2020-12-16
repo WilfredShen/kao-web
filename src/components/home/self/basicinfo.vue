@@ -3,7 +3,7 @@
 
     <div v-for="(item,index) in items" :key="index"
          style="display: flex;align-items: center;width: 50%;height: 50px;"
-         v-bind:class="index%2===0 ? 'change-color' : ''">
+         v-bind:class="index%2===0 ? 'change-color1' : 'change-color2'">
       <div style="width: 35%;text-align: right"><span class="info">{{item.label}}</span></div>
       <div style="width: 65%;text-align: left;">
         <span class="info" style="padding-left: 15px" v-if="ismodify || index<2 || index>3">{{item.content}}</span>
@@ -12,14 +12,14 @@
       </div>
     </div>
 
-    <el-button class="funcbtn" v-show="ismodify" style="background-color: #456268;color: white" @click="modify()">修改信息
+    <el-button class="funcbtn" v-show="ismodify" style="background-color: #1e56a0;color: white" @click="modify()">修改信息
     </el-button>
     <div class="funcbtn" v-show="!ismodify">
-      <el-button style="background-color: #456268;color: white" @click="commitModify()">确认修改</el-button>
-      <el-button style="background-color: #456268;color: white" @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="commitModify()">确认修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
     </div>
 
-    <el-dropdown v-if="ismodify" style="margin-left: 10px" split-button @command="handleCommand">
+    <el-dropdown v-if="ismodify" style="margin-left: 10px;" split-button @command="handleCommand">
       {{identity}}
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="学生">学生</el-dropdown-item>
@@ -27,7 +27,7 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-button id="verify" v-if="ismodify" style="margin-left: 10px;background-color: #456268;color: white"
+    <el-button id="verify" v-if="ismodify" style="margin-left: 10px;background-color: #1e56a0;color: white"
                @click="verifyrn(),verifyid()">
       实名与身份认证
     </el-button>
@@ -162,9 +162,10 @@
 </script>
 
 <style scoped>
-  .change-color {
-    background-color: #D0E8F2;
+  .change-color1 {
+    background-color: #d6e4f0;
   }
+
 
   .funcbtn {
     margin-top: 30px;
@@ -174,3 +175,4 @@
     font-size: 18px;
   }
 </style>
+

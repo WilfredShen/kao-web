@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="8" class="rightsection">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner" style="font-size: 20px;color: white">欢迎您,{{username}}</span>
+            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{username}}</span>
           </div>
         </el-col>
       </el-row>
@@ -17,13 +17,13 @@
     <el-container>
       <el-aside class="aside">
         <el-menu class="el-menu-vertical-demo" router>
-          <el-menu-item @click="clearAll(1)">
-            <i class="el-icon-menu"></i>
-            <span slot="title" style="font-size: 15px">主页</span>
-          </el-menu-item>
           <el-menu-item @click="clearAll(2)">
             <i class="el-icon-document"></i>
             <span slot="title" style="font-size: 15px">基本信息</span>
+          </el-menu-item>
+          <el-menu-item @click="clearAll(1)" v-if="isstu">
+            <i class="el-icon-menu"></i>
+            <span slot="title" style="font-size: 15px">最近消息</span>
           </el-menu-item>
           <el-menu-item @click="clearAll(3)" v-if="isstu">
             <i class="el-icon-folder-opened"></i>
@@ -93,7 +93,7 @@
     },
     data() {
       return {
-        selected: 1,
+        selected: 2,
         isstu: false,
         istut: false,
         username: '',
@@ -148,7 +148,7 @@
   }
 
   .header {
-    background: #456268;
+    background: #d6e4f0;
     color: #000;
   }
 

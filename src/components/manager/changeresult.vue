@@ -19,7 +19,7 @@
         </el-form-item>
         <el-form-item label="学校查询:">
           <el-input v-model="searchschool" size="small" style="width: 30%" placeholder="模糊查询" clearable></el-input>
-          <el-button style="float: right;margin:0 20px 10px 10px;background-color: #456268;color: white"
+          <el-button style="float: right;margin:0 20px 10px 10px;background-color: #1e56a0;color: white"
                      @click="getResult">查询
           </el-button>
           <span style="margin-left: 10px;color: dimgray">(多个学校模糊查询关键字，以空格相隔，查找同时存在这些关键字的学校)</span>
@@ -27,7 +27,7 @@
 
       </el-form>
       <div>
-        <el-table :data="tabledata" :header-cell-style="{background:'#79A3B1',color:'black'}" border stripe
+        <el-table :data="tabledata" :header-cell-style="{background:'#1e56a0',color:'white'}" border stripe
                   style="font-size: 16px">
           <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
           <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>
@@ -46,7 +46,7 @@
         </el-table>
       </div>
 
-      <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white">
+      <el-button style="min-width: 200px;margin-top: 50px;background-color: #1e56a0;color: white">
         确认修改
       </el-button>
     </div>

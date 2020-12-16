@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--    <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">-->
     <div v-for="(item,index) in items" :key="index"
          style="display: flex;align-items: center;width: 50%;height: 60px"
          v-bind:class="index%2===0 ? 'change-color' : ''">
@@ -16,13 +15,13 @@
       </div>
     </div>
 
-    <el-button class="funcbtn" type="primary" v-show="ismodify" @click="modify()">修改信息</el-button>
+    <el-button class="funcbtn" style="background-color: #1e56a0;color: white" type="primary" v-show="ismodify"
+               @click="modify()">修改信息
+    </el-button>
     <div class="funcbtn" v-show="!ismodify">
-      <el-button type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
     </div>
-
-    <!--    </div>-->
   </div>
 </template>
 
@@ -133,7 +132,7 @@
 
 <style scoped>
   .change-color {
-    background-color: #D0E8F2;
+    background-color: #d6e4f0;
   }
 
   .funcbtn {

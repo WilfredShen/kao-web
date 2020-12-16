@@ -3,13 +3,13 @@
     <!--    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">-->
     <div>
       <div class="selection">
-        <p>毕业时间：</p>
+        <span>毕业时间：</span>
         <el-date-picker class="DatePick" type="date" placeholder="起" v-model="BeginY"></el-date-picker>
-        <p style="margin-left: 10px;margin-right: 10px">—</p>
+        <span style="margin-left: 10px;margin-right: 10px">—</span>
         <el-date-picker class="DatePick" type="date" placeholder="止" v-model="EndY"></el-date-picker>
       </div>
       <div class="selection">
-        <p>高校类别：</p>
+        <span>高校类别：</span>
         <el-dropdown size="small" split-button trigger="click" @command="handleSchField">
           {{SchLevel}}
           <el-dropdown-menu slot="dropdown" id="school_filed">
@@ -21,12 +21,12 @@
       </div>
       <div class="selection">
 
-        <p>本科学类：</p>
+        <span>本科学类：</span>
         <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
           <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
         </el-select>
 
-        <p>本科专业：</p>
+        <span style="margin-left: 15px">本科专业：</span>
         <el-select v-model="major" filterable placeholder="请选择">
           <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
                      :label="item.mid+item.mname"></el-option>
@@ -34,12 +34,12 @@
 
       </div>
       <div class="selection">
-        <p>预期学类：</p>
+        <span>预期学类：</span>
         <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
           <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
         </el-select>
         <!--          collapse-tags multiple-->
-        <p>预期专业：</p>
+        <span style="margin-left: 15px">预期专业：</span>
         <el-select v-model="exMajor" filterable placeholder="请选择">
           <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
                      :label="item.mid+item.mname"></el-option>
@@ -47,18 +47,22 @@
       </div>
       <div class="selection">
         <div style="width: 75%">
-          <el-button @click="myScreen()" type="primary" style="min-width: 100px;margin-top: 20px">筛选</el-button>
+          <el-button @click="myScreen()" type="primary"
+                     style="min-width: 100px;margin-top: 20px;background-color: #1e56a0;color: white">筛选
+          </el-button>
         </div>
         <div class="selection" style="width: 20%">
-          <el-button @click="exportEXCEL('xlsx','region')">导出为EXCEL</el-button>
-          <el-button @click="exportEXCEL('csv','region')">导出为CSV</el-button>
-          <el-button>打印</el-button>
+          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('xlsx','region')">导出为EXCEL
+          </el-button>
+          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('csv','region')">导出为CSV
+          </el-button>
+          <el-button style="background-color: #1e56a0;color: white">打印</el-button>
         </div>
       </div>
     </div>
     <el-divider></el-divider>
     <div>
-      <el-table :data="Stu_info" :header-cell-style="{background:'#eef1f6',color:'#606266'}" border stripe>
+      <el-table :data="Stu_info" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
         <el-table-column prop="name" label="姓名" align="center"></el-table-column>
         <el-table-column prop="school" label="本科高校" align="center"></el-table-column>
         <el-table-column prop="major" label="本科专业" align="center"></el-table-column>
@@ -189,5 +193,6 @@
   .selection {
     display: flex;
     align-items: center;
+    height: 60px;
   }
 </style>

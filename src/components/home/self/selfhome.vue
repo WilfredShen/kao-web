@@ -55,12 +55,15 @@
 
 <style scoped>
   .myth {
-    background-color: #79A3B1;
-    font-size: 17px;
+    height: 80px;
+    text-align: center;
+    background-color: #1e56a0;
+    font-size: 20px;
+    color: white;
   }
 
   .change-color {
-    background-color: #D0E8F2;
+    background-color: #d6e4f0;
   }
 
   .tds {
