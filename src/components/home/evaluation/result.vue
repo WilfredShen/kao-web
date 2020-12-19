@@ -118,7 +118,7 @@
   import xlsx from "xlsx";
 
   export default {
-    name: "evaluateresult",
+    name: "EvaluateResult",
     data() {
       return {
         options: [

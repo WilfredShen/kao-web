@@ -136,7 +136,7 @@
   } from '../../../assets/lib/getResultLjm';
 
   export default {
-    name: 'school',
+    name: 'College',
     data() {
       return {
         isidentity: "",

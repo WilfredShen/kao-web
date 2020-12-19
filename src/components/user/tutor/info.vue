@@ -31,6 +31,7 @@
   import {updateTeaInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
 
   export default {
+    name: 'TeacherInfo',
     data() {
       return {
         ismodify: true,

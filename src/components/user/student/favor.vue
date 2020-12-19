@@ -24,6 +24,7 @@
 
 <script>
   export default {
+    name: 'favor',
     data() {
       return {
         school_collect: [],

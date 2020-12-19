@@ -12,19 +12,19 @@
         <router-link to="/" class="nav-i">
           <el-menu-item>首页</el-menu-item>
         </router-link>
-        <router-link to="/evaresult" class="nav-i">
+        <router-link to="/evaluateresult" class="nav-i">
           <el-menu-item>评估结果</el-menu-item>
         </router-link>
-        <router-link to="/schooldetail" class="nav-i">
+        <router-link to="/collegedetail" class="nav-i">
           <el-menu-item>学校详情</el-menu-item>
         </router-link>
-        <router-link to="/campcard" class="nav-i">
+        <router-link to="/camp" class="nav-i">
           <el-menu-item>夏令营</el-menu-item>
         </router-link>
         <router-link to="/analysis" class="nav-i" v-if="istut">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
-        <router-link to="/selfmain" class="nav-i" v-if="hasLogin">
+        <router-link to="/user" class="nav-i" v-if="hasLogin">
           <el-menu-item>个人主页</el-menu-item>
         </router-link>
       </el-menu>
@@ -41,6 +41,7 @@
   import {setCookie} from "../../assets/lib/utils";
 
   export default {
+    name: 'Header',
     data() {
       return {
         isstu: false,

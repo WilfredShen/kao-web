@@ -85,6 +85,7 @@
   import {getDiscipline, getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
 
   export default {
+    name: 'EvaluationDetail',
     data() {
       return {
         discipline: [],

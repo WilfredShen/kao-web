@@ -24,6 +24,7 @@
 
 <script>
   export default {
+    name: 'FocusNews',
     data() {
       return {
         tableData: []

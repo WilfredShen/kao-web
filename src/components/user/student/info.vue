@@ -31,6 +31,7 @@
   import {checkEmail, checkMobile} from "../../../assets/lib/utils";
 
   export default {
+    name: 'StudentInfo',
     data() {
       return {
         ismodify: true,

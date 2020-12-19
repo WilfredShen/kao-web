@@ -81,6 +81,7 @@
   import xlsx from "xlsx";
 
   export default {
+    name: 'QueryStudent',
     data() {
       return {
         BeginY: '',

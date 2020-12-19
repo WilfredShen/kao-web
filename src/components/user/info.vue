@@ -39,6 +39,7 @@
   import {updateUserInfo, getLimit} from '../../assets/lib/getAndSetSelf'
 
   export default {
+    name: 'Info',
     data() {
       return {
         ismodify: true,

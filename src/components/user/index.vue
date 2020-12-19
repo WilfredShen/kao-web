@@ -50,22 +50,22 @@
       </el-aside>
       <el-main class="main">
         <keep-alive>
-          <selfhome v-if="selfhome"></selfhome>
+          <FocusNews v-if="selfhome"></FocusNews>
         </keep-alive>
         <keep-alive>
-          <collect v-if="collect"></collect>
+          <Favor v-if="collect"></Favor>
         </keep-alive>
         <keep-alive>
-          <basicinfo v-if="basicinfo"></basicinfo>
+          <Info v-if="basicinfo"></Info>
         </keep-alive>
         <keep-alive>
-          <querystu v-if="querystu"></querystu>
+          <QueryStudent v-if="querystu"></QueryStudent>
         </keep-alive>
         <keep-alive>
-          <stuinfo v-if="stuinfo"></stuinfo>
+          <StudentInfo v-if="stuinfo"></StudentInfo>
         </keep-alive>
         <keep-alive>
-          <teainfo v-if="teainfo"></teainfo>
+          <TeacherInfo v-if="teainfo"></TeacherInfo>
         </keep-alive>
       </el-main>
     </el-container>
@@ -74,22 +74,23 @@
 
 <script>
 
-  import selfhome from "./student/focus-news";
-  import collect from "./student/favor";
-  import querystu from "./tutor/query-student";
-  import stuinfo from "./student/info";
-  import teainfo from "./tutor/info";
-  import basicinfo from "./info";
+  import FocusNews from "./student/focus-news";
+  import Favor from "./student/favor";
+  import QueryStudent from "./tutor/query-student";
+  import StudentInfo from "./student/info";
+  import TeacherInfo from "./tutor/info";
+  import Info from "./info";
   import {getLimit, getUserName} from "../../assets/lib/getAndSetSelf";
 
   export default {
+    name: 'User',
     components: {
-      selfhome,
-      collect,
-      querystu,
-      stuinfo,
-      teainfo,
-      basicinfo
+      FocusNews,
+      Favor,
+      QueryStudent,
+      StudentInfo,
+      TeacherInfo,
+      Info
     },
     data() {
       return {

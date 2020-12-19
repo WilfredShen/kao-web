@@ -80,19 +80,19 @@
       </ul>
     </div>
     <div style="padding-top: 400px">
-      <evaluatedis/>
+      <EvaluationDetail></EvaluationDetail>
     </div>
   </div>
 </template>
 
 <script>
-  import evaluatedis from '@/components/home/evaluation-detail.vue';
+  import EvaluationDetail from '@/components/home/evaluation/detail';
   import {getLatestNews} from "../../assets/lib/getHomeServe";
 
   export default {
-    name: 'home',
+    name: 'Home',
     components: {
-      evaluatedis
+      EvaluationDetail,
     },
     data() {
       return {

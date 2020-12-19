@@ -51,6 +51,7 @@
   import {uploadEvaluation} from "../../../assets/lib/setManager";
 
   export default {
+    name: 'Assess',
     data() {
       return {
         hint: '当前轮次没有数据，请上传',

@@ -82,6 +82,7 @@
   import {updateEvaluation} from "../../../assets/lib/setManager";
 
   export default {
+    name: 'modify',
     data() {
       return {
         searchmajor: '',

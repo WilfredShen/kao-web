@@ -71,7 +71,7 @@
   import {getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
 
   export default {
-    name: "",
+    name: 'CollegeDetail',
     data: function () {
       return {
         input: '',

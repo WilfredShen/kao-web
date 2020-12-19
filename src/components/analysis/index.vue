@@ -95,7 +95,7 @@
 
 
   export default {
-    name: "",
+    name: "Analysis",
     data() {
       return {
         checkboxGroup: [],
