@@ -133,7 +133,7 @@
     rateList,
     tutorList,
     setFavouriteTutor,
-  } from '../../assets/lib/getResultLjm';
+  } from '../../../assets/lib/getResultLjm';
 
   export default {
     name: 'school',

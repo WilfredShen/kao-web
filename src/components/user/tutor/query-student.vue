@@ -77,7 +77,7 @@
 
 <script>
 
-  import {majorList, disciplineList} from "../../assets/lib/getResultLjm";
+  import {majorList, disciplineList} from "../../../assets/lib/getResultLjm";
   import xlsx from "xlsx";
 
   export default {
