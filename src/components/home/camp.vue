@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    name: 'Camp',
     data() {
       return {
         camps: [],

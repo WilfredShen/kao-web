@@ -6,21 +6,21 @@
          v-bind:class="index%2===0 ? 'change-color' : ''">
       <div style="width: 30%;text-align: right"><span class="info">{{item.label}}</span></div>
       <div style="width: 70%;text-align: left;">
-        <span class="info" v-if="ismodify || (index<5 && index>1)">{{item.content}}</span>
-        <el-input class="newinfo" v-if="index===0 && !ismodify" v-model="newphone"></el-input>
-        <el-input class="newinfo" v-if="index===1 && !ismodify" v-model="newemail"></el-input>
-        <el-input class="newinfo" v-if="index===5 && !ismodify" v-model="newcollege"></el-input>
-        <el-input class="newinfo" v-if="index===6 && !ismodify" v-model="newmajor"></el-input>
-        <el-input class="newinfo" v-if="index===7 && !ismodify" v-model="newresearch"></el-input>
+        <span class="info" v-if="isModify || (index<5 && index>1)">{{item.content}}</span>
+        <el-input class="new-info" v-if="index===0 && !isModify" v-model="newPhone"></el-input>
+        <el-input class="new-info" v-if="index===1 && !isModify" v-model="newEmail"></el-input>
+        <el-input class="new-info" v-if="index===5 && !isModify" v-model="newCollege"></el-input>
+        <el-input class="new-info" v-if="index===6 && !isModify" v-model="newMajor"></el-input>
+        <el-input class="new-info" v-if="index===7 && !isModify" v-model="newResearch"></el-input>
       </div>
     </div>
 
-    <el-button style="background-color: #1e56a0;color: white" class="funcbtn" type="primary" v-show="ismodify"
+    <el-button style="background-color: #1e56a0;color: white" class="funcbtn" type="primary" v-show="isModify"
                @click="modify()">修改信息
     </el-button>
-    <div class="funcbtn" v-show="!ismodify">
+    <div class="func-btn" v-show="!isModify">
       <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
     </div>
     <!--    </div>-->
   </div>
@@ -28,18 +28,18 @@
 
 <script>
 
-  import {updateTeaInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
+  import {updateTeaInfo, updateUserInfo} from '@/assets/lib/getAndSetSelf'
 
   export default {
-    name: 'TeacherInfo',
+    name: 'TutorInfo',
     data() {
       return {
-        ismodify: true,
-        newphone: '',
-        newemail: '',
-        newcollege: '',
-        newmajor: '',
-        newresearch: '',
+        isModify: true,
+        newPhone: '',
+        newEmail: '',
+        newCollege: '',
+        newMajor: '',
+        newResearch: '',
         items: [
           {label: '联系电话：', content: ''},
           {label: '邮箱地址：', content: ''},
@@ -54,30 +54,30 @@
     },
     methods: {
       modify() {
-        this.ismodify = !this.ismodify;
+        this.isModify = !this.isModify;
       },
-      cancleModify() {
-        this.ismodify = !this.ismodify;
+      cancelModify() {
+        this.isModify = !this.isModify;
       },
       commitModify() {
-        let pphone, pemail, pcollege, pmajor, presearch;
-        pphone = this.newphone === '' ? this.items[0].content : this.newphone;
-        pemail = this.newemail === '' ? this.items[1].content : this.newemail;
-        pcollege = this.newcollege === '' ? this.items[5].content : this.newcollege;
-        pmajor = this.newmajor === '' ? this.items[6].content : this.newmajor;
-        presearch = this.newresearch === '' ? this.items[7].content : this.newresearch;
-        updateTeaInfo(pphone, pemail, pcollege, pmajor, presearch)
+        let pPhone, pEmail, pCollege, pMajor, pResearch;
+        pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
+        pEmail = this.newEmail === '' ? this.items[1].content : this.newEmail;
+        pCollege = this.newCollege === '' ? this.items[5].content : this.newCollege;
+        pMajor = this.newMajor === '' ? this.items[6].content : this.newMajor;
+        pResearch = this.newResearch === '' ? this.items[7].content : this.newResearch;
+        updateTeaInfo(pPhone, pEmail, pCollege, pMajor, pResearch)
           .then(res => {
             console.log(res);
-            this.ismodify = !this.ismodify;
-            this.newphone = '';
-            this.newemail = '';
-            this.newcollege = '';
-            this.newmajor = '';
-            this.newresearch = '';
-            this.setTeoInfo();
+            this.isModify = !this.isModify;
+            this.newPhone = '';
+            this.newEmail = '';
+            this.newCollege = '';
+            this.newMajor = '';
+            this.newResearch = '';
+            this.setTutorInfo();
           })
-        updateUserInfo(pphone, pemail)
+        updateUserInfo(pPhone, pEmail)
           .then(res => {
             console.log(res);
           })
@@ -85,10 +85,9 @@
             console.log("研究生秘书修改基本信息有问题" + err);
           })
       },
-      setTeoInfo() {
+      setTutorInfo() {
         this.$axios.get("/api/tutor/get_tutor_msg")
           .then(res => {
-            console.log("teainfo = " + res);
             let item = res.data.data;
             this.items[0].content = item.phone;
             this.items[1].content = item.email;
@@ -104,7 +103,7 @@
       }
     },
     created() {
-      this.setTeoInfo();
+      this.setTutorInfo();
     }
   }
 </script>
@@ -114,11 +113,11 @@
     background-color: #d6e4f0;
   }
 
-  .funcbtn {
+  .func-btn {
     margin-top: 30px;
   }
 
-  .newinfo {
+  .new-info {
     width: 80%;
   }
 

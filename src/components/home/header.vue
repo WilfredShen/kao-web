@@ -6,22 +6,22 @@
       <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录
 
       </el-button>
-      <el-button size="mini" style="float: right" @click="dealsignout" v-if="hasLogin"> 退出登录
+      <el-button size="mini" style="float: right" @click="logOut" v-if="hasLogin"> 退出登录
       </el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
           <el-menu-item>首页</el-menu-item>
         </router-link>
-        <router-link to="/evaluateresult" class="nav-i">
+        <router-link to="/evaluate/result" class="nav-i">
           <el-menu-item>评估结果</el-menu-item>
         </router-link>
-        <router-link to="/collegedetail" class="nav-i">
+        <router-link to="/college/detail" class="nav-i">
           <el-menu-item>学校详情</el-menu-item>
         </router-link>
         <router-link to="/camp" class="nav-i">
           <el-menu-item>夏令营</el-menu-item>
         </router-link>
-        <router-link to="/analysis" class="nav-i" v-if="istut">
+        <router-link to="/analysis" class="nav-i" v-if="isTut">
           <el-menu-item>生源分析</el-menu-item>
         </router-link>
         <router-link to="/user" class="nav-i" v-if="hasLogin">
@@ -31,22 +31,22 @@
     </div>
     <br>
     <keep-alive>
-      <router-view/>
+      <router-view></router-view>
     </keep-alive>
   </div>
 </template>
 
 <script>
-  import {getLimit} from "../../assets/lib/getAndSetSelf";
-  import {setCookie} from "../../assets/lib/utils";
+  import {getLimit} from "@/assets/lib/getAndSetSelf";
+  import {setCookie} from "@/assets/lib/utils";
 
   export default {
     name: 'Header',
     data() {
       return {
-        isstu: false,
-        istut: false,
-        hasLogin: false
+        isStu: false,
+        isTut: false,
+        hasLogin: false,
       }
     },
     created() {
@@ -54,21 +54,21 @@
       getLimit().then(res => {
         console.log("首页获得的权限" + res);
         if (res === 'student') {
-          this.isstu = true;
+          this.isStu = true;
         } else if (res === 'tutor') {
-          this.istut = true;
+          this.isTut = true;
         }
-      })
+      });
       //获取夏令营信息
       this.$store.dispatch('getCamps');
     },
     methods: {
-      dealsignout() {
+      logOut() {
         this.$message("退出登录");
         setCookie("uid", "", 0);
         setCookie("adminId", "", 0);
         setCookie("accessToken", "", 0);
-        this.$store.commit('setuid', '');
+        this.$store.commit('setUid', '');
         location.reload();
       }
     }

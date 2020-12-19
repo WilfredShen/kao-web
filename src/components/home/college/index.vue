@@ -1,23 +1,21 @@
 <template>
   <div>
     <div style="width: 20px">
-      <el-button class="row-style" type="text" @click="$router.push({ path: '/schoolDetail' })"
+      <el-button class="row-style" type="text" @click="$router.push({ path: '/college/detail' })"
                  icon="el-icon-back" style="font-size: 15px;">返回
       </el-button>
     </div>
     <br>
     <div class="sch-divstyle" style="padding: 5px 0;margin-top:20px">
       <div class="school">
-        <p style="font-weight: 700;">{{this.school_details.cid}}
-          {{this.school_details.cname}}
-          {{this.school_details.level}}
+        <p style="font-weight: 700;">{{this.schoolDetails.cid}}
+          {{this.schoolDetails.cname}}
+          {{this.schoolDetails.level}}
         </p>
       </div>
       <div class="mess" style="padding: 5px">
-        <p>地区:{{this.school_details.location}}</p>
-        <p>简介:{{this.school_details.introduction}}</p>
-        <p>夏令营信息:</p>
-        <p>推免信息:</p>
+        <p>地区:{{this.schoolDetails.location}}</p>
+        <p>简介:{{this.schoolDetails.introduction}}</p>
       </div>
       <div>
         <p style="font-weight: 700;">最新排名:</p>
@@ -80,7 +78,7 @@
           </tr>
           <tr v-for="(item, index) in evaluates.slice(0,5)" :key="index"
               style="text-align:center">
-            <td>{{item.mid+getMajorname(item.mid)}}</td>
+            <td>{{item.mid+getMajorName(item.mid)}}</td>
             <td>{{item.result}}</td>
             <td>第四轮</td>
           </tr>
@@ -105,7 +103,7 @@
           </tr>
           <tr v-for="(item, index) in tutors" :key="index" style="text-align:center">
             <td> {{item.name}}</td>
-            <td>{{getMajorname(item.mid)}}</td>
+            <td>{{getMajorName(item.mid)}}</td>
             <td>{{item.research}}</td>
             <td>{{item.contactPhone}}</td>
             <td>{{item.contactEmail}}</td>
@@ -140,10 +138,10 @@
     data() {
       return {
         isidentity: "",
-        school_cid: [],
-        school_details: [],
+        schoolCid: [],
+        schoolDetails: [],
         evaluates: [],
-        allmajors: [],
+        allMajors: [],
         ranks: [],
         rates: [],
         tutors: [],
@@ -151,35 +149,35 @@
       }
     },
     methods: {
-      getSchooldetail(cid) {
+      getSchoolDetail(cid) {
         schoolDetail(cid).then(res => {
           console.log("res", res)
-          this.school_details = res[0];
-          console.log("schoool_details" + this.school_details.cname);
+          this.schoolDetails = res[0];
+          console.log("schoool_details" + this.schoolDetails.cname);
         });
       },
-      getevaluates() {
-        console.log("在评估结果里的学校代码" + this.school_cid)
+      getEvaluates() {
+        console.log("在评估结果里的学校代码" + this.schoolCid)
         this.evaluates = [];
         getEvaluationList("4").then(res => {
           for (let i = 0; i < res.length; i++) {
-            if (res[i].cid === this.school_cid[0]) {
+            if (res[i].cid === this.schoolCid[0]) {
               this.evaluates.push(res[i]);
             }
           }
           console.log("评估结果" + this.evaluates);
         })
       },
-      getmajorListall() {
+      getMajorListAll() {
         majorList().then(res => {
-          this.allmajors = res;
+          this.allMajors = res;
           // console.log(this.disciplines)
         });
       },
-      getMajorname(mid) {
-        for (let i = 0; i < this.allmajors.length; i++) {
-          if (this.allmajors[i].mid === mid) {
-            return this.allmajors[i].mname;
+      getMajorName(mid) {
+        for (let i = 0; i < this.allMajors.length; i++) {
+          if (this.allMajors[i].mid === mid) {
+            return this.allMajors[i].mname;
           }
         }
       },
@@ -225,14 +223,15 @@
       this.isidentity = this.$store.state.uid;
     },
     created() {
-      this.school_cid.push(this.$store.state.cid);
-      this.getSchooldetail(this.school_cid);
-      console.log("school", this.school_details);
-      this.getRank(this.school_cid[0]);
-      this.getRates(this.school_cid[0]);
-      this.getevaluates();
-      this.getmajorListall();
-      this.getTutors(this.school_cid[0]);
+      this.schoolCid = [];
+      this.schoolCid.push(this.$store.state.cid);
+      this.getSchoolDetail(this.schoolCid);
+      console.log("school", this.schoolDetails);
+      this.getRank(this.schoolCid[0]);
+      this.getRates(this.schoolCid[0]);
+      this.getEvaluates();
+      this.getMajorListAll();
+      this.getTutors(this.schoolCid[0]);
       this.isidentity = this.$store.state.uid;
     }
   }

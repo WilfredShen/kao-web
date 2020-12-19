@@ -7,7 +7,7 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/adminlogin',
+      path: '/admin/login',
       name: 'AdminLogin',
       component: () => import('@/components/admin/login'),
     },
@@ -37,12 +37,12 @@ export default new VueRouter({
           component: () => import('@/components/home/index')
         },
         {
-          path: 'evaluateresult',
+          path: 'evaluate/result',
           name: 'EvaluateResult',
           component: () => import('@/components/home/evaluation/result')
         },
         {
-          path: 'collegedetail',
+          path: 'college/detail',
           name: 'CollegeDetail',
           component: () => import('@/components/home/college/detail'),
         },

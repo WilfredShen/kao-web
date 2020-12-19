@@ -4,15 +4,15 @@
     <div>
       <div class="selection">
         <span>毕业时间：</span>
-        <el-date-picker class="DatePick" type="date" placeholder="起" v-model="BeginY"></el-date-picker>
+        <el-date-picker class="date-pick" type="date" placeholder="起" v-model="beginY"></el-date-picker>
         <span style="margin-left: 10px;margin-right: 10px">—</span>
-        <el-date-picker class="DatePick" type="date" placeholder="止" v-model="EndY"></el-date-picker>
+        <el-date-picker class="date-pick" type="date" placeholder="止" v-model="endY"></el-date-picker>
       </div>
       <div class="selection">
         <span>高校类别：</span>
         <el-dropdown size="small" split-button trigger="click" @command="handleSchField">
-          {{SchLevel}}
-          <el-dropdown-menu slot="dropdown" id="school_filed">
+          {{schLevel}}
+          <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="'985/211'">985/211</el-dropdown-item>
             <el-dropdown-item :command="'211'">211</el-dropdown-item>
             <el-dropdown-item :command="'双一流'">双一流</el-dropdown-item>
@@ -23,7 +23,7 @@
 
         <span>本科学类：</span>
         <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
-          <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
+          <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.name"></el-option>
         </el-select>
 
         <span style="margin-left: 15px">本科专业：</span>
@@ -62,7 +62,7 @@
     </div>
     <el-divider></el-divider>
     <div>
-      <el-table :data="Stu_info" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
+      <el-table :data="stuInfo" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
         <el-table-column prop="name" label="姓名" align="center"></el-table-column>
         <el-table-column prop="school" label="本科高校" align="center"></el-table-column>
         <el-table-column prop="major" label="本科专业" align="center"></el-table-column>
@@ -77,30 +77,28 @@
 
 <script>
 
-  import {majorList, disciplineList} from "../../../assets/lib/getResultLjm";
+  import {majorList, disciplineList} from "@/assets/lib/getResultLjm";
   import xlsx from "xlsx";
 
   export default {
     name: 'QueryStudent',
     data() {
       return {
-        BeginY: '',
-        EndY: '',
-        SchLevel: '请选择',
-        Stu_info: [],
+        beginY: '',
+        endY: '',
+        schLevel: '请选择',
+        stuInfo: [],
         disciplines: [],//学类
         majors: [],//专业
         discipline: '',//选择的学类
-        // major:[],//选择的专业
         major: '',
         exDiscipline: '',//预期学类
-        // exMajor:[]//预期专业
         exMajor: '',
       }
     },
     methods: {
       handleSchField(command) {
-        this.SchLevel = command;
+        this.schLevel = command;
       },
       getDisciplines() {
         disciplineList()
@@ -132,9 +130,9 @@
         console.log(this.major[0])
         this.$axios.get("/api/tutor/get_queryableStu_msg", {
           params: {
-            'beginDate': this.BeginY,
-            'endDate': this.EndY,
-            'collegeLevel': this.SchLevel,
+            'beginDate': this.beginY,
+            'endDate': this.endY,
+            'collegeLevel': this.schLevel,
             'major': this.major,
             'expectedMajor': this.exMajor
           }
@@ -142,7 +140,7 @@
           console.log(res);
           let items = res.data.data;
           for (let i = 0; i < items.length; i++) {
-            this.Stu_info.push({
+            this.stuInfo.push({
               'name': items[i].name,
               'school': items[i].college,
               'major': items[i].major,
@@ -158,7 +156,7 @@
       exportEXCEL(type) {
         console.log("进入了导出EXCEL函数")
         let arr;
-        arr = this.Stu_info.map(item => {
+        arr = this.stuInfo.map(item => {
           return {
             "姓名": item.name,
             "学校": item.school,
@@ -187,7 +185,7 @@
 </script>
 
 <style scoped>
-  .DatePick {
+  .date-pick {
     width: 150px;
   }
 

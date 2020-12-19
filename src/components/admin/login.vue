@@ -50,10 +50,10 @@
 
 <script>
 
-  import '../../assets/css/login.css'
+  import '@/assets/css/login.css'
 
   export default {
-    name: 'AdminLogin',
+    name: "AdminLogin",
     data() {
       return {
         loginForm: {
@@ -82,15 +82,15 @@
           })
           .then((res) => {
             if (res.data.status === 200) {
-              let callback = this.$route.query.callback;
-              if (callback) {
+              let callBack = this.$route.query.callBack;
+              if (callBack) {
                 this.$message.success("登录成功！即将跳转至原界面...");
               } else {
-                callback = "/admin";
+                callBack = "/manager";
                 this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {
-                this.$router.push(callback.toString());
+                this.$router.push(callBack.toString());
               }, 3000);
             } else {
               this.$message.error("用户名或密码错误！");

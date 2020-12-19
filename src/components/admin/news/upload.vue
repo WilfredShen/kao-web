@@ -37,12 +37,12 @@
 </template>
 
 <script>
-  import {getSchool} from "../../../assets/lib/getHomeServe";
+  import {getSchool} from "@/assets/lib/getHomeServe";
 
   export default {
+    name: 'UploadNews',
     data() {
       return {
-        school_name: '',
         schools: [],
         schoolIds: [],
         title: '',

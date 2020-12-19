@@ -11,7 +11,7 @@
         <span style="font-size:14px">
           轮次 :
         </span>
-        <el-select v-model="sround" placeholder="请选择" size="mini">
+        <el-select v-model="round" placeholder="请选择" size="mini">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -26,7 +26,7 @@
         <span style="font-size:14px">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorlist">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorList">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -82,10 +82,10 @@
                 <th>高校名称及代码</th>
                 <th>评估等级</th>
               </tr>
-              <tr v-for="(item, index) in tmplist" :key="index"
+              <tr v-for="(item, index) in resultList" :key="index"
                   style="text-align:center;line-height:50px">
-                <td>{{item.mid+getMajorname(item.mid)}}</td>
-                <td @click="schoolclik(item.cid)">{{item.cid+getSchoolname(item.cid)}}</td>
+                <td>{{item.mid+getMajorName(item.mid)}}</td>
+                <td @click="schoolClik(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
                 <td>{{item.result}}</td>
               </tr>
             </table>
@@ -101,7 +101,8 @@
       </el-button>
     </div>
     <div style="float:right;margin-right:5px;margin-top:10px">
-      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click= "exportEXCEL()">导出</el-button>
+      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="exportExcel()">导出
+      </el-button>
     </div>
   </div>
 
@@ -114,7 +115,7 @@
     schoolList,
     getEvaluationList,
     setFavouriteMajor
-  } from '../../../assets/lib/getResultLjm'
+  } from '@/assets/lib/getResultLjm'
   import xlsx from "xlsx";
 
   export default {
@@ -171,38 +172,38 @@
           dindex: 0
         },
         loading: true,
-        sround: "4",//轮次
+        round: "4",//轮次
         disciplines: [],//学类
         majors: [],//学科
         schools: [],
-        allmajors: [],
+        allMajors: [],
         disciplineCode: "",//学类代码
         majorCode: "",//学科代码
         level: [], //等级数组
-        tmplist: [],
+        resultList: [],
         isidentity: "",
-        favormajors: [],
+        favorMajors: [],
       }
     },
     methods: {
-      getSchoollist() {
+      getSchoolList() {
         schoolList().then(res => {
           this.schools = res;
         });
       },
-      getDisciplinelist() {
+      getDisciplineList() {
         disciplineList().then(res => {
           this.disciplines = res;
           // console.log(this.disciplines)
         });
       },
-      getMajorListall() {
+      getMajorListAll() {
         majorList().then(res => {
-          this.allmajors = res;
+          this.allMajors = res;
           // console.log(this.disciplines)
         });
       },
-      getMajorlist(id) {
+      getMajorList(id) {
         this.majors = [];
         majorList().then(res => {
           for (let i = 0; i < res.length; i++) {
@@ -212,24 +213,24 @@
           }
         });
       },
-      getSchoolname(cid) {
+      getSchoolName(cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
           }
         }
       },
-      getMajorname(mid) {
-        for (let i = 0; i < this.allmajors.length; i++) {
-          if (this.allmajors[i].mid === mid) {
-            return this.allmajors[i].mname;
+      getMajorName(mid) {
+        for (let i = 0; i < this.allMajors.length; i++) {
+          if (this.allMajors[i].mid === mid) {
+            return this.allMajors[i].mname;
           }
         }
       },
       getTmpResults() {
-        getEvaluationList(this.sround).then(res => {
-          this.tmplist = [];
-          this.favormajors = [];
+        getEvaluationList(this.round).then(res => {
+          this.resultList = [];
+          this.favorMajors = [];
           for (let i = 0; i < res.length; i++) {
             //         console.log("majorcode"+this.majorCode);
             //        console.log("resmid"+res[i].mid);
@@ -238,70 +239,70 @@
               for (let j = 0; j < this.level.length; j++) {
                 if (this.level[j] === "A+") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 95 && parseInt(res[i].result) <= 100) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "A") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 90 && parseInt(res[i].result) <= 95) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "A-") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 85 && parseInt(res[i].result) <= 90) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "B+") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 80 && parseInt(res[i].result) <= 85) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "B") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 75 && parseInt(res[i].result) <= 80) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "B-") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 70 && parseInt(res[i].result) <= 75) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "C+") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 68 && parseInt(res[i].result) <= 70) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "C") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) > 65 && parseInt(res[i].result) <= 68) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 } else if (this.level[j] === "C-") {
                   if (res[i].result === this.level[j]) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   } else if (parseInt(res[i].result) >= 60 && parseInt(res[i].result) <= 65) {
-                    this.tmplist.push(res[i]);
+                    this.resultList.push(res[i]);
                   }
                 }
               }
             }
           }
-          console.log("tmplist" + this.tmplist);
-          if (this.tmplist.length <= 0) {
+          console.log("resultList" + this.resultList);
+          if (this.resultList.length <= 0) {
             this.$message("无数据")
           }
-          for (let i = 0; i < this.tmplist.length; i++) {
-            this.favormajors.push({
-              majorCid: this.tmplist[i].cid,
-              majorMid: this.tmplist[i].mid,
+          for (let i = 0; i < this.resultList.length; i++) {
+            this.favorMajors.push({
+              majorCid: this.resultList[i].cid,
+              majorMid: this.resultList[i].mid,
             });
           }
         });
@@ -309,7 +310,7 @@
       setFavorMajor() {
         console.log("进入一键收藏")
         console.log(this.$store.state.uid);
-        setFavouriteMajor(this.favormajors).then(res => {
+        setFavouriteMajor(this.favorMajors).then(res => {
           //  console.log(res);
           console.log("状态码" + res.status);
           if (res.status === 200) {
@@ -325,21 +326,21 @@
           }
         })
       },
-      schoolclik(cid) {
+      schoolClik(cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
-        this.$router.push({path: '/school'});
+        this.$router.push({path: '/college'});
       },
-      exportEXCEL() {
+      exportExcel() {
         console.log("进入了导出EXCEL函数")
         let arr;
-        arr = this.tmplist.map(item => {
-            return {
-              学科名称及代码: item.mid+this.getMajorname(item.mid),
-              高校名称及代码: item.cid+this.getSchoolname(item.cid),
-              评估等级:item.result
-            };
-          });
+        arr = this.resultList.map(item => {
+          return {
+            学科名称及代码: item.mid + this.getMajorName(item.mid),
+            高校名称及代码: item.cid + this.getSchoolName(item.cid),
+            评估等级: item.result
+          };
+        });
         let sheet = xlsx.utils.json_to_sheet(arr);
         let book = xlsx.utils.book_new();
         xlsx.utils.book_append_sheet(book, sheet, "sheet1");
@@ -347,9 +348,9 @@
       },
     },
     created() {
-      this.getDisciplinelist();
-      this.getSchoollist();
-      this.getMajorListall();
+      this.getDisciplineList();
+      this.getSchoolList();
+      this.getMajorListAll();
       this.isidentity = this.$store.state.uid;
     }
   }

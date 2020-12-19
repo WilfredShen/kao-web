@@ -38,16 +38,15 @@
       取消修改
     </el-button>
   </div>
-  <!--  </div>-->
 </template>
 
 <script>
-  import {getSchool} from "../../../assets/lib/getHomeServe";
+  import {getSchool} from "@/assets/lib/getHomeServe";
 
   export default {
+    name: 'UpdateNews',
     data() {
       return {
-        school_name: '',
         schools: [],
         schoolIds: [],
         title: '',

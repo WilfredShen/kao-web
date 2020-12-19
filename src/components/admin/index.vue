@@ -2,12 +2,12 @@
   <el-container class="container">
     <el-header class="header" height="80px" style="margin-bottom: 20px">
       <el-row>
-        <el-col :span="16" class="headerlogo">
+        <el-col :span="16" class="header-logo">
           <div class="grid-content bg-purple">
             <img class="img-style" style="float: left" src="@/assets/logo11.png">
           </div>
         </el-col>
-        <el-col :span="8" class="rightsection">
+        <el-col :span="8" class="right-section">
           <div class="grid-content bg-purple-light" style="margin-top: 15px">
             <span style="font-size: 20px;color: black;font-weight: bold">欢迎管理员！</span>
           </div>
@@ -38,20 +38,19 @@
             <span slot="title" style="font-size: 15px">返回首页</span>
           </el-menu-item>
         </el-menu>
-        <!--        <el-image :src="img" style="width: 200px;height: 150px;margin-top: 50px"></el-image>-->
       </el-aside>
       <el-main class="main">
         <keep-alive>
-          <AssessEval v-if="assessresult"></AssessEval>
+          <assess-eval v-if="assessResult"></assess-eval>
         </keep-alive>
         <keep-alive>
-          <ModifyEval v-if="changeresult"></ModifyEval>
+          <modify-eval v-if="changeResult"></modify-eval>
         </keep-alive>
         <keep-alive>
-          <UploadNews v-if="uploadnews"></UploadNews>
+          <upload-news v-if="uploadNews"></upload-news>
         </keep-alive>
         <keep-alive>
-          <ShowList v-if="newsupdate"></ShowList>
+          <show-list v-if="newsUpdate"></show-list>
         </keep-alive>
       </el-main>
     </el-container>
@@ -84,16 +83,16 @@
       },
     },
     computed: {
-      assessresult: function () {
+      assessResult: function () {
         return this.selected === 1;
       },
-      changeresult: function () {
+      changeResult: function () {
         return this.selected === 2;
       },
-      uploadnews: function () {
+      uploadNews: function () {
         return this.selected === 3;
       },
-      newsupdate: function () {
+      newsUpdate: function () {
         return this.selected === 4;
       }
     }
@@ -123,17 +122,12 @@
     color: #212121;
   }
 
-  .main {
-    /* height: 100%; */
-    color: #212121;
-  }
-
-  .headerlogo {
+  .header-logo {
     line-height: 60px;
     margin-top: 10px;
   }
 
-  .rightsection {
+  .right-section {
     line-height: 60px;
     text-align: center;
   }

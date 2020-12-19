@@ -1,19 +1,19 @@
 <template>
   <div class="demo-wrapper">
     <div style="margin: 20px 10px 30px 20px">
-      <span class="title1">
+      <span class="detail-title">
       高校评估结果快捷查询（第四轮）
       </span>
     </div>
     <div style="margin: 10px 10px 10px 10px">
       <el-container style="width: 100%">
-        <el-aside class="bor1" style="padding: 1.6rem; background-color: white;width: 20%">
+        <el-aside class="border-style" style="padding: 1.6rem; background-color: white;width: 20%">
           <div class="discipline-options">
             <div
               class="discipline-option"
               v-for="(d, index) in discipline"
               :key="index"
-              @click="setselected(index)"
+              @click="setSelected(index)"
             >
             <span>
               {{ d.dname }}
@@ -23,11 +23,11 @@
         </el-aside>
         <el-main style="padding: 0">
           <el-container>
-            <el-aside class="bor1" style="padding: 1.6rem; background-color: #e8e8e8 ;width: 30%">
+            <el-aside class="border-style" style="padding: 1.6rem; background-color: #e8e8e8 ;width: 30%">
               <div class="major-options">
                 <div
                   class="major-option"
-                  v-for="(m, index) in getmajors"
+                  v-for="(m, index) in getMajors"
                   :key="index"
                   @click="selected.mindex = index"
                 >
@@ -37,10 +37,10 @@
                 </div>
               </div>
             </el-aside>
-            <el-main class="bor1">
+            <el-main class="border-style">
               <div style="text-align: center">
-                <span style="font-size: 17px;font-weight: bold" v-if="this.getmajors[0]">
-                  {{ `${this.getmajors[this.selected.mindex].mid} ${this.getmajors[this.selected.mindex].mname}` }}
+                <span style="font-size: 17px;font-weight: bold" v-if="this.getMajors[0]">
+                  {{ `${this.getMajors[this.selected.mindex].mid} ${this.getMajors[this.selected.mindex].mname}` }}
                 </span><br><br/>
                 <span>
                   本一级学科中，全国具有“博士授权”的高校共48所，本次参评38所；部分具有“硕士授权”的高校也参加了评估；参评高校共计84所。<br>(注:评估结果相同的高校排序不分先后，按学校代码排列)
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import {getDiscipline, getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
+  import {getDiscipline, getMajor, getSchool, getSomeResult} from "@/assets/lib/getHomeServe";
 
   export default {
     name: 'EvaluationDetail',
@@ -90,7 +90,7 @@
       return {
         discipline: [],
         major: [],
-        schoolmap: {},
+        schoolMap: {},
         evaluation: [],
         selected: {
           did: '1',
@@ -100,20 +100,20 @@
     },
     computed: {
       //获取所选学科的专业
-      getmajors: function () {
+      getMajors: function () {
         let list
         list = this.major.filter(item => item.did === this.selected.did);
         return list
       },
       //获取所选专业的评估结果，学校代码对应的学校名称
       showEvaluation: function () {
-        let Myeval = this.evaluation.filter(item => item.mid === this.getmajors[this.selected.mindex].mid);
+        let Myeval = this.evaluation.filter(item => item.mid === this.getMajors[this.selected.mindex].mid);
         // console.log("type",Myeval)
         Myeval.forEach(item => {
           this.$set(item, 'cname', "")
-        })
+        });
         for (let i in Myeval) {
-          Myeval[i].cname = this.schoolmap[Myeval[i].cid].cname
+          Myeval[i].cname = this.schoolMap[Myeval[i].cid].cname;
         }
         let compare = function (obj1, obj2) {
           let val1 = obj1.result;
@@ -140,12 +140,11 @@
                 result = 0;
               }
             }
-
           }
           return result;
         };
         // console.log(Myeval.sort(compare));
-        return Myeval.sort(compare)
+        return Myeval.sort(compare);
       }
     },
     watch: {
@@ -167,20 +166,15 @@
         console.log(err);
       });
 
-
       getMajor().then((res) => {
         this.major = res.data;
-        // res.data.forEach(row => {
-        //   this.majormap[row.mid] = {mname: row.mname, did: row.did}
-        // })
-        // console.log("majormap",this.major);
       }).catch((err) => {
         console.log(err)
       });
 
       getSchool().then((res) => {
         res.data.forEach(row => {
-          this.schoolmap[row.cid] = {cname: row.cname}
+          this.schoolMap[row.cid] = {cname: row.cname}
           this.$store.commit("setSchMap", {
             cname: row.cname,
             cid: row.cid
@@ -202,7 +196,7 @@
       console.log(this.$store.state.identify);
     },
     methods: {
-      setselected(index) {
+      setSelected(index) {
         this.selected.did = this.discipline[index].did;
         this.selected.mindex = 0;
       }
@@ -217,7 +211,7 @@
     border: 1px solid black;
   }
 
-  .title1 {
+  .detail-title {
     margin: 30px 0 30px 10px;
     font-size: 18px;
     font-weight: bold;
@@ -227,7 +221,7 @@
     margin: 5px 0;
   }
 
-  .bor1 {
+  .border-style {
     border: 1px solid gray;
   }
 

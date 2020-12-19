@@ -2,14 +2,14 @@
   <el-container class="container">
     <el-header class="header" height="80px" style="margin-bottom: 20px">
       <el-row>
-        <el-col :span="16" class="headerlogo">
+        <el-col :span="16" class="header-logo">
           <div class="grid-content bg-purple">
             <img class="img-style" style="float: left" src="@/assets/logo11.png">
           </div>
         </el-col>
-        <el-col :span="8" class="rightsection">
+        <el-col :span="8" class="right-section">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{username}}</span>
+            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{userName}}</span>
           </div>
         </el-col>
       </el-row>
@@ -50,22 +50,22 @@
       </el-aside>
       <el-main class="main">
         <keep-alive>
-          <FocusNews v-if="selfhome"></FocusNews>
+          <focus-news v-if="selfHome"></focus-news>
         </keep-alive>
         <keep-alive>
-          <Favor v-if="collect"></Favor>
+          <favor v-if="collect"></favor>
         </keep-alive>
         <keep-alive>
-          <Info v-if="basicinfo"></Info>
+          <info v-if="basicInfo"></info>
         </keep-alive>
         <keep-alive>
-          <QueryStudent v-if="querystu"></QueryStudent>
+          <query-student v-if="queryStu"></query-student>
         </keep-alive>
         <keep-alive>
-          <StudentInfo v-if="stuinfo"></StudentInfo>
+          <student-info v-if="stuInfo"></student-info>
         </keep-alive>
         <keep-alive>
-          <TeacherInfo v-if="teainfo"></TeacherInfo>
+          <tutor-info v-if="tutInfo"></tutor-info>
         </keep-alive>
       </el-main>
     </el-container>
@@ -78,9 +78,9 @@
   import Favor from "./student/favor";
   import QueryStudent from "./tutor/query-student";
   import StudentInfo from "./student/info";
-  import TeacherInfo from "./tutor/info";
+  import TutorInfo from "./tutor/info";
   import Info from "./info";
-  import {getLimit, getUserName} from "../../assets/lib/getAndSetSelf";
+  import {getLimit, getUserName} from "@/assets/lib/getAndSetSelf";
 
   export default {
     name: 'User',
@@ -89,35 +89,35 @@
       Favor,
       QueryStudent,
       StudentInfo,
-      TeacherInfo,
+      TutorInfo,
       Info
     },
     data() {
       return {
         selected: 2,
-        isstu: false,
-        istut: false,
-        username: '',
+        isStu: false,
+        isTut: false,
+        userName: '',
         img: require("@/assets/logo11.png")
       }
     },
     computed: {
-      selfhome: function () {
+      selfHome: function () {
         return this.selected === 1;
       },
-      basicinfo: function () {
+      basicInfo: function () {
         return this.selected === 2;
       },
       collect: function () {
         return this.selected === 3;
       },
-      stuinfo: function () {
+      stuInfo: function () {
         return this.selected === 4;
       },
-      teainfo: function () {
+      tutInfo: function () {
         return this.selected === 5;
       },
-      querystu: function () {
+      queryStu: function () {
         return this.selected === 6;
       },
     },
@@ -130,14 +130,14 @@
       getLimit().then(res => {
         console.log("获得的权限" + res);
         if (res === 'student') {
-          this.isstu = true;
+          this.isStu = true;
         } else if (res === 'tutor') {
-          this.istut = true;
+          this.isTut = true;
         }
       });
       getUserName().then(res => {
         console.log("获得的用户名" + res);
-        this.username = res;
+        this.userName = res;
       });
     }
   };
@@ -165,12 +165,12 @@
     color: #212121;
   }
 
-  .headerlogo {
+  .header-logo {
     line-height: 60px;
     margin-top: 10px;
   }
 
-  .rightsection {
+  .right-section {
     line-height: 60px;
     text-align: center;
   }

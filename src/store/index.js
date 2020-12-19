@@ -11,19 +11,19 @@ const store = new Vuex.Store({
     uid: '',
     cid: '',
     identify: '尚未选择身份',
-    realname: '尚未实名认证',
-    isstu: false,//是学生身份
-    istut: false,//是研究生身份
-    ismanager: false,//是管理员身份
+    realName: '尚未实名认证',
+    isStu: false,//是学生身份
+    isTut: false,//是研究生身份
+    isManager: false,//是管理员身份
     camps: [],//夏令营
     schoolMap: {},
   },
   mutations: {
-    setindentify(state, id) {
+    setIdentify(state, id) {
       state.identify = id;
     },
     setrealname(state, msg) {
-      state.realname = msg;
+      state.realName = msg;
     },
     setuid(state, id) {
       state.uid = id;
@@ -53,7 +53,6 @@ const store = new Vuex.Store({
         })
     },
   },
-  getters: {}
 })
 
 export default store
