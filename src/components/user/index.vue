@@ -75,7 +75,7 @@
 <script>
 
   import selfhome from "./student/focus-news";
-  import collect from "./student/collect";
+  import collect from "./student/favor";
   import querystu from "./tutor/query-student";
   import stuinfo from "./student/info";
   import teainfo from "./tutor/info";
