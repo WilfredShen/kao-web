@@ -14,7 +14,7 @@ export default new VueRouter({
         {
           path: 'login',
           name: 'AdminLogin',
-          component: () => import('@/components/login/AdminLogin'),
+          component: () => import('@/components/login/admin-login'),
         },
       ],
     },
@@ -40,17 +40,17 @@ export default new VueRouter({
         {
           path: '',
           name: 'home',
-          component: () => import('@/components/home/index')
+          component: () => import('@/components/home')
         },
         {
           path: 'evaresult',
           name: 'homeevaresult',
-          component: () => import('@/components/home/evaresult')
+          component: () => import('@/components/home/evaluate-result')
         },
         {
           path: 'schooldetail',
           name: 'schoolDetail',
-          component: () => import('@/components/home/schooldetail'),
+          component: () => import('@/components/home/school-detail'),
         },
         {
           path: 'school',
@@ -60,49 +60,22 @@ export default new VueRouter({
         {
           path: 'campcard',
           name: 'campCard',
-          component: () => import('@/components/home/campcard')
+          component: () => import('@/components/home/camp')
         },
         {
           path: 'analysis',
           name: 'Analysis',
-          component: () => import('@/components/analysis/Analysis')
+          component: () => import('@/components/analysis')
         }
       ]
     },
     {
       path: '/manager',
-      component: () => import('@/components/manager/manager'),
-      // children: [
-      //   {
-      //     path: 'changeresult',
-      //     name: 'changeresult',
-      //     component: () => import('@/components/manager/changeresult')
-      //   },
-      //   {
-      //     path: 'uploadnews',
-      //     name: 'uploadnews',
-      //     component: () => import('@/components/manager/uploadnews'),
-      //   },
-      //   {
-      //     path: 'assessresult',
-      //     name: 'assessresult',
-      //     component: () => import('@/components/manager/assessresult')
-      //   },
-      //   {
-      //     path: 'newslist',
-      //     name: 'newslist',
-      //     component: () => import('@/components/manager/newslist')
-      //   },
-      // ]
+      component: () => import('@/components/manager'),
     },
     {
       path: '/selfmain',
-      component: () => import('@/components/home/self/selfmain'),
+      component: () => import('@/components/self'),
     }
-    // {
-    //   path: '/*',
-    //   name: '404',
-    //   component: () => import('@/components/HelloWorld'),
-    // },
   ]
 })

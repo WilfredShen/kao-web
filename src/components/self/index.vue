@@ -74,13 +74,13 @@
 
 <script>
 
-  import selfhome from "./selfhome";
+  import selfhome from "./focus-news";
   import collect from "./collect";
-  import querystu from "./querystu";
-  import stuinfo from "./stuinfo";
-  import teainfo from "./teainfo";
-  import basicinfo from "./basicinfo";
-  import {getLimit, getUserName} from "../../../assets/lib/getAndSetSelf";
+  import querystu from "./query-student";
+  import stuinfo from "./student-info";
+  import teainfo from "./teacher-info";
+  import basicinfo from "./basic-info";
+  import {getLimit, getUserName} from "../../assets/lib/getAndSetSelf";
 
   export default {
     components: {

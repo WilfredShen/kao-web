@@ -21,7 +21,7 @@
 
   import {getCookie} from "../../assets/lib/utils";
   import {getSchool} from "../../assets/lib/getHomeServe";
-  import newsupdate from "./newsupdate"
+  import newsupdate from "./news-update"
 
   export default {
     props: {
