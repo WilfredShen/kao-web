@@ -101,7 +101,7 @@
       </el-button>
     </div>
     <div style="float:right;margin-right:5px;margin-top:10px">
-      <el-button size="medium" round>打印</el-button>
+      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click= "exportEXCEL()">导出</el-button>
     </div>
   </div>
 
@@ -115,6 +115,7 @@
     getEvaluationList,
     setFavouriteMajor
   } from '../../assets/lib/getResultLjm'
+  import xlsx from "xlsx";
 
   export default {
     name: "evaluateresult",
@@ -328,6 +329,21 @@
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/school'});
+      },
+      exportEXCEL() {
+        console.log("进入了导出EXCEL函数")
+        let arr;
+        arr = this.tmplist.map(item => {
+            return {
+              学科名称及代码: item.mid+this.getMajorname(item.mid),
+              高校名称及代码: item.cid+this.getSchoolname(item.cid),
+              评估等级:item.result
+            };
+          });
+        let sheet = xlsx.utils.json_to_sheet(arr);
+        let book = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(book, sheet, "sheet1");
+        xlsx.writeFile(book, `user${new Date().getTime()}.xlsx`);
       },
     },
     created() {
