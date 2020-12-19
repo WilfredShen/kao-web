@@ -19,9 +19,9 @@
 
 <script>
 
-  import {getCookie} from "../../assets/lib/utils";
-  import {getSchool} from "../../assets/lib/getHomeServe";
-  import newsupdate from "./news-update"
+  import {getCookie} from "../../../assets/lib/utils";
+  import {getSchool} from "../../../assets/lib/getHomeServe";
+  import newsupdate from "./update"
 
   export default {
     props: {

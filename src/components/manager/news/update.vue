@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import {getSchool} from "../../assets/lib/getHomeServe";
+  import {getSchool} from "../../../assets/lib/getHomeServe";
 
   export default {
     data() {

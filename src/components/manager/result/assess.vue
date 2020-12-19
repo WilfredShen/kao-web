@@ -45,10 +45,10 @@
 </template>
 
 <script>
-  import {readFile} from "../../assets/lib/utils";
+  import {readFile} from "../../../assets/lib/utils";
   import xlsx from "xlsx";
-  import {getMajor, getSchool} from "../../assets/lib/getHomeServe";
-  import {uploadEvaluation} from "../../assets/lib/setManager";
+  import {getMajor, getSchool} from "../../../assets/lib/getHomeServe";
+  import {uploadEvaluation} from "../../../assets/lib/setManager";
 
   export default {
     data() {

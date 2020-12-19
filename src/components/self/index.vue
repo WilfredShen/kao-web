@@ -77,9 +77,9 @@
   import selfhome from "./focus-news";
   import collect from "./collect";
   import querystu from "./query-student";
-  import stuinfo from "./student-info";
-  import teainfo from "./teacher-info";
-  import basicinfo from "./basic-info";
+  import stuinfo from "./info/student";
+  import teainfo from "./info/teacher";
+  import basicinfo from "./info/basic";
   import {getLimit, getUserName} from "../../assets/lib/getAndSetSelf";
 
   export default {

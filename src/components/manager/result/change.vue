@@ -77,9 +77,9 @@
 </template>
 
 <script>
-  import {getMajor, getSchool} from "../../assets/lib/getHomeServe";
+  import {getMajor, getSchool} from "../../../assets/lib/getHomeServe";
   import axios from "axios";
-  import {updateEvaluation} from "../../assets/lib/setManager";
+  import {updateEvaluation} from "../../../assets/lib/setManager";
 
   export default {
     data() {

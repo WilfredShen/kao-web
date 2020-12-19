@@ -114,7 +114,7 @@
     schoolList,
     getEvaluationList,
     setFavouriteMajor
-  } from '../../assets/lib/getResultLjm'
+  } from '../../../assets/lib/getResultLjm'
   import xlsx from "xlsx";
 
   export default {

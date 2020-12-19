@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import {getDiscipline, getMajor, getSchool, getSomeResult} from "../../assets/lib/getHomeServe";
+  import {getDiscipline, getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
 
   export default {
     data() {

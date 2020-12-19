@@ -45,7 +45,7 @@ export default new VueRouter({
         {
           path: 'evaresult',
           name: 'homeevaresult',
-          component: () => import('@/components/home/evaluate-result')
+          component: () => import('@/components/home/evaluation-result')
         },
         {
           path: 'schooldetail',

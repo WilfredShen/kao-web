@@ -105,10 +105,10 @@
 <!--</template>-->
 
 <script>
-  import assessresult from "./assess-result";
-  import changeresult from "./change-result";
-  import uploadnews from "./news-upload";
-  import newslist from "./news-list";
+  import assessresult from "./result/assess";
+  import changeresult from "./result/change";
+  import uploadnews from "./news/upload";
+  import newslist from "./news/list";
 
   export default {
     components: {
