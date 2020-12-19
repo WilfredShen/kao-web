@@ -36,7 +36,7 @@
 
 <script>
   import axios from 'axios';
-  import {updateUserInfo, getLimit} from '../../../assets/lib/getAndSetSelf'
+  import {updateUserInfo, getLimit} from '../../assets/lib/getAndSetSelf'
 
   export default {
     data() {

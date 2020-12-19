@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import {getMajor, getSchool, getSomeResult} from "../../assets/lib/getHomeServe";
+  import {getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
 
   export default {
     name: "",

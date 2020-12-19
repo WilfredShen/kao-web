@@ -86,7 +86,7 @@
 </template>
 
 <script>
-  import evaluatedis from '@/components/home/evaluatedis.vue';
+  import evaluatedis from '@/components/home/evaluation-detail.vue';
   import {getLatestNews} from "../../assets/lib/getHomeServe";
 
   export default {
