@@ -105,6 +105,7 @@
         list = this.major.filter(item => item.did === this.selected.did);
         return list
       },
+
       //获取所选专业的评估结果，学校代码对应的学校名称
       showEvaluation: function () {
         let Myeval = this.evaluation.filter(item => item.mid === this.getMajors[this.selected.mindex].mid);

@@ -115,15 +115,15 @@
       }
     },
     methods: {
-      printTest() {
+      printTest: function () {
         this.$message("test!");
         this.$message("box group" + this.checkBoxGroup);
       },
-      handleSchField(command) {
+      handleSchField: function (command) {
         this.schFiled = command;
       },
       //根据选项选择展示内容
-      contains(arr, obj) {
+      contains: function (arr, obj) {
         let i = arr.length;
         while (i--) {
           if (arr[i] === obj) {
@@ -132,7 +132,7 @@
         }
         return false;
       },
-      checkShow() {
+      checkShow: function () {
         let sum;
         sum = 0;
         if (this.contains(this.checkBoxGroup, '地区')) {
@@ -147,7 +147,7 @@
         console.log("sum = " + sum);
         return sum;
       },
-      getResult() {
+      getResult: function () {
         const showWhat = this.checkShow();
         this.schNames = [];
         this.mapResult = [];
@@ -185,7 +185,7 @@
 
         //anaID相同学校已过滤
         schoolDetail(analysisID)
-          .then(res => {
+          .then((res) => {
             this.schInfo = res;
             const regionDict = new Map(), regionSet = new Set();
 
@@ -237,7 +237,7 @@
             console.log(err);
           });
       },
-      exportEXCEL(type, isRegion) {
+      exportEXCEL: function (type, isRegion) {
         console.log("进入了导出EXCEL函数")
         let arr;
         if (isRegion === 'region') {
@@ -267,7 +267,7 @@
         }
 
       },
-      async handleChange(ev) {
+      handleChange: async function (ev) {
         let file = ev.raw;
         if (!file) return;
 
@@ -299,7 +299,7 @@
     },
     created() {
       schoolList()
-        .then(res => {
+        .then((res) => {
           this.collegeId = res;
           for (let i = 0; i < this.collegeId.length; i++) {
             this.nameId[this.collegeId[i].cname] = this.collegeId[i].cid;

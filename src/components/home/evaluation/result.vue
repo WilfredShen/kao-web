@@ -85,7 +85,7 @@
               <tr v-for="(item, index) in resultList" :key="index"
                   style="text-align:center;line-height:50px">
                 <td>{{item.mid+getMajorName(item.mid)}}</td>
-                <td @click="schoolClik(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
+                <td @click="schoolClick(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
                 <td>{{item.result}}</td>
               </tr>
             </table>
@@ -186,30 +186,33 @@
       }
     },
     methods: {
-      getSchoolList() {
+      getSchoolList: function () {
         schoolList()
-          .then(res => {
+          .then((res) => {
             this.schools = res;
           });
       },
-      getDisciplineList() {
+
+      getDisciplineList: function () {
         disciplineList()
-          .then(res => {
+          .then((res) => {
             this.disciplines = res;
             // console.log(this.disciplines)
           });
       },
-      getMajorListAll() {
+
+      getMajorListAll: function () {
         majorList()
-          .then(res => {
+          .then((res) => {
             this.allMajors = res;
             // console.log(this.disciplines)
           });
       },
-      getMajorList(id) {
+
+      getMajorList: function (id) {
         this.majors = [];
         majorList()
-          .then(res => {
+          .then((res) => {
             for (let i = 0; i < res.length; i++) {
               if (res[i].did === id) {
                 this.majors.push(res[i]);
@@ -217,23 +220,26 @@
             }
           });
       },
-      getSchoolName(cid) {
+
+      getSchoolName: function (cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
           }
         }
       },
-      getMajorName(mid) {
+
+      getMajorName: function (mid) {
         for (let i = 0; i < this.allMajors.length; i++) {
           if (this.allMajors[i].mid === mid) {
             return this.allMajors[i].mname;
           }
         }
       },
-      getTmpResults() {
+
+      getTmpResults: function () {
         getEvaluationList(this.round)
-          .then(res => {
+          .then((res) => {
             this.resultList = [];
             this.favorMajors = [];
             for (let i = 0; i < res.length; i++) {
@@ -312,11 +318,12 @@
             }
           });
       },
-      setFavorMajor() {
+
+      setFavorMajor: function () {
         console.log("进入一键收藏")
         console.log(this.$store.state.uid);
         setFavouriteMajor(this.favorMajors)
-          .then(res => {
+          .then((res) => {
             //  console.log(res);
             console.log("状态码" + res.status);
             if (res.status === 200) {
@@ -332,12 +339,14 @@
             }
           });
       },
-      schoolClik(cid) {
+
+      schoolClick: function (cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
-      exportExcel() {
+
+      exportExcel: function () {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.resultList.map(item => {

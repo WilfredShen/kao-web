@@ -55,7 +55,7 @@
       }
     },
     methods: {
-      commit() {
+      commit:function() {
         console.log(this.schoolIds[this.schIndex] + " " + this.schools[this.schIndex])
         this.$axios.post("/api/admin/p/news", {
           cid: this.schoolIds[this.schIndex],
@@ -65,12 +65,12 @@
           image: this.posterURL,
           officialLink: this.link
         })
-          .then(res => {
+          .then((res) => {
             console.log("成功上传新闻", res);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-          })
+          });
       },
     },
     created() {

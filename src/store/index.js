@@ -32,7 +32,7 @@ const store = new Vuex.Store({
       state.cid = cid;
       console.log('state', state.cid);
     },
-    setlimit(state, msg) {
+    setLimit(state, msg) {
       if (msg === 'tutor') state.isTut = true;
       else if (msg === 'student') state.isStu = true;
     },

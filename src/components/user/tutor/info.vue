@@ -53,13 +53,15 @@
       }
     },
     methods: {
-      modify() {
+      modify: function () {
         this.isModify = !this.isModify;
       },
-      cancelModify() {
+
+      cancelModify: function () {
         this.isModify = !this.isModify;
       },
-      commitModify() {
+
+      commitModify: function () {
         let pPhone, pEmail, pCollege, pMajor, pResearch;
         pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
         pEmail = this.newEmail === '' ? this.items[1].content : this.newEmail;
@@ -67,7 +69,7 @@
         pMajor = this.newMajor === '' ? this.items[6].content : this.newMajor;
         pResearch = this.newResearch === '' ? this.items[7].content : this.newResearch;
         updateTeaInfo(pPhone, pEmail, pCollege, pMajor, pResearch)
-          .then(res => {
+          .then((res) => {
             console.log(res);
             this.isModify = !this.isModify;
             this.newPhone = '';
@@ -77,17 +79,19 @@
             this.newResearch = '';
             this.setTutorInfo();
           });
+
         updateUserInfo(pPhone, pEmail)
-          .then(res => {
+          .then((res) => {
             console.log(res);
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("研究生秘书修改基本信息有问题" + err);
           });
       },
-      setTutorInfo() {
+
+      setTutorInfo: function () {
         this.$axios.get("/api/tutor/q/tutor-info")
-          .then(res => {
+          .then((res) => {
             let item = res.data.data;
             this.items[0].content = item.phone;
             this.items[1].content = item.email;
@@ -98,7 +102,7 @@
             this.items[6].content = item.major;
             this.items[7].content = item.research;
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       }

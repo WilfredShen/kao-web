@@ -3,24 +3,24 @@ import axios from 'axios'
 export function getUserId() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.uid);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
 }
 
-export function getUserName() {
+export function getUsername() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.username);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
@@ -29,11 +29,11 @@ export function getUserName() {
 export function getLimit() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.accountType);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
@@ -51,10 +51,10 @@ export function updateStuInfo(uid, phone, email, college, major, expectedMajor, 
       'expectedMajor': expectedMajor,
       'graduationDate': graduation
     })
-      .then(res => {
+      .then((res) => {
         resolve(res);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
@@ -69,10 +69,10 @@ export function updateTeaInfo(phone, email, college, major, research) {
       'major': major,
       'research': research
     })
-      .then(res => {
+      .then((res) => {
         resolve(res);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
@@ -85,11 +85,11 @@ export function updateUserInfo(postPhone, postEmail) {
       'email': postEmail,
       'accountType': null,
     })
-      .then(res => {
+      .then((res) => {
         console.log("成功", res);
         resolve(res.status);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         reject(error);
       });

@@ -67,7 +67,7 @@
       }
     },
     methods: {
-      async handleChange(ev) {
+      handleChange: async function (ev) {
         let file = ev.raw;
         if (!file) return;
 
@@ -92,18 +92,22 @@
         this.excelDatas = data;
         this.getExcel();
       },
-      handleRemove(file) {
+
+      handleRemove: function (file) {
         this.excelDatas = [];
         this.tableData = [];
         console.log(file);
       },
-      handlePreview(file) {
+
+      handlePreview: function (file) {
         console.log(file);
       },
-      beforeRemove(file) {
+
+      beforeRemove: function (file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
-      getExcel() {
+
+      getExcel: function () {
         this.excelDatas.forEach(item => {
           this.$set(item, 'cname', "");
           this.$set(item, 'mname', "");
@@ -135,7 +139,7 @@
         }
         this.up = true;
       },
-      upLoad() {
+      upLoad: function () {
         if (this.round === null || this.round === '' || this.round === "undefined") {
           console.log("round", this.round);
           this.$confirm(`请选择轮次！`, '提示')
@@ -190,6 +194,7 @@
         .catch((err) => {
           console.log(err);
         });
+
       majorList()
         .then((res) => {
           res.forEach(row => {

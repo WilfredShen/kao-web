@@ -117,11 +117,12 @@
     },
     methods: {
       //评选方法
-      handleCommand(command) {
+      handleCommand: function (command) {
         this.rankSys = command;
       },
+
       //模糊查询
-      fuzzySearcher() {
+      fuzzySearcher: function () {
         let fsInput = this.input.trim().split(/\s+/);
         console.log("fsinput", fsInput);
         this.fsResult = [];
@@ -140,8 +141,9 @@
           }
         }
       },
+
       //查询按钮
-      getSearch() {
+      getSearch: function () {
         //sort函数
         let compare = function (obj1, obj2) {
           let val1 = obj1.result;
@@ -255,11 +257,11 @@
           }
         }
       },
-      cleanSearch() {
+      cleanSearch: function () {
         this.fsResult = this.school;
         this.input = '';
       },
-      schoolClick(cid) {
+      schoolClick: function (cid) {
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
@@ -276,6 +278,7 @@
         .catch((err) => {
           console.log(err);
         });
+
       schoolList()
         .then((res) => {
           this.school = res;
@@ -287,6 +290,7 @@
         .catch((err) => {
           console.log(err);
         });
+
       getSomeResult()
         .then((res) => {
           this.evalResult = res.data;

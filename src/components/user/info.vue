@@ -28,14 +28,13 @@
     </el-dropdown>
 
     <el-button id="verify" v-if="isModify" style="margin-left: 10px;background-color: #1e56a0;color: white"
-               @click="verifyid()">
+               @click="verifyId()">
       实名与身份认证
     </el-button>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
 
   export default {
@@ -62,30 +61,33 @@
       }
     },
     methods: {
-      modify() {
+      modify: function () {
         this.isModify = !this.isModify;
       },
-      commitModify() {
+
+      commitModify: function () {
         let postPhone, postEmail;
         postPhone = this.newPhone === '' ? null : this.newPhone;
         postEmail = this.newEmail === '' ? null : this.newEmail;
 
         updateUserInfo(postPhone, postEmail)
-          .then(res => {
-          console.log("修改成功", res);
-          this.isModify = !this.isModify;
-          this.newPhone = '';
-          this.newEmail = '';
-          this.setSelfInfo();
-        });
+          .then((res) => {
+            console.log("修改成功", res);
+            this.isModify = !this.isModify;
+            this.newPhone = '';
+            this.newEmail = '';
+            this.setSelfInfo();
+          });
 
       },
-      cancelModify() {
+
+      cancelModify: function () {
         this.isModify = !this.isModify;
       },
-      setSelfInfo() {
-        axios.get("/api/user/q/user-info")
-          .then(res => {
+
+      setSelfInfo: function () {
+        this.$axios.get("/api/user/q/user-info")
+          .then((res) => {
             let item = res.data.data;
             this.items[0].content = item.uid;
             this.items[1].content = item.username;
@@ -104,7 +106,8 @@
             console.log("错误", err);
           });
       },
-      handleCommand(command) {
+
+      handleCommand: function (command) {
         this.identity = command;
       },
       //进行实名验证
@@ -121,12 +124,12 @@
       //     })
       //   this.$store.commit('setrealname', '已实名认证');
       // },
-      verifyid() {
-        axios.post("/api/vf/real", {
+      verifyId: function () {
+        this.$axios.post("/api/vf/real", {
           'identity': '330902',
           'name': this.uName
         })
-          .then(res => {
+          .then((res) => {
             console.log(res.status)
             if (res.status === 200) {
               this.items[4].content = '已实名认证';
@@ -138,22 +141,22 @@
           return;
         }
         if (this.identity === '学生') {
-          axios.post("/api/vf/student", {
+          this.$axios.post("/api/vf/student", {
             'cid': '10010',
             'sid': this.$store.state.uid,
           })
-            .then(res => {
+            .then((res) => {
               console.log(res.status)
               if (res.status === 200) {
                 this.$message("认证学生成功！")
               }
             });
         } else if (this.identity === '研究生秘书') {
-          axios.post("/api/vf/tutor", {
+          this.$axios.post("/api/vf/tutor", {
             'cid': '10010',
             'tid': this.$store.state.uid,
           })
-            .then(res => {
+            .then((res) => {
               console.log(res.status)
               if (res.status === 200) {
                 this.$message("认证研究生秘书成功！")
@@ -162,9 +165,9 @@
         }
 
         getLimit()
-          .then(res => {
-          this.$store.commit("setlimit", res);
-        });
+          .then((res) => {
+            this.$store.commit("setLimit", res);
+          });
 
         location.reload();
       }

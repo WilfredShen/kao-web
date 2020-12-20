@@ -98,7 +98,7 @@
       }
     },
     methods: {
-      getResult() {
+      getResult: function () {
         this.tableData = [];
         if (this.round === '') {
           this.$confirm(`请选择轮次！`, '提示')
@@ -206,8 +206,9 @@
           }
         }
       },
+
       //查询评估结果
-      getEvaluation() {
+      getEvaluation: function () {
         this.$axios.get('/api/base/evaluation', {
           params: {
             round: parseInt(this.round)
@@ -220,13 +221,15 @@
             console.log(err)
           });
       },
+
       //编辑
-      handleClick(index, row) {
+      handleClick: function (index, row) {
         this.row = row;
         this.tableData[index] = row;
         this.dialogFormVisible = true;
       },
-      confirmUpdate() {
+
+      confirmUpdate: function () {
         this.dialogFormVisible = false;
         updateEvaluation(this.row.cid, this.row.mid, this.row.result, this.round)
           .then((res) => {
@@ -260,6 +263,7 @@
         .catch((err) => {
           console.log(err);
         });
+
       //获取专业信息
       majorList()
         .then((res) => {

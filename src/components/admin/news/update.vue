@@ -60,7 +60,7 @@
       }
     },
     methods: {
-      commit() {
+      commit: function () {
         this.$axios.post("/api/admin/u/news", {
           cid: this.schoolIds[this.schIndex],
           date: this.myTime,
@@ -69,17 +69,18 @@
           image: this.posterURL,
           officialLink: this.link
         })
-          .then(res => {
+          .then((res) => {
             console.log("成功更新新闻", res);
             this.ifCommit = false;
             this.$emit('eIfCommit', this.ifCommit);
             location.reload();
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("更新新闻有误", error);
           });
       },
-      cancel() {
+
+      cancel: function () {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
       }

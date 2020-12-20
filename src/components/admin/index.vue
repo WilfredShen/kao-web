@@ -78,7 +78,7 @@
       }
     },
     methods: {
-      clearAll(val) {
+      clearAll: function (val) {
         this.selected = val;
       },
     },

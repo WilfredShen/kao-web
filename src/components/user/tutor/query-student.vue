@@ -97,23 +97,25 @@
       }
     },
     methods: {
-      handleSchField(command) {
+      handleSchField: function (command) {
         this.schLevel = command;
       },
-      getDisciplines() {
+
+      getDisciplines: function () {
         disciplineList()
-          .then(res => {
+          .then((res) => {
             console.log(res);
             this.disciplines = res;
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
           });
       },
-      getMajors(id) {
+
+      getMajors: function (id) {
         this.majors = [];
         majorList()
-          .then(res => {
+          .then((res) => {
             console.log(res);
             for (let i = 0; i < res.length; i++) {
               if (res[i].did === id) {
@@ -121,11 +123,12 @@
               }
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       },
-      myScreen() {
+
+      myScreen: function () {
         console.log("major len = " + this.major.length);
         console.log(this.major[0])
         this.$axios.get("/api/tutor/q/queryable-stu-info", {
@@ -137,7 +140,7 @@
             'expectedMajor': this.exMajor
           }
         })
-          .then(res => {
+          .then((res) => {
             console.log(res);
             let items = res.data.data;
             for (let i = 0; i < items.length; i++) {
@@ -151,11 +154,12 @@
               })
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("查询学生报错" + err);
           });
       },
-      exportEXCEL(type) {
+
+      exportEXCEL: function (type) {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.stuInfo.map(item => {

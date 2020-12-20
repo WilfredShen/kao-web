@@ -42,13 +42,15 @@
       }
     },
     methods: {
-      ifEdit(data) {
+      ifEdit: function (data) {
         this.editNews = data;
       },
-      edit() {
+
+      edit: function () {
         this.editNews = true;
       },
-      getSchMaps() {
+
+      getSchMaps: function () {
         if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
           let sMap = this.$store.state.schoolMap;
           for (const key in sMap) {
@@ -76,7 +78,7 @@
     created() {
       const uid = getCookie("uid");
       this.$axios.get("/api/admin/q/news")
-        .then(res => {
+        .then((res) => {
           console.log("获取新闻列表无误", res);
           let items = res.data.data;
           for (let i = 0; i < items.length; i++) {
@@ -88,7 +90,7 @@
             })
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("获取新闻列表有错误", error);
         });
     }

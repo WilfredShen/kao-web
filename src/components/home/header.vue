@@ -51,6 +51,7 @@
     },
     created() {
       this.hasLogin = this.$store.state.uid !== '';
+
       getLimit()
         .then(res => {
           console.log("首页获得的权限" + res);
@@ -60,6 +61,7 @@
             this.isTut = true;
           }
         });
+
       //获取夏令营信息
       this.$store.dispatch('getCamps');
     },

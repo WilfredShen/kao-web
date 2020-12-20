@@ -30,11 +30,11 @@ export function updateEvaluation(cid, mid, result, round) {
       "newResult": result,
       "round": round,
     })
-      .then(res => {
+      .then((res) => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
         console.log(err);
       });
@@ -67,11 +67,11 @@ export function uploadNews(cid, date, title, content, image, offcialLink) {
 export function getNews() {
   return new Promise((resolve, reject) => {
     axios.get('/api/admin/q/news' )
-      .then(res => {
+      .then((res) => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
         console.log(err);
       });
@@ -89,11 +89,11 @@ export function alterNews(cid, date, title, content, image, offcialLink) {
       "image": image,
       "offcialLink": offcialLink,
     })
-      .then(res => {
+      .then((res) => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
         console.log(err);
       });

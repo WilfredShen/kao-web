@@ -144,18 +144,19 @@
       }
     },
     methods: {
-      getSchoolDetail(cid) {
+      getSchoolDetail: function (cid) {
         const arr = this;
-        schoolDetail(cid).then(res => {
+        schoolDetail(cid).then((res) => {
           console.log("res", res);
           arr.schoolDetails = res[0];
           console.log("schoool_details" + this.schoolDetails.cname);
         });
       },
-      getEvaluation(cid) {
-        var arr = this;
+
+      getEvaluation: function (cid) {
+        const arr = this;
         arr.evaluation = [];
-        getEvaluationList(4).then(res => {
+        getEvaluationList(4).then((res) => {
           for (let i = 0; i < res.length; i++) {
             if (res[i].cid === cid) {
               arr.evaluation.push(res[i]);
@@ -163,13 +164,15 @@
           }
         })
       },
-      getMajorListAll() {
+
+      getMajorListAll: function () {
         const arr = this;
-        majorList().then(res => {
+        majorList().then((res) => {
           arr.allMajors = res;
         });
       },
-      getMajorName(mid) {
+
+      getMajorName: function (mid) {
         const arr = this;
         for (let i = 0; i < arr.allMajors.length; i++) {
           if (arr.allMajors[i].mid === mid) {
@@ -177,26 +180,29 @@
           }
         }
       },
-      getRank(cid) {
+
+      getRank: function (cid) {
         const arr = this;
         rankList(cid)
-          .then(res => {
+          .then((res) => {
             arr.ranks = res;
             console.log("rank", this.ranks);
           });
       },
-      getRates(cid) {
+
+      getRates: function (cid) {
         const arr = this;
         rateList(cid)
-          .then(res => {
+          .then((res) => {
             arr.rates = res;
             console.log("rate", this.rates);
           });
       },
-      getTutors(cid) {
+
+      getTutors: function (cid) {
         const arr = this;
         tutorList(cid)
-          .then(res => {
+          .then((res) => {
             arr.tutors = res;
           });
       },

@@ -3,10 +3,10 @@ import axios from "axios";
 export function disciplineList() {
   return new Promise((resolve, reject) => {
     axios.get("/api/meta/discipline" )
-      .then(res => {
+      .then((res) => {
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -15,10 +15,10 @@ export function disciplineList() {
 export function majorList() {
   return new Promise((resolve, reject) => {
     axios.get("/api/meta/major")
-      .then(res => {
+      .then((res) => {
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -27,11 +27,11 @@ export function majorList() {
 export function schoolList() {
   return new Promise((resolve, reject) => {
     axios.get("/api/meta/college")
-      .then(res => {
+      .then((res) => {
         //           console.log("res",res.data)
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -40,10 +40,10 @@ export function schoolList() {
 export function getEvaluationList(sRound) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/evaluation?round=${sRound}`, {})
-      .then(res => {
+      .then((res) => {
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -56,11 +56,11 @@ export function schoolDetail(cid) {
         cidList: cid.join(",")
       }
     })
-      .then(res => {
+      .then((res) => {
         console.log("res", res.data);
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -69,10 +69,10 @@ export function schoolDetail(cid) {
 export function setFavouriteMajor(favorList) {
   return new Promise((resolve, reject) => {
     axios.post("/api/favor/p/major", favorList)
-      .then(res => {
+      .then((res) => {
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
         console.log("获取失败！");
       });
@@ -82,10 +82,10 @@ export function setFavouriteMajor(favorList) {
 export function setFavouriteTutor(favorList) {
   return new Promise((resolve, reject) => {
     axios.post("/api/favor/p/tutor", favorList)
-      .then(res => {
+      .then((res) => {
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
         console.log("获取失败！");
       });
@@ -95,11 +95,11 @@ export function setFavouriteTutor(favorList) {
 export function rankList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/latest-college-rank?cid=${scid}`)
-      .then(res => {
+      .then((res) => {
         // console.log("res",res.data)
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -108,11 +108,11 @@ export function rankList(scid) {
 export function rateList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/acceptance-rate?cid=${scid}`)
-      .then(res => {
+      .then((res) => {
          console.log("录取率", res.data);
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -121,12 +121,12 @@ export function rateList(scid) {
 export function tutorList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/tutor?cid=${scid}` )
-      .then(res => {
+      .then((res) => {
         // console.log("res",res.data)
         console.log("导师信息", res.data);
         resolve(res.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         reject(error);
       });
   });
@@ -137,11 +137,11 @@ export function tutorList(scid) {
 export function getSomeResult() {
   return new Promise((resolve, reject) => {
     axios.get("/api/base/evaluation")
-      .then(res => {
+      .then((res) => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
         console.log(err);
       });
@@ -152,11 +152,11 @@ export function getSomeResult() {
 export function getLatestNews() {
   return new Promise((resolve, reject) => {
     axios.get("/api/base/latest-news")
-      .then(res => {
+      .then((res) => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err.data);
         console.log(err);
       });

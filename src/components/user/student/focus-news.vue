@@ -32,7 +32,7 @@
     },
     created() {
       this.$axios.get("/api/favor/q/news")
-        .then(res => {
+        .then((res) => {
           let item = res.data.data;
           for (let i = 0; i < item.length; i++) {
             let type = item[i].type;
@@ -46,7 +46,7 @@
             })
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }

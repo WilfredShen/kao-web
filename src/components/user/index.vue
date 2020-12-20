@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="8" class="right-section">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{userName}}</span>
+            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{username}}</span>
           </div>
         </el-col>
       </el-row>
@@ -80,7 +80,7 @@
   import StudentInfo from "./student/info";
   import TutorInfo from "./tutor/info";
   import Info from "./info";
-  import {getLimit, getUserName} from "@/assets/lib/getAndSetSelf";
+  import {getLimit, getUsername} from "@/assets/lib/getAndSetSelf";
 
   export default {
     name: 'User',
@@ -97,7 +97,7 @@
         selected: 2,
         isStu: false,
         isTut: false,
-        userName: '',
+        username: '',
         img: require("@/assets/image/logo11.png")
       }
     },
@@ -136,10 +136,11 @@
             this.isTut = true;
           }
         });
-      getUserName()
+
+      getUsername()
         .then(res => {
           console.log("获得的用户名" + res);
-          this.userName = res;
+          this.username = res;
         });
     }
   };
