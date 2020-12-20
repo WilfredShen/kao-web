@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="16" class="header-logo">
           <div class="grid-content bg-purple">
-            <img class="img-style" style="float: left" src="@/assets/logo11.png">
+            <img class="img-style" style="float: left" src="@/assets/image/logo11.png">
           </div>
         </el-col>
         <el-col :span="8" class="right-section">
@@ -74,7 +74,7 @@
     data() {
       return {
         selected: 0,
-        img: require("@/assets/logo11.png")
+        img: require("@/assets/image/logo11.png")
       }
     },
     methods: {

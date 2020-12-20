@@ -169,7 +169,7 @@
       },
       submit: function () {
         this.$axios
-          .post("/api/visitor/update_password", {
+          .post("/api/visitor/update-password", {
             username: this.forgotForm.username,
             password: this.forgotForm.password,
             phoneNumber: this.forgotForm.phone,

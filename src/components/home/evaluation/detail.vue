@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import {getDiscipline, getMajor, getSchool, getSomeResult} from "@/assets/lib/getHomeServe";
+  import {disciplineList, majorList, schoolList, getSomeResult} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'EvaluationDetail',
@@ -159,21 +159,21 @@
     evaluation:list
      */
     created() {
-      getDiscipline().then((res) => {
-        this.discipline = res.data;
+      disciplineList().then((res) => {
+        this.discipline = res;
         // console.log("discipline", this.discipline);
       }).catch((err) => {
         console.log(err);
       });
 
-      getMajor().then((res) => {
-        this.major = res.data;
+      majorList().then((res) => {
+        this.major = res;
       }).catch((err) => {
         console.log(err)
       });
 
-      getSchool().then((res) => {
-        res.data.forEach(row => {
+      schoolList().then((res) => {
+        res.forEach(row => {
           this.schoolMap[row.cid] = {cname: row.cname}
           this.$store.commit("setSchMap", {
             cname: row.cname,

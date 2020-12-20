@@ -86,7 +86,7 @@
           })
       },
       setTutorInfo() {
-        this.$axios.get("/api/tutor/get_tutor_msg")
+        this.$axios.get("/api/tutor/q/tutor-info")
           .then(res => {
             let item = res.data.data;
             this.items[0].content = item.phone;

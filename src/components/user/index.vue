@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="16" class="header-logo">
           <div class="grid-content bg-purple">
-            <img class="img-style" style="float: left" src="@/assets/logo11.png">
+            <img class="img-style" style="float: left" src="@/assets/image/logo11.png">
           </div>
         </el-col>
         <el-col :span="8" class="right-section">
@@ -21,23 +21,23 @@
             <i class="el-icon-document"></i>
             <span slot="title" style="font-size: 15px">基本信息</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(1)" v-if="isstu">
+          <el-menu-item @click="clearAll(1)" v-if="isStu">
             <i class="el-icon-menu"></i>
             <span slot="title" style="font-size: 15px">最近消息</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(3)" v-if="isstu">
+          <el-menu-item @click="clearAll(3)" v-if="isStu">
             <i class="el-icon-folder-opened"></i>
             <span slot="title" style="font-size: 15px">收藏夹</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(4)" v-if="isstu">
+          <el-menu-item @click="clearAll(4)" v-if="isStu">
             <i class="el-icon-reading"></i>
             <span slot="title" style="font-size: 15px">学生信息</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(5)" v-if="istut">
+          <el-menu-item @click="clearAll(5)" v-if="isTut">
             <i class="el-icon-reading"></i>
             <span slot="title" style="font-size: 15px">导师信息</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(6)" v-if="istut">
+          <el-menu-item @click="clearAll(6)" v-if="isTut">
             <i class="el-icon-search"></i>
             <span slot="title" style="font-size: 15px">查询学生</span>
           </el-menu-item>
@@ -98,7 +98,7 @@
         isStu: false,
         isTut: false,
         userName: '',
-        img: require("@/assets/logo11.png")
+        img: require("@/assets/image/logo11.png")
       }
     },
     computed: {

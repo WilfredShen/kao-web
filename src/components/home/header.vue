@@ -1,6 +1,6 @@
 <template style="margin-left:12%;margin-right: 12%">
   <div class="div-style">
-    <img class="img-style" style="float: left" src="@/assets/logo11.png">
+    <img class="img-style" style="float: left" src="@/assets/image/logo11.png">
     <div class="header-sty">
       <span class="span-style">教育部学科评估管理系统</span>
       <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录

@@ -80,14 +80,14 @@
       </ul>
     </div>
     <div style="padding-top: 400px">
-      <EvaluationDetail></EvaluationDetail>
+      <evaluation-detail></evaluation-detail>
     </div>
   </div>
 </template>
 
 <script>
   import EvaluationDetail from '@/components/home/evaluation/detail';
-  import {getLatestNews} from "@/assets/lib/getHomeServe";
+  import {getLatestNews} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'Home',

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-  import {getMajor, getSchool, getSomeResult} from "@/assets/lib/getHomeServe";
+  import {majorList, schoolList, getSomeResult} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'CollegeDetail',
@@ -268,10 +268,10 @@
       },
     },
     created() {
-      getMajor()
+      majorList()
         .then((res) => {
           //this.major = res.data;
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.major[row.mid] = {mname: row.mname, did: row.did}
           })
           // console.log("majormap",this.major);
@@ -279,11 +279,11 @@
         .catch((err) => {
           console.log(err)
         });
-      getSchool()
+      schoolList()
         .then((res) => {
-          this.school = res.data;
-          this.fsResult = res.data;
-          res.data.forEach(row => {
+          this.school = res;
+          this.fsResult = res;
+          res.forEach(row => {
             this.schoolMap[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);

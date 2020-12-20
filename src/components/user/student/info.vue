@@ -103,7 +103,7 @@
           })
       },
       setStuInfo() {
-        this.$axios.get("/api/stu/get_stu_info", {
+        this.$axios.get("/api/stu/q/stu-info", {
           params: {
             uid: this.$store.state.uid
           }

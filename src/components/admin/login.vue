@@ -82,15 +82,15 @@
           })
           .then((res) => {
             if (res.data.status === 200) {
-              let callBack = this.$route.query.callBack;
-              if (callBack) {
+              let callback = this.$route.query.callBack;
+              if (callback) {
                 this.$message.success("登录成功！即将跳转至原界面...");
               } else {
-                callBack = "/manager";
+                callback = "/admin";
                 this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {
-                this.$router.push(callBack.toString());
+                this.$router.push(callback.toString());
               }, 3000);
             } else {
               this.$message.error("用户名或密码错误！");

@@ -13,11 +13,11 @@
     <div>
       <el-upload action accept=".xlsx,.xls"
                  :auto-upload="false"
-                 :on-change="handleChange()"
-                 :on-preview="handlePreview()"
+                 :on-change="handleChange"
+                 :on-preview="handlePreview"
                  :show-file-list=showFile
-                 :before-remove="beforeRemove()"
-                 :on-remove="handleRemove()"
+                 :before-remove="beforeRemove"
+                 :on-remove="handleRemove"
                  :file-list="fileList"
       >
         <el-button plain style="background-color: #1e56a0;color: white">上传文件</el-button>
@@ -47,8 +47,8 @@
 <script>
   import {readFile} from "@/assets/lib/utils";
   import xlsx from "xlsx";
-  import {getMajor, getSchool} from "@/assets/lib/getHomeServe";
   import {uploadEvaluation} from "@/assets/lib/setManager";
+  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'AssessEval',
@@ -180,9 +180,9 @@
       },
     },
     created() {
-      getSchool()
+      schoolList()
         .then((res) => {
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.school[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);
@@ -190,9 +190,9 @@
         .catch((err) => {
           console.log(err)
         });
-      getMajor()
+      majorList()
         .then((res) => {
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.major[row.mid] = {mname: row.mname, did: row.did}
           })
           // console.log("majormap",this.major);
@@ -200,18 +200,6 @@
         .catch((err) => {
           console.log(err)
         });
-      this.$axios.post("/api/admin/upload_evaluation", {
-        cid: "10010",
-        mid: "1010",
-        result: "B",
-        round: "1"
-      })
-        .then(res => {
-          console.log("请求成功" + res)
-        })
-        .catch(error => {
-          console.log("请求失败" + error)
-        })
     }
   }
 </script>

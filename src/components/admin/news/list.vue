@@ -20,8 +20,8 @@
 <script>
 
   import {getCookie} from "@/assets/lib/utils";
-  import {getSchool} from "@/assets/lib/getHomeServe";
   import NewsUpdate from "./update"
+  import {schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'ShowList',
@@ -56,8 +56,8 @@
             this.schools.push(sMap[key])
           }
         } else {
-          getSchool().then((res) => {
-            res.data.forEach(row => {
+          schoolList().then((res) => {
+            res.forEach(row => {
               this.schoolIds.push(row.cid);
               this.schools.push(row.cname);
               this.$store.commit("setSchMap", {

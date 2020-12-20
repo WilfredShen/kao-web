@@ -77,8 +77,8 @@
 </template>
 
 <script>
-  import {getMajor, getSchool} from "@/assets/lib/getHomeServe";
   import {updateEvaluation} from "@/assets/lib/setManager";
+  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'Modify',
@@ -250,10 +250,10 @@
     },
     created() {
       //获取学校信息
-      getSchool()
+      schoolList()
         .then((res) => {
-          this.school = res.data;
-          res.data.forEach(row => {
+          this.school = res;
+          res.forEach(row => {
             this.schoolMap[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);
@@ -262,10 +262,10 @@
           console.log(err)
         });
       //获取专业信息
-      getMajor()
+      majorList()
         .then((res) => {
-          this.major = res.data;
-          res.data.forEach(row => {
+          this.major = res;
+          res.forEach(row => {
             this.majorMap[row.mid] = {mname: row.mname}
           })
           // console.log("majorMap",this.major);

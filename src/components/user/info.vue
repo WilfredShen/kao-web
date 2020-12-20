@@ -83,7 +83,7 @@
         this.isModify = !this.isModify;
       },
       setSelfInfo() {
-        axios.get("/api/user/get_user_info")
+        axios.get("/api/user/q/user-info")
           .then(res => {
             let item = res.data.data;
             this.items[0].content = item.uid;

@@ -38,7 +38,7 @@
         <el-footer>
           <div style="text-align: right">
             <router-link
-              :to="{ path: '/adminlogin'}"
+              :to="{ path: '/admin/login'}"
               style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
             >
               管理员登录

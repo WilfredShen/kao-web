@@ -128,7 +128,7 @@
       myScreen() {
         console.log("major len = " + this.major.length);
         console.log(this.major[0])
-        this.$axios.get("/api/tutor/get_queryableStu_msg", {
+        this.$axios.get("/api/tutor/q/queryable-stu-info", {
           params: {
             'beginDate': this.beginY,
             'endDate': this.endY,

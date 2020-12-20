@@ -8,7 +8,7 @@
         <p style="margin-right: 20px">生源数据:</p>
         <div style="display:flex;align-items: center">
           <el-upload accept=".xlsx,.xls" :auto-upload="false" :show-file-list="false"
-                     :on-change="handleChange()">
+                     :on-change="handleChange">
             <el-button plain size="small" style="height: 30px;">选择文件</el-button>
           </el-upload>
         </div>
@@ -88,10 +88,10 @@
 
 <script>
   import {readFile} from '@/assets/lib/utils'
-  import {getSchRegion} from '@/assets/lib/getSchRegion'
   import {getMap} from '@/assets/lib/ChinaMapShow'
-  import {getSchool} from '@/assets/lib/getHomeServe'
   import xlsx from 'xlsx';
+  import {schoolList} from "@/assets/lib/getResultLjm";
+  import {schoolDetail} from "@/assets/lib/getResultLjm";
 
 
   export default {
@@ -184,7 +184,7 @@
         stuCount.set(this.schIDs[beginIndex], regionIndex - beginIndex);
 
         //anaID相同学校已过滤
-        getSchRegion(analysisID).then(res => {
+        schoolDetail(analysisID).then(res => {
           this.schInfo = res;
           const regionDict = new Map(), regionset = new Set();
 
@@ -294,8 +294,8 @@
       getMap([]);
     },
     created() {
-      getSchool().then(res => {
-        this.collegeId = res.data;
+      schoolList().then(res => {
+        this.collegeId = res;
         for (let i = 0; i < this.collegeId.length; i++) {
           this.nameId[this.collegeId[i].cname] = this.collegeId[i].cid;
         }
