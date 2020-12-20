@@ -2,79 +2,79 @@
   <div>
     <div>
       <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always"
-                   v-if="lateNews.length">
+                   v-if="latestNews.length">
         <el-carousel-item>
-          <a :href="this.lateNews[0].officialLink" style="text-decoration: none" target="_Blank">
-            <img :src="lateNews[0].image" alt="">
-            <h3>{{lateNews[0].title}}</h3>
+          <a :href="this.latestNews[0].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[0].image" alt="">
+            <h3>{{latestNews[0].title}}</h3>
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a :href="this.lateNews[1].officialLink" style="text-decoration: none" target="_Blank">
-            <img :src="lateNews[1].image" alt="">
-            <h3>{{lateNews[1].title}}</h3>
+          <a :href="this.latestNews[1].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[1].image" alt="">
+            <h3>{{latestNews[1].title}}</h3>
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a :href="this.lateNews[2].officialLink" style="text-decoration: none" target="_Blank">
-            <img :src="lateNews[2].image" alt="">
-            <h3>{{lateNews[2].title}}</h3>
+          <a :href="this.latestNews[2].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[2].image" alt="">
+            <h3>{{latestNews[2].title}}</h3>
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a :href="this.lateNews[3].officialLink" style="text-decoration: none" target="_Blank">
-            <img :src="lateNews[3].image" alt="">
-            <h3>{{lateNews[3].title}}</h3>
+          <a :href="this.latestNews[3].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[3].image" alt="">
+            <h3>{{latestNews[3].title}}</h3>
           </a>
         </el-carousel-item>
         <el-carousel-item>
-          <a :href="this.lateNews[4].officialLink" style="text-decoration: none" target="_Blank">
-            <img :src="lateNews[4].image" alt="">
-            <h3>{{lateNews[4].title}}</h3>
+          <a :href="this.latestNews[4].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[4].image" alt="">
+            <h3>{{latestNews[4].title}}</h3>
           </a>
         </el-carousel-item>
       </el-carousel>
     </div>
     <div class="b2">
       <p>{{ msg }}</p>
-      <ul style="font-size: 13px" v-if="lateNews.length">
+      <ul style="font-size: 13px" v-if="latestNews.length">
         <div class="li-style">
           <a
-            :href="this.lateNews[0].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{lateNews[0].title}}
-            <br/><span style="float: right">{{lateNews[0].date}}</span><br/>
+            :href="this.latestNews[0].officialLink"
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[0].title}}
+            <br/><span style="float: right">{{latestNews[0].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.lateNews[1].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{lateNews[1].title}}
-            <br/><span style="float: right">{{lateNews[1].date}}</span><br/>
+            :href="this.latestNews[1].officialLink"
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[1].title}}
+            <br/><span style="float: right">{{latestNews[1].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.lateNews[2].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{lateNews[2].title}}
-            <br/><span style="float: right">{{lateNews[2].date}}</span><br/>
+            :href="this.latestNews[2].officialLink"
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[2].title}}
+            <br/><span style="float: right">{{latestNews[2].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.lateNews[3].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{lateNews[3].title}}
-            <br/><span style="float: right">{{lateNews[3].date}}</span><br/>
+            :href="this.latestNews[3].officialLink"
+            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[3].title}}
+            <br/><span style="float: right">{{latestNews[3].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
           <a
-            :href="this.lateNews[4].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">{{lateNews[4].title}}
-            <br/><span style="float: right">{{lateNews[4].date}}</span><br/>
+            :href="this.latestNews[4].officialLink"
+            target="_Blank" style="text-decoration: none;display: block">{{latestNews[4].title}}
+            <br/><span style="float: right">{{latestNews[4].date}}</span><br/>
           </a>
         </div>
       </ul>
@@ -97,12 +97,12 @@
     data() {
       return {
         msg: '最新消息',
-        lateNews: [],
+        latestNews: [],
       }
     },
     created() {
       getLatestNews().then((res) => {
-        this.lateNews = res.data;
+        this.latestNews = res.data;
         // console.log("latenews",this.latenews);
       })
         .catch((err) => {

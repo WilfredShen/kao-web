@@ -114,7 +114,7 @@ export function rateList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/acceptance-rate?cid=${scid}`, {})
       .then((res => {
-        // console.log("res",res.data)
+         console.log("录取率", res.data)
         resolve(res.data.data);
       }))
       .catch((error) => {

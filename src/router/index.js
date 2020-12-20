@@ -37,8 +37,8 @@ export default new VueRouter({
           component: () => import('@/components/home/index')
         },
         {
-          path: 'evaluate/result',
-          name: 'EvaluateResult',
+          path: 'evaluation/result',
+          name: 'EvaluationResult',
           component: () => import('@/components/home/evaluation/result')
         },
         {

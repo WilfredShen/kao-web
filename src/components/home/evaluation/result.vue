@@ -26,7 +26,7 @@
         <span style="font-size:14px">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorList">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorList(disciplineCode)">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -63,7 +63,7 @@
           >
           </el-option>
         </el-select>
-        <el-button size="medium" round @click="getTmpResults" style="margin-left:10px">确定</el-button>
+        <el-button size="medium" round @click="getTmpResults()" style="margin-left:10px">确定</el-button>
       </div>
     </div>
     <br>
@@ -119,7 +119,7 @@
   import xlsx from "xlsx";
 
   export default {
-    name: "EvaluateResult",
+    name: "EvaluationResult",
     data() {
       return {
         options: [
@@ -235,7 +235,7 @@
             //         console.log("majorcode"+this.majorCode);
             //        console.log("resmid"+res[i].mid);
             if (res[i].mid === this.majorCode) {
-              console.log("C查询结果" + res[i].mid + " " + parseInt(res[i].result));
+              // console.log("C查询结果" + res[i].mid + " " + parseInt(res[i].result));
               for (let j = 0; j < this.level.length; j++) {
                 if (this.level[j] === "A+") {
                   if (res[i].result === this.level[j]) {

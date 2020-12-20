@@ -4,13 +4,13 @@
       <p style="margin-right: 10px;padding-left: 0;font-weight: bold;font-size: 17px">筛选条件：</p>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">模糊查找 : </p>
-        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher"
-                  @focus="cleanSearch" clearable></el-input>
+        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher()"
+                  @focus="cleanSearch()" clearable></el-input>
       </div>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">评价体系 : </p>
         <el-dropdown style="margin-right: 10px" size="mini" split-button trigger="click"
-                     @command="handleCommand">
+                     @command="handleCommand()">
           {{rankSys}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="学科评估">学科评估</el-dropdown-item>
@@ -30,7 +30,7 @@
         </el-select>
       </div>
       <div style="text-align: right">
-        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getsearch">查询
+        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getsearch()">查询
         </el-button>
       </div>
 

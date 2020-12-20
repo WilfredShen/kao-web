@@ -8,7 +8,7 @@
         <p style="margin-right: 20px">生源数据:</p>
         <div style="display:flex;align-items: center">
           <el-upload accept=".xlsx,.xls" :auto-upload="false" :show-file-list="false"
-                     :on-change="handleChange">
+                     :on-change="handleChange()">
             <el-button plain size="small" style="height: 30px;">选择文件</el-button>
           </el-upload>
         </div>
@@ -24,7 +24,7 @@
       </div>
       <div id="field-map" style="display: flex;align-items: center">
         <p style="margin-right: 20px">字段映射:</p>
-        <el-dropdown size="small" split-button trigger="click" @command="handleSchField">
+        <el-dropdown size="small" split-button trigger="click" @command="handleSchField()">
           {{schFiled}}
           <el-dropdown-menu slot="dropdown" id="school-filed">
             <el-dropdown-item v-for="(item,index) in schFields" :key="index" :command="item.field">{{item.field}}

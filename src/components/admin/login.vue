@@ -28,7 +28,7 @@
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%;background-color: #1e56a0" type="primary" @click="submit">
+            <el-button style="width: 100%;background-color: #1e56a0" type="primary" @click="submit()">
               <span>登录</span>
             </el-button>
           </el-form-item>

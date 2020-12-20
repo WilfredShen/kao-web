@@ -19,7 +19,7 @@
       <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
     </div>
 
-    <el-dropdown v-if="isModify" style="margin-left: 10px;" split-button @command="handleCommand">
+    <el-dropdown v-if="isModify" style="margin-left: 10px;" split-button @command="handleCommand()">
       {{identity}}
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="学生">学生</el-dropdown-item>
@@ -28,7 +28,7 @@
     </el-dropdown>
 
     <el-button id="verify" v-if="isModify" style="margin-left: 10px;background-color: #1e56a0;color: white"
-               @click="verifyrn(),verifyid()">
+               @click="verifyid()">
       实名与身份认证
     </el-button>
   </div>
@@ -107,7 +107,20 @@
         this.identity = command;
       },
       //进行实名验证
-      verifyrn() {
+      // verifyrn() {
+      //   axios.post("/api/vf/real", {
+      //     'identity': '330902',
+      //     'name': this.uName
+      //   })
+      //     .then(res => {
+      //       console.log(res.status)
+      //       if (res.status === 200) {
+      //         this.items[4].content = '已实名认证';
+      //       }
+      //     })
+      //   this.$store.commit('setrealname', '已实名认证');
+      // },
+      verifyid() {
         axios.post("/api/vf/real", {
           'identity': '330902',
           'name': this.uName
@@ -119,8 +132,6 @@
             }
           })
         this.$store.commit('setrealname', '已实名认证');
-      },
-      verifyid() {
         if (this.items[5].content.length !== 4) {
           this.$message("您已认证为" + this.items[5].content + "，不得重复验证");
           return;

@@ -30,10 +30,11 @@ const store = new Vuex.Store({
     },
     setcid(state, cid) {
       state.cid = cid;
+      console.log('state', state.cid);
     },
     setlimit(state, msg) {
-      if (msg === 'tutor') state.istut = true;
-      else if (msg === 'student') state.isstu = true;
+      if (msg === 'tutor') state.isTut = true;
+      else if (msg === 'student') state.isStu = true;
     },
     setCamps(state, camps) {
       for (let i = 0; i < camps.length; i++) {

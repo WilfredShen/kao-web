@@ -76,14 +76,14 @@
             <th>评估结果</th>
             <th>参评轮次</th>
           </tr>
-          <tr v-for="(item, index) in evaluates.slice(0,5)" :key="index"
+          <tr v-for="(item, index) in evaluation.slice(0,5)" :key="index"
               style="text-align:center">
             <td>{{item.mid+getMajorName(item.mid)}}</td>
             <td>{{item.result}}</td>
             <td>第四轮</td>
           </tr>
           <tr>
-            <td colspan="3" v-show="evaluates== undefined || evaluates.length <= 0 "
+            <td colspan="3" v-show="evaluation == undefined || evaluation.length <= 0 "
                 style="text-align:center;line-height:50px">暂无数据
             </td>
           </tr>
@@ -99,7 +99,6 @@
             <th>研究方向</th>
             <th>联系电话</th>
             <th>邮箱地址</th>
-            <th v-show="(!(isidentity==null)&&!(isidentity===''))"></th>
           </tr>
           <tr v-for="(item, index) in tutors" :key="index" style="text-align:center">
             <td> {{item.name}}</td>
@@ -107,12 +106,9 @@
             <td>{{item.research}}</td>
             <td>{{item.contactPhone}}</td>
             <td>{{item.contactEmail}}</td>
-            <td v-show="(!(isidentity==null)&&!(isidentity===''))">
-              <el-button size="small" @click="setFavorTutor(item.cid,item.tid)">收藏</el-button>
-            </td>
           </tr>
           <tr>
-            <td colspan="5" v-show="tutors== undefined || tutors.length <= 0 "
+            <td colspan="5" v-show="tutors == undefined || tutors.length <= 0 "
                 style="text-align:center;line-height:50px">暂无数据
             </td>
           </tr>
@@ -130,7 +126,6 @@
     rankList,
     rateList,
     tutorList,
-    setFavouriteTutor,
   } from '../../../assets/lib/getResultLjm';
 
   export default {
@@ -140,7 +135,7 @@
         isidentity: "",
         schoolCid: [],
         schoolDetails: [],
-        evaluates: [],
+        evaluation: [],
         allMajors: [],
         ranks: [],
         rates: [],
@@ -150,53 +145,60 @@
     },
     methods: {
       getSchoolDetail(cid) {
+        var arr = this;
         schoolDetail(cid).then(res => {
           console.log("res", res)
-          this.schoolDetails = res[0];
+          arr.schoolDetails = res[0];
           console.log("schoool_details" + this.schoolDetails.cname);
         });
       },
-      getEvaluates() {
-        console.log("在评估结果里的学校代码" + this.schoolCid)
-        this.evaluates = [];
-        getEvaluationList("4").then(res => {
+      getEvaluation(cid) {
+        var arr = this;
+        arr.evaluation = [];
+        getEvaluationList(4).then(res => {
           for (let i = 0; i < res.length; i++) {
-            if (res[i].cid === this.schoolCid[0]) {
-              this.evaluates.push(res[i]);
+            if (res[i].cid === cid) {
+              arr.evaluation.push(res[i]);
             }
           }
-          console.log("评估结果" + this.evaluates);
         })
       },
       getMajorListAll() {
+        var arr = this;
         majorList().then(res => {
-          this.allMajors = res;
+          arr.allMajors = res;
           // console.log(this.disciplines)
         });
       },
       getMajorName(mid) {
-        for (let i = 0; i < this.allMajors.length; i++) {
-          if (this.allMajors[i].mid === mid) {
-            return this.allMajors[i].mname;
+        var arr = this;
+        for (let i = 0; i < arr.allMajors.length; i++) {
+          if (arr.allMajors[i].mid === mid) {
+            return arr.allMajors[i].mname;
           }
         }
       },
       getRank(cid) {
+        var arr = this;
         rankList(cid).then(res => {
-          this.ranks = res;
-          console.log(this.ranks)
+          arr.ranks = res;
+          console.log("rank", this.ranks);
         });
       },
       getRates(cid) {
+        var arr = this;
         rateList(cid).then(res => {
-          this.rates = res;
+          arr.rates = res;
+          console.log("rate", this.rates);
         });
       },
       getTutors(cid) {
+        var arr = this;
         tutorList(cid).then(res => {
-          this.tutors = res;
+          arr.tutors = res;
         });
       },
+      /*
       setFavorTutor(cid, tid) {
         this.favorTutors = [];
         this.favorTutors.push({
@@ -218,22 +220,26 @@
           }
         })
       }
+
+       */
     },
     mounted() {
       this.isidentity = this.$store.state.uid;
     },
-    created() {
-      this.schoolCid = [];
-      this.schoolCid.push(this.$store.state.cid);
-      this.getSchoolDetail(this.schoolCid);
-      console.log("school", this.schoolDetails);
-      this.getRank(this.schoolCid[0]);
-      this.getRates(this.schoolCid[0]);
-      this.getEvaluates();
-      this.getMajorListAll();
-      this.getTutors(this.schoolCid[0]);
-      this.isidentity = this.$store.state.uid;
-    }
+    activated() {
+      var self = this;
+      self.schoolCid = [];
+      console.log("schoolcid", self.$store.state.cid);
+      self.schoolCid.push(self.$store.state.cid);
+      self.getSchoolDetail(self.schoolCid);
+      console.log("school", self.schoolDetails);
+      self.getRank(self.schoolCid[0]);
+      self.getRates(self.schoolCid[0]);
+      self.getEvaluation(self.schoolCid[0]);
+      self.getMajorListAll();
+      self.getTutors(self.schoolCid[0]);
+      self.isidentity = self.$store.state.uid;
+    },
   }
 </script>
 

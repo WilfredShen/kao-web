@@ -3,7 +3,7 @@
     <div style="padding: 10px 20px 40px 20px;width: 90%;">
       <el-form>
         <el-form-item label="选择轮次:" style="margin-left: 12px">
-          <el-select v-model.number="round" placeholder="请选择轮次" size="small" @change="getEvaluation">
+          <el-select v-model.number="round" placeholder="请选择轮次" size="small" @change="getEvaluation()">
             <el-option label="1" value="1"></el-option>
             <el-option label="2" value="2"></el-option>
             <el-option label="3" value="3"></el-option>
@@ -20,7 +20,7 @@
         <el-form-item label="学校查询:">
           <el-input v-model="searchSchool" size="small" style="width: 30%" placeholder="模糊查询" clearable></el-input>
           <el-button style="float: right;margin:0 20px 10px 10px;background-color: #1e56a0;color: white"
-                     @click="getResult">查询
+                     @click="getResult()">查询
           </el-button>
           <span style="margin-left: 10px;color: dimgray">(多个学校模糊查询关键字，以空格相隔，查找同时存在这些关键字的学校)</span>
         </el-form-item>
@@ -70,7 +70,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button @click="confirmUpdate" style="background-color: #456268;color: white">确 定</el-button>
+        <el-button @click="confirmUpdate()" style="background-color: #456268;color: white">确 定</el-button>
       </div>
     </el-dialog>
   </div>

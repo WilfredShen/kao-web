@@ -13,11 +13,11 @@
     <div>
       <el-upload action accept=".xlsx,.xls"
                  :auto-upload="false"
-                 :on-change="handleChange"
-                 :on-preview="handlePreview"
+                 :on-change="handleChange()"
+                 :on-preview="handlePreview()"
                  :show-file-list=showFile
-                 :before-remove="beforeRemove"
-                 :on-remove="handleRemove"
+                 :before-remove="beforeRemove()"
+                 :on-remove="handleRemove()"
                  :file-list="fileList"
       >
         <el-button plain style="background-color: #1e56a0;color: white">上传文件</el-button>
@@ -38,7 +38,7 @@
       </el-table>
     </div>
     <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white" v-if="up"
-               @click="upLoad">
+               @click="upLoad()">
       确认上传
     </el-button>
   </div>

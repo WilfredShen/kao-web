@@ -6,13 +6,13 @@
       <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录
 
       </el-button>
-      <el-button size="mini" style="float: right" @click="logOut" v-if="hasLogin"> 退出登录
+      <el-button size="mini" style="float: right" @click="logOut()" v-if="hasLogin"> 退出登录
       </el-button>
       <el-menu :router="true" class="el-menu-demo" mode="horizontal">
         <router-link to="/" class="nav-i">
           <el-menu-item>首页</el-menu-item>
         </router-link>
-        <router-link to="/evaluate/result" class="nav-i">
+        <router-link to="/evaluation/result" class="nav-i">
           <el-menu-item>评估结果</el-menu-item>
         </router-link>
         <router-link to="/college/detail" class="nav-i">

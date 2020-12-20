@@ -10,7 +10,7 @@
       </div>
       <div class="selection">
         <span>高校类别：</span>
-        <el-dropdown size="small" split-button trigger="click" @command="handleSchField">
+        <el-dropdown size="small" split-button trigger="click" @command="handleSchField()">
           {{schLevel}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="'985/211'">985/211</el-dropdown-item>
@@ -22,7 +22,7 @@
       <div class="selection">
 
         <span>本科学类：</span>
-        <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
+        <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
           <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.name"></el-option>
         </el-select>
 
@@ -35,7 +35,7 @@
       </div>
       <div class="selection">
         <span>预期学类：</span>
-        <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
+        <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
           <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
         </el-select>
         <!--          collapse-tags multiple-->

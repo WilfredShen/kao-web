@@ -57,7 +57,7 @@
               <el-col :span="9">
                 <el-button
                   style="width: 100%; padding-left: 0; padding-right: 0; text-align: center"
-                  @click="getCode"
+                  @click="getCode()"
                 >
                   <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
                   <span v-if="status.resend === -1">获取验证码</span>
@@ -73,7 +73,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%" type="primary" @click="submit">
+            <el-button style="width: 100%" type="primary" @click="submit()">
               <span>注册</span>
             </el-button>
           </el-form-item>
