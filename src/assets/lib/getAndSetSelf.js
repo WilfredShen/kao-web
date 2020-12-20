@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function getUserid() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/user/get_user_info")
+    axios.get("/api/user/q/user-info")
       .then(res => {
         let item = res.data.data;
         resolve(item.uid);
@@ -15,7 +15,7 @@ export function getUserid() {
 
 export function getUserName() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/user/get_user_info")
+    axios.get("/api/user/q/user-info")
       .then(res => {
         let item = res.data.data;
         resolve(item.username);
@@ -28,7 +28,7 @@ export function getUserName() {
 
 export function getLimit() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/user/get_user_info")
+    axios.get("/api/user/q/user-info")
       .then(res => {
         let item = res.data.data;
         resolve(item.accountType);
@@ -42,7 +42,7 @@ export function getLimit() {
 export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt) {
 
   return new Promise((resolve, reject) => {
-    axios.post("/api/stu/update_stu_info", {
+    axios.post("/api/stu/u/stu-info", {
       'queryable': true,
       'uid': uid,
       'phoneNumber': phone,
@@ -63,7 +63,7 @@ export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt
 
 export function updateTeaInfo(phone, email, college, major, research) {
   return new Promise((resolve, reject) => {
-    axios.post("/api/tutor/update_tutor_msg", {
+    axios.post("/api/tutor/u/tutor-info", {
       'phoneNumber': phone,
       'email': email,
       'college': college,
@@ -81,7 +81,7 @@ export function updateTeaInfo(phone, email, college, major, research) {
 
 export function updateUserInfo(postphone, postemail) {
   return new Promise(((resolve, reject) => {
-    axios.post("/api/user/update_user_msg", {
+    axios.post("/api/user/u/user-info", {
       'phoneNumber': postphone,
       'email': postemail,
       'accountType': null,

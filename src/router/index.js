@@ -7,16 +7,9 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/a',
-      name: 'Admin',
-      component: () => import('@/components/admin'),
-      children: [
-        {
-          path: 'login',
-          name: 'AdminLogin',
-          component: () => import('@/components/login/admin-login'),
-        },
-      ],
+      path: '/admin/login',
+      name: 'AdminLogin',
+      component: () => import('@/components/admin/login'),
     },
     {
       path: '/login',
@@ -35,31 +28,32 @@ export default new VueRouter({
     },
     {
       path: '/',
+      name: 'Header',
       component: () => import('@/components/home/header'),
       children: [
         {
           path: '',
-          name: 'home',
-          component: () => import('@/components/home')
+          name: 'Home',
+          component: () => import('@/components/home/index')
         },
         {
-          path: 'evaresult',
-          name: 'homeevaresult',
-          component: () => import('@/components/home/evaluation-result')
+          path: 'evaluation/result',
+          name: 'EvaluationResult',
+          component: () => import('@/components/home/evaluation/result')
         },
         {
-          path: 'schooldetail',
-          name: 'schoolDetail',
-          component: () => import('@/components/home/school-detail'),
+          path: 'college/detail',
+          name: 'CollegeDetail',
+          component: () => import('@/components/home/college/detail'),
         },
         {
-          path: 'school',
-          name: 'school',
-          component: () => import('@/components/home/school')
+          path: 'college',
+          name: 'College',
+          component: () => import('@/components/home/college/index')
         },
         {
-          path: 'campcard',
-          name: 'campCard',
+          path: 'camp',
+          name: 'Camp',
           component: () => import('@/components/home/camp')
         },
         {
@@ -70,12 +64,14 @@ export default new VueRouter({
       ]
     },
     {
-      path: '/manager',
-      component: () => import('@/components/manager'),
+      path: '/admin',
+      name: 'Admin',
+      component: () => import('@/components/admin/index'),
     },
     {
-      path: '/selfmain',
-      component: () => import('@/components/self'),
+      path: '/user',
+      name: 'User',
+      component: () => import('@/components/user/index'),
     }
   ]
 })

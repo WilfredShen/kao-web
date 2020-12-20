@@ -52,7 +52,6 @@ export function getEvaluationList(sround) {
 }
 
 export function schoolDetail(cid) {
-  console.log(cid);
   return new Promise((resolve, reject) => {
     axios.get("/api/base/college", {
       params: {
@@ -64,7 +63,6 @@ export function schoolDetail(cid) {
         resolve(res.data.data);
       }))
       .catch((error) => {
-
         reject(error);
       })
   })
@@ -114,7 +112,7 @@ export function rateList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/acceptance-rate?cid=${scid}`, {})
       .then((res => {
-        // console.log("res",res.data)
+         console.log("录取率", res.data)
         resolve(res.data.data);
       }))
       .catch((error) => {
@@ -133,6 +131,37 @@ export function tutorList(scid) {
       }))
       .catch((error) => {
         reject(error);
+      })
+  })
+}
+
+
+//某一轮评估结果
+export function getSomeResult() {
+  return new Promise((resolve, reject) => {
+    axios.get('/api/base/evaluation', {})
+      .then((res) => {
+        console.log(resolve);
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.data);
+        console.log(err)
+      })
+  })
+}
+
+//最近新闻
+export function getLatestNews() {
+  return new Promise((resolve, reject) => {
+    axios.get('/api/base/latest-news', {})
+      .then((res) => {
+        console.log(resolve);
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.data);
+        console.log(err)
       })
   })
 }

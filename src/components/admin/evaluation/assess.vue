@@ -15,7 +15,7 @@
                  :auto-upload="false"
                  :on-change="handleChange"
                  :on-preview="handlePreview"
-                 :show-file-list=showfile
+                 :show-file-list=showFile
                  :before-remove="beforeRemove"
                  :on-remove="handleRemove"
                  :file-list="fileList"
@@ -27,7 +27,7 @@
     </div>
     <el-divider></el-divider>
     <div>
-      <el-table :data="tabledata"
+      <el-table :data="tableData"
                 :header-cell-style="{background:'#1e56a0',color:'white'}" border
                 stripe max-height="400px">
         <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
@@ -38,30 +38,31 @@
       </el-table>
     </div>
     <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white" v-if="up"
-               @click="upload">
+               @click="upLoad()">
       确认上传
     </el-button>
   </div>
 </template>
 
 <script>
-  import {readFile} from "../../../assets/lib/utils";
+  import {readFile} from "@/assets/lib/utils";
   import xlsx from "xlsx";
-  import {getMajor, getSchool} from "../../../assets/lib/getHomeServe";
-  import {uploadEvaluation} from "../../../assets/lib/setManager";
+  import {uploadEvaluation} from "@/assets/lib/setManager";
+  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
+    name: 'AssessEval',
     data() {
       return {
         hint: '当前轮次没有数据，请上传',
-        tabledata: [],//最后显示的数据
+        tableData: [],//最后显示的数据
         round: '',//选择更新第几轮的数据
         excelDatas: [],//表格内拿到的所有数据
-        exclength: '',
+        excelLength: '',
         fileList: [],
         school: {},
         major: {},
-        showfile: true,//显示文件列表
+        showFile: true,//显示文件列表
         up: false
       }
     },
@@ -70,30 +71,30 @@
         let file = ev.raw;
         if (!file) return;
 
-        this.sch_fields = [];
+        this.schFields = [];
 
         let data = await readFile(file);
-        let workbook = xlsx.read(data, {type: 'binary'});
+        let workBook = xlsx.read(data, {type: 'binary'});
 
-        let worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        data = xlsx.utils.sheet_to_json(worksheet);
+        let workSheet = workBook.Sheets[workBook.SheetNames[0]];
+        data = xlsx.utils.sheet_to_json(workSheet);
         console.log(data);
 
-        const range = xlsx.utils.decode_range(worksheet['!ref']);
-        let C, R = range.s.r;
-        for (C = range.s.c; C <= range.e.c; ++C) {
-          const cell = worksheet[xlsx.utils.encode_cell({c: C, r: R})]
-          let hdr = "UNKNOWN" + C;
-          if (cell && cell.t) hdr = xlsx.utils.format_cell(cell);
-          this.sch_fields.push({'field': hdr});
+        const range = xlsx.utils.decode_range(workSheet['!ref']);
+        let column, row = range.s.r;
+        for (column = range.s.c; column <= range.e.c; ++column) {
+          const cell = workSheet[xlsx.utils.encode_cell({c: column, r: row})];
+          let notification = "UNKNOWN" + column;
+          if (cell && cell.t) notification = xlsx.utils.format_cell(cell);
+          this.schFields.push({'field': notification});
         }
-        this.exclength = data.length;
+        this.excelLength = data.length;
         this.excelDatas = data;
-        this.getexcel();
+        this.getExcel();
       },
       handleRemove(file) {
         this.excelDatas = [];
-        this.tabledata = [];
+        this.tableData = [];
         console.log(file);
       },
       handlePreview(file) {
@@ -102,18 +103,18 @@
       beforeRemove(file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
-      getexcel() {
+      getExcel() {
         this.excelDatas.forEach(item => {
           this.$set(item, 'cname', "");
           this.$set(item, 'mname', "");
         });
         let flag = true;
-        this.tabledata = this.excelDatas;
-        for (let i = 0; i < this.tabledata.length; i++) {
-          // console.log(i,this.major[this.tabledata[i].mid]);
-          if (this.school[this.tabledata[i].cid].cname && this.major[this.tabledata[i].mid]) {
-            this.tabledata[i].cname = this.school[this.tabledata[i].cid].cname;
-            this.tabledata[i].mname = this.major[this.tabledata[i].mid].mname;
+        this.tableData = this.excelDatas;
+        for (let i = 0; i < this.tableData.length; i++) {
+          // console.log(i,this.major[this.tableData[i].mid]);
+          if (this.school[this.tableData[i].cid].cname && this.major[this.tableData[i].mid]) {
+            this.tableData[i].cname = this.school[this.tableData[i].cid].cname;
+            this.tableData[i].mname = this.major[this.tableData[i].mid].mname;
           } else {
             flag = false;
             break;
@@ -123,8 +124,8 @@
           this.$confirm(`上传信息有误，学校代码或专业代码不匹配`, '提示')
             .then((res) => {
               console.log(res);
-              this.tabledata = [];
-              this.showfile = false;
+              this.tableData = [];
+              this.showFile = false;
               this.round = '';
               flag = true;
             })
@@ -134,7 +135,7 @@
         }
         this.up = true;
       },
-      upload() {
+      upLoad() {
         if (this.round === null || this.round === '' || this.round === "undefined") {
           console.log("round", this.round);
           this.$confirm(`请选择轮次！`, '提示')
@@ -148,9 +149,9 @@
           this.$confirm(`确定上传以上信息？`, '提示')
             .then((res) => {
               console.log(res);
-              for (let i = 0; i < this.tabledata.length; i++) {
-                console.log(this.tabledata[i].cid + '', this.tabledata[i].mid, this.tabledata[i].result, parseInt(this.round));
-                uploadEvaluation(this.tabledata[i].cid, this.tabledata[i].mid, this.tabledata[i].result, parseInt(this.round))
+              for (let i = 0; i < this.tableData.length; i++) {
+                console.log(this.tableData[i].cid + '', this.tableData[i].mid, this.tableData[i].result, parseInt(this.round));
+                uploadEvaluation(this.tableData[i].cid, this.tableData[i].mid, this.tableData[i].result, parseInt(this.round))
                   .then((res) => {
                     console.log("上传成功", res);
                     this.$message({
@@ -158,8 +159,8 @@
                       message: '上传成功！',
                       type: 'success'
                     });
-                    this.tabledata = [];
-                    this.showfile = false;
+                    this.tableData = [];
+                    this.showFile = false;
                     this.round = '';
                   })
                   .catch((err) => {
@@ -177,20 +178,11 @@
             })
         }
       },
-      // tableRowClassName({row,rowIndex}) {
-      //   console.log("roe",row);
-      //   if (rowIndex%2 === 0) {
-      //     return 'warning-row';
-      //   } else if (rowIndex%2 === 1) {
-      //     return 'success-row';
-      //   }
-      //   return '';
-      // }
     },
     created() {
-      getSchool()
+      schoolList()
         .then((res) => {
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.school[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);
@@ -198,9 +190,9 @@
         .catch((err) => {
           console.log(err)
         });
-      getMajor()
+      majorList()
         .then((res) => {
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.major[row.mid] = {mname: row.mname, did: row.did}
           })
           // console.log("majormap",this.major);
@@ -208,18 +200,6 @@
         .catch((err) => {
           console.log(err)
         });
-      this.$axios.post("/api/admin/upload_evaluation", {
-        cid: "10010",
-        mid: "1010",
-        result: "B",
-        round: "1"
-      })
-        .then(res => {
-          console.log("请求成功" + res)
-        })
-        .catch(error => {
-          console.log("请求失败" + error)
-        })
     }
   }
 </script>
@@ -234,12 +214,4 @@
     font-weight: bold;
     color: black;
   }
-
-  /*.el-table .warning-row {*/
-  /*  background: white;*/
-  /*}*/
-
-  /*.el-table .success-row {*/
-  /*  background: #D0E8F2;*/
-  /*}*/
 </style>

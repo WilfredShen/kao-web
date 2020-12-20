@@ -28,7 +28,7 @@
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%;background-color: #1e56a0" type="primary" @click="submit">
+            <el-button style="width: 100%;background-color: #1e56a0" type="primary" @click="submit()">
               <span>登录</span>
             </el-button>
           </el-form-item>
@@ -50,7 +50,7 @@
 
 <script>
 
-  import '../../assets/css/login.css'
+  import '@/assets/css/login.css'
 
   export default {
     name: "AdminLogin",
@@ -82,11 +82,11 @@
           })
           .then((res) => {
             if (res.data.status === 200) {
-              let callback = this.$route.query.callback;
+              let callback = this.$route.query.callBack;
               if (callback) {
                 this.$message.success("登录成功！即将跳转至原界面...");
               } else {
-                callback = "/manager";
+                callback = "/admin";
                 this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {

@@ -13,8 +13,8 @@
         </div>
       </el-card>
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange()"
+        @current-change="handleCurrentChange()"
         layout="prev,pager,next"
         background
         :total=currentTotal
@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    name: 'Camp',
     data() {
       return {
         camps: [],

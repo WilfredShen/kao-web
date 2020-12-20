@@ -9,11 +9,11 @@
             <th class="myth">专业名称及代码</th>
             <th class="myth">取消收藏</th>
           </tr>
-          <tr v-for="(item,index) in school_collect" :key="index" v-bind:class="index%2!==0?'':'change-color1'">
-            <td class="tds">{{item.school_id}} {{item.school_name}}</td>
-            <td class="tds">{{item.major_id}} {{item.major_name}}</td>
+          <tr v-for="(item,index) in schoolCollect" :key="index" v-bind:class="index%2!==0?'':'change-color'">
+            <td class="tds">{{item.schoolID}} {{item.schoolName}}</td>
+            <td class="tds">{{item.majorID}} {{item.majorName}}</td>
             <td class="tds">
-              <el-button style="background-color: #1e56a0;color: white" @click="cancle(index)">取消收藏</el-button>
+              <el-button style="background-color: #1e56a0;color: white" @click="cancel(index)">取消收藏</el-button>
             </td>
           </tr>
         </table>
@@ -24,20 +24,21 @@
 
 <script>
   export default {
+    name: 'Favor',
     data() {
       return {
-        school_collect: [],
+        schoolCollect: [],
       }
     },
     methods: {
-      cancle(index) {
+      cancel(index) {
         this.$axios.post("/api/favor/d/major", {
-          'majorCid': this.school_collect[index].school_id,
-          'majorMid': this.school_collect[index].major_id
+          'majorCid': this.schoolCollect[index].schoolID,
+          'majorMid': this.schoolCollect[index].majorID
         })
           .then(res => {
             console.log(res);
-            this.school_collect = [];
+            this.schoolCollect = [];
             this.setCollectInfo();
           })
           .catch(err => {
@@ -50,11 +51,11 @@
             console.log(res.data);
             let item = res.data.data;
             for (let i = 0; i < item.length; i++) {
-              this.school_collect.push({
-                'school_id': item[i].cid,
-                'school_name': item[i].cname,
-                'major_id': item[i].mid,
-                'major_name': item[i].mname
+              this.schoolCollect.push({
+                'schoolID': item[i].cid,
+                'schoolName': item[i].cname,
+                'majorID': item[i].mid,
+                'majorName': item[i].mname
               })
             }
           })
@@ -81,7 +82,7 @@
     color: white;
   }
 
-  .change-color1 {
+  .change-color {
     background-color: #d6e4f0;
   }
 

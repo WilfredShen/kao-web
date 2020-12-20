@@ -4,14 +4,14 @@
       <p style="margin-right: 10px;padding-left: 0;font-weight: bold;font-size: 17px">筛选条件：</p>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">模糊查找 : </p>
-        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher"
-                  @focus="cleansearch" clearable></el-input>
+        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher()"
+                  @focus="cleanSearch()" clearable></el-input>
       </div>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">评价体系 : </p>
         <el-dropdown style="margin-right: 10px" size="mini" split-button trigger="click"
-                     @command="handleCommand">
-          {{rank_sys}}
+                     @command="handleCommand()">
+          {{rankSys}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="学科评估">学科评估</el-dropdown-item>
             <el-dropdown-item command="软科" divided disabled>软科</el-dropdown-item>
@@ -30,7 +30,7 @@
         </el-select>
       </div>
       <div style="text-align: right">
-        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getsearch">查询
+        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getsearch()">查询
         </el-button>
       </div>
 
@@ -49,10 +49,10 @@
         </el-col>
       </el-row>
       <el-scrollbar style="height: 400px">
-        <div class="dis" v-for="(item, index) in afterfilter" :key="index">
+        <div class="dis" v-for="(item, index) in afterFilter" :key="index">
           <el-row>
             <el-col :span="8">
-              <div class="grid-content bg-purple" @click="schoolclik(item.cid)">{{item.cid+item.cname}}</div>
+              <div class="grid-content bg-purple" @click="schoolClick(item.cid)">{{item.cid+item.cname}}</div>
             </el-col>
             <el-col :span="8">
               <div class="grid-content bg-purple">{{item.mid+item.mname}}</div>
@@ -68,16 +68,16 @@
 </template>
 
 <script>
-  import {getMajor, getSchool, getSomeResult} from "../../../assets/lib/getHomeServe";
+  import {majorList, schoolList, getSomeResult} from "@/assets/lib/getResultLjm";
 
   export default {
-    name: "",
+    name: 'CollegeDetail',
     data: function () {
       return {
         input: '',
-        rank_sys: '请选择评价体系',
+        rankSys: '请选择评价体系',
         rank: '等级：',
-        tabledata: [],
+        tableData: [],
         option4: [{
           value4: "A+ / 95-100",
           label4: "A+"
@@ -108,36 +108,36 @@
         }],
         major: {},
         school: [],
-        schoolmap: {},
+        schoolMap: {},
         level: [],
-        evalresult: [],
-        fsresult: [], //模糊查询的学校名
-        afterfilter: [], //筛选后的结果
+        evalResult: [],
+        fsResult: [], //模糊查询的学校名
+        afterFilter: [], //筛选后的结果
       }
     },
     methods: {
       //评选方法
       handleCommand(command) {
-        this.rank_sys = command
+        this.rankSys = command
       },
       //模糊查询
       fuzzySearcher() {
-        let fsinput = this.input.trim().split(/\s+/);
-        console.log("fsinput", fsinput);
-        this.fsresult = [];
+        let fsInput = this.input.trim().split(/\s+/);
+        console.log("fsinput", fsInput);
+        this.fsResult = [];
         let flag = 1;
         for (let i = 0; i < this.school.length; i++) {
           let temp = this.school[i].cname;
-          for (let j = 0; j < fsinput.length; j++) {
+          for (let j = 0; j < fsInput.length; j++) {
             flag = 1;
             // console.log(temp.match(fsinput[j]));
-            if (temp.match(fsinput[j]) == null) {
+            if (temp.match(fsInput[j]) == null) {
               flag = 0;
               break;
             }
           }
           if (flag) {
-            this.fsresult.push(this.school[i]);
+            this.fsResult.push(this.school[i]);
           }
         }
         // console.log('schoolfilter',this.fsresult);
@@ -187,91 +187,91 @@
             type: 'warning'
           })
             .then(() => {
-              this.afterfilter = this.evalresult;
+              this.afterFilter = this.evalResult;
               //筛选等级
               console.log("level", this.level);
 
               if (this.level.length > 0) {
                 let list = [];
                 for (let i = 0; i < this.level.length; i++) {
-                  list = list.concat(this.afterfilter.filter(item => item.result === this.level[i]));
+                  list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
                 }
-                this.afterfilter = list;
+                this.afterFilter = list;
               }
 
               //增加学校名称属性
-              this.afterfilter.forEach(item => {
+              this.afterFilter.forEach(item => {
                 this.$set(item, 'cname', "")
               });
-              for (let i = 0; i < this.afterfilter.length; i++) {
-                this.afterfilter[i].cname = this.schoolmap[this.afterfilter[i].cid].cname;
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
               }
               //增加专业名称
-              this.afterfilter.forEach(item => {
+              this.afterFilter.forEach(item => {
                 this.$set(item, 'mname', "")
               });
-              for (let i = 0; i < this.afterfilter.length; i++) {
-                this.afterfilter[i].mname = this.major[this.afterfilter[i].mid].mname;
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
               }
-              this.afterfilter = this.afterfilter.sort(compare);
-              console.log("after", this.afterfilter);
+              this.afterFilter = this.afterFilter.sort(compare);
+              console.log("after", this.afterFilter);
             })
             .catch(() => {
             })
         } else {//进行了模糊查询
-          this.afterfilter = [];
-          for (let i = 0; i < this.fsresult.length; i++) {
-            this.afterfilter = this.afterfilter.concat(this.evalresult.filter(item => item.cid === this.fsresult[i].cid));
+          this.afterFilter = [];
+          for (let i = 0; i < this.fsResult.length; i++) {
+            this.afterFilter = this.afterFilter.concat(this.evalResult.filter(item => item.cid === this.fsResult[i].cid));
           }
 
           //筛选等级
           if (this.level.length > 0) {
             let list = [];
             for (let i = 0; i < this.level.length; i++) {
-              list = list.concat(this.afterfilter.filter(item => item.result === this.level[i]));
+              list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
             }
-            this.afterfilter = list;
+            this.afterFilter = list;
           }
 
           //增加学校名称属性
-          this.afterfilter.forEach(item => {
+          this.afterFilter.forEach(item => {
             this.$set(item, 'cname', "")
           });
-          for (let i = 0; i < this.afterfilter.length; i++) {
-            this.afterfilter[i].cname = this.schoolmap[this.afterfilter[i].cid].cname;
+          for (let i = 0; i < this.afterFilter.length; i++) {
+            this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
           }
           //增加专业名称
-          this.afterfilter.forEach(item => {
+          this.afterFilter.forEach(item => {
             this.$set(item, 'mname', "")
           });
-          for (let i = 0; i < this.afterfilter.length; i++) {
-            this.afterfilter[i].mname = this.major[this.afterfilter[i].mid].mname;
+          for (let i = 0; i < this.afterFilter.length; i++) {
+            this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
           }
           // console.log("after",this.afterfilter);
 
-          if (this.afterfilter.length == 0) {
+          if (this.afterFilter.length === 0) {
             this.$alert('无符合筛选条件的学校！', '提示', {
               confirmButtonText: '确定',
             });
           } else {
-            this.afterfilter = this.afterfilter.sort(compare);
+            this.afterFilter = this.afterFilter.sort(compare);
           }
         }
       },
-      cleansearch() {
-        this.fsresult = this.school;
+      cleanSearch() {
+        this.fsResult = this.school;
         this.input = '';
       },
-      schoolclik(cid) {
-        localStorage.setItem('schoolcid', cid);
-        this.$router.push({path: '/school'})
+      schoolClick(cid) {
+        this.$store.commit('setcid', cid);
+        this.$router.push({path: '/college'});
       },
     },
     created() {
-      getMajor()
+      majorList()
         .then((res) => {
           //this.major = res.data;
-          res.data.forEach(row => {
+          res.forEach(row => {
             this.major[row.mid] = {mname: row.mname, did: row.did}
           })
           // console.log("majormap",this.major);
@@ -279,12 +279,12 @@
         .catch((err) => {
           console.log(err)
         });
-      getSchool()
+      schoolList()
         .then((res) => {
-          this.school = res.data;
-          this.fsresult = res.data;
-          res.data.forEach(row => {
-            this.schoolmap[row.cid] = {cname: row.cname}
+          this.school = res;
+          this.fsResult = res;
+          res.forEach(row => {
+            this.schoolMap[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);
         })
@@ -293,7 +293,7 @@
         });
       getSomeResult()
         .then((res) => {
-          this.evalresult = res.data;
+          this.evalResult = res.data;
           // console.log("evaluation", this.evaluation);
         })
         .catch((err) => {

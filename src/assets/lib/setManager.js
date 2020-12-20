@@ -3,7 +3,7 @@ import axios from "axios";
 //上传评估结果
 export function uploadEvaluation(cid, mid, result, round) {
   return new Promise((resolve, reject) => {
-    axios.post('/api/admin/upload_evaluation', {
+    axios.post('/api/admin/p/evaluation', {
       "cid": cid,
       "mid": mid,
       "result": result,
@@ -24,7 +24,7 @@ export function uploadEvaluation(cid, mid, result, round) {
 //更新评估结果
 export function updateEvaluation(cid, mid, result, round) {
   return new Promise((resolve, reject) => {
-    axios.post('/api/admin/update_evaluation', {
+    axios.post('/api/admin/u/evaluation', {
       "cid": cid,
       "mid": mid,
       "newResult": result,

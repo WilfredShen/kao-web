@@ -2,9 +2,9 @@
   <div>
     <el-scrollbar style="height: 550px">
       <el-table :data="tableData" :header-cell-style="{background:'#1e56a0',color:'white'}" border stripe>
-        <el-table-column prop="up_time" label="上传时间" align="center"></el-table-column>
-        <el-table-column prop="admin_id" label="管理员ID" align="center"></el-table-column>
-        <el-table-column prop="school_name" label="高校名称" align="center"></el-table-column>
+        <el-table-column prop="upTime" label="上传时间" align="center"></el-table-column>
+        <el-table-column prop="adminId" label="管理员ID" align="center"></el-table-column>
+        <el-table-column prop="schoolName" label="高校名称" align="center"></el-table-column>
         <el-table-column prop="title" label="标题" align="center"></el-table-column>
         <el-table-column prop="edit" label="编辑" align="center">
           <el-button size="small" @click="edit()">编辑</el-button>
@@ -12,18 +12,19 @@
       </el-table>
     </el-scrollbar>
     <el-dialog :visible.sync="editNews" :width="width">
-      <newsupdate @eIfCommit="ifEdit($event)"></newsupdate>
+      <news-update @eIfCommit="ifEdit($event)"></news-update>
     </el-dialog>
   </div>
 </template>
 
 <script>
 
-  import {getCookie} from "../../../assets/lib/utils";
-  import {getSchool} from "../../../assets/lib/getHomeServe";
-  import newsupdate from "./update"
+  import {getCookie} from "@/assets/lib/utils";
+  import NewsUpdate from "./update"
+  import {schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
+    name: 'ShowList',
     props: {
       width: {
         type: String,
@@ -31,7 +32,7 @@
       }
     },
     components: {
-      newsupdate
+      NewsUpdate,
     },
     data() {
       return {
@@ -55,8 +56,8 @@
             this.schools.push(sMap[key])
           }
         } else {
-          getSchool().then((res) => {
-            res.data.forEach(row => {
+          schoolList().then((res) => {
+            res.forEach(row => {
               this.schoolIds.push(row.cid);
               this.schools.push(row.cname);
               this.$store.commit("setSchMap", {
@@ -78,18 +79,16 @@
           let items = res.data.data;
           for (let i = 0; i < items.length; i++) {
             this.tableData.push({
-              up_time: items[i].date,
-              admin_id: uid,
-              school_name: items[i].cid,
+              upTime: items[i].date,
+              adminId: uid,
+              schoolName: items[i].cid,
               title: items[i].title
             })
           }
         })
         .catch(error => {
           console.log("获取新闻列表有错误", error);
-        })
-
-
+        });
     }
   }
 </script>

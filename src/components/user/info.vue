@@ -3,23 +3,23 @@
 
     <div v-for="(item,index) in items" :key="index"
          style="display: flex;align-items: center;width: 50%;height: 50px;"
-         v-bind:class="index%2===0 ? 'change-color1' : 'change-color2'">
+         v-bind:class="index%2===0 ? 'change-color' : ''">
       <div style="width: 35%;text-align: right"><span class="info">{{item.label}}</span></div>
       <div style="width: 65%;text-align: left;">
-        <span class="info" style="padding-left: 15px" v-if="ismodify || index<2 || index>3">{{item.content}}</span>
-        <el-input style="width: 80%" v-if="index===2 && !ismodify" v-model="newphone"></el-input>
-        <el-input style="width: 80%" v-if="index===3 && !ismodify" v-model="newemail"></el-input>
+        <span class="info" style="padding-left: 15px" v-if="isModify || index<2 || index>3">{{item.content}}</span>
+        <el-input style="width: 80%" v-if="index===2 && !isModify" v-model="newPhone"></el-input>
+        <el-input style="width: 80%" v-if="index===3 && !isModify" v-model="newEmail"></el-input>
       </div>
     </div>
 
-    <el-button class="funcbtn" v-show="ismodify" style="background-color: #1e56a0;color: white" @click="modify()">修改信息
+    <el-button class="func-btn" v-show="isModify" style="background-color: #1e56a0;color: white" @click="modify()">修改信息
     </el-button>
-    <div class="funcbtn" v-show="!ismodify">
+    <div class="func-btn" v-show="!isModify">
       <el-button style="background-color: #1e56a0;color: white" @click="commitModify()">确认修改</el-button>
-      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
     </div>
 
-    <el-dropdown v-if="ismodify" style="margin-left: 10px;" split-button @command="handleCommand">
+    <el-dropdown v-if="isModify" style="margin-left: 10px;" split-button @command="handleCommand()">
       {{identity}}
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="学生">学生</el-dropdown-item>
@@ -27,8 +27,8 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-button id="verify" v-if="ismodify" style="margin-left: 10px;background-color: #1e56a0;color: white"
-               @click="verifyrn(),verifyid()">
+    <el-button id="verify" v-if="isModify" style="margin-left: 10px;background-color: #1e56a0;color: white"
+               @click="verifyid()">
       实名与身份认证
     </el-button>
   </div>
@@ -36,19 +36,20 @@
 
 <script>
   import axios from 'axios';
-  import {updateUserInfo, getLimit} from '../../assets/lib/getAndSetSelf'
+  import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
 
   export default {
+    name: 'Info',
     data() {
       return {
-        ismodify: true,
-        newphone: '',
-        newemail: '',
-        hasvfid: false,//已经验证过身份
+        isModify: true,
+        newPhone: '',
+        newEmail: '',
+        hasVerified: false,//已经验证过身份
         identity: "选择身份",
         uid: '',
-        uname: '',
-        varified: '',
+        uName: '',
+        verified: '',
         accountType: '',
         items: [
           {label: '用户ID：', content: '',},
@@ -62,27 +63,27 @@
     },
     methods: {
       modify() {
-        this.ismodify = !this.ismodify;
+        this.isModify = !this.isModify;
       },
       commitModify() {
-        let postphone, postemail;
-        postphone = this.newphone === '' ? null : this.newphone;
-        postemail = this.newemail === '' ? null : this.newemail;
+        let postPhone, postEmail;
+        postPhone = this.newPhone === '' ? null : this.newPhone;
+        postEmail = this.newEmail === '' ? null : this.newEmail;
 
-        updateUserInfo(postphone, postemail).then(res => {
+        updateUserInfo(postPhone, postEmail).then(res => {
           console.log("修改成功", res);
-          this.ismodify = !this.ismodify;
-          this.newphone = '';
-          this.newemail = '';
+          this.isModify = !this.isModify;
+          this.newPhone = '';
+          this.newEmail = '';
           this.setSelfInfo();
         })
 
       },
-      cancleModify() {
-        this.ismodify = !this.ismodify;
+      cancelModify() {
+        this.isModify = !this.isModify;
       },
       setSelfInfo() {
-        axios.get("/api/user/get_user_info")
+        axios.get("/api/user/q/user-info")
           .then(res => {
             let item = res.data.data;
             this.items[0].content = item.uid;
@@ -106,10 +107,23 @@
         this.identity = command;
       },
       //进行实名验证
-      verifyrn() {
+      // verifyrn() {
+      //   axios.post("/api/vf/real", {
+      //     'identity': '330902',
+      //     'name': this.uName
+      //   })
+      //     .then(res => {
+      //       console.log(res.status)
+      //       if (res.status === 200) {
+      //         this.items[4].content = '已实名认证';
+      //       }
+      //     })
+      //   this.$store.commit('setrealname', '已实名认证');
+      // },
+      verifyid() {
         axios.post("/api/vf/real", {
           'identity': '330902',
-          'name': this.uname
+          'name': this.uName
         })
           .then(res => {
             console.log(res.status)
@@ -118,8 +132,6 @@
             }
           })
         this.$store.commit('setrealname', '已实名认证');
-      },
-      verifyid() {
         if (this.items[5].content.length !== 4) {
           this.$message("您已认证为" + this.items[5].content + "，不得重复验证");
           return;
@@ -162,12 +174,12 @@
 </script>
 
 <style scoped>
-  .change-color1 {
+  .change-color {
     background-color: #d6e4f0;
   }
 
 
-  .funcbtn {
+  .func-btn {
     margin-top: 30px;
   }
 

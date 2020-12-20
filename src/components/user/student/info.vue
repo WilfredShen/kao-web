@@ -5,41 +5,42 @@
          v-bind:class="index%2===0 ? 'change-color' : ''">
       <div style="width: 35%;text-align: right;"><span class="info">{{item.label}}</span></div>
       <div style="width: 65%;text-align: left">
-        <span class="info" style="padding-left: 15px" v-if="ismodify || (index<5 && index>1)">{{item.content}}</span>
-        <el-input class="newinfo" v-if="index===0 && !ismodify" v-model="newphone"></el-input>
-        <el-input class="newinfo" v-if="index===1 && !ismodify" v-model="newemail"></el-input>
-        <el-input class="newinfo" v-if="index===5 && !ismodify" v-model="newcollege"></el-input>
-        <el-input class="newinfo" v-if="index===6 && !ismodify" v-model="newmajor"></el-input>
-        <el-input class="newinfo" v-if="index===7 && !ismodify" v-model="newgradt"></el-input>
-        <el-input class="newinfo" v-if="index===8 && !ismodify" v-model="newexpect"></el-input>
+        <span class="info" style="padding-left: 15px" v-if="isModify || (index<5 && index>1)">{{item.content}}</span>
+        <el-input class="new-info" v-if="index===0 && !isModify" v-model="newPhone"></el-input>
+        <el-input class="new-info" v-if="index===1 && !isModify" v-model="newEmail"></el-input>
+        <el-input class="new-info" v-if="index===5 && !isModify" v-model="newCollege"></el-input>
+        <el-input class="new-info" v-if="index===6 && !isModify" v-model="newMajor"></el-input>
+        <el-input class="new-info" v-if="index===7 && !isModify" v-model="newGraduate"></el-input>
+        <el-input class="new-info" v-if="index===8 && !isModify" v-model="newExpect"></el-input>
       </div>
     </div>
 
-    <el-button class="funcbtn" style="background-color: #1e56a0;color: white" type="primary" v-show="ismodify"
+    <el-button class="func-btn" style="background-color: #1e56a0;color: white" type="primary" v-show="isModify"
                @click="modify()">修改信息
     </el-button>
-    <div class="funcbtn" v-show="!ismodify">
+    <div class="func-btn" v-show="!isModify">
       <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button style="background-color: #1e56a0;color: white" @click="cancleModify()">取消修改</el-button>
+      <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
     </div>
   </div>
 </template>
 
 <script>
 
-  import {updateStuInfo, updateUserInfo} from '../../../assets/lib/getAndSetSelf'
-  import {checkEmail, checkMobile} from "../../../assets/lib/utils";
+  import {updateStuInfo, updateUserInfo} from '@/assets/lib/getAndSetSelf'
+  import {checkEmail, checkMobile} from "@/assets/lib/utils";
 
   export default {
+    name: 'StudentInfo',
     data() {
       return {
-        ismodify: true,
-        newphone: '',
-        newemail: '',
-        newcollege: '',
-        newmajor: '',
-        newgradt: '',
-        newexpect: '',
+        isModify: true,
+        newPhone: '',
+        newEmail: '',
+        newCollege: '',
+        newMajor: '',
+        newGraduate: '',
+        newExpect: '',
         items: [
           {label: '联系电话：', content: ''},
           {label: '邮箱地址：', content: ''},
@@ -55,45 +56,45 @@
     },
     methods: {
       modify() {
-        this.ismodify = !this.ismodify;
+        this.isModify = !this.isModify;
       },
-      cancleModify() {
-        this.ismodify = !this.ismodify;
+      cancelModify() {
+        this.isModify = !this.isModify;
       },
       commitModify() {
-        let pphone, pemail, pcollege, pmajor, pgradt, pexpm;
-        pphone = this.newphone === '' ? this.items[0].content : this.newphone;
-        if (!checkMobile(pphone)) {
+        let pPhone, pEmail, pCollege, pMajor, pGraduate, pExpectMajor;
+        pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
+        if (!checkMobile(pPhone)) {
           this.$message("手机号验证错误");
           return;
         }
-        pemail = this.newemail === '' ? this.items[1].content : this.newemail;
-        if (!checkEmail(pemail)) {
+        pEmail = this.newEmail === '' ? this.items[1].content : this.newEmail;
+        if (!checkEmail(pEmail)) {
           this.$message("邮箱验证错误");
           return;
         }
-        pcollege = this.newcollege === '' ? this.items[5].content : this.newcollege;
-        pmajor = this.newmajor === '' ? this.items[6].content : this.newmajor;
-        pgradt = this.newgradt === '' ? this.items[7].content : this.newgradt;
-        pexpm = this.newexpect === '' ? this.items[8].content : this.newexpect;
+        pCollege = this.newCollege === '' ? this.items[5].content : this.newCollege;
+        pMajor = this.newMajor === '' ? this.items[6].content : this.newMajor;
+        pGraduate = this.newGraduate === '' ? this.items[7].content : this.newGraduate;
+        pExpectMajor = this.newExpect === '' ? this.items[8].content : this.newExpect;
         let uid = this.$store.state.uid;
-        updateStuInfo(uid, pphone, pemail, pcollege, pmajor, pexpm, pgradt)
+        updateStuInfo(uid, pPhone, pEmail, pCollege, pMajor, pExpectMajor, pGraduate)
           .then(res => {
             console.log(res);
-            this.ismodify = !this.ismodify;
-            this.newphone = '';
-            this.newemail = '';
-            this.newcollege = '';
-            this.newmajor = '';
-            this.newgradt = '';
-            this.newexpect = '';
+            this.isModify = !this.isModify;
+            this.newPhone = '';
+            this.newEmail = '';
+            this.newCollege = '';
+            this.newMajor = '';
+            this.newGraduate = '';
+            this.newExpect = '';
             this.setStuInfo();
           })
           .catch(error => {
             console.log("stu info 有问题" + error)
           });
 
-        updateUserInfo(pphone, pemail)
+        updateUserInfo(pPhone, pEmail)
           .then(res => {
             console.log(res);
           })
@@ -102,7 +103,7 @@
           })
       },
       setStuInfo() {
-        this.$axios.get("/api/stu/get_stu_info", {
+        this.$axios.get("/api/stu/q/stu-info", {
           params: {
             uid: this.$store.state.uid
           }
@@ -135,11 +136,11 @@
     background-color: #d6e4f0;
   }
 
-  .funcbtn {
+  .func-btn {
     margin-top: 30px;
   }
 
-  .newinfo {
+  .new-info {
     width: 80%;
   }
 

@@ -38,16 +38,15 @@
       取消修改
     </el-button>
   </div>
-  <!--  </div>-->
 </template>
 
 <script>
-  import {getSchool} from "../../../assets/lib/getHomeServe";
+  import {schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
+    name: 'UpdateNews',
     data() {
       return {
-        school_name: '',
         schools: [],
         schoolIds: [],
         title: '',
@@ -94,8 +93,8 @@
           this.schools.push(sMap[key])
         }
       } else {
-        getSchool().then((res) => {
-          res.data.forEach(row => {
+        schoolList().then((res) => {
+          res.forEach(row => {
             this.schoolIds.push(row.cid);
             this.schools.push(row.cname);
             this.$store.commit("setSchMap", {

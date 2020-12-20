@@ -11,10 +11,10 @@
             <th class="myth">更新日期</th>
           </tr>
           <tr v-for="(item,index) in tableData" :key="index" v-bind:class="index%2!==0 ? 'change-color' : ''">
-            <td class="tds">{{item.focus_school}}</td>
-            <td class="tds">{{item.info_type}}</td>
-            <td class="tds"><a :href="item.link_to" target="_blank">链接</a></td>
-            <td class="tds">{{item.up_date}}</td>
+            <td class="tds">{{item.focusSchool}}</td>
+            <td class="tds">{{item.infoType}}</td>
+            <td class="tds"><a :href="item.linkTo" target="_blank">链接</a></td>
+            <td class="tds">{{item.upDate}}</td>
           </tr>
         </table>
       </el-scrollbar>
@@ -24,6 +24,7 @@
 
 <script>
   export default {
+    name: 'FocusNews',
     data() {
       return {
         tableData: []
@@ -32,17 +33,16 @@
     created() {
       this.$axios.get("/api/favor/q/news")
         .then(res => {
-          console.log(res)
           let item = res.data.data;
           for (let i = 0; i < item.length; i++) {
             let type = item[i].type;
             if (type === 'summer_camp') type = "夏令营";
             else type = "新闻";
             this.tableData.push({
-              'focus_school': item[i].cname,
-              'info_type': type,
-              'link_to': item[i].officialLink,
-              'up_date': item[i].updateTime.substring(0, 10)
+              'focusSchool': item[i].cname,
+              'infoType': type,
+              'linkTo': item[i].officialLink,
+              'upDate': item[i].updateTime.substring(0, 10)
             })
           }
         })
