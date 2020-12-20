@@ -70,13 +70,14 @@
         postPhone = this.newPhone === '' ? null : this.newPhone;
         postEmail = this.newEmail === '' ? null : this.newEmail;
 
-        updateUserInfo(postPhone, postEmail).then(res => {
+        updateUserInfo(postPhone, postEmail)
+          .then(res => {
           console.log("修改成功", res);
           this.isModify = !this.isModify;
           this.newPhone = '';
           this.newEmail = '';
           this.setSelfInfo();
-        })
+        });
 
       },
       cancelModify() {
@@ -101,7 +102,7 @@
           })
           .catch(err => {
             console.log("错误", err);
-          })
+          });
       },
       handleCommand(command) {
         this.identity = command;
@@ -130,7 +131,7 @@
             if (res.status === 200) {
               this.items[4].content = '已实名认证';
             }
-          })
+          });
         this.$store.commit('setrealname', '已实名认证');
         if (this.items[5].content.length !== 4) {
           this.$message("您已认证为" + this.items[5].content + "，不得重复验证");
@@ -146,7 +147,7 @@
               if (res.status === 200) {
                 this.$message("认证学生成功！")
               }
-            })
+            });
         } else if (this.identity === '研究生秘书') {
           axios.post("/api/vf/tutor", {
             'cid': '10010',
@@ -157,12 +158,13 @@
               if (res.status === 200) {
                 this.$message("认证研究生秘书成功！")
               }
-            })
+            });
         }
 
-        getLimit().then(res => {
+        getLimit()
+          .then(res => {
           this.$store.commit("setlimit", res);
-        })
+        });
 
         location.reload();
       }

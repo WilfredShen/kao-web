@@ -108,7 +108,7 @@
           })
           .catch(err => {
             console.log(err);
-          })
+          });
       },
       getMajors(id) {
         this.majors = [];
@@ -122,8 +122,8 @@
             }
           })
           .catch(error => {
-            console.log(error)
-          })
+            console.log(error);
+          });
       },
       myScreen() {
         console.log("major len = " + this.major.length);
@@ -136,25 +136,27 @@
             'major': this.major,
             'expectedMajor': this.exMajor
           }
-        }).then(res => {
-          console.log(res);
-          let items = res.data.data;
-          for (let i = 0; i < items.length; i++) {
-            this.stuInfo.push({
-              'name': items[i].name,
-              'school': items[i].college,
-              'major': items[i].major,
-              'exMajor': items[i].expectedMajor,
-              'tel': items[i].phone,
-              'email': items[i].email
-            })
-          }
-        }).catch(err => {
-          console.log("查询学生报错" + err);
         })
+          .then(res => {
+            console.log(res);
+            let items = res.data.data;
+            for (let i = 0; i < items.length; i++) {
+              this.stuInfo.push({
+                'name': items[i].name,
+                'school': items[i].college,
+                'major': items[i].major,
+                'exMajor': items[i].expectedMajor,
+                'tel': items[i].phone,
+                'email': items[i].email
+              })
+            }
+          })
+          .catch(err => {
+            console.log("查询学生报错" + err);
+          });
       },
       exportEXCEL(type) {
-        console.log("进入了导出EXCEL函数")
+        console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.stuInfo.map(item => {
           return {

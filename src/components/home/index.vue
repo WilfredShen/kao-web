@@ -101,13 +101,14 @@
       }
     },
     created() {
-      getLatestNews().then((res) => {
-        this.latestNews = res.data;
-        // console.log("latenews",this.latenews);
-      })
+      getLatestNews()
+        .then((res) => {
+          this.latestNews = res.data;
+          // console.log("latenews",this.latenews);
+        })
         .catch((err) => {
           console.log(err);
-        })
+        });
     }
   }
 </script>

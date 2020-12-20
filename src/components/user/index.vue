@@ -127,18 +127,20 @@
       },
     },
     created() {
-      getLimit().then(res => {
-        console.log("获得的权限" + res);
-        if (res === 'student') {
-          this.isStu = true;
-        } else if (res === 'tutor') {
-          this.isTut = true;
-        }
-      });
-      getUserName().then(res => {
-        console.log("获得的用户名" + res);
-        this.userName = res;
-      });
+      getLimit()
+        .then(res => {
+          console.log("获得的权限" + res);
+          if (res === 'student') {
+            this.isStu = true;
+          } else if (res === 'tutor') {
+            this.isTut = true;
+          }
+        });
+      getUserName()
+        .then(res => {
+          console.log("获得的用户名" + res);
+          this.userName = res;
+        });
     }
   };
 </script>

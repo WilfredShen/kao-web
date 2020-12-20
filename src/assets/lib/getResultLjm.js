@@ -2,53 +2,51 @@ import axios from "axios";
 
 export function disciplineList() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/meta/discipline", {})
-      .then((res => {
-        // console.log("res",res.data)
+    axios.get("/api/meta/discipline" )
+      .then(res => {
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 export function majorList() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/meta/major", {})
-      .then((res => {
+    axios.get("/api/meta/major")
+      .then(res => {
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 export function schoolList() {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/meta/college`, {})
-      .then((res => {
+    axios.get("/api/meta/college")
+      .then(res => {
         //           console.log("res",res.data)
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
-export function getEvaluationList(sround) {
+export function getEvaluationList(sRound) {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/base/evaluation?round=${sround}`, {})
-      .then((res => {
-//             console.log("evaluation",res.data)
+    axios.get(`/api/base/evaluation?round=${sRound}`, {})
+      .then(res => {
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 export function schoolDetail(cid) {
@@ -58,110 +56,109 @@ export function schoolDetail(cid) {
         cidList: cid.join(",")
       }
     })
-      .then((res => {
-        console.log("res", res.data)
+      .then(res => {
+        console.log("res", res.data);
         resolve(res.data.data);
-      }))
-      .catch((error) => {
+      })
+      .catch(error => {
         reject(error);
-      })
-  })
+      });
+  });
 }
 
-export function setFavouriteMajor(favorlist) {
-  console.log("favor" + favorlist)
+export function setFavouriteMajor(favorList) {
   return new Promise((resolve, reject) => {
-    axios.post("/api/favor/p/major", favorlist)
+    axios.post("/api/favor/p/major", favorList)
       .then(res => {
         resolve(res.data);
       })
       .catch(err => {
         reject(err);
-        console.log("获取失败！")
-      })
-  })
+        console.log("获取失败！");
+      });
+  });
 }
 
-export function setFavouriteTutor(favorlist) {
+export function setFavouriteTutor(favorList) {
   return new Promise((resolve, reject) => {
-    axios.post("/api/favor/p/tutor", favorlist)
+    axios.post("/api/favor/p/tutor", favorList)
       .then(res => {
         resolve(res.data);
       })
       .catch(err => {
         reject(err);
-        console.log("获取失败！")
-      })
-  })
+        console.log("获取失败！");
+      });
+  });
 }
 
 export function rankList(scid) {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/base/latest-college-rank?cid=${scid}`, {})
-      .then((res => {
+    axios.get(`/api/base/latest-college-rank?cid=${scid}`)
+      .then(res => {
         // console.log("res",res.data)
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 export function rateList(scid) {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/base/acceptance-rate?cid=${scid}`, {})
-      .then((res => {
-         console.log("录取率", res.data)
+    axios.get(`/api/base/acceptance-rate?cid=${scid}`)
+      .then(res => {
+         console.log("录取率", res.data);
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 export function tutorList(scid) {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/base/tutor?cid=${scid}`, {})
-      .then((res => {
+    axios.get(`/api/base/tutor?cid=${scid}` )
+      .then(res => {
         // console.log("res",res.data)
-        console.log("导师信息", res.data)
+        console.log("导师信息", res.data);
         resolve(res.data.data);
-      }))
-      .catch((error) => {
-        reject(error);
       })
-  })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
 
 
 //某一轮评估结果
 export function getSomeResult() {
   return new Promise((resolve, reject) => {
-    axios.get('/api/base/evaluation', {})
-      .then((res) => {
+    axios.get("/api/base/evaluation")
+      .then(res => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         reject(err.data);
-        console.log(err)
-      })
-  })
+        console.log(err);
+      });
+  });
 }
 
 //最近新闻
 export function getLatestNews() {
   return new Promise((resolve, reject) => {
-    axios.get('/api/base/latest-news', {})
-      .then((res) => {
+    axios.get("/api/base/latest-news")
+      .then(res => {
         console.log(resolve);
         resolve(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         reject(err.data);
-        console.log(err)
-      })
-  })
+        console.log(err);
+      });
+  });
 }

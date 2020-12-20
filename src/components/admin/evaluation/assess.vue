@@ -131,7 +131,7 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         }
         this.up = true;
       },
@@ -144,7 +144,7 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         } else {
           this.$confirm(`确定上传以上信息？`, '提示')
             .then((res) => {
@@ -170,12 +170,12 @@
                       type: 'error'
                     });
                     console.log(err);
-                  })
+                  });
               }
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         }
       },
     },
@@ -188,7 +188,7 @@
           // console.log("school", this.school);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
       majorList()
         .then((res) => {
@@ -198,7 +198,7 @@
           // console.log("majormap",this.major);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   }

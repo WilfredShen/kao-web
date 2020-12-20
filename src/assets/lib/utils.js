@@ -5,7 +5,7 @@ export function readFile(file) {
     reader.onload = ev => {
       resolve(ev.target.result);
     };
-  })
+  });
 }
 
 export function getCookie(value) {
@@ -19,11 +19,11 @@ export function getCookie(value) {
 }
 
 
-export function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires=" + d.toUTCString();
-  document.cookie = cname + "=" + cvalue + "; " + expires;
+export function setCookie(cname, cValue, exDays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cValue + "; " + expires;
 }
 
 export function checkMobile(str) {
@@ -31,22 +31,4 @@ export function checkMobile(str) {
   return re.test(str);
 }
 
-export function checkEmail(str) {
-  const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-  if (re.test(str)) {
-    alert("正确");
-  } else {
-    alert("错误");
-  }
-}
-
-export function isPasswd(s) {
-  const paTrn = /^(\w){6,20}$/;
-  return paTrn.exec(s);
-}
-
-export function checkPass(str) {
-  const re = /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{6,10}$/;
-  return re.test(str);
-}
 

@@ -107,7 +107,7 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         } else {
           if (this.searchMajor === '' && this.searchSchool === '') {//没有进行任何模糊查询
             this.$confirm(`没有进行模糊查询，确定查询所有的学校专业吗？`, '提示')
@@ -123,7 +123,7 @@
                   this.tableData[i].cname = this.schoolMap[this.tableData[i].cid].cname;
                   this.tableData[i].mname = this.majorMap[this.tableData[i].mid].mname;
                 }
-              })
+              });
           } else {//进行了模糊查询
             let list = [];
             if (this.searchMajor !== '' && this.searchSchool !== '') {//两个模糊查询都进行了
@@ -215,11 +215,10 @@
         })
           .then((res) => {
             this.evaluation = res.data.data;
-            // console.log(this.evaluation);
           })
           .catch((err) => {
             console.log(err)
-          })
+          });
       },
       //编辑
       handleClick(index, row) {
@@ -245,7 +244,7 @@
               message: '修改失败！',
               type: 'error'
             });
-          })
+          });
       }
     },
     created() {
@@ -259,7 +258,7 @@
           // console.log("school", this.school);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
       //获取专业信息
       majorList()
@@ -271,7 +270,7 @@
           // console.log("majorMap",this.major);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   }

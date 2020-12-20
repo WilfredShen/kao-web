@@ -91,7 +91,7 @@
             this.setStuInfo();
           })
           .catch(error => {
-            console.log("stu info 有问题" + error)
+            console.log("stu info 有问题" + error);
           });
 
         updateUserInfo(pPhone, pEmail)
@@ -99,8 +99,8 @@
             console.log(res);
           })
           .catch(err => {
-            console.log("学生修改基本信息有问题" + err)
-          })
+            console.log("学生修改基本信息有问题" + err);
+          });
       },
       setStuInfo() {
         this.$axios.get("/api/stu/q/stu-info", {
@@ -120,9 +120,10 @@
             this.items[6].content = item.major;
             this.items[7].content = item.graduationDate;
             this.items[8].content = item.expectedMajor;
-          }).catch(error => {
-          console.log("学生信息请求失败" + error);
-        })
+          })
+          .catch(error => {
+            console.log("学生信息请求失败" + error);
+          });
       },
     },
     created() {

@@ -76,14 +76,14 @@
             this.newMajor = '';
             this.newResearch = '';
             this.setTutorInfo();
-          })
+          });
         updateUserInfo(pPhone, pEmail)
           .then(res => {
             console.log(res);
           })
           .catch(err => {
             console.log("研究生秘书修改基本信息有问题" + err);
-          })
+          });
       },
       setTutorInfo() {
         this.$axios.get("/api/tutor/q/tutor-info")
@@ -97,9 +97,10 @@
             this.items[5].content = item.college;
             this.items[6].content = item.major;
             this.items[7].content = item.research;
-          }).catch(error => {
-          console.log(error);
-        })
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     created() {

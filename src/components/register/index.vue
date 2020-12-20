@@ -168,7 +168,7 @@
           });
       },
       submit: function () {
-        console.log(this.registerForm)
+        console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {
             username: this.registerForm.username,

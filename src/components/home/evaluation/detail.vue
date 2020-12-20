@@ -149,7 +149,7 @@
     },
     watch: {
       selected: function () {
-        console.log("selected", this.selected)
+        console.log("selected", this.selected);
       },
     },
     /*
@@ -159,39 +159,46 @@
     evaluation:list
      */
     created() {
-      disciplineList().then((res) => {
-        this.discipline = res;
-        // console.log("discipline", this.discipline);
-      }).catch((err) => {
-        console.log(err);
-      });
-
-      majorList().then((res) => {
-        this.major = res;
-      }).catch((err) => {
-        console.log(err)
-      });
-
-      schoolList().then((res) => {
-        res.forEach(row => {
-          this.schoolMap[row.cid] = {cname: row.cname}
-          this.$store.commit("setSchMap", {
-            cname: row.cname,
-            cid: row.cid
-          });
+      disciplineList()
+        .then((res) => {
+          this.discipline = res;
+          // console.log("discipline", this.discipline);
         })
-        // console.log("school", this.schoolmap);
-      }).catch((err) => {
-        console.log(err)
-      });
+        .catch((err) => {
+          console.log(err);
+        });
+
+      majorList()
+        .then((res) => {
+          this.major = res;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      schoolList()
+        .then((res) => {
+          res.forEach(row => {
+            this.schoolMap[row.cid] = {cname: row.cname}
+            this.$store.commit("setSchMap", {
+              cname: row.cname,
+              cid: row.cid
+            });
+          });
+          // console.log("school", this.schoolmap);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       getSomeResult()
         .then((res) => {
           this.evaluation = res.data;
           // console.log("evaluation", this.evaluation);
-        }).catch((err) => {
-        console.log(err)
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       //显示身份选择
       console.log(this.$store.state.identify);
     },

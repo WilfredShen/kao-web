@@ -51,14 +51,15 @@
     },
     created() {
       this.hasLogin = this.$store.state.uid !== '';
-      getLimit().then(res => {
-        console.log("首页获得的权限" + res);
-        if (res === 'student') {
-          this.isStu = true;
-        } else if (res === 'tutor') {
-          this.isTut = true;
-        }
-      });
+      getLimit()
+        .then(res => {
+          console.log("首页获得的权限" + res);
+          if (res === 'student') {
+            this.isStu = true;
+          } else if (res === 'tutor') {
+            this.isTut = true;
+          }
+        });
       //获取夏令营信息
       this.$store.dispatch('getCamps');
     },

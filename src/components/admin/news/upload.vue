@@ -78,21 +78,23 @@
         let sMap = this.$store.state.schoolMap;
         for (const key in sMap) {
           this.schoolIds.push(key);
-          this.schools.push(sMap[key])
+          this.schools.push(sMap[key]);
         }
       } else {
-        schoolList().then((res) => {
-          res.forEach(row => {
-            this.schoolIds.push(row.cid);
-            this.schools.push(row.cname);
-            this.$store.commit("setSchMap", {
-              cname: row.cname,
-              cid: row.cid
-            });
+        schoolList()
+          .then((res) => {
+            res.forEach(row => {
+              this.schoolIds.push(row.cid);
+              this.schools.push(row.cname);
+              this.$store.commit("setSchMap", {
+                cname: row.cname,
+                cid: row.cid
+              });
+            })
           })
-        }).catch((err) => {
-          console.log(err)
-        });
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   }

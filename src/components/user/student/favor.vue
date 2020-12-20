@@ -42,8 +42,8 @@
             this.setCollectInfo();
           })
           .catch(err => {
-            console.log("取消收藏有错误" + err)
-          })
+            console.log("取消收藏有错误" + err);
+          });
       },
       setCollectInfo() {
         this.$axios.get("/api/favor/q/major")
@@ -56,12 +56,12 @@
                 'schoolName': item[i].cname,
                 'majorID': item[i].mid,
                 'majorName': item[i].mname
-              })
+              });
             }
           })
           .catch(error => {
             console.log(error);
-          })
+          });
       }
     },
 

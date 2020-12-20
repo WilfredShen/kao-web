@@ -56,7 +56,7 @@
             date: cps[i].date,
             image: cps[i].image === null ? 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg' : cps[i].image,
             link: cps[i].officialLink
-          })
+          });
         }
       }
     },
@@ -67,7 +67,7 @@
           .then(res => {
             console.log("获取夏令营成功" + res.data);
             this.setCamps(0);
-          })
+          });
       } else {
         this.setCamps(0);
       }

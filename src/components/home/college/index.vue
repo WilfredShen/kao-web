@@ -145,9 +145,9 @@
     },
     methods: {
       getSchoolDetail(cid) {
-        var arr = this;
+        const arr = this;
         schoolDetail(cid).then(res => {
-          console.log("res", res)
+          console.log("res", res);
           arr.schoolDetails = res[0];
           console.log("schoool_details" + this.schoolDetails.cname);
         });
@@ -164,14 +164,13 @@
         })
       },
       getMajorListAll() {
-        var arr = this;
+        const arr = this;
         majorList().then(res => {
           arr.allMajors = res;
-          // console.log(this.disciplines)
         });
       },
       getMajorName(mid) {
-        var arr = this;
+        const arr = this;
         for (let i = 0; i < arr.allMajors.length; i++) {
           if (arr.allMajors[i].mid === mid) {
             return arr.allMajors[i].mname;
@@ -179,24 +178,27 @@
         }
       },
       getRank(cid) {
-        var arr = this;
-        rankList(cid).then(res => {
-          arr.ranks = res;
-          console.log("rank", this.ranks);
-        });
+        const arr = this;
+        rankList(cid)
+          .then(res => {
+            arr.ranks = res;
+            console.log("rank", this.ranks);
+          });
       },
       getRates(cid) {
-        var arr = this;
-        rateList(cid).then(res => {
-          arr.rates = res;
-          console.log("rate", this.rates);
-        });
+        const arr = this;
+        rateList(cid)
+          .then(res => {
+            arr.rates = res;
+            console.log("rate", this.rates);
+          });
       },
       getTutors(cid) {
-        var arr = this;
-        tutorList(cid).then(res => {
-          arr.tutors = res;
-        });
+        const arr = this;
+        tutorList(cid)
+          .then(res => {
+            arr.tutors = res;
+          });
       },
       /*
       setFavorTutor(cid, tid) {
@@ -227,12 +229,10 @@
       this.isidentity = this.$store.state.uid;
     },
     activated() {
-      var self = this;
+      const self = this;
       self.schoolCid = [];
-      console.log("schoolcid", self.$store.state.cid);
       self.schoolCid.push(self.$store.state.cid);
       self.getSchoolDetail(self.schoolCid);
-      console.log("school", self.schoolDetails);
       self.getRank(self.schoolCid[0]);
       self.getRates(self.schoolCid[0]);
       self.getEvaluation(self.schoolCid[0]);

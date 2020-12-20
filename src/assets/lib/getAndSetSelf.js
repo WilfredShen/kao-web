@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export function getUserid() {
+export function getUserId() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
       .then(res => {
@@ -9,8 +9,8 @@ export function getUserid() {
       })
       .catch(err => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
 export function getUserName() {
@@ -22,8 +22,8 @@ export function getUserName() {
       })
       .catch(err => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
 export function getLimit() {
@@ -35,12 +35,11 @@ export function getLimit() {
       })
       .catch(err => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
-export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt) {
-
+export function updateStuInfo(uid, phone, email, college, major, expectedMajor, graduation) {
   return new Promise((resolve, reject) => {
     axios.post("/api/stu/u/stu-info", {
       'queryable': true,
@@ -49,16 +48,16 @@ export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt
       'email': email,
       'college': college,
       'major': major,
-      'expectedMajor': expmajor,
-      'graduationDate': gradt
+      'expectedMajor': expectedMajor,
+      'graduationDate': graduation
     })
       .then(res => {
         resolve(res);
       })
       .catch(err => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
 export function updateTeaInfo(phone, email, college, major, research) {
@@ -75,15 +74,15 @@ export function updateTeaInfo(phone, email, college, major, research) {
       })
       .catch(err => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
-export function updateUserInfo(postphone, postemail) {
-  return new Promise(((resolve, reject) => {
+export function updateUserInfo(postPhone, postEmail) {
+  return new Promise((resolve, reject) => {
     axios.post("/api/user/u/user-info", {
-      'phoneNumber': postphone,
-      'email': postemail,
+      'phoneNumber': postPhone,
+      'email': postEmail,
       'accountType': null,
     })
       .then(res => {
@@ -93,6 +92,6 @@ export function updateUserInfo(postphone, postemail) {
       .catch(error => {
         console.log(error);
         reject(error);
-      })
-  }))
+      });
+  });
 }

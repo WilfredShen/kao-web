@@ -64,7 +64,7 @@
 
 <script>
 
-  import {getUserid} from '../../assets/lib/getAndSetSelf'
+  import {getUserId} from '../../assets/lib/getAndSetSelf'
   import '../../assets/css/login.css'
 
   export default {
@@ -106,8 +106,8 @@
               }
 
               //登录后即设置uid
-              getUserid().then(res => {
-                this.$store.commit("setuid", res)
+              getUserId().then(res => {
+                this.$store.commit("setuid", res);
               })
 
               setTimeout(() => {
