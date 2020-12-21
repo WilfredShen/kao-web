@@ -144,12 +144,15 @@
     },
     methods: {
       getCode: function() {
-        if (this.status.resend > 0)
+        if (this.status.resend > 0) {
           return;
+        }
         this.status.resend = 60;
         const timer = setInterval(() => {
           this.status.resend--;
-          if (this.status.resend === 0) clearInterval(timer);
+          if (this.status.resend === 0) {
+            clearInterval(timer);
+          }
         }, 1000);
 
         this.$axios

@@ -129,8 +129,6 @@
       },
 
       myScreen: function() {
-        console.log("major len = " + this.major.length);
-        console.log(this.major[0])
         this.$axios.get("/api/tutor/q/queryable-stu-info", {
           params: {
             'beginDate': this.beginY,
@@ -170,7 +168,7 @@
             "预期专业": item.exMajor,
             "联系电话": item.tel,
             "邮箱地址": item.email
-          }
+          };
         })
 
         let sheet = xlsx.utils.json_to_sheet(arr);

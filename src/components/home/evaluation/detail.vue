@@ -102,16 +102,20 @@
       //获取所选学科的专业
       getMajors: function() {
         let list
-        list = this.major.filter((item) => item.did === this.selected.did);
+        list = this.major.filter((item) => {
+          return item.did === this.selected.did;
+        });
         return list
       },
 
       //获取所选专业的评估结果，学校代码对应的学校名称
       showEvaluation: function() {
-        let Myeval = this.evaluation.filter((item) => item.mid === this.getMajors[this.selected.mindex].mid);
+        let Myeval = this.evaluation.filter((item) => {
+          return item.mid === this.getMajors[this.selected.mindex].mid;
+        });
         // console.log("type",Myeval)
         Myeval.forEach((item) => {
-          this.$set(item, 'cname', "")
+          this.$set(item, 'cname', "");
         });
         for (let i in Myeval) {
           Myeval[i].cname = this.schoolMap[Myeval[i].cid].cname;
@@ -127,11 +131,17 @@
             result = 1;
           } else {//字母相同，判断加减号
             if (val1.length < val2.length) {
-              if (val2[1] === "+") result = 1;
-              else result = -1;
+              if (val2[1] === "+") {
+                result = 1;
+              } else {
+                result = -1;
+              }
             } else if (val1.length > val2.length) {
-              if (val1[1] === "+") result = -1;
-              else result = 1;
+              if (val1[1] === "+") {
+                result = -1;
+              } else {
+                result = 1;
+              }
             } else {
               if (val1[1] < val2[1]) {
                 result = -1;
@@ -180,7 +190,7 @@
       schoolList()
         .then((res) => {
           res.forEach((row) => {
-            this.schoolMap[row.cid] = {cname: row.cname}
+            this.schoolMap[row.cid] = {cname: row.cname};
             this.$store.commit("setSchMap", {
               cname: row.cname,
               cid: row.cid

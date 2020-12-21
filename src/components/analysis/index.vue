@@ -269,7 +269,9 @@
       },
       handleChange: async function(ev) {
         let file = ev.raw;
-        if (!file) return;
+        if (!file) {
+          return;
+        }
 
         this.schFields = [];
 
@@ -285,7 +287,9 @@
         for (C = range.s.c; C <= range.e.c; ++C) {
           const cell = worksheet[xlsx.utils.encode_cell({c: C, r: R})];
           let hdr = "UNKNOWN" + C;
-          if (cell && cell.t) hdr = xlsx.utils.format_cell(cell);
+          if (cell && cell.t) {
+            hdr = xlsx.utils.format_cell(cell);
+          }
           this.schFields.push({'field': hdr});
         }
 

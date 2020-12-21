@@ -133,12 +133,13 @@
                 let temp2 = this.major[j].mid;
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
-                    list = list.concat(this.evaluation.filter((item) => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => {
+                      return item.mid === temp2;
+                    }));
                     break;
                   }
                 }
               }
-              console.log("lll", list)
               let fsSchool = this.searchSchool.trim().split(/\s+/);
               let flag = 1;
               for (let j = 0; j < list.length; j++) {
@@ -165,7 +166,9 @@
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
                     console.log(1, temp1);
-                    list = list.concat(this.evaluation.filter((item) => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => {
+                      return item.mid === temp2;
+                    }));
                     break;
                   }
                 }
@@ -218,7 +221,7 @@
             this.evaluation = res.data.data;
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
           });
       },
 
@@ -255,8 +258,8 @@
       schoolList()
         .then((res) => {
           this.school = res;
-          res.forEach(row => {
-            this.schoolMap[row.cid] = {cname: row.cname}
+          res.forEach((row) => {
+            this.schoolMap[row.cid] = {cname: row.cname};
           })
           // console.log("school", this.school);
         })
@@ -269,7 +272,7 @@
         .then((res) => {
           this.major = res;
           res.forEach((row) => {
-            this.majorMap[row.mid] = {mname: row.mname}
+            this.majorMap[row.mid] = {mname: row.mname};
           })
           // console.log("majorMap",this.major);
         })

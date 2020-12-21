@@ -194,7 +194,9 @@
               if (this.level.length > 0) {
                 let list = [];
                 for (let i = 0; i < this.level.length; i++) {
-                  list = list.concat(this.afterFilter.filter((item) => item.result === this.level[i]));
+                  list = list.concat(this.afterFilter.filter((item) => {
+                    return item.result === this.level[i];
+                  }));
                 }
                 this.afterFilter = list;
               }
@@ -221,28 +223,32 @@
         } else {//进行了模糊查询
           this.afterFilter = [];
           for (let i = 0; i < this.fsResult.length; i++) {
-            this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => item.cid === this.fsResult[i].cid));
+            this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
+              return item.cid === this.fsResult[i].cid;
+            }));
           }
 
           //筛选等级
           if (this.level.length > 0) {
             let list = [];
             for (let i = 0; i < this.level.length; i++) {
-              list = list.concat(this.afterFilter.filter((item) => item.result === this.level[i]));
+              list = list.concat(this.afterFilter.filter((item) => {
+                return item.result === this.level[i];
+              }));
             }
             this.afterFilter = list;
           }
 
           //增加学校名称属性
           this.afterFilter.forEach((item) => {
-            this.$set(item, 'cname', "")
+            this.$set(item, 'cname', "");
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
             this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
           }
           //增加专业名称
           this.afterFilter.forEach((item) => {
-            this.$set(item, 'mname', "")
+            this.$set(item, 'mname', "");
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
             this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
@@ -271,8 +277,8 @@
         .then((res) => {
           //this.major = res.data;
           res.forEach((row) => {
-            this.major[row.mid] = {mname: row.mname, did: row.did}
-          })
+            this.major[row.mid] = {mname: row.mname, did: row.did};
+          });
           // console.log("majormap",this.major);
         })
         .catch((err) => {

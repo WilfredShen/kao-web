@@ -69,7 +69,9 @@
     methods: {
       handleChange: async function(ev) {
         let file = ev.raw;
-        if (!file) return;
+        if (!file) {
+          return;
+        }
 
         this.schFields = [];
 
@@ -85,7 +87,9 @@
         for (column = range.s.c; column <= range.e.c; ++column) {
           const cell = workSheet[xlsx.utils.encode_cell({c: column, r: row})];
           let notification = "UNKNOWN" + column;
-          if (cell && cell.t) notification = xlsx.utils.format_cell(cell);
+          if (cell && cell.t) {
+            notification = xlsx.utils.format_cell(cell);
+          }
           this.schFields.push({'field': notification});
         }
         this.excelLength = data.length;

@@ -164,7 +164,7 @@
                 arr.evaluation.push(res[i]);
               }
             }
-          })
+          });
       },
 
       getMajorListAll: function() {
