@@ -98,7 +98,7 @@
       }
     },
     methods: {
-      getResult() {
+      getResult: function() {
         this.tableData = [];
         if (this.round === '') {
           this.$confirm(`请选择轮次！`, '提示')
@@ -107,7 +107,7 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         } else {
           if (this.searchMajor === '' && this.searchSchool === '') {//没有进行任何模糊查询
             this.$confirm(`没有进行模糊查询，确定查询所有的学校专业吗？`, '提示')
@@ -115,7 +115,7 @@
                 console.log(res);
                 this.tableData = this.evaluation;
                 console.log("情况1table", this.tableData);
-                this.tableData.forEach(item => {
+                this.tableData.forEach((item) => {
                   this.$set(item, 'cname', "");
                   this.$set(item, 'mname', "");
                 });
@@ -123,7 +123,7 @@
                   this.tableData[i].cname = this.schoolMap[this.tableData[i].cid].cname;
                   this.tableData[i].mname = this.majorMap[this.tableData[i].mid].mname;
                 }
-              })
+              });
           } else {//进行了模糊查询
             let list = [];
             if (this.searchMajor !== '' && this.searchSchool !== '') {//两个模糊查询都进行了
@@ -133,12 +133,13 @@
                 let temp2 = this.major[j].mid;
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
-                    list = list.concat(this.evaluation.filter(item => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => {
+                      return item.mid === temp2;
+                    }));
                     break;
                   }
                 }
               }
-              console.log("lll", list)
               let fsSchool = this.searchSchool.trim().split(/\s+/);
               let flag = 1;
               for (let j = 0; j < list.length; j++) {
@@ -165,7 +166,9 @@
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
                     console.log(1, temp1);
-                    list = list.concat(this.evaluation.filter(item => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => {
+                      return item.mid === temp2;
+                    }));
                     break;
                   }
                 }
@@ -194,7 +197,7 @@
             if (this.tableData.length === 0) {
               this.$message('该查询无结果！');
             } else { //添加学校名、专业名字段
-              this.tableData.forEach(item => {
+              this.tableData.forEach((item) => {
                 this.$set(item, 'cname', "");
                 this.$set(item, 'mname', "");
               });
@@ -206,8 +209,9 @@
           }
         }
       },
+
       //查询评估结果
-      getEvaluation() {
+      getEvaluation: function() {
         this.$axios.get('/api/base/evaluation', {
           params: {
             round: parseInt(this.round)
@@ -215,19 +219,20 @@
         })
           .then((res) => {
             this.evaluation = res.data.data;
-            // console.log(this.evaluation);
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       },
+
       //编辑
-      handleClick(index, row) {
+      handleClick: function(index, row) {
         this.row = row;
         this.tableData[index] = row;
         this.dialogFormVisible = true;
       },
-      confirmUpdate() {
+
+      confirmUpdate: function() {
         this.dialogFormVisible = false;
         updateEvaluation(this.row.cid, this.row.mid, this.row.result, this.round)
           .then((res) => {
@@ -245,7 +250,7 @@
               message: '修改失败！',
               type: 'error'
             });
-          })
+          });
       }
     },
     created() {
@@ -253,25 +258,26 @@
       schoolList()
         .then((res) => {
           this.school = res;
-          res.forEach(row => {
-            this.schoolMap[row.cid] = {cname: row.cname}
+          res.forEach((row) => {
+            this.schoolMap[row.cid] = {cname: row.cname};
           })
           // console.log("school", this.school);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
+
       //获取专业信息
       majorList()
         .then((res) => {
           this.major = res;
-          res.forEach(row => {
-            this.majorMap[row.mid] = {mname: row.mname}
+          res.forEach((row) => {
+            this.majorMap[row.mid] = {mname: row.mname};
           })
           // console.log("majorMap",this.major);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   }

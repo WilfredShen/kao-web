@@ -85,7 +85,7 @@
               <tr v-for="(item, index) in resultList" :key="index"
                   style="text-align:center;line-height:50px">
                 <td>{{item.mid+getMajorName(item.mid)}}</td>
-                <td @click="schoolClik(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
+                <td @click="schoolClick(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
                 <td>{{item.result}}</td>
               </tr>
             </table>
@@ -186,155 +186,170 @@
       }
     },
     methods: {
-      getSchoolList() {
-        schoolList().then(res => {
-          this.schools = res;
-        });
+      getSchoolList: function() {
+        schoolList()
+          .then((res) => {
+            this.schools = res;
+          });
       },
-      getDisciplineList() {
-        disciplineList().then(res => {
-          this.disciplines = res;
-          // console.log(this.disciplines)
-        });
+
+      getDisciplineList: function() {
+        disciplineList()
+          .then((res) => {
+            this.disciplines = res;
+            // console.log(this.disciplines)
+          });
       },
-      getMajorListAll() {
-        majorList().then(res => {
-          this.allMajors = res;
-          // console.log(this.disciplines)
-        });
+
+      getMajorListAll: function() {
+        majorList()
+          .then((res) => {
+            this.allMajors = res;
+            // console.log(this.disciplines)
+          });
       },
-      getMajorList(id) {
+
+      getMajorList: function(id) {
         this.majors = [];
-        majorList().then(res => {
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].did === id) {
-              this.majors.push(res[i]);
+        majorList()
+          .then((res) => {
+            for (let i = 0; i < res.length; i++) {
+              if (res[i].did === id) {
+                this.majors.push(res[i]);
+              }
             }
-          }
-        });
+          });
       },
-      getSchoolName(cid) {
+
+      getSchoolName: function(cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
           }
         }
       },
-      getMajorName(mid) {
+
+      getMajorName: function(mid) {
         for (let i = 0; i < this.allMajors.length; i++) {
           if (this.allMajors[i].mid === mid) {
             return this.allMajors[i].mname;
           }
         }
       },
-      getTmpResults() {
-        getEvaluationList(this.round).then(res => {
-          this.resultList = [];
-          this.favorMajors = [];
-          for (let i = 0; i < res.length; i++) {
-            //         console.log("majorcode"+this.majorCode);
-            //        console.log("resmid"+res[i].mid);
-            if (res[i].mid === this.majorCode) {
-              // console.log("C查询结果" + res[i].mid + " " + parseInt(res[i].result));
-              for (let j = 0; j < this.level.length; j++) {
-                if (this.level[j] === "A+") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 95 && parseInt(res[i].result) <= 100) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "A") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 90 && parseInt(res[i].result) <= 95) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "A-") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 85 && parseInt(res[i].result) <= 90) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "B+") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 80 && parseInt(res[i].result) <= 85) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "B") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 75 && parseInt(res[i].result) <= 80) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "B-") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 70 && parseInt(res[i].result) <= 75) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "C+") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 68 && parseInt(res[i].result) <= 70) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "C") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) > 65 && parseInt(res[i].result) <= 68) {
-                    this.resultList.push(res[i]);
-                  }
-                } else if (this.level[j] === "C-") {
-                  if (res[i].result === this.level[j]) {
-                    this.resultList.push(res[i]);
-                  } else if (parseInt(res[i].result) >= 60 && parseInt(res[i].result) <= 65) {
-                    this.resultList.push(res[i]);
+
+      getTmpResults: function() {
+        getEvaluationList(this.round)
+          .then((res) => {
+            this.resultList = [];
+            this.favorMajors = [];
+            for (let i = 0; i < res.length; i++) {
+              //         console.log("majorcode"+this.majorCode);
+              //        console.log("resmid"+res[i].mid);
+              if (res[i].mid === this.majorCode) {
+                // console.log("C查询结果" + res[i].mid + " " + parseInt(res[i].result));
+                for (let j = 0; j < this.level.length; j++) {
+                  if (this.level[j] === "A+") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 95 && parseInt(res[i].result) <= 100) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "A") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 90 && parseInt(res[i].result) <= 95) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "A-") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 85 && parseInt(res[i].result) <= 90) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "B+") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 80 && parseInt(res[i].result) <= 85) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "B") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 75 && parseInt(res[i].result) <= 80) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "B-") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 70 && parseInt(res[i].result) <= 75) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "C+") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 68 && parseInt(res[i].result) <= 70) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "C") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) > 65 && parseInt(res[i].result) <= 68) {
+                      this.resultList.push(res[i]);
+                    }
+                  } else if (this.level[j] === "C-") {
+                    if (res[i].result === this.level[j]) {
+                      this.resultList.push(res[i]);
+                    } else if (parseInt(res[i].result) >= 60 && parseInt(res[i].result) <= 65) {
+                      this.resultList.push(res[i]);
+                    }
                   }
                 }
               }
             }
-          }
-          console.log("resultList" + this.resultList);
-          if (this.resultList.length <= 0) {
-            this.$message("无数据")
-          }
-          for (let i = 0; i < this.resultList.length; i++) {
-            this.favorMajors.push({
-              majorCid: this.resultList[i].cid,
-              majorMid: this.resultList[i].mid,
-            });
-          }
-        });
+            console.log("resultList" + this.resultList);
+            if (this.resultList.length <= 0) {
+              this.$message("无数据");
+            }
+            for (let i = 0; i < this.resultList.length; i++) {
+              this.favorMajors.push({
+                majorCid: this.resultList[i].cid,
+                majorMid: this.resultList[i].mid,
+              });
+            }
+          });
       },
-      setFavorMajor() {
+
+      setFavorMajor: function() {
         console.log("进入一键收藏")
         console.log(this.$store.state.uid);
-        setFavouriteMajor(this.favorMajors).then(res => {
-          //  console.log(res);
-          console.log("状态码" + res.status);
-          if (res.status === 200) {
-            console.log("全部收藏成功！");
-            this.$message("全部收藏成功！");
+        setFavouriteMajor(this.favorMajors)
+          .then((res) => {
+            //  console.log(res);
+            console.log("状态码" + res.status);
+            if (res.status === 200) {
+              console.log("全部收藏成功！");
+              this.$message("全部收藏成功！");
 
-          } else if (res.status === 400) {
-            console.log("收藏失败！");
-            this.$message("收藏失败！");
-          } else if (res.status === 1090) {
-            console.log("部分收藏成功！");
-            this.$message("部分收藏成功！")
-          }
-        })
+            } else if (res.status === 400) {
+              console.log("收藏失败！");
+              this.$message("收藏失败！");
+            } else if (res.status === 1090) {
+              console.log("部分收藏成功！");
+              this.$message("部分收藏成功！");
+            }
+          });
       },
-      schoolClik(cid) {
+
+      schoolClick: function(cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
-      exportExcel() {
-        console.log("进入了导出EXCEL函数")
+
+      exportExcel: function() {
+        console.log("进入了导出EXCEL函数");
         let arr;
-        arr = this.resultList.map(item => {
+        arr = this.resultList.map((item) => {
           return {
             学科名称及代码: item.mid + this.getMajorName(item.mid),
             高校名称及代码: item.cid + this.getSchoolName(item.cid),

@@ -32,12 +32,15 @@
     },
     created() {
       this.$axios.get("/api/favor/q/news")
-        .then(res => {
+        .then((res) => {
           let item = res.data.data;
           for (let i = 0; i < item.length; i++) {
             let type = item[i].type;
-            if (type === 'summer_camp') type = "夏令营";
-            else type = "新闻";
+            if (type === 'summer_camp') {
+              type = "夏令营";
+            } else {
+              type = "新闻";
+            }
             this.tableData.push({
               'focusSchool': item[i].cname,
               'infoType': type,
@@ -46,9 +49,9 @@
             })
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
-        })
+        });
     }
   }
 </script>

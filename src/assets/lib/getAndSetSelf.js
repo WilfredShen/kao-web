@@ -1,46 +1,45 @@
 import axios from 'axios'
 
-export function getUserid() {
+export function getUserId() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.uid);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
-export function getUserName() {
+export function getUsername() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.username);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
 export function getLimit() {
   return new Promise((resolve, reject) => {
     axios.get("/api/user/q/user-info")
-      .then(res => {
+      .then((res) => {
         let item = res.data.data;
         resolve(item.accountType);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
-export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt) {
-
+export function updateStuInfo(uid, phone, email, college, major, expectedMajor, graduation) {
   return new Promise((resolve, reject) => {
     axios.post("/api/stu/u/stu-info", {
       'queryable': true,
@@ -49,16 +48,16 @@ export function updateStuInfo(uid, phone, email, college, major, expmajor, gradt
       'email': email,
       'college': college,
       'major': major,
-      'expectedMajor': expmajor,
-      'graduationDate': gradt
+      'expectedMajor': expectedMajor,
+      'graduationDate': graduation
     })
-      .then(res => {
+      .then((res) => {
         resolve(res);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
 export function updateTeaInfo(phone, email, college, major, research) {
@@ -70,29 +69,29 @@ export function updateTeaInfo(phone, email, college, major, research) {
       'major': major,
       'research': research
     })
-      .then(res => {
+      .then((res) => {
         resolve(res);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
-      })
-  })
+      });
+  });
 }
 
-export function updateUserInfo(postphone, postemail) {
-  return new Promise(((resolve, reject) => {
+export function updateUserInfo(postPhone, postEmail) {
+  return new Promise((resolve, reject) => {
     axios.post("/api/user/u/user-info", {
-      'phoneNumber': postphone,
-      'email': postemail,
+      'phoneNumber': postPhone,
+      'email': postEmail,
       'accountType': null,
     })
-      .then(res => {
+      .then((res) => {
         console.log("成功", res);
         resolve(res.status);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         reject(error);
-      })
-  }))
+      });
+  });
 }

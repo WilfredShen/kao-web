@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="8" class="right-section">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{userName}}</span>
+            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{username}}</span>
           </div>
         </el-col>
       </el-row>
@@ -80,7 +80,7 @@
   import StudentInfo from "./student/info";
   import TutorInfo from "./tutor/info";
   import Info from "./info";
-  import {getLimit, getUserName} from "@/assets/lib/getAndSetSelf";
+  import {getLimit, getUsername} from "@/assets/lib/getAndSetSelf";
 
   export default {
     name: 'User',
@@ -97,27 +97,27 @@
         selected: 2,
         isStu: false,
         isTut: false,
-        userName: '',
+        username: '',
         img: require("@/assets/image/logo11.png")
       }
     },
     computed: {
-      selfHome: function () {
+      selfHome: function() {
         return this.selected === 1;
       },
-      basicInfo: function () {
+      basicInfo: function() {
         return this.selected === 2;
       },
-      collect: function () {
+      collect: function() {
         return this.selected === 3;
       },
-      stuInfo: function () {
+      stuInfo: function() {
         return this.selected === 4;
       },
-      tutInfo: function () {
+      tutInfo: function() {
         return this.selected === 5;
       },
-      queryStu: function () {
+      queryStu: function() {
         return this.selected === 6;
       },
     },
@@ -127,18 +127,21 @@
       },
     },
     created() {
-      getLimit().then(res => {
-        console.log("获得的权限" + res);
-        if (res === 'student') {
-          this.isStu = true;
-        } else if (res === 'tutor') {
-          this.isTut = true;
-        }
-      });
-      getUserName().then(res => {
-        console.log("获得的用户名" + res);
-        this.userName = res;
-      });
+      getLimit()
+        .then((res) => {
+          console.log("获得的权限" + res);
+          if (res === 'student') {
+            this.isStu = true;
+          } else if (res === 'tutor') {
+            this.isTut = true;
+          }
+        });
+
+      getUsername()
+        .then((res) => {
+          console.log("获得的用户名" + res);
+          this.username = res;
+        });
     }
   };
 </script>

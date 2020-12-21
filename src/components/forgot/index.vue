@@ -143,13 +143,16 @@
       };
     },
     methods: {
-      getCode: function () {
-        if (this.status.resend > 0)
+      getCode: function() {
+        if (this.status.resend > 0) {
           return;
+        }
         this.status.resend = 60;
         const timer = setInterval(() => {
           this.status.resend--;
-          if (this.status.resend === 0) clearInterval(timer);
+          if (this.status.resend === 0) {
+            clearInterval(timer);
+          }
         }, 1000);
 
         this.$axios
@@ -167,7 +170,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/update-password", {
             username: this.forgotForm.username,

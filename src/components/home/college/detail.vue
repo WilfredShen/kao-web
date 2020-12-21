@@ -30,7 +30,7 @@
         </el-select>
       </div>
       <div style="text-align: right">
-        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getsearch()">查询
+        <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getSearch()">查询
         </el-button>
       </div>
 
@@ -72,7 +72,7 @@
 
   export default {
     name: 'CollegeDetail',
-    data: function () {
+    data: function() {
       return {
         input: '',
         rankSys: '请选择评价体系',
@@ -117,11 +117,12 @@
     },
     methods: {
       //评选方法
-      handleCommand(command) {
-        this.rankSys = command
+      handleCommand: function(command) {
+        this.rankSys = command;
       },
+
       //模糊查询
-      fuzzySearcher() {
+      fuzzySearcher: function() {
         let fsInput = this.input.trim().split(/\s+/);
         console.log("fsinput", fsInput);
         this.fsResult = [];
@@ -130,7 +131,6 @@
           let temp = this.school[i].cname;
           for (let j = 0; j < fsInput.length; j++) {
             flag = 1;
-            // console.log(temp.match(fsinput[j]));
             if (temp.match(fsInput[j]) == null) {
               flag = 0;
               break;
@@ -140,12 +140,12 @@
             this.fsResult.push(this.school[i]);
           }
         }
-        // console.log('schoolfilter',this.fsresult);
       },
+
       //查询按钮
-      getsearch() {
+      getSearch: function() {
         //sort函数
-        let compare = function (obj1, obj2) {
+        let compare = function(obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -194,21 +194,23 @@
               if (this.level.length > 0) {
                 let list = [];
                 for (let i = 0; i < this.level.length; i++) {
-                  list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
+                  list = list.concat(this.afterFilter.filter((item) => {
+                    return item.result === this.level[i];
+                  }));
                 }
                 this.afterFilter = list;
               }
 
               //增加学校名称属性
-              this.afterFilter.forEach(item => {
-                this.$set(item, 'cname', "")
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'cname', "");
               });
               for (let i = 0; i < this.afterFilter.length; i++) {
                 this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
               }
               //增加专业名称
-              this.afterFilter.forEach(item => {
-                this.$set(item, 'mname', "")
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'mname', "");
               });
               for (let i = 0; i < this.afterFilter.length; i++) {
                 this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
@@ -217,37 +219,40 @@
               console.log("after", this.afterFilter);
             })
             .catch(() => {
-            })
+            });
         } else {//进行了模糊查询
           this.afterFilter = [];
           for (let i = 0; i < this.fsResult.length; i++) {
-            this.afterFilter = this.afterFilter.concat(this.evalResult.filter(item => item.cid === this.fsResult[i].cid));
+            this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
+              return item.cid === this.fsResult[i].cid;
+            }));
           }
 
           //筛选等级
           if (this.level.length > 0) {
             let list = [];
             for (let i = 0; i < this.level.length; i++) {
-              list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
+              list = list.concat(this.afterFilter.filter((item) => {
+                return item.result === this.level[i];
+              }));
             }
             this.afterFilter = list;
           }
 
           //增加学校名称属性
-          this.afterFilter.forEach(item => {
-            this.$set(item, 'cname', "")
+          this.afterFilter.forEach((item) => {
+            this.$set(item, 'cname', "");
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
             this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
           }
           //增加专业名称
-          this.afterFilter.forEach(item => {
-            this.$set(item, 'mname', "")
+          this.afterFilter.forEach((item) => {
+            this.$set(item, 'mname', "");
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
             this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
           }
-          // console.log("after",this.afterfilter);
 
           if (this.afterFilter.length === 0) {
             this.$alert('无符合筛选条件的学校！', '提示', {
@@ -258,11 +263,11 @@
           }
         }
       },
-      cleanSearch() {
+      cleanSearch: function() {
         this.fsResult = this.school;
         this.input = '';
       },
-      schoolClick(cid) {
+      schoolClick: function(cid) {
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
@@ -271,33 +276,34 @@
       majorList()
         .then((res) => {
           //this.major = res.data;
-          res.forEach(row => {
-            this.major[row.mid] = {mname: row.mname, did: row.did}
-          })
+          res.forEach((row) => {
+            this.major[row.mid] = {mname: row.mname, did: row.did};
+          });
           // console.log("majormap",this.major);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
+
       schoolList()
         .then((res) => {
           this.school = res;
           this.fsResult = res;
-          res.forEach(row => {
+          res.forEach((row) => {
             this.schoolMap[row.cid] = {cname: row.cname}
-          })
-          // console.log("school", this.school);
+          });
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
+
       getSomeResult()
         .then((res) => {
           this.evalResult = res.data;
           // console.log("evaluation", this.evaluation);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   }

@@ -5,7 +5,7 @@ require('echarts/map/js/china');
 export function getMap(region_value) {
   console.log("传入了地图和数据为" + region_value.length);
   // 初始化echarts实例
-  let chinachart = echarts.init(document.getElementById('region'))
+  let chinaChart = echarts.init(document.getElementById('region'))
   // 进行相关配置
   let chartOption = {
     tooltip: { // 鼠标移到图里面的浮动提示框
@@ -74,6 +74,6 @@ export function getMap(region_value) {
   }
   // 使用刚指定的配置项和数据显示地图数据
   // this.chinachart.setOption(this.chartOption)
-  chinachart.setOption(chartOption);
-  return chinachart;
+  chinaChart.setOption(chartOption);
+  return chinaChart;
 }

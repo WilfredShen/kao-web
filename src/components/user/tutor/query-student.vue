@@ -97,23 +97,25 @@
       }
     },
     methods: {
-      handleSchField(command) {
+      handleSchField: function(command) {
         this.schLevel = command;
       },
-      getDisciplines() {
+
+      getDisciplines: function() {
         disciplineList()
-          .then(res => {
+          .then((res) => {
             console.log(res);
             this.disciplines = res;
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
-          })
+          });
       },
-      getMajors(id) {
+
+      getMajors: function(id) {
         this.majors = [];
         majorList()
-          .then(res => {
+          .then((res) => {
             console.log(res);
             for (let i = 0; i < res.length; i++) {
               if (res[i].did === id) {
@@ -121,13 +123,12 @@
               }
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
-      myScreen() {
-        console.log("major len = " + this.major.length);
-        console.log(this.major[0])
+
+      myScreen: function() {
         this.$axios.get("/api/tutor/q/queryable-stu-info", {
           params: {
             'beginDate': this.beginY,
@@ -136,27 +137,30 @@
             'major': this.major,
             'expectedMajor': this.exMajor
           }
-        }).then(res => {
-          console.log(res);
-          let items = res.data.data;
-          for (let i = 0; i < items.length; i++) {
-            this.stuInfo.push({
-              'name': items[i].name,
-              'school': items[i].college,
-              'major': items[i].major,
-              'exMajor': items[i].expectedMajor,
-              'tel': items[i].phone,
-              'email': items[i].email
-            })
-          }
-        }).catch(err => {
-          console.log("查询学生报错" + err);
         })
+          .then((res) => {
+            console.log(res);
+            let items = res.data.data;
+            for (let i = 0; i < items.length; i++) {
+              this.stuInfo.push({
+                'name': items[i].name,
+                'school': items[i].college,
+                'major': items[i].major,
+                'exMajor': items[i].expectedMajor,
+                'tel': items[i].phone,
+                'email': items[i].email
+              })
+            }
+          })
+          .catch((err) => {
+            console.log("查询学生报错" + err);
+          });
       },
-      exportEXCEL(type) {
-        console.log("进入了导出EXCEL函数")
+
+      exportEXCEL: function(type) {
+        console.log("进入了导出EXCEL函数");
         let arr;
-        arr = this.stuInfo.map(item => {
+        arr = this.stuInfo.map((item) => {
           return {
             "姓名": item.name,
             "学校": item.school,
@@ -164,7 +168,7 @@
             "预期专业": item.exMajor,
             "联系电话": item.tel,
             "邮箱地址": item.email
-          }
+          };
         })
 
         let sheet = xlsx.utils.json_to_sheet(arr);

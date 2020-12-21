@@ -143,13 +143,16 @@
       };
     },
     methods: {
-      getCode: function () {
-        if (this.status.resend > 0)
+      getCode: function() {
+        if (this.status.resend > 0) {
           return;
+        }
         this.status.resend = 60;
         const timer = setInterval(() => {
           this.status.resend--;
-          if (this.status.resend === 0) clearInterval(timer);
+          if (this.status.resend === 0) {
+            clearInterval(timer);
+          }
         }, 1000);
 
         this.$axios
@@ -167,8 +170,8 @@
             console.log(err.data);
           });
       },
-      submit: function () {
-        console.log(this.registerForm)
+      submit: function() {
+        console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {
             username: this.registerForm.username,

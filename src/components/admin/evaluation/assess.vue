@@ -67,9 +67,11 @@
       }
     },
     methods: {
-      async handleChange(ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
-        if (!file) return;
+        if (!file) {
+          return;
+        }
 
         this.schFields = [];
 
@@ -85,26 +87,32 @@
         for (column = range.s.c; column <= range.e.c; ++column) {
           const cell = workSheet[xlsx.utils.encode_cell({c: column, r: row})];
           let notification = "UNKNOWN" + column;
-          if (cell && cell.t) notification = xlsx.utils.format_cell(cell);
+          if (cell && cell.t) {
+            notification = xlsx.utils.format_cell(cell);
+          }
           this.schFields.push({'field': notification});
         }
         this.excelLength = data.length;
         this.excelDatas = data;
         this.getExcel();
       },
-      handleRemove(file) {
+
+      handleRemove: function(file) {
         this.excelDatas = [];
         this.tableData = [];
         console.log(file);
       },
-      handlePreview(file) {
+
+      handlePreview: function(file) {
         console.log(file);
       },
-      beforeRemove(file) {
+
+      beforeRemove: function(file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
-      getExcel() {
-        this.excelDatas.forEach(item => {
+
+      getExcel: function() {
+        this.excelDatas.forEach((item) => {
           this.$set(item, 'cname', "");
           this.$set(item, 'mname', "");
         });
@@ -131,11 +139,12 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         }
         this.up = true;
       },
-      upLoad() {
+
+      upLoad: function() {
         if (this.round === null || this.round === '' || this.round === "undefined") {
           console.log("round", this.round);
           this.$confirm(`请选择轮次！`, '提示')
@@ -144,7 +153,7 @@
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         } else {
           this.$confirm(`确定上传以上信息？`, '提示')
             .then((res) => {
@@ -170,26 +179,27 @@
                       type: 'error'
                     });
                     console.log(err);
-                  })
+                  });
               }
             })
             .catch((err) => {
               console.log(err);
-            })
+            });
         }
       },
     },
     created() {
       schoolList()
         .then((res) => {
-          res.forEach(row => {
+          res.forEach((row) => {
             this.school[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
+
       majorList()
         .then((res) => {
           res.forEach(row => {
@@ -198,7 +208,7 @@
           // console.log("majormap",this.major);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   }

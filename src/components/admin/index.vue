@@ -78,21 +78,21 @@
       }
     },
     methods: {
-      clearAll(val) {
+      clearAll: function(val) {
         this.selected = val;
       },
     },
     computed: {
-      assessResult: function () {
+      assessResult: function() {
         return this.selected === 1;
       },
-      changeResult: function () {
+      changeResult: function() {
         return this.selected === 2;
       },
-      uploadNews: function () {
+      uploadNews: function() {
         return this.selected === 3;
       },
-      newsUpdate: function () {
+      newsUpdate: function() {
         return this.selected === 4;
       }
     }

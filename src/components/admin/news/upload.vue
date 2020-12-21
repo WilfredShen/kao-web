@@ -55,7 +55,7 @@
       }
     },
     methods: {
-      commit() {
+      commit: function() {
         console.log(this.schoolIds[this.schIndex] + " " + this.schools[this.schIndex])
         this.$axios.post("/api/admin/p/news", {
           cid: this.schoolIds[this.schIndex],
@@ -65,12 +65,12 @@
           image: this.posterURL,
           officialLink: this.link
         })
-          .then(res => {
+          .then((res) => {
             console.log("成功上传新闻", res);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-          })
+          });
       },
     },
     created() {
@@ -78,21 +78,23 @@
         let sMap = this.$store.state.schoolMap;
         for (const key in sMap) {
           this.schoolIds.push(key);
-          this.schools.push(sMap[key])
+          this.schools.push(sMap[key]);
         }
       } else {
-        schoolList().then((res) => {
-          res.forEach(row => {
-            this.schoolIds.push(row.cid);
-            this.schools.push(row.cname);
-            this.$store.commit("setSchMap", {
-              cname: row.cname,
-              cid: row.cid
-            });
+        schoolList()
+          .then((res) => {
+            res.forEach((row) => {
+              this.schoolIds.push(row.cid);
+              this.schools.push(row.cname);
+              this.$store.commit("setSchMap", {
+                cname: row.cname,
+                cid: row.cid
+              });
+            })
           })
-        }).catch((err) => {
-          console.log(err)
-        });
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   }

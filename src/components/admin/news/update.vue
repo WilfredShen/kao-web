@@ -34,7 +34,7 @@
     <el-button style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white" @click="commit()">
       确认修改
     </el-button>
-    <el-button style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white" @click="cancle()">
+    <el-button style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white" @click="cancel()">
       取消修改
     </el-button>
   </div>
@@ -60,8 +60,7 @@
       }
     },
     methods: {
-      commit() {
-        console.log(this.schoolIds[this.schIndex] + " " + this.schools[this.schIndex])
+      commit: function() {
         this.$axios.post("/api/admin/u/news", {
           cid: this.schoolIds[this.schIndex],
           date: this.myTime,
@@ -70,17 +69,18 @@
           image: this.posterURL,
           officialLink: this.link
         })
-          .then(res => {
+          .then((res) => {
             console.log("成功更新新闻", res);
             this.ifCommit = false;
             this.$emit('eIfCommit', this.ifCommit);
             location.reload();
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("更新新闻有误", error);
-          })
+          });
       },
-      cancle() {
+
+      cancel: function() {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
       }
@@ -90,21 +90,23 @@
         let sMap = this.$store.state.schoolMap;
         for (const key in sMap) {
           this.schoolIds.push(key);
-          this.schools.push(sMap[key])
+          this.schools.push(sMap[key]);
         }
       } else {
-        schoolList().then((res) => {
-          res.forEach(row => {
-            this.schoolIds.push(row.cid);
-            this.schools.push(row.cname);
-            this.$store.commit("setSchMap", {
-              cname: row.cname,
-              cid: row.cid
+        schoolList()
+          .then((res) => {
+            res.forEach(row => {
+              this.schoolIds.push(row.cid);
+              this.schools.push(row.cname);
+              this.$store.commit("setSchMap", {
+                cname: row.cname,
+                cid: row.cid
+              });
             });
           })
-        }).catch((err) => {
-          console.log(err)
-        });
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   }

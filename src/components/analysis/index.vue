@@ -115,15 +115,15 @@
       }
     },
     methods: {
-      printTest() {
-        this.$message("test!")
-        this.$message("box group" + this.checkBoxGroup)
+      printTest: function() {
+        this.$message("test!");
+        this.$message("box group" + this.checkBoxGroup);
       },
-      handleSchField(command) {
+      handleSchField: function(command) {
         this.schFiled = command;
       },
       //根据选项选择展示内容
-      contains(arr, obj) {
+      contains: function(arr, obj) {
         let i = arr.length;
         while (i--) {
           if (arr[i] === obj) {
@@ -132,7 +132,7 @@
         }
         return false;
       },
-      checkShow() {
+      checkShow: function() {
         let sum;
         sum = 0;
         if (this.contains(this.checkBoxGroup, '地区')) {
@@ -147,7 +147,7 @@
         console.log("sum = " + sum);
         return sum;
       },
-      getResult() {
+      getResult: function() {
         const showWhat = this.checkShow();
         this.schNames = [];
         this.mapResult = [];
@@ -184,67 +184,71 @@
         stuCount.set(this.schIDs[beginIndex], regionIndex - beginIndex);
 
         //anaID相同学校已过滤
-        schoolDetail(analysisID).then(res => {
-          this.schInfo = res;
-          const regionDict = new Map(), regionset = new Set();
+        schoolDetail(analysisID)
+          .then((res) => {
+            this.schInfo = res;
+            const regionDict = new Map(), regionSet = new Set();
 
-          const schInfoLen = this.schInfo.length;
-          for (let i = 0; i < schInfoLen; i++) {//初始化set
-            let loc = this.schInfo[i].location;
-            regionDict.set(loc, 0)
-            regionset.add(loc);
-          }
-          for (let i = 0; i < schInfoLen; i++) {//对于每个学校ID对应的地址
-            let loc = this.schInfo[i].location;
-            regionDict.set(loc, regionDict.get(loc) + stuCount.get(this.schInfo[i].cid))//加上学校人数
-          }
-          if (showWhat % 2 === 1) {
-            for (let s of regionset) {
-              this.mapResult.push({name: s, value: regionDict.get(s)});
+            const schInfoLen = this.schInfo.length;
+            for (let i = 0; i < schInfoLen; i++) {//初始化set
+              let loc = this.schInfo[i].location;
+              regionDict.set(loc, 0)
+              regionSet.add(loc);
             }
-            getMap(this.mapResult);
-          } else {
-            getMap([]);
-          }
+            for (let i = 0; i < schInfoLen; i++) {//对于每个学校ID对应的地址
+              let loc = this.schInfo[i].location;
+              regionDict.set(loc, regionDict.get(loc) + stuCount.get(this.schInfo[i].cid));//加上学校人数
+            }
+            if (showWhat % 2 === 1) {
+              for (let s of regionSet) {
+                this.mapResult.push({name: s, value: regionDict.get(s)});
+              }
+              getMap(this.mapResult);
+            } else {
+              getMap([]);
+            }
 
-          let nine = 0, two = 0;//nine为985/211 two为211
-          for (let i = 0; i < schInfoLen; i++) {
-            if (this.schInfo[i].level != null) {
-              if (this.schInfo[i].level.length > 3) {
-                nine += stuCount.get(this.schInfo[i].cid);
-              } else {
-                two += stuCount.get(this.schInfo[i].cid);
+            let nine = 0, two = 0;//nine为985/211 two为211
+            for (let i = 0; i < schInfoLen; i++) {
+              if (this.schInfo[i].level != null) {
+                if (this.schInfo[i].level.length > 3) {
+                  nine += stuCount.get(this.schInfo[i].cid);
+                } else {
+                  two += stuCount.get(this.schInfo[i].cid);
+                }
               }
             }
-          }
-          if (showWhat >= 10 && showWhat !== 100 && showWhat !== 101) {
-            this.otherData.push({
-              depend: '985/211',
-              count: nine,
-              ratio: (nine / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
-            });
-          }
-          if (showWhat >= 100) {
-            this.otherData.push({
-              depend: '211',
-              count: two,
-              ratio: (two / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
-            });
-          }
-        })
+            if (showWhat >= 10 && showWhat !== 100 && showWhat !== 101) {
+              this.otherData.push({
+                depend: '985/211',
+                count: nine,
+                ratio: (nine / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
+              });
+            }
+            if (showWhat >= 100) {
+              this.otherData.push({
+                depend: '211',
+                count: two,
+                ratio: (two / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       },
-      exportEXCEL(type, isRegion) {
+      exportEXCEL: function(type, isRegion) {
         console.log("进入了导出EXCEL函数")
         let arr;
         if (isRegion === 'region') {
-          arr = this.mapResult.map(item => {
+          arr = this.mapResult.map((item) => {
             return {
               '地区': item.name,
               '人数': item.value,
             };
           });
         } else {
-          arr = this.otherData.map(item => {
+          arr = this.otherData.map((item) => {
             return {
               '等级': item.depend,
               '人数': item.count,
@@ -263,9 +267,11 @@
         }
 
       },
-      async handleChange(ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
-        if (!file) return;
+        if (!file) {
+          return;
+        }
 
         this.schFields = [];
 
@@ -281,7 +287,9 @@
         for (C = range.s.c; C <= range.e.c; ++C) {
           const cell = worksheet[xlsx.utils.encode_cell({c: C, r: R})];
           let hdr = "UNKNOWN" + C;
-          if (cell && cell.t) hdr = xlsx.utils.format_cell(cell);
+          if (cell && cell.t) {
+            hdr = xlsx.utils.format_cell(cell);
+          }
           this.schFields.push({'field': hdr});
         }
 
@@ -294,12 +302,13 @@
       getMap([]);
     },
     created() {
-      schoolList().then(res => {
-        this.collegeId = res;
-        for (let i = 0; i < this.collegeId.length; i++) {
-          this.nameId[this.collegeId[i].cname] = this.collegeId[i].cid;
-        }
-      });
+      schoolList()
+        .then((res) => {
+          this.collegeId = res;
+          for (let i = 0; i < this.collegeId.length; i++) {
+            this.nameId[this.collegeId[i].cname] = this.collegeId[i].cid;
+          }
+        });
     }
   }
 

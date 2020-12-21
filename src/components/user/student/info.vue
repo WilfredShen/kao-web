@@ -55,13 +55,15 @@
       }
     },
     methods: {
-      modify() {
+      modify: function() {
         this.isModify = !this.isModify;
       },
-      cancelModify() {
+
+      cancelModify: function() {
         this.isModify = !this.isModify;
       },
-      commitModify() {
+
+      commitModify: function() {
         let pPhone, pEmail, pCollege, pMajor, pGraduate, pExpectMajor;
         pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
         if (!checkMobile(pPhone)) {
@@ -78,8 +80,9 @@
         pGraduate = this.newGraduate === '' ? this.items[7].content : this.newGraduate;
         pExpectMajor = this.newExpect === '' ? this.items[8].content : this.newExpect;
         let uid = this.$store.state.uid;
+
         updateStuInfo(uid, pPhone, pEmail, pCollege, pMajor, pExpectMajor, pGraduate)
-          .then(res => {
+          .then((res) => {
             console.log(res);
             this.isModify = !this.isModify;
             this.newPhone = '';
@@ -90,25 +93,26 @@
             this.newExpect = '';
             this.setStuInfo();
           })
-          .catch(error => {
-            console.log("stu info 有问题" + error)
+          .catch((error) => {
+            console.log("stu info 有问题" + error);
           });
 
         updateUserInfo(pPhone, pEmail)
-          .then(res => {
+          .then((res) => {
             console.log(res);
           })
-          .catch(err => {
-            console.log("学生修改基本信息有问题" + err)
-          })
+          .catch((err) => {
+            console.log("学生修改基本信息有问题" + err);
+          });
       },
-      setStuInfo() {
+
+      setStuInfo: function() {
         this.$axios.get("/api/stu/q/stu-info", {
           params: {
             uid: this.$store.state.uid
           }
         })
-          .then(res => {
+          .then((res) => {
             console.log(res);
             let item = res.data.data;
             this.items[0].content = item.phone;
@@ -120,9 +124,10 @@
             this.items[6].content = item.major;
             this.items[7].content = item.graduationDate;
             this.items[8].content = item.expectedMajor;
-          }).catch(error => {
-          console.log("学生信息请求失败" + error);
-        })
+          })
+          .catch((error) => {
+            console.log("学生信息请求失败" + error);
+          });
       },
     },
     created() {

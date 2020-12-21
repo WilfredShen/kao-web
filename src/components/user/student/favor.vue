@@ -31,23 +31,24 @@
       }
     },
     methods: {
-      cancel(index) {
+      cancel: function(index) {
         this.$axios.post("/api/favor/d/major", {
           'majorCid': this.schoolCollect[index].schoolID,
           'majorMid': this.schoolCollect[index].majorID
         })
-          .then(res => {
+          .then((res) => {
             console.log(res);
             this.schoolCollect = [];
             this.setCollectInfo();
           })
-          .catch(err => {
-            console.log("取消收藏有错误" + err)
-          })
+          .catch((err) => {
+            console.log("取消收藏有错误" + err);
+          });
       },
-      setCollectInfo() {
+
+      setCollectInfo: function() {
         this.$axios.get("/api/favor/q/major")
-          .then(res => {
+          .then((res) => {
             console.log(res.data);
             let item = res.data.data;
             for (let i = 0; i < item.length; i++) {
@@ -56,12 +57,12 @@
                 'schoolName': item[i].cname,
                 'majorID': item[i].mid,
                 'majorName': item[i].mname
-              })
+              });
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-          })
+          });
       }
     },
 

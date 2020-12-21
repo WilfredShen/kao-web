@@ -144,59 +144,70 @@
       }
     },
     methods: {
-      getSchoolDetail(cid) {
-        var arr = this;
-        schoolDetail(cid).then(res => {
-          console.log("res", res)
-          arr.schoolDetails = res[0];
-          console.log("schoool_details" + this.schoolDetails.cname);
-        });
+      getSchoolDetail: function(cid) {
+        const arr = this;
+        schoolDetail(cid)
+          .then((res) => {
+            console.log("res", res);
+            arr.schoolDetails = res[0];
+            console.log("schoool_details" + this.schoolDetails.cname);
+          });
       },
-      getEvaluation(cid) {
-        var arr = this;
+
+      getEvaluation: function(cid) {
+        const arr = this;
         arr.evaluation = [];
-        getEvaluationList(4).then(res => {
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].cid === cid) {
-              arr.evaluation.push(res[i]);
+        getEvaluationList(4)
+          .then((res) => {
+            for (let i = 0; i < res.length; i++) {
+              if (res[i].cid === cid) {
+                arr.evaluation.push(res[i]);
+              }
             }
-          }
-        })
+          });
       },
-      getMajorListAll() {
-        var arr = this;
-        majorList().then(res => {
-          arr.allMajors = res;
-          // console.log(this.disciplines)
-        });
+
+      getMajorListAll: function() {
+        const arr = this;
+        majorList()
+          .then((res) => {
+            arr.allMajors = res;
+          });
       },
-      getMajorName(mid) {
-        var arr = this;
+
+      getMajorName: function(mid) {
+        const arr = this;
         for (let i = 0; i < arr.allMajors.length; i++) {
           if (arr.allMajors[i].mid === mid) {
             return arr.allMajors[i].mname;
           }
         }
       },
-      getRank(cid) {
-        var arr = this;
-        rankList(cid).then(res => {
-          arr.ranks = res;
-          console.log("rank", this.ranks);
-        });
+
+      getRank: function(cid) {
+        const arr = this;
+        rankList(cid)
+          .then((res) => {
+            arr.ranks = res;
+            console.log("rank", this.ranks);
+          });
       },
-      getRates(cid) {
-        var arr = this;
-        rateList(cid).then(res => {
-          arr.rates = res;
-          console.log("rate", this.rates);
-        });
+
+      getRates: function(cid) {
+        const arr = this;
+        rateList(cid)
+          .then((res) => {
+            arr.rates = res;
+            console.log("rate", this.rates);
+          });
       },
-      getTutors(cid) {
-        var arr = this;
-        tutorList(cid).then(res => {
-          arr.tutors = res;
-        });
+
+      getTutors: function(cid) {
+        const arr = this;
+        tutorList(cid)
+          .then((res) => {
+            arr.tutors = res;
+          });
       },
       /*
       setFavorTutor(cid, tid) {
@@ -227,12 +238,10 @@
       this.isidentity = this.$store.state.uid;
     },
     activated() {
-      var self = this;
+      const self = this;
       self.schoolCid = [];
-      console.log("schoolcid", self.$store.state.cid);
       self.schoolCid.push(self.$store.state.cid);
       self.getSchoolDetail(self.schoolCid);
-      console.log("school", self.schoolDetails);
       self.getRank(self.schoolCid[0]);
       self.getRates(self.schoolCid[0]);
       self.getEvaluation(self.schoolCid[0]);
