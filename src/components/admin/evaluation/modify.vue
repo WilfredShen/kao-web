@@ -98,7 +98,7 @@
       }
     },
     methods: {
-      getResult: function () {
+      getResult: function() {
         this.tableData = [];
         if (this.round === '') {
           this.$confirm(`请选择轮次！`, '提示')
@@ -115,7 +115,7 @@
                 console.log(res);
                 this.tableData = this.evaluation;
                 console.log("情况1table", this.tableData);
-                this.tableData.forEach(item => {
+                this.tableData.forEach((item) => {
                   this.$set(item, 'cname', "");
                   this.$set(item, 'mname', "");
                 });
@@ -133,7 +133,7 @@
                 let temp2 = this.major[j].mid;
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
-                    list = list.concat(this.evaluation.filter(item => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => item.mid === temp2));
                     break;
                   }
                 }
@@ -165,7 +165,7 @@
                 for (let i = 0; i < fsMajor.length; i++) {
                   if (temp1.match(fsMajor[i]) != null || temp2.match(fsMajor[i]) != null) {
                     console.log(1, temp1);
-                    list = list.concat(this.evaluation.filter(item => item.mid === temp2));
+                    list = list.concat(this.evaluation.filter((item) => item.mid === temp2));
                     break;
                   }
                 }
@@ -194,7 +194,7 @@
             if (this.tableData.length === 0) {
               this.$message('该查询无结果！');
             } else { //添加学校名、专业名字段
-              this.tableData.forEach(item => {
+              this.tableData.forEach((item) => {
                 this.$set(item, 'cname', "");
                 this.$set(item, 'mname', "");
               });
@@ -208,7 +208,7 @@
       },
 
       //查询评估结果
-      getEvaluation: function () {
+      getEvaluation: function() {
         this.$axios.get('/api/base/evaluation', {
           params: {
             round: parseInt(this.round)
@@ -223,13 +223,13 @@
       },
 
       //编辑
-      handleClick: function (index, row) {
+      handleClick: function(index, row) {
         this.row = row;
         this.tableData[index] = row;
         this.dialogFormVisible = true;
       },
 
-      confirmUpdate: function () {
+      confirmUpdate: function() {
         this.dialogFormVisible = false;
         updateEvaluation(this.row.cid, this.row.mid, this.row.result, this.round)
           .then((res) => {
@@ -268,7 +268,7 @@
       majorList()
         .then((res) => {
           this.major = res;
-          res.forEach(row => {
+          res.forEach((row) => {
             this.majorMap[row.mid] = {mname: row.mname}
           })
           // console.log("majorMap",this.major);

@@ -97,11 +97,11 @@
       }
     },
     methods: {
-      handleSchField: function (command) {
+      handleSchField: function(command) {
         this.schLevel = command;
       },
 
-      getDisciplines: function () {
+      getDisciplines: function() {
         disciplineList()
           .then((res) => {
             console.log(res);
@@ -112,7 +112,7 @@
           });
       },
 
-      getMajors: function (id) {
+      getMajors: function(id) {
         this.majors = [];
         majorList()
           .then((res) => {
@@ -128,7 +128,7 @@
           });
       },
 
-      myScreen: function () {
+      myScreen: function() {
         console.log("major len = " + this.major.length);
         console.log(this.major[0])
         this.$axios.get("/api/tutor/q/queryable-stu-info", {
@@ -159,10 +159,10 @@
           });
       },
 
-      exportEXCEL: function (type) {
+      exportEXCEL: function(type) {
         console.log("进入了导出EXCEL函数");
         let arr;
-        arr = this.stuInfo.map(item => {
+        arr = this.stuInfo.map((item) => {
           return {
             "姓名": item.name,
             "学校": item.school,

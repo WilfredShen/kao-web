@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function disciplineList() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/meta/discipline" )
+    axios.get("/api/meta/discipline")
       .then((res) => {
         resolve(res.data.data);
       })
@@ -109,7 +109,7 @@ export function rateList(scid) {
   return new Promise((resolve, reject) => {
     axios.get(`/api/base/acceptance-rate?cid=${scid}`)
       .then((res) => {
-         console.log("录取率", res.data);
+        console.log("录取率", res.data);
         resolve(res.data.data);
       })
       .catch((error) => {
@@ -120,7 +120,7 @@ export function rateList(scid) {
 
 export function tutorList(scid) {
   return new Promise((resolve, reject) => {
-    axios.get(`/api/base/tutor?cid=${scid}` )
+    axios.get(`/api/base/tutor?cid=${scid}`)
       .then((res) => {
         // console.log("res",res.data)
         console.log("导师信息", res.data);

@@ -61,11 +61,11 @@
       }
     },
     methods: {
-      modify: function () {
+      modify: function() {
         this.isModify = !this.isModify;
       },
 
-      commitModify: function () {
+      commitModify: function() {
         let postPhone, postEmail;
         postPhone = this.newPhone === '' ? null : this.newPhone;
         postEmail = this.newEmail === '' ? null : this.newEmail;
@@ -81,11 +81,11 @@
 
       },
 
-      cancelModify: function () {
+      cancelModify: function() {
         this.isModify = !this.isModify;
       },
 
-      setSelfInfo: function () {
+      setSelfInfo: function() {
         this.$axios.get("/api/user/q/user-info")
           .then((res) => {
             let item = res.data.data;
@@ -102,29 +102,16 @@
               this.items[5].content = '尚未验证';
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("错误", err);
           });
       },
 
-      handleCommand: function (command) {
+      handleCommand: function(command) {
         this.identity = command;
       },
-      //进行实名验证
-      // verifyrn() {
-      //   axios.post("/api/vf/real", {
-      //     'identity': '330902',
-      //     'name': this.uName
-      //   })
-      //     .then(res => {
-      //       console.log(res.status)
-      //       if (res.status === 200) {
-      //         this.items[4].content = '已实名认证';
-      //       }
-      //     })
-      //   this.$store.commit('setrealname', '已实名认证');
-      // },
-      verifyId: function () {
+
+      verifyId: function() {
         this.$axios.post("/api/vf/real", {
           'identity': '330902',
           'name': this.uName

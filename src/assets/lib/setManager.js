@@ -66,7 +66,7 @@ export function uploadNews(cid, date, title, content, image, offcialLink) {
 //获得新闻列表
 export function getNews() {
   return new Promise((resolve, reject) => {
-    axios.get('/api/admin/q/news' )
+    axios.get('/api/admin/q/news')
       .then((res) => {
         console.log(resolve);
         resolve(res.data);

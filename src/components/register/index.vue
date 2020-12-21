@@ -143,7 +143,7 @@
       };
     },
     methods: {
-      getCode: function () {
+      getCode: function() {
         if (this.status.resend > 0)
           return;
         this.status.resend = 60;
@@ -167,7 +167,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {

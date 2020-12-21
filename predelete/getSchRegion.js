@@ -7,13 +7,13 @@ export function getSchRegion(schids,) {
         cidList: schids.join(",")
       },
     })
-      .then((res => {
+      .then((res) => {
         resolve(res.data.data);
-      }))
+      })
       .catch((error) => {
         reject(error);
-      })
-  })
+      });
+  });
 }
 
 

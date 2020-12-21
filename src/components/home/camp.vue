@@ -37,18 +37,18 @@
       }
     },
     methods: {
-      handleSizeChange:function(val) {
+      handleSizeChange: function(val) {
         this.pageSize = val;
         console.log(`每页 ${val} 条`);
       },
 
-      handleCurrentChange:function(val) {
+      handleCurrentChange: function(val) {
         this.currentPage = val;
         console.log(`当前页：${val}`);
         this.setCamps(val);
       },
 
-      setCamps:function(val) {
+      setCamps: function(val) {
         const cps = this.$store.state.camps;
         this.camps = [];
         for (let i = val; i < val + 4; i++) {

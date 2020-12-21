@@ -64,8 +64,8 @@
 
 <script>
 
-  import {getUserId} from '../../assets/lib/getAndSetSelf'
-  import '../../assets/css/login.css'
+  import {getUserId} from '@/assets/lib/getAndSetSelf'
+  import '@/assets/css/login.css'
 
   export default {
     name: "Login",
@@ -89,7 +89,7 @@
       };
     },
     methods: {
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/login", {
             username: this.loginForm.username,
@@ -106,9 +106,10 @@
               }
 
               //登录后即设置uid
-              getUserId().then(res => {
-                this.$store.commit("setuid", res);
-              })
+              getUserId()
+                .then((res) => {
+                  this.$store.commit("setuid", res);
+                });
 
               setTimeout(() => {
                 this.$router.push(callback.toString());

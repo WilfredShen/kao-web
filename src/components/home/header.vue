@@ -53,7 +53,7 @@
       this.hasLogin = this.$store.state.uid !== '';
 
       getLimit()
-        .then(res => {
+        .then((res) => {
           console.log("首页获得的权限" + res);
           if (res === 'student') {
             this.isStu = true;

@@ -55,15 +55,15 @@
       }
     },
     methods: {
-      modify: function () {
+      modify: function() {
         this.isModify = !this.isModify;
       },
 
-      cancelModify: function () {
+      cancelModify: function() {
         this.isModify = !this.isModify;
       },
 
-      commitModify: function () {
+      commitModify: function() {
         let pPhone, pEmail, pCollege, pMajor, pGraduate, pExpectMajor;
         pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
         if (!checkMobile(pPhone)) {
@@ -106,7 +106,7 @@
           });
       },
 
-      setStuInfo: function () {
+      setStuInfo: function() {
         this.$axios.get("/api/stu/q/stu-info", {
           params: {
             uid: this.$store.state.uid

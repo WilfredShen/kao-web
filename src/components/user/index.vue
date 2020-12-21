@@ -102,22 +102,22 @@
       }
     },
     computed: {
-      selfHome: function () {
+      selfHome: function() {
         return this.selected === 1;
       },
-      basicInfo: function () {
+      basicInfo: function() {
         return this.selected === 2;
       },
-      collect: function () {
+      collect: function() {
         return this.selected === 3;
       },
-      stuInfo: function () {
+      stuInfo: function() {
         return this.selected === 4;
       },
-      tutInfo: function () {
+      tutInfo: function() {
         return this.selected === 5;
       },
-      queryStu: function () {
+      queryStu: function() {
         return this.selected === 6;
       },
     },
@@ -128,7 +128,7 @@
     },
     created() {
       getLimit()
-        .then(res => {
+        .then((res) => {
           console.log("获得的权限" + res);
           if (res === 'student') {
             this.isStu = true;
@@ -138,7 +138,7 @@
         });
 
       getUsername()
-        .then(res => {
+        .then((res) => {
           console.log("获得的用户名" + res);
           this.username = res;
         });

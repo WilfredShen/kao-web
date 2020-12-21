@@ -48,10 +48,10 @@ const store = new Vuex.Store({
   actions: {
     getCamps(context) {
       axios.get("/api/base/summer-camp")
-        .then(res => {
+        .then((res) => {
           console.log("获取夏令营成功" + res.data);
           context.commit('setCamps', res.data.data);
-        })
+        });
     },
   },
 })

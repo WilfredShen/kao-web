@@ -67,7 +67,7 @@
       }
     },
     methods: {
-      handleChange: async function (ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
         if (!file) return;
 
@@ -93,22 +93,22 @@
         this.getExcel();
       },
 
-      handleRemove: function (file) {
+      handleRemove: function(file) {
         this.excelDatas = [];
         this.tableData = [];
         console.log(file);
       },
 
-      handlePreview: function (file) {
+      handlePreview: function(file) {
         console.log(file);
       },
 
-      beforeRemove: function (file) {
+      beforeRemove: function(file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
 
-      getExcel: function () {
-        this.excelDatas.forEach(item => {
+      getExcel: function() {
+        this.excelDatas.forEach((item) => {
           this.$set(item, 'cname', "");
           this.$set(item, 'mname', "");
         });
@@ -139,7 +139,8 @@
         }
         this.up = true;
       },
-      upLoad: function () {
+
+      upLoad: function() {
         if (this.round === null || this.round === '' || this.round === "undefined") {
           console.log("round", this.round);
           this.$confirm(`请选择轮次！`, '提示')
@@ -186,7 +187,7 @@
     created() {
       schoolList()
         .then((res) => {
-          res.forEach(row => {
+          res.forEach((row) => {
             this.school[row.cid] = {cname: row.cname}
           })
           // console.log("school", this.school);

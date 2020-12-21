@@ -72,7 +72,7 @@
 
   export default {
     name: 'CollegeDetail',
-    data: function () {
+    data: function() {
       return {
         input: '',
         rankSys: '请选择评价体系',
@@ -117,12 +117,12 @@
     },
     methods: {
       //评选方法
-      handleCommand: function (command) {
+      handleCommand: function(command) {
         this.rankSys = command;
       },
 
       //模糊查询
-      fuzzySearcher: function () {
+      fuzzySearcher: function() {
         let fsInput = this.input.trim().split(/\s+/);
         console.log("fsinput", fsInput);
         this.fsResult = [];
@@ -143,9 +143,9 @@
       },
 
       //查询按钮
-      getSearch: function () {
+      getSearch: function() {
         //sort函数
-        let compare = function (obj1, obj2) {
+        let compare = function(obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -194,20 +194,20 @@
               if (this.level.length > 0) {
                 let list = [];
                 for (let i = 0; i < this.level.length; i++) {
-                  list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
+                  list = list.concat(this.afterFilter.filter((item) => item.result === this.level[i]));
                 }
                 this.afterFilter = list;
               }
 
               //增加学校名称属性
-              this.afterFilter.forEach(item => {
+              this.afterFilter.forEach((item) => {
                 this.$set(item, 'cname', "");
               });
               for (let i = 0; i < this.afterFilter.length; i++) {
                 this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
               }
               //增加专业名称
-              this.afterFilter.forEach(item => {
+              this.afterFilter.forEach((item) => {
                 this.$set(item, 'mname', "");
               });
               for (let i = 0; i < this.afterFilter.length; i++) {
@@ -221,27 +221,27 @@
         } else {//进行了模糊查询
           this.afterFilter = [];
           for (let i = 0; i < this.fsResult.length; i++) {
-            this.afterFilter = this.afterFilter.concat(this.evalResult.filter(item => item.cid === this.fsResult[i].cid));
+            this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => item.cid === this.fsResult[i].cid));
           }
 
           //筛选等级
           if (this.level.length > 0) {
             let list = [];
             for (let i = 0; i < this.level.length; i++) {
-              list = list.concat(this.afterFilter.filter(item => item.result === this.level[i]));
+              list = list.concat(this.afterFilter.filter((item) => item.result === this.level[i]));
             }
             this.afterFilter = list;
           }
 
           //增加学校名称属性
-          this.afterFilter.forEach(item => {
+          this.afterFilter.forEach((item) => {
             this.$set(item, 'cname', "")
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
             this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
           }
           //增加专业名称
-          this.afterFilter.forEach(item => {
+          this.afterFilter.forEach((item) => {
             this.$set(item, 'mname', "")
           });
           for (let i = 0; i < this.afterFilter.length; i++) {
@@ -257,11 +257,11 @@
           }
         }
       },
-      cleanSearch: function () {
+      cleanSearch: function() {
         this.fsResult = this.school;
         this.input = '';
       },
-      schoolClick: function (cid) {
+      schoolClick: function(cid) {
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
@@ -270,7 +270,7 @@
       majorList()
         .then((res) => {
           //this.major = res.data;
-          res.forEach(row => {
+          res.forEach((row) => {
             this.major[row.mid] = {mname: row.mname, did: row.did}
           })
           // console.log("majormap",this.major);
@@ -283,7 +283,7 @@
         .then((res) => {
           this.school = res;
           this.fsResult = res;
-          res.forEach(row => {
+          res.forEach((row) => {
             this.schoolMap[row.cid] = {cname: row.cname}
           });
         })

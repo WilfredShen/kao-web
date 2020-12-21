@@ -42,15 +42,15 @@
       }
     },
     methods: {
-      ifEdit: function (data) {
+      ifEdit: function(data) {
         this.editNews = data;
       },
 
-      edit: function () {
+      edit: function() {
         this.editNews = true;
       },
 
-      getSchMaps: function () {
+      getSchMaps: function() {
         if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
           let sMap = this.$store.state.schoolMap;
           for (const key in sMap) {
@@ -60,7 +60,7 @@
         } else {
           schoolList()
             .then((res) => {
-              res.forEach(row => {
+              res.forEach((row) => {
                 this.schoolIds.push(row.cid);
                 this.schools.push(row.cname);
                 this.$store.commit("setSchMap", {
