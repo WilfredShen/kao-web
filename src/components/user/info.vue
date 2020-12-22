@@ -61,11 +61,11 @@
       }
     },
     methods: {
-      modify: function() {
+      modify: function () {
         this.isModify = !this.isModify;
       },
 
-      commitModify: function() {
+      commitModify: function () {
         let postPhone, postEmail;
         postPhone = this.newPhone === '' ? null : this.newPhone;
         postEmail = this.newEmail === '' ? null : this.newEmail;
@@ -81,11 +81,11 @@
 
       },
 
-      cancelModify: function() {
+      cancelModify: function () {
         this.isModify = !this.isModify;
       },
 
-      setSelfInfo: function() {
+      setSelfInfo: function () {
         this.$axios.get("/api/user/q/user-info")
           .then((res) => {
             let item = res.data.data;
@@ -107,11 +107,11 @@
           });
       },
 
-      handleCommand: function(command) {
+      handleCommand: function (command) {
         this.identity = command;
       },
 
-      verifyId: function() {
+      verifyId: function () {
         this.$axios.post("/api/vf/real", {
           'identity': '330902',
           'name': this.uName

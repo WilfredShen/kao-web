@@ -9,25 +9,27 @@
       </div>
       <div style="display: flex;align-items: center;">
         <p style="margin-right: 10px;padding-left: 0">评价体系 : </p>
-        <el-dropdown style="margin-right: 10px" size="mini" split-button trigger="click"
-                     @command="handleCommand()">
+        <el-dropdown style="margin-right: 10px" split-button size="mini"
+                     @command="handleCommand">
           {{rankSys}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="学科评估">学科评估</el-dropdown-item>
-            <el-dropdown-item command="软科" divided disabled>软科</el-dropdown-item>
-            <el-dropdown-item command="QS" divided disabled>QS</el-dropdown-item>
+            <el-dropdown-item command="软科" divided>软科</el-dropdown-item>
+            <el-dropdown-item command="QS" divided>QS</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        {{rank}}
-        <el-select v-model="level" multiple placeholder="请选择" size="mini" style="width: 40%">
-          <el-option
-            v-for="item in option4"
-            :key="item.value4"
-            :label="item.value4"
-            :value="item.label4"
-          >
-          </el-option>
-        </el-select>
+        <div v-if="isNormal">
+          {{rank}}
+          <el-select v-model="level" multiple placeholder="请选择" size="mini" style="width: 40%">
+            <el-option
+              v-for="item in option4"
+              :key="item.value4"
+              :label="item.value4"
+              :value="item.label4"
+            >
+            </el-option>
+          </el-select>
+        </div>
       </div>
       <div style="text-align: right">
         <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getSearch()">查询
@@ -41,7 +43,7 @@
         <el-col :span="8">
           <div class="grid-content bg-purple">学校代码及名称</div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" v-if="isNormal">
           <div class="grid-content bg-purple">专业代码及名称</div>
         </el-col>
         <el-col :span="8">
@@ -54,7 +56,7 @@
             <el-col :span="8">
               <div class="grid-content bg-purple" @click="schoolClick(item.cid)">{{item.cid+item.cname}}</div>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8" v-if="isNormal">
               <div class="grid-content bg-purple">{{item.mid+item.mname}}</div>
             </el-col>
             <el-col :span="8">
@@ -68,15 +70,19 @@
 </template>
 
 <script>
-  import {majorList, schoolList, getSomeResult} from "@/assets/lib/getResultLjm";
+  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
+  import {getSomeResult, rankList} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'CollegeDetail',
-    data: function() {
+    data: function () {
       return {
         input: '',
         rankSys: '请选择评价体系',
         rank: '等级：',
+        isQS: false,//是否是QS
+        isARWU: false,//是否是软科
+        isNormal: false,//教育部学科评估
         tableData: [],
         option4: [{
           value4: "A+ / 95-100",
@@ -111,27 +117,47 @@
         schoolMap: {},
         level: [],
         evalResult: [],
+        otherEvalResult: [],//软科和qs的评估结果
         fsResult: [], //模糊查询的学校名
         afterFilter: [], //筛选后的结果
+        test: {
+          "111": 1,
+          "222": 2,
+          "333": 3
+        }
       }
     },
     methods: {
       //评选方法
-      handleCommand: function(command) {
+      handleCommand: function (command) {
         this.rankSys = command;
+        if (command === '软科') {
+          this.isARWU = true;
+          this.isNormal = false;
+          this.isQS = false;
+        } else if (command === 'QS') {
+          this.isARWU = false;
+          this.isNormal = false;
+          this.isQS = true;
+        } else {
+          this.isARWU = false;
+          this.isNormal = true;
+          this.isQS = false;
+        }
       },
 
       //模糊查询
-      fuzzySearcher: function() {
+      fuzzySearcher: function () {
         let fsInput = this.input.trim().split(/\s+/);
-        console.log("fsinput", fsInput);
+        // console.log("fsinput", fsInput);
         this.fsResult = [];
         let flag = 1;
         for (let i = 0; i < this.school.length; i++) {
           let temp = this.school[i].cname;
+          let temp2 = this.school[i].cid;
           for (let j = 0; j < fsInput.length; j++) {
             flag = 1;
-            if (temp.match(fsInput[j]) == null) {
+            if (temp.match(fsInput[j]) == null && temp2.match(fsInput[j]) == null) {
               flag = 0;
               break;
             }
@@ -140,12 +166,13 @@
             this.fsResult.push(this.school[i]);
           }
         }
+        // console.log("fz",this.fsResult);
       },
 
       //查询按钮
-      getSearch: function() {
+      getSearch: async function () {
         //sort函数
-        let compare = function(obj1, obj2) {
+        let compare = function (obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -180,78 +207,147 @@
           return result;
         };
 
-        if (this.input === "undefined" || this.input === null || this.input === "") {//没有进行模糊查询
+        if (this.input === "undefined" || this.input === null || this.input.length === 0) {//没有进行模糊查询
           this.$confirm('没有进行模糊查询，此操作将导致在所有参评学校中查询！', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
           })
             .then(() => {
-              this.afterFilter = this.evalResult;
-              //筛选等级
-              console.log("level", this.level);
+              //学科评估筛选等级、增加专业名称
+              if (this.isNormal) {
+                console.log("Normal");
+                this.afterFilter = this.evalResult;
 
-              if (this.level.length > 0) {
-                let list = [];
-                for (let i = 0; i < this.level.length; i++) {
-                  list = list.concat(this.afterFilter.filter((item) => {
-                    return item.result === this.level[i];
-                  }));
+                //筛选等级
+                console.log("level", this.level);
+
+                if (this.level.length > 0) {
+                  let list = [];
+                  for (let i = 0; i < this.level.length; i++) {
+                    list = list.concat(this.afterFilter.filter((item) => {
+                      return item.result === this.level[i];
+                    }));
+                  }
+                  this.afterFilter = list;
                 }
-                this.afterFilter = list;
-              }
 
-              //增加学校名称属性
-              this.afterFilter.forEach((item) => {
-                this.$set(item, 'cname', "");
-              });
-              for (let i = 0; i < this.afterFilter.length; i++) {
-                this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                //增加学校名称属性
+                this.afterFilter.forEach((item) => {
+                  this.$set(item, 'cname', "");
+                });
+                for (let i = 0; i < this.afterFilter.length; i++) {
+                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                }
+
+                //增加专业名字段
+                this.afterFilter.forEach((item) => {
+                  this.$set(item, 'mname', "");
+                });
+                for (let i = 0; i < this.afterFilter.length; i++) {
+                  this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+                }
               }
-              //增加专业名称
-              this.afterFilter.forEach((item) => {
-                this.$set(item, 'mname', "");
-              });
-              for (let i = 0; i < this.afterFilter.length; i++) {
-                this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+              //QS增加学校排名
+              if (this.isQS) {
+                console.log("QS");
+                let list = [];
+                this.afterFilter = this.school;
+                this.getRank(this.afterFilter[99].cid);
+                console.log(this.otherEvalResult);
+                // console.log("get", typeof this.otherEvalResult);
+                // this.afterFilter.forEach((item) => {
+                //   this.$set(item, 'result', "");
+                // });
+                // for (let i = 0; i < this.afterFilter.length; i++) {
+                //   this.getOtherEvaluation(this.afterFilter.cid);
+                //   console.log("get", this.otherEvalResult);
+                //   if (Object.keys(this.otherEvalResult).length!==0 && this.otherEvalResult["QS"]) {
+                //     this.afterFilter[i].result = this.otherEvalResult["QS"];
+                //     list.push(this.afterFilter[i]);
+                //   }
+                // }
+                // this.afterFilter=list;
+                console.log("after", list);
               }
+              //软科增加学校排名
+              if (this.isARWU) {
+                console.log("软科");
+                this.afterFilter = this.school;
+                this.afterFilter.forEach((item) => {
+                  this.$set(item, 'result', "");
+                });
+                for (let i = 0; i < this.afterFilter.length; i++) {
+                  let list = [];
+                  list = this.getOtherEvaluation(this.afterFilter[i].cid);
+                  this.afterFilter[i].result = list["软科"].result;
+                }
+              }
+              //排序
               this.afterFilter = this.afterFilter.sort(compare);
-              console.log("after", this.afterFilter);
+              // console.log("after", this.afterFilter);
             })
-            .catch(() => {
-            });
         } else {//进行了模糊查询
           this.afterFilter = [];
-          for (let i = 0; i < this.fsResult.length; i++) {
-            this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
-              return item.cid === this.fsResult[i].cid;
-            }));
-          }
-
-          //筛选等级
-          if (this.level.length > 0) {
-            let list = [];
-            for (let i = 0; i < this.level.length; i++) {
-              list = list.concat(this.afterFilter.filter((item) => {
-                return item.result === this.level[i];
+          //学科评估
+          if (this.isNormal) {
+            console.log("fzNormal");
+            for (let i = 0; i < this.fsResult.length; i++) {
+              this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
+                return item.cid === this.fsResult[i].cid;
               }));
             }
-            this.afterFilter = list;
+            console.log("firstafter", this.afterFilter);
+            //筛选等级
+            if (this.level.length > 0) {
+              let list = [];
+              for (let i = 0; i < this.level.length; i++) {
+                list = list.concat(this.afterFilter.filter((item) => {
+                  return item.result === this.level[i];
+                }));
+              }
+              this.afterFilter = list;
+            }
+            //增加学校名称属性
+            this.afterFilter.forEach((item) => {
+              this.$set(item, 'cname', "");
+            });
+            for (let i = 0; i < this.afterFilter.length; i++) {
+              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+            }
+            //增加专业名字段
+            this.afterFilter.forEach((item) => {
+              this.$set(item, 'mname', "");
+            });
+            for (let i = 0; i < this.afterFilter.length; i++) {
+              this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+            }
           }
-
-          //增加学校名称属性
-          this.afterFilter.forEach((item) => {
-            this.$set(item, 'cname', "");
-          });
-          for (let i = 0; i < this.afterFilter.length; i++) {
-            this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+          //QS
+          if (this.isQS) {
+            console.log("fzQS");
+            this.afterFilter = this.fsResult;
+            this.afterFilter.forEach((item) => {
+              this.$set(item, 'result', "");
+            });
+            for (let i = 0; i < this.afterFilter.length; i++) {
+              let list = [];
+              list = this.getOtherEvaluation(this.afterFilter[i].cid);
+              this.afterFilter[i].result = list["QS"].result;
+            }
           }
-          //增加专业名称
-          this.afterFilter.forEach((item) => {
-            this.$set(item, 'mname', "");
-          });
-          for (let i = 0; i < this.afterFilter.length; i++) {
-            this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+          //软科
+          if (this.isARWU) {
+            console.log("fzruanke");
+            this.afterFilter = this.fsResult;
+            this.afterFilter.forEach((item) => {
+              this.$set(item, 'result', "");
+            });
+            for (let i = 0; i < this.afterFilter.length; i++) {
+              let list = [];
+              list = this.getOtherEvaluation(this.afterFilter[i].cid);
+              this.afterFilter[i].result = list["软科"].result;
+            }
           }
 
           if (this.afterFilter.length === 0) {
@@ -263,13 +359,21 @@
           }
         }
       },
-      cleanSearch: function() {
+      cleanSearch: function () {
         this.fsResult = this.school;
         this.input = '';
       },
-      schoolClick: function(cid) {
+      schoolClick: function (cid) {
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
+      },
+      getRank: function (cid) {
+        const arr = this;
+        rankList(cid)
+          .then((res) => {
+            arr.otherEvalResult = res;
+            console.log("rank", this.otherEvalResult);
+          });
       },
     },
     created() {
@@ -292,6 +396,7 @@
           res.forEach((row) => {
             this.schoolMap[row.cid] = {cname: row.cname}
           });
+          // console.log("school",this.school);
         })
         .catch((err) => {
           console.log(err);
@@ -300,10 +405,6 @@
       getSomeResult()
         .then((res) => {
           this.evalResult = res.data;
-          // console.log("evaluation", this.evaluation);
-        })
-        .catch((err) => {
-          console.log(err);
         });
     }
   }

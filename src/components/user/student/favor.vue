@@ -31,7 +31,7 @@
       }
     },
     methods: {
-      cancel: function(index) {
+      cancel: function (index) {
         this.$axios.post("/api/favor/d/major", {
           'majorCid': this.schoolCollect[index].schoolID,
           'majorMid': this.schoolCollect[index].majorID
@@ -46,7 +46,7 @@
           });
       },
 
-      setCollectInfo: function() {
+      setCollectInfo: function () {
         this.$axios.get("/api/favor/q/major")
           .then((res) => {
             console.log(res.data);

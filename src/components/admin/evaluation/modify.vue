@@ -98,7 +98,7 @@
       }
     },
     methods: {
-      getResult: function() {
+      getResult: function () {
         this.tableData = [];
         if (this.round === '') {
           this.$confirm(`请选择轮次！`, '提示')
@@ -211,7 +211,7 @@
       },
 
       //查询评估结果
-      getEvaluation: function() {
+      getEvaluation: function () {
         this.$axios.get('/api/base/evaluation', {
           params: {
             round: parseInt(this.round)
@@ -226,13 +226,13 @@
       },
 
       //编辑
-      handleClick: function(index, row) {
+      handleClick: function (index, row) {
         this.row = row;
         this.tableData[index] = row;
         this.dialogFormVisible = true;
       },
 
-      confirmUpdate: function() {
+      confirmUpdate: function () {
         this.dialogFormVisible = false;
         updateEvaluation(this.row.cid, this.row.mid, this.row.result, this.round)
           .then((res) => {

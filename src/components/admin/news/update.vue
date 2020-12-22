@@ -60,7 +60,7 @@
       }
     },
     methods: {
-      commit: function() {
+      commit: function () {
         this.$axios.post("/api/admin/u/news", {
           cid: this.schoolIds[this.schIndex],
           date: this.myTime,
@@ -80,7 +80,7 @@
           });
       },
 
-      cancel: function() {
+      cancel: function () {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
       }

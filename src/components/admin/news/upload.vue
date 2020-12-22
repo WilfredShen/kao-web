@@ -55,7 +55,7 @@
       }
     },
     methods: {
-      commit: function() {
+      commit: function () {
         console.log(this.schoolIds[this.schIndex] + " " + this.schools[this.schIndex])
         this.$axios.post("/api/admin/p/news", {
           cid: this.schoolIds[this.schIndex],

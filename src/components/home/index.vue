@@ -36,45 +36,62 @@
       </el-carousel>
     </div>
     <div class="b2">
-      <p>{{ msg }}</p>
-      <ul style="font-size: 13px" v-if="latestNews.length">
-        <div class="li-style">
+      <div style="border-bottom: 3px solid #163172;margin: 0">
+        <img src="@/assets/image/新闻.png" style="width: 5%;float: left;">
+        <p class="p-style">{{ msg }}</p>
+      </div>
+      <ul style="font-size: 13px;margin-top: 10px;margin-bottom: 7px">
+        <div class="li-style" style="border-bottom: 1px solid #163172;">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[0].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[0].title}}
-            <br/><span style="float: right">{{latestNews[0].date}}</span><br/>
+            target="_Blank" class="news-title">&nbsp;{{latestNews[0].title}}
+            <br/><span class="data-style">{{latestNews[0].date}}</span><br/>
           </a>
         </div>
         <br/>
-        <div class="li-style">
+        <div class="li-style" style="border-bottom: 1px solid #163172;">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[1].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[1].title}}
-            <br/><span style="float: right">{{latestNews[1].date}}</span><br/>
+            target="_Blank" class="news-title">&nbsp;{{latestNews[1].title}}
+            <br/><span class="data-style">{{latestNews[1].date}}</span><br/>
           </a>
         </div>
         <br/>
-        <div class="li-style">
+        <div class="li-style" style="border-bottom: 1px solid #163172;">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[2].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[2].title}}
-            <br/><span style="float: right">{{latestNews[2].date}}</span><br/>
+            target="_Blank" class="news-title">&nbsp;{{latestNews[2].title}}
+            <br/><span class="data-style">{{latestNews[2].date}}</span><br/>
           </a>
         </div>
         <br/>
-        <div class="li-style">
+        <div class="li-style" style="border-bottom: 1px solid #163172;">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[3].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">&nbsp;{{latestNews[3].title}}
-            <br/><span style="float: right">{{latestNews[3].date}}</span><br/>
+            target="_Blank" class="news-title">&nbsp;{{latestNews[3].title}}
+            <br/><span class="data-style">{{latestNews[3].date}}</span><br/>
+          </a>
+        </div>
+        <br/>
+        <div class="li-style" style="border-bottom: 1px solid #163172;">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <a
+            :href="this.latestNews[4].officialLink"
+            target="_Blank" class="news-title">{{latestNews[4].title}}
+            <br/><span class="data-style">{{latestNews[4].date}}</span><br/>
           </a>
         </div>
         <br/>
         <div class="li-style">
+          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
           <a
-            :href="this.latestNews[4].officialLink"
-            target="_Blank" style="text-decoration: none;display: block">{{latestNews[4].title}}
-            <br/><span style="float: right">{{latestNews[4].date}}</span><br/>
+            :href="this.latestNews[5].officialLink"
+            target="_Blank" class="news-title">{{latestNews[5].title}}
+            <br/><span class="data-style">{{latestNews[5].date}}</span><br/>
           </a>
         </div>
       </ul>
@@ -96,7 +113,7 @@
     },
     data() {
       return {
-        msg: '最新消息',
+        msg: '最新消息 / NEWS',
         latestNews: [],
       }
     },
@@ -126,9 +143,11 @@
   }
 
   h3 {
-    margin-top: -2px;
+    margin-top: 0;
     text-align: center;
     font-size: 12px;
+    font-family: "微软雅黑", serif;
+    color: dimgray;
   }
 
   .el-carousel__item img {
@@ -143,8 +162,8 @@
   .b2 {
     width: 55%;
     height: 100%;
-    border: 2px solid black;
     float: right;
+    border-bottom: 3px solid #163172;
   }
 
   a {
@@ -153,16 +172,30 @@
 
   .li-style {
     width: 90%;
-    padding: 2px 10px;
-    border: 1px solid black;
     display: block;
     text-decoration: none;
     color: black;
+    margin: 0 0;
   }
 
-  p {
-    padding-left: 40px;
-    font-size: 15px;
+  .p-style {
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 8%;
+    margin: 10px 0;
+    /*padding-top: 4px;*/
+  }
+
+  .data-style {
+    color: #3282B8;
+    float: right;
+    font-weight: bold;
+  }
+
+  .news-title {
+    text-decoration: none;
+    display: block;
+    font-family: 宋体;
     font-weight: bold;
   }
 </style>

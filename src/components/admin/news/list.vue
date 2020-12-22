@@ -42,15 +42,15 @@
       }
     },
     methods: {
-      ifEdit: function(data) {
+      ifEdit: function (data) {
         this.editNews = data;
       },
 
-      edit: function() {
+      edit: function () {
         this.editNews = true;
       },
 
-      getSchMaps: function() {
+      getSchMaps: function () {
         if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
           let sMap = this.$store.state.schoolMap;
           for (const key in sMap) {

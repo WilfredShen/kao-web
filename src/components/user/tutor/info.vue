@@ -53,15 +53,15 @@
       }
     },
     methods: {
-      modify: function() {
+      modify: function () {
         this.isModify = !this.isModify;
       },
 
-      cancelModify: function() {
+      cancelModify: function () {
         this.isModify = !this.isModify;
       },
 
-      commitModify: function() {
+      commitModify: function () {
         let pPhone, pEmail, pCollege, pMajor, pResearch;
         pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
         pEmail = this.newEmail === '' ? this.items[1].content : this.newEmail;
@@ -89,7 +89,7 @@
           });
       },
 
-      setTutorInfo: function() {
+      setTutorInfo: function () {
         this.$axios.get("/api/tutor/q/tutor-info")
           .then((res) => {
             let item = res.data.data;
