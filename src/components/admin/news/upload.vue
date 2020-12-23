@@ -19,7 +19,7 @@
         <el-input class="input" v-model="content" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="图片：">
-        <el-upload :limit="1" action :auto-upload="false" :show-file-list="false">
+        <el-upload :limit="1" action :auto-upload="false" ref="upload" :show-file-list="true">
           <el-button>选择图片</el-button>
         </el-upload>
       </el-form-item>
@@ -38,6 +38,7 @@
 
 <script>
   import {schoolList} from "@/assets/lib/getResultLjm";
+  // import qs from 'qs';
 
   export default {
     name: 'UploadNews',
@@ -50,28 +51,50 @@
         myTime: '',
         link: '',
         schIndex: '',
-        newsType: "",
-        posterURL: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+        newsType: '',
+        posterURL: '',
+        image: {},
       }
     },
     methods: {
-      commit: function () {
-        console.log(this.schoolIds[this.schIndex] + " " + this.schools[this.schIndex])
-        this.$axios.post("/api/admin/p/news", {
-          cid: this.schoolIds[this.schIndex],
-          date: this.myTime,
-          title: this.title,
-          content: this.content,
-          image: this.posterURL,
-          officialLink: this.link
-        })
+      commit: function() {
+        //上传图片
+        let file = this.$refs.upload.uploadFiles.pop().raw;
+        let formData = new FormData();
+        formData.append("image", file);
+        this.$axios.post("/api/admin/p/image", formData)
           .then((res) => {
-            console.log("成功上传新闻", res);
+            console.log("请求成功", res);
+            this.posterURL = res.data.data;
+            console.log("图片路径为", this.posterURL);
+            this.$axios.post("/api/admin/p/news", {
+              cid: this.schoolIds[this.schIndex],
+              date: this.myTime,
+              title: this.title,
+              content: this.content,
+              image: this.posterURL,
+              officialLink: this.link
+            })
+              .then((res) => {
+                console.log(res);
+                this.$message("成功上传新闻");
+                this.title = '';
+                this.myTime = null;
+                this.content = '';
+                this.newsType = '';
+                this.link = '';
+                this.schIndex = 0;
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           })
           .catch((error) => {
-            console.log(error);
+            console.log("上传图片有误", error);
           });
+
       },
+
     },
     created() {
       if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {

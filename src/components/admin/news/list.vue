@@ -38,7 +38,8 @@
       return {
         hint: '当前轮次没有数据，请上传',
         tableData: [],
-        editNews: false
+        editNews: false,
+        sMap: {},
       }
     },
     methods: {
@@ -49,46 +50,44 @@
       edit: function () {
         this.editNews = true;
       },
-
-      getSchMaps: function () {
-        if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
-          let sMap = this.$store.state.schoolMap;
-          for (const key in sMap) {
-            this.schoolIds.push(key);
-            this.schools.push(sMap[key]);
-          }
-        } else {
-          schoolList()
-            .then((res) => {
-              res.forEach((row) => {
-                this.schoolIds.push(row.cid);
-                this.schools.push(row.cname);
-                this.$store.commit("setSchMap", {
-                  cname: row.cname,
-                  cid: row.cid
-                });
-              })
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+      setNewsList: function(items) {
+        const adminId = getCookie("adminId");
+        for (let i = 0; i < items.length; i++) {
+          this.tableData.push({
+            upTime: items[i].date,
+            adminId: adminId,
+            schoolName: this.sMap[items[i].cid],
+            title: items[i].title
+          })
         }
       }
     },
     created() {
-      const uid = getCookie("uid");
       this.$axios.get("/api/admin/q/news")
         .then((res) => {
           console.log("获取新闻列表无误", res);
           let items = res.data.data;
-          for (let i = 0; i < items.length; i++) {
-            this.tableData.push({
-              upTime: items[i].date,
-              adminId: uid,
-              schoolName: items[i].cid,
-              title: items[i].title
-            })
+          if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
+            this.sMap = this.$store.state.schoolMap;
+            this.setNewsList(items);
+          } else {
+            schoolList()
+              .then((res) => {
+                res.forEach((row) => {
+                  this.$store.commit("setSchMap", {
+                    cname: row.cname,
+                    cid: row.cid
+                  });
+                  this.sMap[row.cid] = row.cname;
+                });
+                this.setNewsList(items);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
+
+
         })
         .catch((error) => {
           console.log("获取新闻列表有错误", error);
