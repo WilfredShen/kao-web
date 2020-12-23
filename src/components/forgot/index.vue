@@ -143,7 +143,7 @@
       };
     },
     methods: {
-      getCode: function() {
+      getCode: function () {
         if (this.status.resend > 0) {
           return;
         }
@@ -170,7 +170,7 @@
             console.log(err.data);
           });
       },
-      submit: function() {
+      submit: function () {
         this.$axios
           .post("/api/visitor/update-password", {
             username: this.forgotForm.username,

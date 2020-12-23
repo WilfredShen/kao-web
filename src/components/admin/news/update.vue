@@ -85,7 +85,6 @@
       }
     },
     methods: {
-
       commit: function() {
         //上传图片
         let file = this.$refs.upload.uploadFiles.pop().raw;
@@ -126,7 +125,7 @@
           });
       },
 
-      cancel: function() {
+      cancel: function () {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
       }

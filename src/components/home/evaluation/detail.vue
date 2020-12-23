@@ -1,53 +1,48 @@
 <template>
-  <div class="demo-wrapper">
-    <div style="margin: 20px 10px 30px 20px">
+  <div>
+    <div style="padding: 20px 10px 30px 20px;" :style="backgroundDiv">
       <span class="detail-title">
       高校评估结果快捷查询（第四轮）
       </span>
     </div>
-    <div style="margin: 10px 10px 10px 10px">
+    <div style="margin: 0 10px 10px 10px">
+
       <el-container style="width: 100%">
-        <el-aside class="border-style" style="padding: 1.6rem; background-color: white;width: 20%">
-          <div class="discipline-options">
-            <div
-              class="discipline-option"
-              v-for="(d, index) in discipline"
-              :key="index"
-              @click="setSelected(index)"
-            >
-            <span>
-              {{ d.dname }}
-            </span>
-            </div>
+        <el-aside style="padding: 1.6rem; background-color: white;width: 20%">
+          <div class="div-style" v-for="(item, index) in discipline" @click="setSelected(index)" :key="index">
+            <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
+              <el-col :span="24">
+                <img src="@/assets/image/点击.png" v-if="!(index-row)" width="13%" style="float: left;padding-right: 4px">
+                <div style="padding: 2px 4px" :class="{on:index===row}">{{item.dname}}</div>
+              </el-col>
+            </el-row>
           </div>
         </el-aside>
         <el-main style="padding: 0">
           <el-container>
-            <el-aside class="border-style" style="padding: 1.6rem; background-color: #e8e8e8 ;width: 30%">
-              <div class="major-options">
-                <div
-                  class="major-option"
-                  v-for="(m, index) in getMajors"
-                  :key="index"
-                  @click="selected.mindex = index"
-                >
-                  <span>
-                  {{ `${m.mid} ${m.mname}` }}
-                  </span>
-                </div>
+            <el-aside style="padding: 1.6rem; background-color: #D6E4F0 ;width: 30%">
+              <div class="major-options" v-for="(item, index) in getMajors" @click="selected.mindex = index;row2=index;"
+                   :key="index">
+                <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
+                  <el-col :span="24">
+                    <img src="@/assets/image/点击.png" v-if="!(index-row2)" width="12%"
+                         style="float: left;padding-right: 4px">
+                    <div style="padding: 2px 4px" :class="{on:index===row2}">{{ `${item.mid} ${item.mname}` }}</div>
+                  </el-col>
+                </el-row>
               </div>
             </el-aside>
-            <el-main class="border-style">
-              <div style="text-align: center">
-                <span style="font-size: 17px;font-weight: bold" v-if="this.getMajors[0]">
+            <el-main>
+              <div style="text-align: center;">
+                <span style="font-size: 19px;font-weight: bold" v-if="this.getMajors[0]">
                   {{ `${this.getMajors[this.selected.mindex].mid} ${this.getMajors[this.selected.mindex].mname}` }}
                 </span><br><br/>
                 <span>
                   本一级学科中，全国具有“博士授权”的高校共48所，本次参评38所；部分具有“硕士授权”的高校也参加了评估；参评高校共计84所。<br>(注:评估结果相同的高校排序不分先后，按学校代码排列)
                 </span>
-                <br><br/>
+                <el-divider></el-divider>
               </div>
-              <el-row style="margin-left: 12%;margin-bottom: 0;font-weight: bold; width: 90%">
+              <el-row style="margin-left: 6%;margin-bottom: 0;font-weight: bold; width: 90%">
                 <el-col :span="8">
                   <div class="grid-content bg-purple">评估结果</div>
                 </el-col>
@@ -58,17 +53,17 @@
                   <div class="grid-content bg-purple">学校名称</div>
                 </el-col>
               </el-row>
-              <el-scrollbar style="height: 400px" v-if="showEvaluation">
-                <div class="div-style" v-for="(item, index) in showEvaluation" :key="index">
-                  <el-row style="margin-left: 13%;width: 90%">
+              <el-scrollbar style="height: 500px" v-if="showEvaluation">
+                <div v-for="(item, index) in showEvaluation" :key="index">
+                  <el-row style="margin-left: 6%;width: 90%;padding: 8px 0" :class="{table:index%2===0}">
                     <el-col :span="8">
-                      <div class="grid-content bg-purple">{{item.result}}</div>
+                      <div style="padding-left:20px">{{item.result}}</div>
                     </el-col>
                     <el-col :span="8">
-                      <div class="grid-content bg-purple">{{item.cid}}</div>
+                      <div>{{item.cid}}</div>
                     </el-col>
                     <el-col :span="8">
-                      <div class="grid-content bg-purple">{{item.cname}}</div>
+                      <div>{{item.cname}}</div>
                     </el-col>
                   </el-row>
                 </div>
@@ -95,12 +90,20 @@
         selected: {
           did: '1',
           mindex: '0',
-        }
+        },
+        row: 0,
+        row2: 0,
+        showIcon: false,
+        backgroundDiv: {
+          backgroundImage: 'url(' + require('@/assets/image/bg4.png') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
       }
     },
     computed: {
       //获取所选学科的专业
-      getMajors: function() {
+      getMajors: function () {
         let list
         list = this.major.filter((item) => {
           return item.did === this.selected.did;
@@ -109,7 +112,7 @@
       },
 
       //获取所选专业的评估结果，学校代码对应的学校名称
-      showEvaluation: function() {
+      showEvaluation: function () {
         let Myeval = this.evaluation.filter((item) => {
           return item.mid === this.getMajors[this.selected.mindex].mid;
         });
@@ -120,7 +123,7 @@
         for (let i in Myeval) {
           Myeval[i].cname = this.schoolMap[Myeval[i].cid].cname;
         }
-        let compare = function(obj1, obj2) {
+        let compare = function (obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -159,7 +162,7 @@
       }
     },
     watch: {
-      selected: function() {
+      selected: function () {
         console.log("selected", this.selected);
       },
     },
@@ -217,6 +220,9 @@
       setSelected(index) {
         this.selected.did = this.discipline[index].did;
         this.selected.mindex = 0;
+        this.background = true;
+        this.row = index;
+        this.showIcon = true;
       }
     }
   }
@@ -230,17 +236,12 @@
   }
 
   .detail-title {
-    margin: 30px 0 30px 10px;
-    font-size: 18px;
+    text-align: center;
+    display: block;
+    font-size: 25px;
     font-weight: bold;
-  }
-
-  .div-style {
-    margin: 5px 0;
-  }
-
-  .border-style {
-    border: 1px solid gray;
+    font-family: "微软雅黑";
+    color white;
   }
 
   .discipline-option, .major-option {
@@ -248,9 +249,13 @@
     /*光标在当前标签悬浮时显示的内容*/
 
     &:hover {
-      background-color: #ffffff;
+      background-color: #D6E4F0;
     }
     margin: 5px 0;
+  }
+
+  span:focus {
+    background orange;
   }
 
   .el-row {
@@ -278,6 +283,13 @@
     overflow-x: hidden;
   }
 
+  .on {
+    background: #D6E4F0;
+  }
+
+  .table {
+    background #d6e4f0
+  }
 </style>
 <style>
   .el-scrollbar__wrap {

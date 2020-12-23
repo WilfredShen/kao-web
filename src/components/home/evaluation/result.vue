@@ -186,14 +186,14 @@
       }
     },
     methods: {
-      getSchoolList: function() {
+      getSchoolList: function () {
         schoolList()
           .then((res) => {
             this.schools = res;
           });
       },
 
-      getDisciplineList: function() {
+      getDisciplineList: function () {
         disciplineList()
           .then((res) => {
             this.disciplines = res;
@@ -201,7 +201,7 @@
           });
       },
 
-      getMajorListAll: function() {
+      getMajorListAll: function () {
         majorList()
           .then((res) => {
             this.allMajors = res;
@@ -209,7 +209,7 @@
           });
       },
 
-      getMajorList: function(id) {
+      getMajorList: function (id) {
         this.majors = [];
         majorList()
           .then((res) => {
@@ -221,7 +221,7 @@
           });
       },
 
-      getSchoolName: function(cid) {
+      getSchoolName: function (cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
@@ -229,7 +229,7 @@
         }
       },
 
-      getMajorName: function(mid) {
+      getMajorName: function (mid) {
         for (let i = 0; i < this.allMajors.length; i++) {
           if (this.allMajors[i].mid === mid) {
             return this.allMajors[i].mname;
@@ -237,7 +237,7 @@
         }
       },
 
-      getTmpResults: function() {
+      getTmpResults: function () {
         getEvaluationList(this.round)
           .then((res) => {
             this.resultList = [];
@@ -319,7 +319,7 @@
           });
       },
 
-      setFavorMajor: function() {
+      setFavorMajor: function () {
         console.log("进入一键收藏")
         console.log(this.$store.state.uid);
         setFavouriteMajor(this.favorMajors)
@@ -340,13 +340,13 @@
           });
       },
 
-      schoolClick: function(cid) {
+      schoolClick: function (cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
 
-      exportExcel: function() {
+      exportExcel: function () {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.resultList.map((item) => {

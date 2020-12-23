@@ -1,33 +1,31 @@
 <template style="margin-left:12%;margin-right: 12%">
   <div class="div-style">
-    <img class="img-style" style="float: left" src="@/assets/image/logo11.png">
-    <div class="header-sty">
-      <span class="span-style">教育部学科评估管理系统</span>
-      <el-button size="mini" style="float: right" @click="$router.push('/login')" v-if="!hasLogin"> 登录
+    <div style="background-color: #163172">
+      <img class="img-style" style="float: left" src="@/assets/image/logo白(已去底).png">
+      <div class="header-sty">
+        <span class="span-style">教育部学科评估管理系统</span>
+        <el-button size="mini" style="float: right;margin:2% 2% 0 0;color: dimgray" @click="$router.push('/login')"
+                   v-if="!hasLogin"> 登录
+        </el-button>
+        <el-button size="mini" style="float: right;margin:2% 2% 0 0;color: dimgray" @click="logOut()" v-if="hasLogin">
+          退出登录
+        </el-button>
+        <el-menu :default-active="activeIndex2"
+                 :router="true" @select="handleSelect()"
+                 class="el-menu-demo" mode="horizontal"
+                 background-color="#163172"
+                 text-color="#ffffff"
+                 style="font-weight: bold;width: 60%"
+                 active-text-color="#E03E36">
+          <el-menu-item index="/">首页</el-menu-item>
+          <el-menu-item index="/evaluation/result">评估结果</el-menu-item>
+          <el-menu-item index="/college/detail">学校详情</el-menu-item>
+          <el-menu-item index="/camp"> 夏令营</el-menu-item>
+          <el-menu-item index="/analysis" v-if="isTut">生源分析</el-menu-item>
+          <el-menu-item index="/user" v-if="hasLogin">个人主页</el-menu-item>
+        </el-menu>
+      </div>
 
-      </el-button>
-      <el-button size="mini" style="float: right" @click="logOut()" v-if="hasLogin"> 退出登录
-      </el-button>
-      <el-menu :router="true" class="el-menu-demo" mode="horizontal">
-        <router-link to="/" class="nav-i">
-          <el-menu-item>首页</el-menu-item>
-        </router-link>
-        <router-link to="/evaluation/result" class="nav-i">
-          <el-menu-item>评估结果</el-menu-item>
-        </router-link>
-        <router-link to="/college/detail" class="nav-i">
-          <el-menu-item>学校详情</el-menu-item>
-        </router-link>
-        <router-link to="/camp" class="nav-i">
-          <el-menu-item>夏令营</el-menu-item>
-        </router-link>
-        <router-link to="/analysis" class="nav-i" v-if="isTut">
-          <el-menu-item>生源分析</el-menu-item>
-        </router-link>
-        <router-link to="/user" class="nav-i" v-if="hasLogin">
-          <el-menu-item>个人主页</el-menu-item>
-        </router-link>
-      </el-menu>
     </div>
     <br>
     <keep-alive>
@@ -47,6 +45,7 @@
         isStu: false,
         isTut: false,
         hasLogin: false,
+        activeIndex2: '/',
       }
     },
     created() {
@@ -73,6 +72,9 @@
         setCookie("accessToken", "", 0);
         this.$store.commit('setUid', '');
         location.reload();
+      },
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
       }
     }
   }
@@ -80,19 +82,20 @@
 
 <style scoped>
   .img-style {
-    width: 10%;
+    width: 9%;
     top: 0;
+    padding: 10px 0 0 5px;
   }
 
   .span-style {
     font-weight: bold;
     font-size: 25px;
     position: relative;
-    color: black;
+    color: white;
   }
 
   .header-sty {
-    margin: 10px 0 0 12%;
+    padding: 10px 0 0 12%;
   }
 
   .nav-i {
