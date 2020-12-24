@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="choose" style="display: flex;flex-direction: column;justify-content: space-around">
-      <p style="margin-right: 10px;padding-left: 0;font-weight: bold;font-size: 17px">筛选条件：</p>
+      <div class="filter-style">
+        <p>筛选条件</p>
+      </div>
       <div style="display: flex;align-items: center;">
-        <p style="margin-right: 10px;padding-left: 0">模糊查找 : </p>
+        <p style="margin-right: 10px;padding-left: 0">模糊查找学校 : </p>
         <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher()"
                   @focus="cleanSearch()" clearable></el-input>
       </div>
@@ -35,9 +37,8 @@
         <el-button size="small" style="width: 150px;margin-top: 10px;margin-bottom: 0;right: 0" @click="getSearch()">查询
         </el-button>
       </div>
-
     </div>
-
+    <el-divider></el-divider>
     <div class="result" style="margin-top: 50px;text-align: center">
       <el-row style="margin-bottom: 0;font-weight: bold">
         <el-col :span="8">
@@ -71,7 +72,8 @@
 
 <script>
   import {majorList, schoolList} from "@/assets/lib/getResultLjm";
-  import {getSomeResult, rankList} from "@/assets/lib/getResultLjm";
+  import {getSomeResult} from "@/assets/lib/getResultLjm";
+  import {getLastestCollegeRank} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'CollegeDetail',
@@ -145,7 +147,18 @@
           this.isQS = false;
         }
       },
-
+      //修改对象的key
+      changeKeys(arr, key) {
+        let newArr = [];
+        arr.forEach(item => {
+          let obj = {};
+          for (var i = 0; i < key.length; i++) {
+            obj[key[i]] = item[Object.keys(item)[i]]
+          }
+          newArr.push(obj);
+        })
+        return newArr;
+      },
       //模糊查询
       fuzzySearcher: function () {
         let fsInput = this.input.trim().split(/\s+/);
@@ -206,8 +219,8 @@
           }
           return result;
         };
-
-        if (this.input === "undefined" || this.input === null || this.input.length === 0) {//没有进行模糊查询
+        //没有进行模糊查询
+        if (this.input === "undefined" || this.input === null || this.input.length === 0) {
           this.$confirm('没有进行模糊查询，此操作将导致在所有参评学校中查询！', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -251,43 +264,48 @@
               //QS增加学校排名
               if (this.isQS) {
                 console.log("QS");
-                let list = [];
-                this.afterFilter = this.school;
-                this.getRank(this.afterFilter[99].cid);
-                console.log(this.otherEvalResult);
-                // console.log("get", typeof this.otherEvalResult);
+                this.afterFilter = this.otherEvalResult.filter((item) => {
+                  return item.rid === '2';
+                });
+                //增加学校名称属性
                 // this.afterFilter.forEach((item) => {
-                //   this.$set(item, 'result', "");
+                //   this.$set(item, 'cname', "");
                 // });
-                // for (let i = 0; i < this.afterFilter.length; i++) {
-                //   this.getOtherEvaluation(this.afterFilter.cid);
-                //   console.log("get", this.otherEvalResult);
-                //   if (Object.keys(this.otherEvalResult).length!==0 && this.otherEvalResult["QS"]) {
-                //     this.afterFilter[i].result = this.otherEvalResult["QS"];
-                //     list.push(this.afterFilter[i]);
-                //   }
-                // }
-                // this.afterFilter=list;
-                console.log("after", list);
+                for (let i = 0; i < this.afterFilter.length; i++) {
+                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                }
+                //增加result字段
+                this.afterFilter.forEach((item) => {
+                  item.result = item.rank;
+                });
+                // console.log("re",this.afterFilter);
               }
               //软科增加学校排名
               if (this.isARWU) {
                 console.log("软科");
-                this.afterFilter = this.school;
-                this.afterFilter.forEach((item) => {
-                  this.$set(item, 'result', "");
+                this.afterFilter = this.otherEvalResult.filter((item) => {
+                  return item.rid === '3';
                 });
+                //增加学校名称属性
+                // this.afterFilter.forEach((item) => {
+                //   this.$set(item, 'cname', "");
+                // });
                 for (let i = 0; i < this.afterFilter.length; i++) {
-                  let list = [];
-                  list = this.getOtherEvaluation(this.afterFilter[i].cid);
-                  this.afterFilter[i].result = list["软科"].result;
+                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
                 }
+                //增加result字段
+                this.afterFilter.forEach((item) => {
+                  item.result = item.rank;
+                });
+                // console.log("re",this.afterFilter);
               }
               //排序
               this.afterFilter = this.afterFilter.sort(compare);
               // console.log("after", this.afterFilter);
             })
-        } else {//进行了模糊查询
+        }
+        //进行了模糊查询
+        else {
           this.afterFilter = [];
           //学科评估
           if (this.isNormal) {
@@ -325,29 +343,53 @@
           }
           //QS
           if (this.isQS) {
+            let list = this.otherEvalResult.filter((item) => {
+              return item.rid === '2';
+            });
             console.log("fzQS");
-            this.afterFilter = this.fsResult;
+            for (let i = 0; i < this.fsResult.length; i++) {
+              this.afterFilter = this.afterFilter.concat(list.filter((item) => {
+                  return item.cid === this.fsResult[i].cid;
+                })
+              )
+            }
+            //增加学校名称属性
             this.afterFilter.forEach((item) => {
-              this.$set(item, 'result', "");
+              this.$set(item, 'cname', "");
             });
             for (let i = 0; i < this.afterFilter.length; i++) {
-              let list = [];
-              list = this.getOtherEvaluation(this.afterFilter[i].cid);
-              this.afterFilter[i].result = list["QS"].result;
+              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
             }
+            //增加result字段
+            this.afterFilter.forEach((item) => {
+              item.result = item.rank;
+            });
+            console.log("fzre", this.afterFilter);
           }
           //软科
           if (this.isARWU) {
-            console.log("fzruanke");
-            this.afterFilter = this.fsResult;
+            let list = this.otherEvalResult.filter((item) => {
+              return item.rid === '3';
+            });
+            console.log("fzARWU");
+            for (let i = 0; i < this.fsResult.length; i++) {
+              this.afterFilter = this.afterFilter.concat(list.filter((item) => {
+                  return item.cid === this.fsResult[i].cid;
+                })
+              )
+            }
+            //增加学校名称属性
             this.afterFilter.forEach((item) => {
-              this.$set(item, 'result', "");
+              this.$set(item, 'cname', "");
             });
             for (let i = 0; i < this.afterFilter.length; i++) {
-              let list = [];
-              list = this.getOtherEvaluation(this.afterFilter[i].cid);
-              this.afterFilter[i].result = list["软科"].result;
+              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
             }
+            //增加result字段
+            this.afterFilter.forEach((item) => {
+              item.result = item.rank;
+            });
+            console.log("fzre", this.afterFilter);
           }
 
           if (this.afterFilter.length === 0) {
@@ -366,14 +408,6 @@
       schoolClick: function (cid) {
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
-      },
-      getRank: function (cid) {
-        const arr = this;
-        rankList(cid)
-          .then((res) => {
-            arr.otherEvalResult = res;
-            console.log("rank", this.otherEvalResult);
-          });
       },
     },
     created() {
@@ -406,13 +440,18 @@
         .then((res) => {
           this.evalResult = res.data;
         });
+
+      getLastestCollegeRank()
+        .then((res) => {
+          this.otherEvalResult = res;
+          // console.log("other",this.otherEvalResult);
+        })
     }
   }
 </script>
 
 <style scoped>
   .choose, .result {
-    border: solid 1px darkgrey;
     padding: 5px 20px 5px 20px;
   }
 
@@ -427,6 +466,14 @@
 
   .el-scrollbar__wrap {
     overflow-x: hidden;
+  }
+
+  .filter-style {
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 19px;
+    background: #d6e4f0;
+    text-align: center;
   }
 
 </style>

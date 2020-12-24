@@ -85,7 +85,7 @@
       }
     },
     methods: {
-      commit: function() {
+      commit: function () {
         //上传图片
         let file = this.$refs.upload.uploadFiles.pop().raw;
         let formData = new FormData();
