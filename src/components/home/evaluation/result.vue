@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="bor2">
-      <div class="marg">
-        <span style="font-weight:bold;font-size:16px">
+    <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
+      <div style="background-color:#163172;height:50px;margin-left: 0px;margin-right: 0px">
+        <span class="spana">
         筛选条件
         </span>
       </div>
       <!--      轮次-->
-      <div class="marg">
-        <span style="font-size:14px">
+      <div class="marg" style="margin-top: 20px">
+        <span class="spanb">
           轮次 :
         </span>
-        <el-select v-model="round" placeholder="请选择" size="mini">
+        <el-select v-model="round" placeholder="请选择" size="mini" style="font-family: 宋体">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -23,10 +23,10 @@
       </div>
       <!--      学类-->
       <div class="marg">
-        <span style="font-size:14px">
+        <span class="spanb">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" @change="getMajorList(disciplineCode)">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体" @change="getMajorList(disciplineCode)">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -37,10 +37,10 @@
       </div>
       <!--      学科-->
       <div class="marg">
-        <span style="font-size:14px">
+        <span class="spanb">
           学科 :
         </span>
-        <el-select v-model="majorCode" placeholder="请选择" size="mini">
+        <el-select v-model="majorCode" placeholder="请选择" size="mini" style="font-family: 宋体">
           <el-option
             v-for="item in majors"
             :key="item.mid"
@@ -51,10 +51,10 @@
       </div>
       <!--      等级-->
       <div class="marg">
-        <span style="font-size:14px">
+        <span class="spanb">
           等级 :
         </span>
-        <el-select v-model="level" multiple placeholder="请选择" size="mini">
+        <el-select v-model="level" multiple placeholder="请选择" size="mini" style="font-family: 宋体">
           <el-option
             v-for="item in option4"
             :key="item.value4"
@@ -63,27 +63,26 @@
           >
           </el-option>
         </el-select>
-        <el-button size="medium" round @click="getTmpResults()" style="margin-left:10px">确定</el-button>
+        <el-button size="small" round @click="getTmpResults()" style="margin-left:10px">确定</el-button>
       </div>
     </div>
     <br>
-    <div class="bor2">
-      <div class="marg">
-        <div style="margin: 20px 10px 30px 20px">
-          <span style="font-weight:bold;font-size:16px;">
+    <div class="bor2"><div style="background-color:#163172;height:50px;margin-left: 0px;margin-right: 0px">
+
+          <span class="spana">
           筛选结果
         </span>
         </div>
         <el-main>
           <el-scrollbar style="height: 350px">
-            <table width="1000px">
-              <tr>
+            <table style="margin-left: 0px;width: 1150px">
+              <tr style="font-size:20px;font-family: 微软雅黑">
                 <th>学科名称及代码</th>
                 <th>高校名称及代码</th>
-                <th>评估等级</th>
+                <th>&nbsp;&nbsp;评估等级&nbsp;&nbsp;&nbsp; </th>
               </tr>
               <tr v-for="(item, index) in resultList" :key="index"
-                  style="text-align:center;line-height:50px">
+                  style="text-align:center;line-height:50px;" :class="{table:index%2===0}">
                 <td>{{item.mid+getMajorName(item.mid)}}</td>
                 <td @click="schoolClick(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
                 <td>{{item.result}}</td>
@@ -91,7 +90,6 @@
             </table>
           </el-scrollbar>
         </el-main>
-      </div>
       <div>
       </div>
     </div>
@@ -172,7 +170,7 @@
           dindex: 0
         },
         loading: true,
-        round: "4",//轮次
+        round: "",//轮次
         disciplines: [],//学类
         majors: [],//学科
         schools: [],
@@ -308,7 +306,9 @@
             }
             console.log("resultList" + this.resultList);
             if (this.resultList.length <= 0) {
-              this.$message("无数据");
+              this.$alert('无数据,请更换查询条件！', '提示', {
+                confirmButtonText: '确定',
+              });
             }
             for (let i = 0; i < this.resultList.length; i++) {
               this.favorMajors.push({
@@ -372,19 +372,30 @@
 </script>
 
 <style>
-  .bor2 {
-    border: 1px solid black;
-  }
-
   .marg {
     margin: 10px 20px;
   }
+  .spana{
+    line-height:50px;
+    font-weight:bold;
+    font-size:20px;
+    color: white;
+    margin-left:10px
+  }
+  .spanb{
+    font-size :14px;
+    font-family: 宋体;
+    font-weight:bold;
 
+  }
   .el-row {
     margin-bottom: 20px;
   }
 
   .el-col {
     border-radius: 4px;
+  }
+  .table {
+    background:#d6e4f0;
   }
 </style>
