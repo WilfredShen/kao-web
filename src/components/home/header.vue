@@ -71,6 +71,7 @@
         setCookie("adminId", "", 0);
         setCookie("accessToken", "", 0);
         this.$store.commit('setUid', '');
+        this.$router.push("/");
         location.reload();
       },
       handleSelect(key, keyPath) {

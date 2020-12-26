@@ -1,33 +1,42 @@
 <template>
-  <div>
-    <span style="font-size: 20px;font-weight: bold">最近消息</span>
-    <div style="width: 100%">
-      <el-scrollbar style="height: 500px">
-        <table style="width: 100%;margin-top: 25px">
-          <tr>
-            <th class="myth" style="height: 60px;text-align: center;">关注的高校</th>
-            <th class="myth">信息类型</th>
-            <th class="myth">新闻链接</th>
-            <th class="myth">更新日期</th>
-          </tr>
-          <tr v-for="(item,index) in tableData" :key="index" v-bind:class="index%2!==0 ? 'change-color' : ''">
-            <td class="tds">{{item.focusSchool}}</td>
-            <td class="tds">{{item.infoType}}</td>
-            <td class="tds"><a :href="item.linkTo" target="_blank">链接</a></td>
-            <td class="tds">{{item.upDate}}</td>
-          </tr>
-        </table>
-      </el-scrollbar>
+  <div :style="myBackground" class="center">
+<!--    <div style="width: 70%;height: 80%">-->
+      <div class="tableTransparent" style="width: 70%;height: 80%">
+      <el-table :data="tableData" :height="height"
+                :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
+                :row-style="{height:'60px'}"
+                style="font-size: 18px;font-weight: bold;color: #ffffff">
+        <el-table-column prop="focusSchool" align="center" label="关注高校"></el-table-column>
+        <el-table-column prop="infoType" align="center" label="新闻类型"></el-table-column>
+        <el-table-column sortable prop="upDate" align="center" label="更新时间"></el-table-column>
+        <el-table-column align="center" label="链接">
+          <template slot-scope="scope">
+            <span @click="skip(scope.row['linkTo'])" style="width: 50px;height: 20px;">链接</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      </div>
     </div>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
   export default {
     name: 'FocusNews',
+    props: {
+      height: {
+        type: String,
+        default: '100%'
+      }
+    },
     data() {
       return {
-        tableData: []
+        tableData: [],
+        myBackground: {
+          backgroundImage: 'url(' + require('@/assets/image/userback.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
       }
     },
     created() {
@@ -52,27 +61,35 @@
         .catch((error) => {
           console.log(error);
         });
+    },
+    methods: {
+      skip(e) {
+        window.open(e);
+      },
     }
   }
 </script>
 
 <style scoped>
-  .myth {
-    height: 80px;
-    text-align: center;
-    background-color: #1e56a0;
-    font-size: 20px;
-    color: white;
+  .center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
   }
 
-  .change-color {
-    background-color: #d6e4f0;
+  .tableTransparent /deep/  .el-table, .el-table__expanded-cell {
+    background-color:transparent;
   }
 
-  .tds {
-    width: 25%;
-    height: 50px;
-    text-align: center;
-    font-size: 16px;
+  .tableTransparent /deep/ .el-table tr {
+    background-color: rgba(255, 255, 255, 0.25 ) !important;
+  }
+
+  .tableTransparent >>> .el-table tr:hover {
+    background: rgba(245,247,250, 0.1 ) !important;
+    color: black;
   }
 </style>

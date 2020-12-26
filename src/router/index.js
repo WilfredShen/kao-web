@@ -71,7 +71,40 @@ export default new VueRouter({
     {
       path: '/user',
       name: 'User',
+      redirect:'/user/info',
       component: () => import('@/components/user/index'),
+      children: [
+        {
+          path: 'info',
+          name: 'Info',
+          component: () => import('@/components/user/info')
+        },
+        {
+          path: 'student/favor',
+          name: 'Favor',
+          component: () => import('@/components/user/student/favor')
+        },
+        {
+          path: 'student/focus-news',
+          name: 'FocusNews',
+          component: () => import('@/components/user/student/focus-news')
+        },
+        {
+          path: 'student/info',
+          name: 'StudentInfo',
+          component: () => import('@/components/user/student/info')
+        },
+        {
+          path: 'tutor/info',
+          name: 'TutorInfo',
+          component: () => import('@/components/user/tutor/info')
+        },
+        {
+          path: 'tutor/query-student',
+          name: 'QueryStudent',
+          component: () => import('@/components/user/tutor/query-student')
+        }
+      ]
     }
   ]
 })

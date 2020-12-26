@@ -1,131 +1,62 @@
 <template>
   <el-container class="container">
-    <el-header class="header" height="80px" style="margin-bottom: 20px">
-      <el-row>
-        <el-col :span="16" class="header-logo">
-          <div class="grid-content bg-purple">
-            <img class="img-style" style="float: left" src="@/assets/image/logo11.png">
-          </div>
-        </el-col>
-        <el-col :span="8" class="right-section">
-          <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner" style="margin-top: 20px;font-size: 20px;color: black">欢迎您,{{username}}</span>
-          </div>
-        </el-col>
-      </el-row>
-    </el-header>
-    <el-container>
-      <el-aside class="aside">
-        <el-menu class="el-menu-vertical-demo" router>
-          <el-menu-item @click="clearAll(2)">
-            <i class="el-icon-document"></i>
-            <span slot="title" style="font-size: 15px">基本信息</span>
-          </el-menu-item>
-          <el-menu-item @click="clearAll(1)" v-if="isStu">
-            <i class="el-icon-menu"></i>
-            <span slot="title" style="font-size: 15px">最近消息</span>
-          </el-menu-item>
-          <el-menu-item @click="clearAll(3)" v-if="isStu">
-            <i class="el-icon-folder-opened"></i>
-            <span slot="title" style="font-size: 15px">收藏夹</span>
-          </el-menu-item>
-          <el-menu-item @click="clearAll(4)" v-if="isStu">
-            <i class="el-icon-reading"></i>
-            <span slot="title" style="font-size: 15px">学生信息</span>
-          </el-menu-item>
-          <el-menu-item @click="clearAll(5)" v-if="isTut">
-            <i class="el-icon-reading"></i>
-            <span slot="title" style="font-size: 15px">导师信息</span>
-          </el-menu-item>
-          <el-menu-item @click="clearAll(6)" v-if="isTut">
-            <i class="el-icon-search"></i>
-            <span slot="title" style="font-size: 15px">查询学生</span>
-          </el-menu-item>
-          <el-menu-item index="/">
-            <i class="el-icon-s-home"></i>
-            <span slot="title" style="font-size: 15px">返回首页</span>
-          </el-menu-item>
-        </el-menu>
-        <!--        <el-image :src="img" style="width: 200px;height: 150px;margin-top: 50px"></el-image>-->
-      </el-aside>
-      <el-main class="main">
+    <el-menu :router="true"
+             style="background-color: #163172;">
+      <el-menu-item index="/user/info">
+        <i class="el-icon-document"></i>
+        <span class="itemContent" slot="title">基本信息</span>
+      </el-menu-item>
+      <el-menu-item index="/user/student/info" v-if="isStu">
+        <i class="el-icon-reading"></i>
+        <span class="itemContent" slot="title">学生信息</span>
+        <el-menu-item index="/user/tutor/info" v-if="isTut">
+          <i class="el-icon-reading"></i>
+          <span class="itemContent" slot="title">导师信息</span>
+        </el-menu-item>
+      </el-menu-item>
+      <el-menu-item index="/user/student/focus-news" v-if="isStu">
+        <i class="el-icon-menu"></i>
+        <span class="itemContent" slot="title">最近消息</span>
+      </el-menu-item>
+      <el-menu-item index="/user/student/favor" v-if="isStu">
+        <i class="el-icon-folder-opened"></i>
+        <span class="itemContent" slot="title">收藏夹</span>
+      </el-menu-item>
+      <el-menu-item index="/user/tutor/query-student" v-if="isTut">
+        <i class="el-icon-search"></i>
+        <span class="itemContent" slot="title">查询学生</span>
+      </el-menu-item>
+      <el-menu-item index="/">
+        <i class="el-icon-s-home"></i>
+        <span class="itemContent" slot="title">返回首页</span>
+      </el-menu-item>
+    </el-menu>
+    <div style="width: 100%;height: 100vh;">
+<!--      <div style="height: 10%;background-color:#163172;width: 100%"></div>-->
+      <div style="height: 100%;width: 100%">
         <keep-alive>
-          <focus-news v-if="selfHome"></focus-news>
+          <router-view></router-view>
         </keep-alive>
-        <keep-alive>
-          <favor v-if="collect"></favor>
-        </keep-alive>
-        <keep-alive>
-          <info v-if="basicInfo"></info>
-        </keep-alive>
-        <keep-alive>
-          <query-student v-if="queryStu"></query-student>
-        </keep-alive>
-        <keep-alive>
-          <student-info v-if="stuInfo"></student-info>
-        </keep-alive>
-        <keep-alive>
-          <tutor-info v-if="tutInfo"></tutor-info>
-        </keep-alive>
-      </el-main>
-    </el-container>
+      </div>
+    </div>
   </el-container>
 </template>
 
 <script>
 
-  import FocusNews from "./student/focus-news";
-  import Favor from "./student/favor";
-  import QueryStudent from "./tutor/query-student";
-  import StudentInfo from "./student/info";
-  import TutorInfo from "./tutor/info";
-  import Info from "./info";
   import {getLimit, getUsername} from "@/assets/lib/getAndSetSelf";
 
   export default {
     name: 'User',
-    components: {
-      FocusNews,
-      Favor,
-      QueryStudent,
-      StudentInfo,
-      TutorInfo,
-      Info
-    },
     data() {
       return {
         selected: 2,
         isStu: false,
         isTut: false,
         username: '',
-        img: require("@/assets/image/logo11.png")
       }
     },
-    computed: {
-      selfHome: function () {
-        return this.selected === 1;
-      },
-      basicInfo: function () {
-        return this.selected === 2;
-      },
-      collect: function () {
-        return this.selected === 3;
-      },
-      stuInfo: function () {
-        return this.selected === 4;
-      },
-      tutInfo: function () {
-        return this.selected === 5;
-      },
-      queryStu: function () {
-        return this.selected === 6;
-      },
-    },
-    methods: {
-      clearAll(val) {
-        this.selected = val;
-      },
-    },
+    methods: {},
     created() {
       getLimit()
         .then((res) => {
@@ -151,36 +82,29 @@
     font-size: 15px;
   }
 
-  .header {
-    background: #d6e4f0;
-    color: #000;
+  .itemContent {
+    font-size: 16px;
   }
 
-  .aside {
-    color: #fff;
-    width: 50px;
-    height: 600px;
-    text-align: center;
+  .el-menu-item {
+    background-color: #163172;
+    color: white;
+    height: 70px;
   }
 
-  .main {
-    /* height: 100%; */
-    color: #212121;
+  .el-menu-item:hover {
+    background-color: #3282B8;
   }
 
-  .header-logo {
-    line-height: 60px;
-    margin-top: 10px;
+  .el-menu-item.is-active {
+    background-color: #3282B8;
+    color: #ffffff;
+    border-right: 6px solid #409EFF;
   }
 
-  .right-section {
-    line-height: 60px;
-    text-align: center;
+  .el-icon-folder-opened, .el-icon-reading, .el-icon-search, .el-icon-document, .el-icon-menu, .el-icon-s-home {
+    color: white;
   }
 
-  .img-style {
-    width: 10%;
-    top: 0;
-    margin-left: 7%;
-  }
+
 </style>
