@@ -50,7 +50,7 @@
       edit: function () {
         this.editNews = true;
       },
-      setNewsList: function(items) {
+      setNewsList: function (items) {
         const adminId = getCookie("adminId");
         for (let i = 0; i < items.length; i++) {
           this.tableData.push({

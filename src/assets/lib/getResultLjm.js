@@ -164,13 +164,9 @@ export function getLatestNews() {
 }
 
 //获取学校各个排行榜最新的排名
-export function getLastestCollegeRank(cid) {
+export function getLastestCollegeRank() {
   return new Promise((resolve, reject) => {
-    axios.get("/api/base/latest-college-rank", {
-      params: {
-        cid: cid
-      }
-    })
+    axios.get("/api/base/college-rank")
       .then((res) => {
         console.log(resolve);
         resolve(res.data.data);
