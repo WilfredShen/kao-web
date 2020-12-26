@@ -57,7 +57,7 @@
       }
     },
     methods: {
-      commit: function () {
+      commit: function() {
         //上传图片
         let file = this.$refs.upload.uploadFiles.pop().raw;
         let formData = new FormData();
@@ -126,5 +126,9 @@
 <style scoped>
   .input {
     width: 250px;
+  }
+
+  .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+    overflow: scroll !important;
   }
 </style>

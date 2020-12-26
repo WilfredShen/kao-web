@@ -68,7 +68,7 @@
                        style=" margin: 7px 0">
                 <el-row style="margin: 0 4px;padding: 8px 0">
                   <el-col :span="8">
-                    <div @click="schoolClick(item.cid)">{{item.cid+item.cname}}</div>
+                    <div @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cid+item.cname}}</div>
                   </el-col>
                   <el-col :span="8" v-if="isNormal">
                     <div>{{item.mid+item.mname}}</div>
@@ -237,185 +237,191 @@
           return result;
         };
         //没有进行模糊查询
-        if (this.input === "undefined" || this.input === null || this.input.length === 0) {
-          this.$confirm('没有进行模糊查询，此操作将导致在所有参评学校中查询！', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
-            .then(() => {
-              //学科评估筛选等级、增加专业名称
-              if (this.isNormal) {
-                console.log("Normal");
-                this.afterFilter = this.evalResult;
-
-                //筛选等级
-                console.log("level", this.level);
-
-                if (this.level.length > 0) {
-                  let list = [];
-                  for (let i = 0; i < this.level.length; i++) {
-                    list = list.concat(this.afterFilter.filter((item) => {
-                      return item.result === this.level[i];
-                    }));
-                  }
-                  this.afterFilter = list;
-                }
-
-                //增加学校名称属性
-                this.afterFilter.forEach((item) => {
-                  this.$set(item, 'cname', "");
-                });
-                for (let i = 0; i < this.afterFilter.length; i++) {
-                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
-                }
-
-                //增加专业名字段
-                this.afterFilter.forEach((item) => {
-                  this.$set(item, 'mname', "");
-                });
-                for (let i = 0; i < this.afterFilter.length; i++) {
-                  this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
-                }
-              }
-              //QS增加学校排名
-              if (this.isQS) {
-                console.log("QS");
-                this.afterFilter = this.otherEvalResult.filter((item) => {
-                  return item.rid === '2';
-                });
-                //增加学校名称属性
-                // this.afterFilter.forEach((item) => {
-                //   this.$set(item, 'cname', "");
-                // });
-                for (let i = 0; i < this.afterFilter.length; i++) {
-                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
-                }
-                //增加result字段
-                this.afterFilter.forEach((item) => {
-                  item.result = item.rank;
-                });
-                // console.log("re",this.afterFilter);
-              }
-              //软科增加学校排名
-              if (this.isARWU) {
-                console.log("软科");
-                this.afterFilter = this.otherEvalResult.filter((item) => {
-                  return item.rid === '3';
-                });
-                //增加学校名称属性
-                // this.afterFilter.forEach((item) => {
-                //   this.$set(item, 'cname', "");
-                // });
-                for (let i = 0; i < this.afterFilter.length; i++) {
-                  this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
-                }
-                //增加result字段
-                this.afterFilter.forEach((item) => {
-                  item.result = item.rank;
-                });
-                // console.log("re",this.afterFilter);
-              }
-              //排序
-              this.afterFilter = this.afterFilter.sort(compare);
-              // console.log("after", this.afterFilter);
+        if (this.isARWU || this.isQS || this.isNormal) {//选择了评价体系
+          if (this.input === "undefined" || this.input === null || this.input.length === 0) {
+            this.$confirm('没有进行模糊查询，此操作将导致在所有参评学校中查询！', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
             })
-        }
-        //进行了模糊查询
-        else {
-          this.afterFilter = [];
-          //学科评估
-          if (this.isNormal) {
-            console.log("fzNormal");
-            for (let i = 0; i < this.fsResult.length; i++) {
-              this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
-                return item.cid === this.fsResult[i].cid;
-              }));
-            }
-            console.log("firstafter", this.afterFilter);
-            //筛选等级
-            if (this.level.length > 0) {
-              let list = [];
-              for (let i = 0; i < this.level.length; i++) {
-                list = list.concat(this.afterFilter.filter((item) => {
-                  return item.result === this.level[i];
+              .then(() => {
+                //学科评估筛选等级、增加专业名称
+                if (this.isNormal) {
+                  console.log("Normal");
+                  this.afterFilter = this.evalResult;
+
+                  //筛选等级
+                  console.log("level", this.level);
+
+                  if (this.level.length > 0) {
+                    let list = [];
+                    for (let i = 0; i < this.level.length; i++) {
+                      list = list.concat(this.afterFilter.filter((item) => {
+                        return item.result === this.level[i];
+                      }));
+                    }
+                    this.afterFilter = list;
+                  }
+
+                  //增加学校名称属性
+                  this.afterFilter.forEach((item) => {
+                    this.$set(item, 'cname', "");
+                  });
+                  for (let i = 0; i < this.afterFilter.length; i++) {
+                    this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                  }
+
+                  //增加专业名字段
+                  this.afterFilter.forEach((item) => {
+                    this.$set(item, 'mname', "");
+                  });
+                  for (let i = 0; i < this.afterFilter.length; i++) {
+                    this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+                  }
+                }
+                //QS增加学校排名
+                if (this.isQS) {
+                  console.log("QS");
+                  this.afterFilter = this.otherEvalResult.filter((item) => {
+                    return item.rid === '2';
+                  });
+                  //增加学校名称属性
+                  // this.afterFilter.forEach((item) => {
+                  //   this.$set(item, 'cname', "");
+                  // });
+                  for (let i = 0; i < this.afterFilter.length; i++) {
+                    this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                  }
+                  //增加result字段
+                  this.afterFilter.forEach((item) => {
+                    item.result = item.rank;
+                  });
+                  // console.log("re",this.afterFilter);
+                }
+                //软科增加学校排名
+                if (this.isARWU) {
+                  console.log("软科");
+                  this.afterFilter = this.otherEvalResult.filter((item) => {
+                    return item.rid === '3';
+                  });
+                  //增加学校名称属性
+                  // this.afterFilter.forEach((item) => {
+                  //   this.$set(item, 'cname', "");
+                  // });
+                  for (let i = 0; i < this.afterFilter.length; i++) {
+                    this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+                  }
+                  //增加result字段
+                  this.afterFilter.forEach((item) => {
+                    item.result = item.rank;
+                  });
+                  // console.log("re",this.afterFilter);
+                }
+                //排序
+                this.afterFilter = this.afterFilter.sort(compare);
+                // console.log("after", this.afterFilter);
+              })
+          }
+          //进行了模糊查询
+          else {
+            this.afterFilter = [];
+            //学科评估
+            if (this.isNormal) {
+              console.log("fzNormal");
+              for (let i = 0; i < this.fsResult.length; i++) {
+                this.afterFilter = this.afterFilter.concat(this.evalResult.filter((item) => {
+                  return item.cid === this.fsResult[i].cid;
                 }));
               }
-              this.afterFilter = list;
+              console.log("firstafter", this.afterFilter);
+              //筛选等级
+              if (this.level.length > 0) {
+                let list = [];
+                for (let i = 0; i < this.level.length; i++) {
+                  list = list.concat(this.afterFilter.filter((item) => {
+                    return item.result === this.level[i];
+                  }));
+                }
+                this.afterFilter = list;
+              }
+              //增加学校名称属性
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'cname', "");
+              });
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+              }
+              //增加专业名字段
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'mname', "");
+              });
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+              }
             }
-            //增加学校名称属性
-            this.afterFilter.forEach((item) => {
-              this.$set(item, 'cname', "");
-            });
-            for (let i = 0; i < this.afterFilter.length; i++) {
-              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+            //QS
+            if (this.isQS) {
+              let list = this.otherEvalResult.filter((item) => {
+                return item.rid === '2';
+              });
+              console.log("fzQS");
+              for (let i = 0; i < this.fsResult.length; i++) {
+                this.afterFilter = this.afterFilter.concat(list.filter((item) => {
+                    return item.cid === this.fsResult[i].cid;
+                  })
+                )
+              }
+              //增加学校名称属性
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'cname', "");
+              });
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+              }
+              //增加result字段
+              this.afterFilter.forEach((item) => {
+                item.result = item.rank;
+              });
+              console.log("fzre", this.afterFilter);
             }
-            //增加专业名字段
-            this.afterFilter.forEach((item) => {
-              this.$set(item, 'mname', "");
-            });
-            for (let i = 0; i < this.afterFilter.length; i++) {
-              this.afterFilter[i].mname = this.major[this.afterFilter[i].mid].mname;
+            //软科
+            if (this.isARWU) {
+              let list = this.otherEvalResult.filter((item) => {
+                return item.rid === '3';
+              });
+              console.log("fzARWU");
+              for (let i = 0; i < this.fsResult.length; i++) {
+                this.afterFilter = this.afterFilter.concat(list.filter((item) => {
+                    return item.cid === this.fsResult[i].cid;
+                  })
+                )
+              }
+              //增加学校名称属性
+              this.afterFilter.forEach((item) => {
+                this.$set(item, 'cname', "");
+              });
+              for (let i = 0; i < this.afterFilter.length; i++) {
+                this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
+              }
+              //增加result字段
+              this.afterFilter.forEach((item) => {
+                item.result = item.rank;
+              });
+              console.log("fzre", this.afterFilter);
             }
-          }
-          //QS
-          if (this.isQS) {
-            let list = this.otherEvalResult.filter((item) => {
-              return item.rid === '2';
-            });
-            console.log("fzQS");
-            for (let i = 0; i < this.fsResult.length; i++) {
-              this.afterFilter = this.afterFilter.concat(list.filter((item) => {
-                  return item.cid === this.fsResult[i].cid;
-                })
-              )
-            }
-            //增加学校名称属性
-            this.afterFilter.forEach((item) => {
-              this.$set(item, 'cname', "");
-            });
-            for (let i = 0; i < this.afterFilter.length; i++) {
-              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
-            }
-            //增加result字段
-            this.afterFilter.forEach((item) => {
-              item.result = item.rank;
-            });
-            console.log("fzre", this.afterFilter);
-          }
-          //软科
-          if (this.isARWU) {
-            let list = this.otherEvalResult.filter((item) => {
-              return item.rid === '3';
-            });
-            console.log("fzARWU");
-            for (let i = 0; i < this.fsResult.length; i++) {
-              this.afterFilter = this.afterFilter.concat(list.filter((item) => {
-                  return item.cid === this.fsResult[i].cid;
-                })
-              )
-            }
-            //增加学校名称属性
-            this.afterFilter.forEach((item) => {
-              this.$set(item, 'cname', "");
-            });
-            for (let i = 0; i < this.afterFilter.length; i++) {
-              this.afterFilter[i].cname = this.schoolMap[this.afterFilter[i].cid].cname;
-            }
-            //增加result字段
-            this.afterFilter.forEach((item) => {
-              item.result = item.rank;
-            });
-            console.log("fzre", this.afterFilter);
-          }
 
-          if (this.afterFilter.length === 0) {
-            this.$alert('无符合筛选条件的学校！', '提示', {
-              confirmButtonText: '确定',
-            });
-          } else {
-            this.afterFilter = this.afterFilter.sort(compare);
+            if (this.afterFilter.length === 0) {
+              this.$alert('无符合筛选条件的学校！', '提示', {
+                confirmButtonText: '确定',
+              });
+            } else {
+              this.afterFilter = this.afterFilter.sort(compare);
+            }
           }
+        } else {//未选择评价体系
+          this.$alert('请选择评价体系！', '提示', {
+            confirmButtonText: '确定',
+          });
         }
       },
       cleanSearch: function() {

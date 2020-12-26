@@ -26,7 +26,8 @@
         <span class="spanb">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体" @change="getMajorList(disciplineCode)">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体"
+                   @change="getMajorList(disciplineCode)">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -84,7 +85,7 @@
             <tr v-for="(item, index) in resultList" :key="index"
                 style="text-align:center;line-height:50px;" :class="{table:index%2===0}">
               <td>{{item.mid+getMajorName(item.mid)}}</td>
-              <td @click="schoolClick(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
+              <td @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cid+getSchoolName(item.cid)}}</td>
               <td>{{item.result}}</td>
             </tr>
           </table>
@@ -401,5 +402,9 @@
 
   .table {
     background: #d6e4f0;
+  }
+
+  .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+    overflow: scroll !important;
   }
 </style>

@@ -20,7 +20,7 @@
         </el-aside>
         <el-main style="padding: 0">
           <el-container>
-            <el-aside style="padding: 1.6rem; background-color: #D6E4F0 ;width: 30%">
+            <el-aside style="padding: 1.6rem; background-color: #D6E4F0 ;width: 30%;">
               <div class="major-options" v-for="(item, index) in getMajors" @click="selected.mindex = index;row2=index;"
                    :key="index">
                 <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
@@ -65,7 +65,7 @@
                         <div>{{item.cid}}</div>
                       </el-col>
                       <el-col :span="8">
-                        <div>{{item.cname}}</div>
+                        <div @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cname}}</div>
                       </el-col>
                     </el-row>
                   </el-card>
@@ -220,11 +220,16 @@
       console.log(this.$store.state.identify);
     },
     methods: {
+      schoolClick: function(cid) {
+        this.$store.commit('setcid', cid);
+        this.$router.push({path: '/college'});
+      },
       setSelected(index) {
         this.selected.did = this.discipline[index].did;
-        this.selected.mindex = 0;
+        this.selected.mindex = '0';
         this.background = true;
         this.row = index;
+        this.row2 = '0';
         this.showIcon = true;
       }
     }
