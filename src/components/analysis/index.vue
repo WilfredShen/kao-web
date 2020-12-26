@@ -3,7 +3,6 @@
   <div>
     <!--    筛选框-->
     <div class="screen" style="display: flex;flex-direction: column;justify-content: space-around">
-
       <div id="source-data">
         <p style="margin-right: 20px">生源数据:</p>
         <div style="display:flex;align-items: center">
@@ -90,8 +89,7 @@
   import {readFile} from '@/assets/lib/utils'
   import {getMap} from '@/assets/lib/ChinaMapShow'
   import xlsx from 'xlsx';
-  import {schoolList} from "@/assets/lib/getResultLjm";
-  import {schoolDetail} from "@/assets/lib/getResultLjm";
+  import {schoolList, schoolDetail} from "@/assets/lib/getResultLjm";
 
 
   export default {
@@ -115,15 +113,15 @@
       }
     },
     methods: {
-      printTest: function () {
+      printTest: function() {
         this.$message("test!");
         this.$message("box group" + this.checkBoxGroup);
       },
-      handleSchField: function (command) {
+      handleSchField: function(command) {
         this.schFiled = command;
       },
       //根据选项选择展示内容
-      contains: function (arr, obj) {
+      contains: function(arr, obj) {
         let i = arr.length;
         while (i--) {
           if (arr[i] === obj) {
@@ -132,7 +130,7 @@
         }
         return false;
       },
-      checkShow: function () {
+      checkShow: function() {
         let sum;
         sum = 0;
         if (this.contains(this.checkBoxGroup, '地区')) {
@@ -147,8 +145,8 @@
         console.log("sum = " + sum);
         return sum;
       },
-      getResult: function () {
-        const showWhat = this.checkShow();
+      getResult: function() {
+        const showWhat = this.checkShow();//判断显示内容
         this.schNames = [];
         this.mapResult = [];
         this.schIDs = [];
@@ -158,21 +156,22 @@
           return;
         }
         let index = 0;
+        //将选中行区间的学校名加入schNames
         for (let i = this.rowBegin - 1; i < this.rowEnd; i++) {
           this.schNames.push(this.excelData[i][this.schFiled]);
           this.schIDs.push(this.nameId[this.schNames[index++]]);
         }
-
+        //将学校ID进行排序 方便后续tempID直接记录上一个ID
         this.schIDs = this.schIDs.sort();
         let tempID = this.schIDs[0];
         const stuCount = new Map();//学校学生人数统计
         let beginIndex = 0;
         const analysisID = [];
         let regionIndex = 0;
-
+        //相同学校名是同个地区
         for (; regionIndex < this.schIDs.length; regionIndex++) {
-          if (this.schIDs[regionIndex] !== tempID) {
-            let tid = this.schIDs[beginIndex];
+          if (this.schIDs[regionIndex] !== tempID) {//如果是新ID
+            let tid = this.schIDs[beginIndex];//保持老ID
             tempID = this.schIDs[regionIndex]//记录当前的id，即下一个id
             stuCount.set(tid, 0);//初始化学校ID对应人数为0
             analysisID.push(tid);//将之前的加入待分析id中
@@ -180,7 +179,7 @@
             beginIndex = regionIndex;//更换新起始坐标
           }
         }
-        analysisID.push(this.schIDs[beginIndex]);
+        analysisID.push(this.schIDs[beginIndex]);//处理最后一个
         stuCount.set(this.schIDs[beginIndex], regionIndex - beginIndex);
 
         //anaID相同学校已过滤
@@ -237,7 +236,7 @@
             console.log(err);
           });
       },
-      exportEXCEL: function (type, isRegion) {
+      exportEXCEL: function(type, isRegion) {
         console.log("进入了导出EXCEL函数")
         let arr;
         if (isRegion === 'region') {
@@ -267,7 +266,7 @@
         }
 
       },
-      handleChange: async function (ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
         if (!file) {
           return;

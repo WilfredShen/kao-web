@@ -9,10 +9,10 @@
       <el-menu-item index="/user/student/info" v-if="isStu">
         <i class="el-icon-reading"></i>
         <span class="itemContent" slot="title">学生信息</span>
-        <el-menu-item index="/user/tutor/info" v-if="isTut">
-          <i class="el-icon-reading"></i>
-          <span class="itemContent" slot="title">导师信息</span>
-        </el-menu-item>
+      </el-menu-item>
+      <el-menu-item index="/user/tutor/info" v-if="isTut">
+        <i class="el-icon-reading"></i>
+        <span class="itemContent" slot="title">导师信息</span>
       </el-menu-item>
       <el-menu-item index="/user/student/focus-news" v-if="isStu">
         <i class="el-icon-menu"></i>
@@ -32,7 +32,7 @@
       </el-menu-item>
     </el-menu>
     <div style="width: 100%;height: 100vh;">
-<!--      <div style="height: 10%;background-color:#163172;width: 100%"></div>-->
+      <!--      <div style="height: 10%;background-color:#163172;width: 100%"></div>-->
       <div style="height: 100%;width: 100%">
         <keep-alive>
           <router-view></router-view>

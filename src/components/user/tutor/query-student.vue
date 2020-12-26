@@ -1,77 +1,73 @@
 <template>
-  <div>
-    <!--    <div style="border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">-->
-    <div>
-      <div class="selection">
-        <span>毕业时间：</span>
-        <el-date-picker class="date-pick" type="date" placeholder="起" v-model="beginY"></el-date-picker>
-        <span style="margin-left: 10px;margin-right: 10px">—</span>
-        <el-date-picker class="date-pick" type="date" placeholder="止" v-model="endY"></el-date-picker>
-      </div>
-      <div class="selection">
-        <span>高校类别：</span>
-        <el-dropdown size="small" split-button trigger="click" @command="handleSchField()">
-          {{schLevel}}
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :command="'985/211'">985/211</el-dropdown-item>
-            <el-dropdown-item :command="'211'">211</el-dropdown-item>
-            <el-dropdown-item :command="'双一流'">双一流</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
-      <div class="selection">
-
-        <span>本科学类：</span>
-        <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
-          <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.name"></el-option>
-        </el-select>
-
-        <span style="margin-left: 15px">本科专业：</span>
-        <el-select v-model="major" filterable placeholder="请选择">
-          <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
-                     :label="item.mid+item.mname"></el-option>
-        </el-select>
-
-      </div>
-      <div class="selection">
-        <span>预期学类：</span>
-        <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
-          <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
-        </el-select>
-        <!--          collapse-tags multiple-->
-        <span style="margin-left: 15px">预期专业：</span>
-        <el-select v-model="exMajor" filterable placeholder="请选择">
-          <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
-                     :label="item.mid+item.mname"></el-option>
-        </el-select>
-      </div>
-      <div class="selection">
-        <div style="width: 75%">
-          <el-button @click="myScreen()" type="primary"
-                     style="min-width: 100px;margin-top: 20px;background-color: #1e56a0;color: white">筛选
-          </el-button>
+  <div style="width: 100%;height: 100%;margin-top: 10px">
+    <div  style="margin-left: 10px;margin-right: 10px;" >
+      <div style="background-color: #ffffff55" :style="myBackground">
+        <div class="selection">
+          <span class="info">毕业时间：</span>
+          <el-date-picker class="date-pick" type="date" placeholder="起" v-model="beginY"></el-date-picker>
+          <span class="info" style="margin-left: 10px;margin-right: 10px">—</span>
+          <el-date-picker class="date-pick" type="date" placeholder="止" v-model="endY"></el-date-picker>
         </div>
-        <div class="selection" style="width: 20%">
-          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('xlsx','region')">导出为EXCEL
-          </el-button>
-          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('csv','region')">导出为CSV
-          </el-button>
-          <el-button style="background-color: #1e56a0;color: white">打印</el-button>
+        <div class="selection">
+          <span class="info">高校类别：</span>
+          <el-dropdown size="small" split-button trigger="click" @command="handleSchField()">
+            {{schLevel}}
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="'985/211'">985/211</el-dropdown-item>
+              <el-dropdown-item :command="'211'">211</el-dropdown-item>
+              <el-dropdown-item :command="'双一流'">双一流</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div class="selection">
+          <span class="info">本科学类：</span>
+          <el-select v-model="discipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
+            <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.name"></el-option>
+          </el-select>
+          <span class="info" style="margin-left: 15px">本科专业：</span>
+          <el-select v-model="major" filterable placeholder="请选择">
+            <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
+                       :label="item.mid+item.mname"></el-option>
+          </el-select>
+        </div>
+        <div class="selection">
+          <span class="info">预期学类：</span>
+          <el-select v-model="exDiscipline" collapse-tags filterable placeholder="请选择" @change="getMajors()">
+            <el-option v-for="item in disciplines" :key="item.did" :value="item.did" :label="item.dname"></el-option>
+          </el-select>
+          <span class="info" style="margin-left: 15px">预期专业：</span>
+          <el-select v-model="exMajor" filterable placeholder="请选择">
+            <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
+                       :label="item.mid+item.mname"></el-option>
+          </el-select>
+        </div>
+        <div class="selection">
+          <div style="width: 75%">
+            <el-button @click="myScreen()" type="primary"
+                       style="min-width: 100px;margin-left: 20px;background-color: #1e56a0;color: white">筛选
+            </el-button>
+          </div>
+          <div class="selection" style="width: 20%">
+            <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('xlsx','region')">导出为EXCEL
+            </el-button>
+            <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('csv','region')">导出为CSV
+            </el-button>
+            <el-button style="background-color: #1e56a0;color: white">打印</el-button>
+          </div>
         </div>
       </div>
+      <el-divider></el-divider>
+      <div>
+        <el-table :data="stuInfo" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
+          <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+          <el-table-column prop="school" label="本科高校" align="center"></el-table-column>
+          <el-table-column prop="major" label="本科专业" align="center"></el-table-column>
+          <el-table-column prop="exMajor" label="预期专业" align="center"></el-table-column>
+          <el-table-column prop="tel" label="联系电话" align="center"></el-table-column>
+          <el-table-column prop="email" label="邮箱地址" align="center"></el-table-column>
+        </el-table>
+      </div>
     </div>
-    <el-divider></el-divider>
-    <div>
-      <el-table :data="stuInfo" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
-        <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-        <el-table-column prop="school" label="本科高校" align="center"></el-table-column>
-        <el-table-column prop="major" label="本科专业" align="center"></el-table-column>
-        <el-table-column prop="exMajor" label="预期专业" align="center"></el-table-column>
-        <el-table-column prop="tel" label="联系电话" align="center"></el-table-column>
-        <el-table-column prop="email" label="邮箱地址" align="center"></el-table-column>
-      </el-table>
-    </div>
-    <!--    </div>-->
   </div>
 </template>
 
@@ -82,8 +78,14 @@
 
   export default {
     name: 'QueryStudent',
+
     data() {
       return {
+        myBackground: {
+          backgroundImage: 'url(' + require('@/assets/image/userback.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
         beginY: '',
         endY: '',
         schLevel: '请选择',
@@ -97,11 +99,11 @@
       }
     },
     methods: {
-      handleSchField: function (command) {
+      handleSchField: function(command) {
         this.schLevel = command;
       },
 
-      getDisciplines: function () {
+      getDisciplines: function() {
         disciplineList()
           .then((res) => {
             console.log(res);
@@ -112,7 +114,7 @@
           });
       },
 
-      getMajors: function (id) {
+      getMajors: function(id) {
         this.majors = [];
         majorList()
           .then((res) => {
@@ -128,7 +130,7 @@
           });
       },
 
-      myScreen: function () {
+      myScreen: function() {
         this.$axios.get("/api/tutor/q/queryable-stu-info", {
           params: {
             'beginDate': this.beginY,
@@ -157,7 +159,7 @@
           });
       },
 
-      exportEXCEL: function (type) {
+      exportEXCEL: function(type) {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.stuInfo.map((item) => {
@@ -197,5 +199,12 @@
     display: flex;
     align-items: center;
     height: 60px;
+  }
+
+  .info {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: 20px;
   }
 </style>

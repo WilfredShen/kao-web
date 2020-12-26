@@ -37,18 +37,18 @@
       }
     },
     methods: {
-      handleSizeChange: function (val) {
+      handleSizeChange: function(val) {
         this.pageSize = val;
         console.log(`每页 ${val} 条`);
       },
 
-      handleCurrentChange: function (val) {
+      handleCurrentChange: function(val) {
         this.currentPage = val;
         console.log(`当前页：${val}`);
         this.setCamps(val);
       },
 
-      setCamps: function (val) {
+      setCamps: function(val) {
         const cps = this.$store.state.camps;
         this.camps = [];
         for (let i = val; i < val + 4; i++) {
@@ -63,16 +63,11 @@
       }
     },
     created() {
-      // console.log("len = ",this.$store.state.camps.length===0)
-      if (this.$store.state.camps.length === 0) {
-        this.$axios.get("/api/base/summer-camp")
-          .then((res) => {
-            console.log("获取夏令营成功" + res.data);
-            this.setCamps(0);
-          });
-      } else {
-        this.setCamps(0);
-      }
+      this.$axios.get("/api/base/summer-camp")
+        .then((res) => {
+          console.log("获取夏令营成功" + res.data);
+          this.setCamps(0);
+        });
     },
   }
 </script>

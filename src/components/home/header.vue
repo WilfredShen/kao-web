@@ -36,7 +36,7 @@
 
 <script>
   import {getLimit} from "@/assets/lib/getAndSetSelf";
-  import {setCookie} from "@/assets/lib/utils";
+  import {setCookie,getCookie} from "@/assets/lib/utils";
 
   export default {
     name: 'Header',
@@ -49,7 +49,7 @@
       }
     },
     created() {
-      this.hasLogin = this.$store.state.uid !== '';
+      this.hasLogin = getCookie('uid');
 
       getLimit()
         .then((res) => {
@@ -61,8 +61,6 @@
           }
         });
 
-      //获取夏令营信息
-      this.$store.dispatch('getCamps');
     },
     methods: {
       logOut() {
