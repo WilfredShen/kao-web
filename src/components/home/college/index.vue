@@ -6,28 +6,32 @@
       </el-button>
     </div>
     <br>
-    <div class="sch-divstyle" style="padding: 5px 0;margin-top:20px">
-      <div class="school">
-        <p style="font-weight: 700;">{{this.schoolDetails.cid}}
+    <div class="sch-divstyle" style="padding: 5px 0;">
+      <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
+      <div style="background-color:#163172;height:60px;margin-left: 0px;margin-right: 0px">
+        <p class="schoola">{{this.schoolDetails.cid}}
           {{this.schoolDetails.cname}}
           {{this.schoolDetails.level}}
         </p>
       </div>
       <div class="mess" style="padding: 5px">
-        <p>地区:{{this.schoolDetails.location}}</p>
-        <p>简介:{{this.schoolDetails.introduction}}</p>
+        <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
+        <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
       </div>
-      <div>
-        <p style="font-weight: 700;">最新排名:</p>
+      </div>
+      <el-card class="box-card">
+        <div class="title">
+        <p class="pstylea">最新排名:</p>
+        </div>
         <table border="1" cellspacing="0"
-               style="margin-left: 10px;border-color:gainsboro;width:50%;word-break:break-all;">
-          <tr bgcolor="#dcdcdc">
+               style="margin-left: 10px;width:50%;margin-top: 10px;">
+          <tr style="line-height:50px">
             <th>数据来源</th>
             <th>排名</th>
             <th>更新日期</th>
           </tr>
           <tr v-for="(item, index) in ranks" :key="index"
-              style="text-align:center">
+              style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.rankFrom||'无数据'}}</td>
             <td>{{item.rank||'无数据'}}</td>
             <td>{{item.date||'无数据'}}</td>
@@ -38,12 +42,14 @@
             </td>
           </tr>
         </table>
-      </div>
-      <div>
-        <p style="font-weight: 700;">近五年录取率:</p>
+      </el-card>
+      <el-card class="box-card">
+        <div class="title">
+        <p class="pstylea">近五年录取率:</p>
+        </div>
         <table border="1" cellspacing="0"
-               style="margin-left: 10px;border-color:gainsboro;width:60%;word-break:break-all;">
-          <tr bgcolor="#dcdcdc">
+               style="margin-left: 10px;width:60%;margin-top: 10px">
+          <tr style="line-height:50px">
             <th>年份</th>
             <th>考研人数</th>
             <th>录取人数</th>
@@ -52,7 +58,7 @@
             <th>录取率</th>
           </tr>
           <tr v-for="(item, index) in rates" :key="index"
-              style="text-align:center">
+              style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.year}}</td>
             <td>{{item.total}}</td>
             <td>{{item.enrollment}}</td>
@@ -66,18 +72,20 @@
             </td>
           </tr>
         </table>
-      </div>
-      <div>
-        <p style="font-weight: 700;">最新学科评估结果:</p>
+      </el-card>
+      <el-card class="box-card">
+        <div class="title">
+        <p class="pstylea">最新学科评估结果:</p>
+        </div>
         <table border="1" cellspacing="0"
-               style="margin-left: 10px;border-color:gainsboro;width:50%;word-break:break-all;">
-          <tr bgcolor="#dcdcdc">
+               style="margin-left: 10px;width:50%;margin-top: 10px">
+          <tr style="line-height:50px">
             <th>学科名称及代码</th>
             <th>评估结果</th>
             <th>参评轮次</th>
           </tr>
           <tr v-for="(item, index) in evaluation.slice(0,5)" :key="index"
-              style="text-align:center">
+              style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.mid+getMajorName(item.mid)}}</td>
             <td>{{item.result}}</td>
             <td>第四轮</td>
@@ -88,19 +96,22 @@
             </td>
           </tr>
         </table>
-      </div>
-      <div>
-        <p>导师信息:</p>
+      </el-card>
+      <el-card class="box-card">
+        <div class="title">
+        <p class="pstylea">导师信息:</p>
+        </div>
         <table border="1" cellspacing="0"
-               style="margin-left: 10px;border-color:gainsboro;width:60%;word-break:break-all;">
-          <tr bgcolor="#dcdcdc">
+               style="margin-left: 10px;;width:60%;margin-top: 10px">
+          <tr>
             <th>导师姓名</th>
             <th>招生专业</th>
             <th>研究方向</th>
             <th>联系电话</th>
             <th>邮箱地址</th>
           </tr>
-          <tr v-for="(item, index) in tutors" :key="index" style="text-align:center">
+          <tr v-for="(item, index) in tutors" :key="index"
+              style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td> {{item.name}}</td>
             <td>{{getMajorName(item.mid)}}</td>
             <td>{{item.research}}</td>
@@ -113,7 +124,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -253,18 +264,31 @@
 </script>
 
 <style scoped>
-  .sch-divstyle {
-    border: 1px solid black;
-  }
-
-  .mess, .school {
-    line-height: 10px;
-    border-bottom: 1px solid black;
-  }
-
   .row-style {
     color: gray;
     width: 3%;
     float: left;
+  }
+  .schoola{
+    line-height:60px;
+    font-weight:bold;
+    font-size:18px;
+    color: white;
+    margin-left:10px
+  }
+  .title{
+    margin-left: 0px;
+    margin-right: 300px;
+    height: 40px;
+  }
+  .pstylea{
+    font-weight:bold;
+    margin-left:10px;
+  }
+  .table {
+    background:#d6e4f0;
+  }
+  .box-card{
+    margin-top: 10px;
   }
 </style>
