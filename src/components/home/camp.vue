@@ -30,7 +30,8 @@
     name: 'Camp',
     data() {
       return {
-        camps: [],
+        camps: [],//显示夏令营信息
+        allCamps: [],//全部夏令营信息
         currentPage: 1,
         currentTotal: 47,
         pageSize: 4
@@ -49,7 +50,7 @@
       },
 
       setCamps: function(val) {
-        const cps = this.$store.state.camps;
+        const cps = this.allCamps;
         this.camps = [];
         for (let i = val; i < val + 4; i++) {
           this.camps.push({
@@ -65,7 +66,7 @@
     created() {
       this.$axios.get("/api/base/summer-camp")
         .then((res) => {
-          console.log("获取夏令营成功" + res.data);
+          this.allCamps = res.data.data;
           this.setCamps(0);
         });
     },

@@ -1,5 +1,5 @@
 <template xmlns:el-table="http://www.w3.org/1999/html">
-  <div :style="myBackground" class="center">
+  <div  class="center">
     <div class="tableTransparent" style="width: 70%;height: 80%">
       <el-table :data="schoolCollect" :height="height"
                 :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
@@ -41,12 +41,14 @@
     },
     methods: {
       cancel: function(schoolID, majorID) {
+        console.log("取消",schoolID," ",majorID);
         this.$axios.post("/api/favor/d/major", {
           'majorCid': schoolID,
           'majorMid': majorID
         })
           .then((res) => {
-            console.log(res);
+            console.log(res.status);
+            console.log("取消成功了呀");
             this.schoolCollect = [];
             this.setCollectInfo();
           })

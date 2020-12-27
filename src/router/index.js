@@ -67,6 +67,29 @@ export default new VueRouter({
       path: '/admin',
       name: 'Admin',
       component: () => import('@/components/admin/index'),
+      redirect: '/admin/evaluation/assess',
+      children: [
+        {
+          path: 'evaluation/assess',
+          name: 'AssessEval',
+          component: () => import('@/components/admin/evaluation/assess')
+        },
+        {
+          path: 'evaluation/modify',
+          name: 'Modify',
+          component: () => import('@/components/admin/evaluation/modify')
+        },
+        {
+          path: 'news/list',
+          name: 'ShowList',
+          component: () => import('@/components/admin/news/list')
+        },
+        {
+          path: 'news/upload',
+          name: 'UploadNews',
+          component: () => import('@/components/admin/news/upload')
+        }
+      ]
     },
     {
       path: '/user',
