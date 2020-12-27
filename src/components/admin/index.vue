@@ -1,6 +1,6 @@
 <template>
   <el-container class="container">
-    <el-header class="header" height="80px" style="margin-bottom: 20px">
+    <el-header class="header" height="80px">
       <el-row>
         <el-col :span="16" class="header-logo">
           <div class="grid-content bg-purple">
@@ -15,21 +15,21 @@
       </el-row>
     </el-header>
     <el-container>
-      <el-aside class="aside">
-        <el-menu class="el-menu-vertical-demo" router>
-          <el-menu-item @click="clearAll(1)">
+      <div style="width: 15%;height: 100vh;">
+        <el-menu class="el-menu-vertical-demo" :router="true">
+          <el-menu-item index="/admin/evaluation/assess">
             <i class="el-icon-menu"></i>
             <span slot="title" style="font-size: 15px">上传评估结果</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(2)">
+          <el-menu-item index="/admin/evaluation/modify">
             <i class="el-icon-document"></i>
             <span slot="title" style="font-size: 15px">修改评估结果</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(3)">
+          <el-menu-item index="/admin/news/upload">
             <i class="el-icon-folder-opened"></i>
             <span slot="title" style="font-size: 15px">上传新闻列表</span>
           </el-menu-item>
-          <el-menu-item @click="clearAll(4)">
+          <el-menu-item index="/admin/news/list">
             <i class="el-icon-reading"></i>
             <span slot="title" style="font-size: 15px">更新新闻列表</span>
           </el-menu-item>
@@ -38,39 +38,21 @@
             <span slot="title" style="font-size: 15px">返回首页</span>
           </el-menu-item>
         </el-menu>
-      </el-aside>
+      </div>
+
       <el-main class="main">
         <keep-alive>
-          <assess-eval v-if="assessResult"></assess-eval>
-        </keep-alive>
-        <keep-alive>
-          <modify-eval v-if="changeResult"></modify-eval>
-        </keep-alive>
-        <keep-alive>
-          <upload-news v-if="uploadNews"></upload-news>
-        </keep-alive>
-        <keep-alive>
-          <show-list v-if="newsUpdate"></show-list>
+          <router-view></router-view>
         </keep-alive>
       </el-main>
+
     </el-container>
   </el-container>
 </template>
 
 <script>
-  import AssessEval from "./evaluation/assess";
-  import ModifyEval from "./evaluation/modify";
-  import UploadNews from "./news/upload";
-  import ShowList from "./news/list";
-
   export default {
     name: 'Admin',
-    components: {
-      AssessEval,
-      ModifyEval,
-      UploadNews,
-      ShowList,
-    },
     data() {
       return {
         selected: 0,
@@ -82,20 +64,6 @@
         this.selected = val;
       },
     },
-    computed: {
-      assessResult: function() {
-        return this.selected === 1;
-      },
-      changeResult: function() {
-        return this.selected === 2;
-      },
-      uploadNews: function() {
-        return this.selected === 3;
-      },
-      newsUpdate: function() {
-        return this.selected === 4;
-      }
-    }
   }
 </script>
 
@@ -110,15 +78,10 @@
     color: #000;
   }
 
-  .aside {
-    color: #fff;
-    width: 50px;
-    height: 600px;
-    text-align: center;
-  }
-
   .main {
     /* height: 100%; */
+    width: 100%;
+    height: 100vh;
     color: #212121;
   }
 
