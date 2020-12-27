@@ -137,13 +137,15 @@
     rankList,
     rateList,
     tutorList,
-  } from '../../../assets/lib/getResultLjm';
+  } from '@/assets/lib/getResultLjm';
+
+  import {getCookie} from "@/assets/lib/utils";
 
   export default {
     name: 'College',
     data() {
       return {
-        isidentity: "",
+        isIdentity: "",
         schoolCid: [],
         schoolDetails: [],
         evaluation: [],
@@ -246,7 +248,7 @@
        */
     },
     mounted() {
-      this.isidentity = this.$store.state.uid;
+      this.isIdentity = getCookie('uid');
     },
     activated() {
       const self = this;
@@ -258,7 +260,7 @@
       self.getEvaluation(self.schoolCid[0]);
       self.getMajorListAll();
       self.getTutors(self.schoolCid[0]);
-      self.isidentity = self.$store.state.uid;
+      self.isidentity = getCookie('uid');
     },
   }
 </script>

@@ -1,45 +1,95 @@
 <template>
-  <div>
-    <!--    <div style="width: 60%;border: 1px solid darkgrey;padding: 20px 20px 40px 20px;">-->
-    <div v-for="(item,index) in items" :key="index"
-         style="display: flex;align-items: center;width: 50%;height: 60px"
-         v-bind:class="index%2===0 ? 'change-color' : ''">
-      <div style="width: 30%;text-align: right"><span class="info">{{item.label}}</span></div>
-      <div style="width: 70%;text-align: left;">
-        <span class="info" v-if="isModify || (index<5 && index>1)">{{item.content}}</span>
-        <el-input class="new-info" v-if="index===0 && !isModify" v-model="newPhone"></el-input>
-        <el-input class="new-info" v-if="index===1 && !isModify" v-model="newEmail"></el-input>
-        <el-input class="new-info" v-if="index===5 && !isModify" v-model="newCollege"></el-input>
-        <el-input class="new-info" v-if="index===6 && !isModify" v-model="newMajor"></el-input>
-        <el-input class="new-info" v-if="index===7 && !isModify" v-model="newResearch"></el-input>
-      </div>
-    </div>
+  <div :style="myBackground" class="center">
+    <div style="width: 30%">
+      <el-card style="padding-left: 20px;padding-right: 20px;background-color: #ffffff22" shadow="hover">
+        <div v-for="(item,index) in items" :key="index"
+             style="display: flex;align-items: center;width: 100%;height: 40px">
+          <div style="width: 40%;text-align: right"><span class="info">{{item.label}}</span></div>
+          <div style="width: 60%;text-align: left;">
+            <span class="info"  style="padding-left: 15px">{{item.content}}</span>
+          </div>
+        </div>
 
-    <el-button style="background-color: #1e56a0;color: white" class="funcbtn" type="primary" v-show="isModify"
-               @click="modify()">修改信息
-    </el-button>
-    <div class="func-btn" v-show="!isModify">
-      <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改</el-button>
-      <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
+        <el-button class="func-btn" style="background-color: #1e56a0;color: white" type="primary"
+                   @click="modify()">修改信息
+        </el-button>
+      </el-card>
+      <el-dialog :visible.sync="isModify" :width="width">
+        <el-form label-width="20%"
+                 label-position="left"
+                 :model="tutorForm"
+                 :rules="tutorRules"
+                 ref="tutorForm">
+          <el-form-item label="联系电话" prop="newPhone">
+            <el-input v-model="tutorForm.newPhone"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱地址" prop="newEmail">
+            <el-input v-model="tutorForm.newEmail"></el-input>
+          </el-form-item>
+          <el-form-item label="所属院校" prop="newCollege">
+            <el-input v-model="tutorForm.newCollege"></el-input>
+          </el-form-item>
+          <el-form-item label="所属专业" prop="newMajor">
+            <el-input v-model="tutorForm.newMajor"></el-input>
+          </el-form-item>
+          <el-form-item label="研究方向" prop="newResearch">
+            <el-input v-model="tutorForm.newResearch"></el-input>
+          </el-form-item>
+        </el-form>
+        <div class="func-btn">
+          <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改
+          </el-button>
+          <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
+        </div>
+      </el-dialog>
     </div>
-    <!--    </div>-->
   </div>
 </template>
 
 <script>
 
   import {updateTeaInfo, updateUserInfo} from '@/assets/lib/getAndSetSelf'
+  import {majorList, schoolList} from '@/assets/lib/getResultLjm'
 
   export default {
     name: 'TutorInfo',
+    props: {
+      width: {
+        type: String,
+        default: '30%'
+      }
+    },
     data() {
+      const validateCollege = (rule, value, callback) => {
+        if (value !== '' && !this.schools.includes(value)) {
+          callback(new Error("学校名有误！"))
+        } else {
+          callback();
+        }
+      };
+      const validateMajor = (rule, value, callback) => {
+        if (value !== '' && !this.majors.includes(value)) {
+          callback(new Error("专业名有误！"))
+        } else {
+          callback();
+        }
+      };
       return {
-        isModify: true,
-        newPhone: '',
-        newEmail: '',
-        newCollege: '',
-        newMajor: '',
-        newResearch: '',
+        myBackground: {
+          backgroundImage: 'url(' + require('@/assets/image/userback.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
+        tutorForm: {
+          newPhone: '',
+          newEmail: '',
+          newCollege: '',
+          newMajor: '',
+          newResearch: '',
+        },
+        isModify: false,
+        schools: [],
+        majors: [],
         items: [
           {label: '联系电话：', content: ''},
           {label: '邮箱地址：', content: ''},
@@ -49,34 +99,75 @@
           {label: '所属院校：', content: ''},
           {label: '所属专业：', content: ''},
           {label: '研究方向：', content: ''},
-        ]
+        ],
+        tutorRules: {
+          newPhone: [
+            {pattern: /^1[0-9]{10}$/, message: "请输入格式正确的手机号", trigger: "blur",}
+          ],
+          newEmail: [
+            {
+              pattern: /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
+              message: "请输入格式正确的邮箱",
+              trigger: "blur"
+            },
+          ],
+          newCollege: [
+            {validator: validateCollege, trigger: "blur"},
+          ],
+          newMajor: [
+            {validator: validateMajor, trigger: "blur"}
+          ],
+        }
       }
     },
     methods: {
       modify: function() {
         this.isModify = !this.isModify;
+        if (this.major == null || this.major.length === 0) {
+          majorList()
+            .then((res) => {
+              for (let i = 0; i < res.length; i++) {
+                this.majors.push(res[i].mname);
+              }
+              console.log(res);
+            });
+        }
+        if (this.schools == null || this.schools.length === 0) {
+          schoolList()
+            .then((res) => {
+              for (let i = 0; i < res.length; i++) {
+                this.schools.push(res[i].cname);
+              }
+              console.log(res);
+            });
+        }
       },
 
       cancelModify: function() {
         this.isModify = !this.isModify;
+        this.clearAll();
+      },
+
+      clearAll: function() {
+        this.tutorForm.newPhone = '';
+        this.tutorForm.newEmail = '';
+        this.tutorForm.newCollege = '';
+        this.tutorForm.newMajor = '';
+        this.tutorForm.newResearch = '';
       },
 
       commitModify: function() {
         let pPhone, pEmail, pCollege, pMajor, pResearch;
-        pPhone = this.newPhone === '' ? this.items[0].content : this.newPhone;
-        pEmail = this.newEmail === '' ? this.items[1].content : this.newEmail;
-        pCollege = this.newCollege === '' ? this.items[5].content : this.newCollege;
-        pMajor = this.newMajor === '' ? this.items[6].content : this.newMajor;
-        pResearch = this.newResearch === '' ? this.items[7].content : this.newResearch;
+        pPhone = this.tutorForm.newPhone === '' ? this.items[0].content : this.tutorForm.newPhone;
+        pEmail = this.tutorForm.newEmail === '' ? this.items[1].content : this.tutorForm.newEmail;
+        pCollege = this.tutorForm.newCollege === '' ? this.items[5].content : this.tutorForm.newCollege;
+        pMajor = this.tutorForm.newMajor === '' ? this.items[6].content : this.tutorForm.newMajor;
+        pResearch = this.tutorForm.newResearch === '' ? this.items[7].content : this.tutorForm.newResearch;
         updateTeaInfo(pPhone, pEmail, pCollege, pMajor, pResearch)
           .then((res) => {
             console.log(res);
             this.isModify = !this.isModify;
-            this.newPhone = '';
-            this.newEmail = '';
-            this.newCollege = '';
-            this.newMajor = '';
-            this.newResearch = '';
+            this.clearAll();
             this.setTutorInfo();
           });
 
@@ -114,19 +205,23 @@
 </script>
 
 <style scoped>
-  .change-color {
-    background-color: #d6e4f0;
-  }
-
   .func-btn {
     margin-top: 30px;
   }
 
-  .new-info {
-    width: 80%;
+  .center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
   }
 
   .info {
-    font-size: 18px;
+    font-size: 19px;
+    color: #ffffff;
+    font-weight: bold;
   }
+
 </style>

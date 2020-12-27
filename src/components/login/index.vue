@@ -63,8 +63,6 @@
 </template>
 
 <script>
-
-  import {getUserId} from '@/assets/lib/getAndSetSelf'
   import '@/assets/css/login.css'
 
   export default {
@@ -104,12 +102,6 @@
                 callback = "/";
                 this.$message.success("登陆成功！即将跳转至主页...");
               }
-
-              //登录后即设置uid
-              getUserId()
-                .then((res) => {
-                  this.$store.commit("setuid", res);
-                });
 
               setTimeout(() => {
                 this.$router.push(callback.toString());

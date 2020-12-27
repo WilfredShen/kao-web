@@ -13,6 +13,7 @@
         <el-button class="func-btn" style="background-color: #1e56a0;color: white" type="primary"
                    @click="modify()">修改信息
         </el-button>
+
       </el-card>
       <el-dialog :visible.sync="isModify" :width="width">
         <el-form label-width="20%"
@@ -47,6 +48,7 @@
         </div>
       </el-dialog>
     </div>
+
   </div>
 </template>
 
@@ -54,6 +56,7 @@
 
   import {updateStuInfo, updateUserInfo} from '@/assets/lib/getAndSetSelf'
   import {majorList, schoolList} from '@/assets/lib/getResultLjm'
+  import {getCookie} from '@/assets/lib/utils'
 
   export default {
     name: 'StudentInfo',
@@ -77,7 +80,7 @@
         } else {
           callback();
         }
-      }
+      };
       return {
         myBackground: {
           backgroundImage: 'url(' + require('@/assets/image/userback.jpg') + ')',
@@ -139,7 +142,7 @@
     methods: {
       modify: function() {
         this.isModify = !this.isModify;
-        if (this.major.length < 1) {
+        if (this.major==null || this.major.length===0) {
           majorList()
             .then((res) => {
               for (let i = 0; i < res.length; i++) {
@@ -148,7 +151,7 @@
               console.log(res);
             });
         }
-        if (this.schools.length < 1) {
+        if (this.schools==null || this.schools.length===0) {
           schoolList()
             .then((res) => {
               for (let i = 0; i < res.length; i++) {
@@ -185,8 +188,8 @@
             pMajor = this.studentForm.newMajor === '' ? this.items[6].content : this.studentForm.newMajor;
             pGraduate = this.studentForm.newGraduate === '' ? this.items[7].content : this.studentForm.newGraduate;
             pExpectMajor = this.studentForm.newExpect === '' ? this.items[8].content : this.studentForm.newExpect;
-            let uid = this.$store.state.uid;
-
+            let uid = getCookie('uid');
+            console.log("uid = " + uid);
 
             updateStuInfo(uid, pPhone, pEmail, pCollege, pMajor, pExpectMajor, pGraduate)
               .then((res) => {
@@ -207,7 +210,7 @@
                 console.log("学生修改基本信息有问题" + err);
               });
 
-            location.reload();
+            // location.reload();
           } else {
             this.$message.error("提交失败！请检查输入！");
           }
@@ -217,7 +220,7 @@
       setStuInfo: function() {
         this.$axios.get("/api/stu/q/stu-info", {
           params: {
-            uid: this.$store.state.uid
+            uid: getCookie('uid')
           }
         })
           .then((res) => {

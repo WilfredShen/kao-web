@@ -63,16 +63,11 @@
       }
     },
     created() {
-      // console.log("len = ",this.$store.state.camps.length===0)
-      if (this.$store.state.camps.length === 0) {
-        this.$axios.get("/api/base/summer-camp")
-          .then((res) => {
-            console.log("获取夏令营成功" + res.data);
-            this.setCamps(0);
-          });
-      } else {
-        this.setCamps(0);
-      }
+      this.$axios.get("/api/base/summer-camp")
+        .then((res) => {
+          console.log("获取夏令营成功" + res.data);
+          this.setCamps(0);
+        });
     },
   }
 </script>

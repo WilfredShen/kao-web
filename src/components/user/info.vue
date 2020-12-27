@@ -50,6 +50,7 @@
 </template>
 <script>
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
+  import {getCookie} from "@/assets/lib/utils";
   export default {
     name: 'Info',
     props: {
@@ -176,7 +177,7 @@
         if (this.identity === '学生') {
           this.$axios.post("/api/vf/student", {
             'cid': '10010',
-            'sid': this.$store.state.uid,
+            'sid': getCookie('uid')
           })
             .then((res) => {
               console.log(res.status)
@@ -187,7 +188,7 @@
         } else if (this.identity === '研究生秘书') {
           this.$axios.post("/api/vf/tutor", {
             'cid': '10010',
-            'tid': this.$store.state.uid,
+            'tid': getCookie('uid'),
           })
             .then((res) => {
               console.log(res.status)

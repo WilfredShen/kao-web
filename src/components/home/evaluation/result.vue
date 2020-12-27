@@ -95,12 +95,12 @@
       </div>
     </div>
     <div style="float:right;margin-top: 10px">
-      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="setFavorMajor()"
+      <el-button v-show="(!(isIdentity==null)&&!(isIdentity===''))" size="medium" round @click="setFavorMajor()"
                  style="margin-left:10px">一键收藏
       </el-button>
     </div>
     <div style="float:right;margin-right:5px;margin-top:10px">
-      <el-button v-show="(!(isidentity==null)&&!(isidentity===''))" size="medium" round @click="exportExcel()">导出
+      <el-button v-show="(!(isIdentity==null)&&!(isIdentity===''))" size="medium" round @click="exportExcel()">导出
       </el-button>
     </div>
   </div>
@@ -116,6 +116,7 @@
     setFavouriteMajor
   } from '@/assets/lib/getResultLjm'
   import xlsx from "xlsx";
+  import {getCookie} from '@/assets/lib/utils'
 
   export default {
     name: "EvaluationResult",
@@ -180,7 +181,7 @@
         majorCode: "",//学科代码
         level: [], //等级数组
         resultList: [],
-        isidentity: "",
+        isIdentity: "",
         favorMajors: [],
       }
     },
@@ -322,7 +323,6 @@
 
       setFavorMajor: function() {
         console.log("进入一键收藏")
-        console.log(this.$store.state.uid);
         setFavouriteMajor(this.favorMajors)
           .then((res) => {
             //  console.log(res);
@@ -367,7 +367,7 @@
       this.getDisciplineList();
       this.getSchoolList();
       this.getMajorListAll();
-      this.isidentity = this.$store.state.uid;
+      this.isIdentity = getCookie('uid');
     }
   }
 </script>
