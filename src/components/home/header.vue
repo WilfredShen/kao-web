@@ -1,16 +1,21 @@
 <template style="margin-left:12%;margin-right: 12%">
   <div class="div-style">
     <div style="background-color: #163172">
-      <img class="img-style" style="float: left" src="@/assets/image/logo白(已去底).png">
+      <img class="img-style" style="float: left;cursor: pointer" src="@/assets/image/logo白(已去底).png" @click="toHome()">
       <div class="header-sty">
-        <span class="span-style">教育部学科评估管理系统</span>
-        <el-button size="mini" style="float: right;margin:2% 2% 0 0;color: dimgray" @click="$router.push('/login')"
-                   v-if="!hasLogin"> 登录
+        <span class="span-style" style="cursor: pointer" @click="toHome()">教育部学科评估管理系统</span>
+        <!--        <img src="@/assets/image/登录.png" @click="$router.push('/login')" v-if="!hasLogin" width="3%" style="padding: 0;align-items: center">-->
+        <el-button size="mini" icon="el-icon-user"
+                   style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
+                   @click="$router.push('/login')"
+                   v-if="!hasLogin">登录
         </el-button>
-        <el-button size="mini" style="float: right;margin:2% 2% 0 0;color: dimgray" @click="logOut()" v-if="hasLogin">
+        <el-button size="mini" icon="el-icon-circle-close"
+                   style="float: right;margin:2% 2% 0 0;background-color: transparent;color: white" @click="logOut()"
+                   v-if="hasLogin">
           退出登录
         </el-button>
-        <el-menu :default-active="activeIndex2"
+        <el-menu :default-active="$route.path"
                  :router="true" @select="handleSelect()"
                  class="el-menu-demo" mode="horizontal"
                  background-color="#163172"
@@ -45,7 +50,6 @@
         isStu: false,
         isTut: false,
         hasLogin: false,
-        activeIndex2: '/',
       }
     },
     created() {
@@ -76,6 +80,11 @@
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      toHome() {
+        if (this.$route.path !== '/') {
+          this.$router.push('/');
+        }
       }
     }
   }

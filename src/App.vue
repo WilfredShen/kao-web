@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <!--    <div >-->
-    <!--      <Header/>-->
-    <!--    </div>-->
     <div>
       <router-view/>
     </div>
@@ -14,18 +11,6 @@
 
   export default {
     name: "App",
-    // components: {Header},
-    data() {
-      return {
-        activeIndex: "1",
-        activeIndex2: "1"
-      }
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath)
-      }
-    }
   };
 </script>
 

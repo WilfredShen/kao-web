@@ -8,20 +8,20 @@
     <br>
     <div class="sch-divstyle" style="padding: 5px 0;">
       <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
-      <div style="background-color:#163172;height:60px;margin-left: 0px;margin-right: 0px">
-        <p class="schoola">{{this.schoolDetails.cid}}
-          {{this.schoolDetails.cname}}
-          {{this.schoolDetails.level}}
-        </p>
-      </div>
-      <div class="mess" style="padding: 5px">
-        <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
-        <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
-      </div>
+        <div style="background-color:#163172;height:60px;margin-left: 0;margin-right: 0">
+          <p class="schoola">{{this.schoolDetails.cid}}
+            {{this.schoolDetails.cname}}
+            {{this.schoolDetails.level}}
+          </p>
+        </div>
+        <div class="mess" style="padding: 5px">
+          <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
+          <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
+        </div>
       </div>
       <el-card class="box-card">
         <div class="title">
-        <p class="pstylea">最新排名:</p>
+          <p class="pstylea">最新排名:</p>
         </div>
         <table border="1" cellspacing="0"
                style="margin-left: 10px;width:50%;margin-top: 10px;">
@@ -45,7 +45,7 @@
       </el-card>
       <el-card class="box-card">
         <div class="title">
-        <p class="pstylea">近五年录取率:</p>
+          <p class="pstylea">近五年录取率:</p>
         </div>
         <table border="1" cellspacing="0"
                style="margin-left: 10px;width:60%;margin-top: 10px">
@@ -75,7 +75,7 @@
       </el-card>
       <el-card class="box-card">
         <div class="title">
-        <p class="pstylea">最新学科评估结果:</p>
+          <p class="pstylea">最新学科评估结果:</p>
         </div>
         <table border="1" cellspacing="0"
                style="margin-left: 10px;width:50%;margin-top: 10px">
@@ -99,7 +99,7 @@
       </el-card>
       <el-card class="box-card">
         <div class="title">
-        <p class="pstylea">导师信息:</p>
+          <p class="pstylea">导师信息:</p>
         </div>
         <table border="1" cellspacing="0"
                style="margin-left: 10px;;width:60%;margin-top: 10px">
@@ -155,7 +155,7 @@
       }
     },
     methods: {
-      getSchoolDetail: function (cid) {
+      getSchoolDetail: function(cid) {
         const arr = this;
         schoolDetail(cid)
           .then((res) => {
@@ -165,7 +165,7 @@
           });
       },
 
-      getEvaluation: function (cid) {
+      getEvaluation: function(cid) {
         const arr = this;
         arr.evaluation = [];
         getEvaluationList(4)
@@ -178,7 +178,7 @@
           });
       },
 
-      getMajorListAll: function () {
+      getMajorListAll: function() {
         const arr = this;
         majorList()
           .then((res) => {
@@ -186,7 +186,7 @@
           });
       },
 
-      getMajorName: function (mid) {
+      getMajorName: function(mid) {
         const arr = this;
         for (let i = 0; i < arr.allMajors.length; i++) {
           if (arr.allMajors[i].mid === mid) {
@@ -195,7 +195,7 @@
         }
       },
 
-      getRank: function (cid) {
+      getRank: function(cid) {
         const arr = this;
         rankList(cid)
           .then((res) => {
@@ -204,7 +204,7 @@
           });
       },
 
-      getRates: function (cid) {
+      getRates: function(cid) {
         const arr = this;
         rateList(cid)
           .then((res) => {
@@ -213,7 +213,7 @@
           });
       },
 
-      getTutors: function (cid) {
+      getTutors: function(cid) {
         const arr = this;
         tutorList(cid)
           .then((res) => {
@@ -269,26 +269,31 @@
     width: 3%;
     float: left;
   }
-  .schoola{
-    line-height:60px;
-    font-weight:bold;
-    font-size:18px;
+
+  .schoola {
+    line-height: 60px;
+    font-weight: bold;
+    font-size: 18px;
     color: white;
-    margin-left:10px
+    margin-left: 10px
   }
-  .title{
-    margin-left: 0px;
+
+  .title {
+    margin-left: 0;
     margin-right: 300px;
     height: 40px;
   }
-  .pstylea{
-    font-weight:bold;
-    margin-left:10px;
+
+  .pstylea {
+    font-weight: bold;
+    margin-left: 10px;
   }
+
   .table {
-    background:#d6e4f0;
+    background: #d6e4f0;
   }
-  .box-card{
+
+  .box-card {
     margin-top: 10px;
   }
 </style>

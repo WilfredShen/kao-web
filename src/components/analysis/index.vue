@@ -115,15 +115,15 @@
       }
     },
     methods: {
-      printTest: function () {
+      printTest: function() {
         this.$message("test!");
         this.$message("box group" + this.checkBoxGroup);
       },
-      handleSchField: function (command) {
+      handleSchField: function(command) {
         this.schFiled = command;
       },
       //根据选项选择展示内容
-      contains: function (arr, obj) {
+      contains: function(arr, obj) {
         let i = arr.length;
         while (i--) {
           if (arr[i] === obj) {
@@ -132,7 +132,7 @@
         }
         return false;
       },
-      checkShow: function () {
+      checkShow: function() {
         let sum;
         sum = 0;
         if (this.contains(this.checkBoxGroup, '地区')) {
@@ -147,7 +147,7 @@
         console.log("sum = " + sum);
         return sum;
       },
-      getResult: function () {
+      getResult: function() {
         const showWhat = this.checkShow();
         this.schNames = [];
         this.mapResult = [];
@@ -237,7 +237,7 @@
             console.log(err);
           });
       },
-      exportEXCEL: function (type, isRegion) {
+      exportEXCEL: function(type, isRegion) {
         console.log("进入了导出EXCEL函数")
         let arr;
         if (isRegion === 'region') {
@@ -267,7 +267,7 @@
         }
 
       },
-      handleChange: async function (ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
         if (!file) {
           return;

@@ -71,7 +71,7 @@ export default new VueRouter({
     {
       path: '/user',
       name: 'User',
-      redirect:'/user/info',
+      redirect: '/user/info',
       component: () => import('@/components/user/index'),
       children: [
         {

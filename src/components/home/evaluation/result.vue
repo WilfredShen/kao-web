@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
-      <div style="background-color:#163172;height:50px;margin-left: 0px;margin-right: 0px">
+      <div style="background-color:#163172;height:50px;margin-left: 0;margin-right: 0">
         <span class="spana">
         筛选条件
         </span>
@@ -26,7 +26,8 @@
         <span class="spanb">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体" @change="getMajorList(disciplineCode)">
+        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体"
+                   @change="getMajorList(disciplineCode)">
           <el-option
             v-for="item in disciplines"
             :key="item.did"
@@ -67,29 +68,29 @@
       </div>
     </div>
     <br>
-    <div class="bor2"><div style="background-color:#163172;height:50px;margin-left: 0px;margin-right: 0px">
-
+    <div class="bor2">
+      <div style="background-color:#163172;height:50px;margin-left: 0;margin-right: 0">
           <span class="spana">
           筛选结果
         </span>
-        </div>
-        <el-main>
-          <el-scrollbar style="height: 350px">
-            <table style="margin-left: 0px;width: 1150px">
-              <tr style="font-size:20px;font-family: 微软雅黑">
-                <th>学科名称及代码</th>
-                <th>高校名称及代码</th>
-                <th>&nbsp;&nbsp;评估等级&nbsp;&nbsp;&nbsp; </th>
-              </tr>
-              <tr v-for="(item, index) in resultList" :key="index"
-                  style="text-align:center;line-height:50px;" :class="{table:index%2===0}">
-                <td>{{item.mid+getMajorName(item.mid)}}</td>
-                <td @click="schoolClick(item.cid)">{{item.cid+getSchoolName(item.cid)}}</td>
-                <td>{{item.result}}</td>
-              </tr>
-            </table>
-          </el-scrollbar>
-        </el-main>
+      </div>
+      <el-main>
+        <el-scrollbar style="height: 350px">
+          <table style="margin-left: 0;width: 1150px">
+            <tr style="font-size:20px;font-family: 微软雅黑">
+              <th>学科名称及代码</th>
+              <th>高校名称及代码</th>
+              <th>&nbsp;&nbsp;评估等级&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+            <tr v-for="(item, index) in resultList" :key="index"
+                style="text-align:center;line-height:50px;" :class="{table:index%2===0}">
+              <td>{{item.mid+getMajorName(item.mid)}}</td>
+              <td @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cid+getSchoolName(item.cid)}}</td>
+              <td>{{item.result}}</td>
+            </tr>
+          </table>
+        </el-scrollbar>
+      </el-main>
       <div>
       </div>
     </div>
@@ -184,14 +185,14 @@
       }
     },
     methods: {
-      getSchoolList: function () {
+      getSchoolList: function() {
         schoolList()
           .then((res) => {
             this.schools = res;
           });
       },
 
-      getDisciplineList: function () {
+      getDisciplineList: function() {
         disciplineList()
           .then((res) => {
             this.disciplines = res;
@@ -199,7 +200,7 @@
           });
       },
 
-      getMajorListAll: function () {
+      getMajorListAll: function() {
         majorList()
           .then((res) => {
             this.allMajors = res;
@@ -207,7 +208,7 @@
           });
       },
 
-      getMajorList: function (id) {
+      getMajorList: function(id) {
         this.majors = [];
         majorList()
           .then((res) => {
@@ -219,7 +220,7 @@
           });
       },
 
-      getSchoolName: function (cid) {
+      getSchoolName: function(cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
@@ -227,7 +228,7 @@
         }
       },
 
-      getMajorName: function (mid) {
+      getMajorName: function(mid) {
         for (let i = 0; i < this.allMajors.length; i++) {
           if (this.allMajors[i].mid === mid) {
             return this.allMajors[i].mname;
@@ -235,7 +236,7 @@
         }
       },
 
-      getTmpResults: function () {
+      getTmpResults: function() {
         getEvaluationList(this.round)
           .then((res) => {
             this.resultList = [];
@@ -319,7 +320,7 @@
           });
       },
 
-      setFavorMajor: function () {
+      setFavorMajor: function() {
         console.log("进入一键收藏")
         console.log(this.$store.state.uid);
         setFavouriteMajor(this.favorMajors)
@@ -340,13 +341,13 @@
           });
       },
 
-      schoolClick: function (cid) {
+      schoolClick: function(cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
 
-      exportExcel: function () {
+      exportExcel: function() {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.resultList.map((item) => {
@@ -375,19 +376,22 @@
   .marg {
     margin: 10px 20px;
   }
-  .spana{
-    line-height:50px;
-    font-weight:bold;
-    font-size:20px;
+
+  .spana {
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 20px;
     color: white;
-    margin-left:10px
+    margin-left: 10px
   }
-  .spanb{
-    font-size :14px;
+
+  .spanb {
+    font-size: 14px;
     font-family: 宋体;
-    font-weight:bold;
+    font-weight: bold;
 
   }
+
   .el-row {
     margin-bottom: 20px;
   }
@@ -395,7 +399,12 @@
   .el-col {
     border-radius: 4px;
   }
+
   .table {
-    background:#d6e4f0;
+    background: #d6e4f0;
+  }
+
+  .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+    overflow: scroll !important;
   }
 </style>
