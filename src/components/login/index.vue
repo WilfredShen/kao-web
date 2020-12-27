@@ -87,7 +87,7 @@
       };
     },
     methods: {
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/login", {
             username: this.loginForm.username,

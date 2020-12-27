@@ -85,7 +85,7 @@
       }
     },
     methods: {
-      commit: function () {
+      commit: function() {
         //上传图片
         let file = this.$refs.upload.uploadFiles.pop().raw;
         let formData = new FormData();
@@ -125,7 +125,7 @@
           });
       },
 
-      cancel: function () {
+      cancel: function() {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
       }
@@ -158,5 +158,7 @@
 </script>
 
 <style scoped>
-
+  .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+    overflow: scroll !important;
+  }
 </style>

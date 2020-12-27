@@ -67,7 +67,7 @@
       }
     },
     methods: {
-      handleChange: async function (ev) {
+      handleChange: async function(ev) {
         let file = ev.raw;
         if (!file) {
           return;
@@ -97,21 +97,21 @@
         this.getExcel();
       },
 
-      handleRemove: function (file) {
+      handleRemove: function(file) {
         this.excelDatas = [];
         this.tableData = [];
         console.log(file);
       },
 
-      handlePreview: function (file) {
+      handlePreview: function(file) {
         console.log(file);
       },
 
-      beforeRemove: function (file) {
+      beforeRemove: function(file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
 
-      getExcel: function () {
+      getExcel: function() {
         this.excelDatas.forEach((item) => {
           this.$set(item, 'cname', "");
           this.$set(item, 'mname', "");
@@ -144,7 +144,7 @@
         this.up = true;
       },
 
-      upLoad: function () {
+      upLoad: function() {
         if (this.round === null || this.round === '' || this.round === "undefined") {
           console.log("round", this.round);
           this.$confirm(`请选择轮次！`, '提示')
@@ -223,5 +223,9 @@
     font-size: 17px;
     font-weight: bold;
     color: black;
+  }
+
+  .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+    overflow: scroll !important;
   }
 </style>

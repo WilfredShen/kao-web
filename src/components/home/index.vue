@@ -1,8 +1,7 @@
 <template>
   <div>
     <div>
-      <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always"
-                   v-if="latestNews.length">
+      <el-carousel style="float: left" height="330px" indicator-position="outside" :interval="3000" arrow="always">
         <el-carousel-item>
           <a :href="this.latestNews[0].officialLink" style="text-decoration: none" target="_Blank">
             <img :src="latestNews[0].image" alt="">
@@ -33,6 +32,12 @@
             <h3>{{latestNews[4].title}}</h3>
           </a>
         </el-carousel-item>
+        <el-carousel-item>
+          <a :href="this.latestNews[5].officialLink" style="text-decoration: none" target="_Blank">
+            <img :src="latestNews[5].image" alt="">
+            <h3>{{latestNews[5].title}}</h3>
+          </a>
+        </el-carousel-item>
       </el-carousel>
     </div>
     <div class="b2">
@@ -40,9 +45,9 @@
         <img src="@/assets/image/新闻.png" style="width: 5%;float: left;">
         <p class="p-style">{{ msg }}</p>
       </div>
-      <ul style="font-size: 13px;margin-top: 10px;margin-bottom: 7px">
+      <ul style="font-size: 13px;margin-top: 10px;margin-bottom: 7px;padding-left: 20px">
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -2px">
           <a
             :href="this.latestNews[0].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[0].title}}
@@ -51,7 +56,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[1].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[1].title}}
@@ -60,7 +65,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[2].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[2].title}}
@@ -69,7 +74,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[3].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[3].title}}
@@ -78,7 +83,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[4].officialLink"
             target="_Blank" class="news-title">{{latestNews[4].title}}
@@ -87,7 +92,7 @@
         </div>
         <br/>
         <div class="li-style">
-          <img src="@/assets/image/点.png" width="5%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
           <a
             :href="this.latestNews[5].officialLink"
             target="_Blank" class="news-title">{{latestNews[5].title}}
@@ -146,7 +151,7 @@
     margin-top: 0;
     text-align: center;
     font-size: 12px;
-    font-family: "微软雅黑", serif;
+    font-family: "宋体", serif;
     color: dimgray;
   }
 
@@ -171,7 +176,7 @@
   }
 
   .li-style {
-    width: 90%;
+    width: 95%;
     display: block;
     text-decoration: none;
     color: black;
@@ -195,7 +200,7 @@
   .news-title {
     text-decoration: none;
     display: block;
-    font-family: 宋体;
+    font-family: "宋体";
     font-weight: bold;
   }
 </style>
