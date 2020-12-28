@@ -34,12 +34,7 @@
         allCamps: [],//全部夏令营信息
         currentPage: 1,
         currentTotal: 47,
-        pageSize: 4,
-        backgroundDiv: {
-          backgroundImage: 'url(' + require('@/assets/image/HNU.jpg') + ')',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%'
-        },
+        pageSize: 4
       }
     },
     methods: {
