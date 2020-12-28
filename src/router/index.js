@@ -67,8 +67,13 @@ export default new VueRouter({
       path: '/admin',
       name: 'Admin',
       component: () => import('@/components/admin/index'),
-      redirect: '/admin/evaluation/assess',
+      redirect: '/admin/users/list',
       children: [
+        {
+          path: 'users/list',
+          name: 'UsersList',
+          component: () => import('@/components/admin/users/list')
+        },
         {
           path: 'evaluation/assess',
           name: 'AssessEval',

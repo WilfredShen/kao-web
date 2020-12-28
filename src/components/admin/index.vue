@@ -17,6 +17,10 @@
     <el-container>
       <div style="width: 15%;height: 100vh;">
         <el-menu class="el-menu-vertical-demo" :router="true">
+          <el-menu-item index="/admin/users/list">
+            <i class="el-icon-user-solid"></i>
+            <span slot="title" style="font-size: 15px">用户管理</span>
+          </el-menu-item>
           <el-menu-item index="/admin/evaluation/assess">
             <i class="el-icon-menu"></i>
             <span slot="title" style="font-size: 15px">上传评估结果</span>

@@ -21,9 +21,8 @@
       <el-form-item label="内容：" prop="content">
         <el-input class="input" v-model="uploadForm.content" type="textarea"></el-input>
       </el-form-item>
-      <el-form-item label="图片：" prop="image">
-        <el-upload :limit="1" action :auto-upload="false" ref="upload" :show-file-list="true"
-                   :file-list="uploadForm.imageList">
+      <el-form-item label="图片：" prop="imageList">
+        <el-upload :limit="1" action :auto-upload="false" ref="upload" :show-file-list="true">
           <el-button>选择图片</el-button>
         </el-upload>
       </el-form-item>
@@ -49,13 +48,13 @@
     name: 'UploadNews',
 
     data() {
-      // const validateFileList = (rule, value, callback) => {
-      //   if (value.length > 0) {
-      //     callback();
-      //   } else {
-      //     callback(new Error("请上传图片bbbbb"));
-      //   }
-      // };
+      const validateFileList = (rule, value, callback) => {
+        if (this.$refs.upload.uploadFiles.length > 0) {
+          callback();
+        } else {
+          callback(new Error("请上传图片"));
+        }
+      };
       return {
         schools: [],
         schoolIds: [],
@@ -84,8 +83,8 @@
           link: [
             {required: true, message: "请填写新闻链接，注意格式正确", trigger: "blur"}
           ],
-          image: [
-            {required: true, message: "请上传图片"}
+          imageList: [
+            {required: true, validator: validateFileList}
           ],
           myTime: [
             {required: true, message: "请选择时间", trigger: "blur"}
@@ -98,14 +97,10 @@
       }
     },
     methods: {
-      mytest: function() {
-        console.log("获得的值", this.uploadForm.schIndex);
-        console.log("value类型", typeof (typeof this.uploadForm.schIndex));
-      },
       commit: function(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$message.success("上传成功！");
+            this.$message.success("验证成功");
             //上传图片
             let file = this.$refs.upload.uploadFiles.pop().raw;
             let formData = new FormData();
@@ -126,13 +121,7 @@
                 })
                   .then((res) => {
                     console.log(res);
-                    this.$message("成功上传新闻");
-                    // this.uploadForm.title = '';
-                    // this.uploadForm.myTime = null;
-                    // this.uploadForm.content = '';
-                    // this.uploadForm.newsType = '';
-                    // this.uploadForm.link = '';
-                    // this.uploadForm.schIndex = '';
+                    this.$message.success("成功上传新闻");
                     this.$refs['uploadForm'].resetFields();
                   })
                   .catch((error) => {

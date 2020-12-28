@@ -145,15 +145,7 @@
 
       cancelModify: function() {
         this.isModify = !this.isModify;
-        this.clearAll();
-      },
-
-      clearAll: function() {
-        this.tutorForm.newPhone = '';
-        this.tutorForm.newEmail = '';
-        this.tutorForm.newCollege = '';
-        this.tutorForm.newMajor = '';
-        this.tutorForm.newResearch = '';
+        this.$refs['tutorForm'].resetFields();
       },
 
       commitModify: function() {
@@ -167,7 +159,7 @@
           .then((res) => {
             console.log(res);
             this.isModify = !this.isModify;
-            this.clearAll();
+            this.$refs['tutorForm'].resetFields();
             this.setTutorInfo();
           });
 

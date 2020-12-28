@@ -1,5 +1,5 @@
 <template xmlns:el-table="http://www.w3.org/1999/html">
-  <div  class="center">
+  <div :style="myBackground" class="center">
     <div class="tableTransparent" style="width: 70%;height: 80%">
       <el-table :data="schoolCollect" :height="height"
                 :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
@@ -11,7 +11,7 @@
         <el-table-column align="center" label="取消收藏">
           <template slot-scope="scope">
             <el-button style="background-color: #1e56a0;color: white"
-                       @click="cancel(scope.row['schoolID'],scope.row['majorID'])">取消收藏
+                       @click="cancel(scope.$index,scope.row['schoolID'],scope.row['majorID'])">取消收藏
             </el-button>
           </template>
         </el-table-column>
@@ -40,17 +40,17 @@
       }
     },
     methods: {
-      cancel: function(schoolID, majorID) {
-        console.log("取消",schoolID," ",majorID);
+      cancel: function(index, schoolID, majorID) {
+        console.log("取消", schoolID, " ", majorID);
         this.$axios.post("/api/favor/d/major", {
           'majorCid': schoolID,
           'majorMid': majorID
         })
           .then((res) => {
-            console.log(res.status);
-            console.log("取消成功了呀");
-            this.schoolCollect = [];
-            this.setCollectInfo();
+            if (res.data.status===200) {
+              this.$message.success("取消成功");
+              this.schoolCollect.splice(index, 1);
+            }
           })
           .catch((err) => {
             console.log("取消收藏有错误" + err);
