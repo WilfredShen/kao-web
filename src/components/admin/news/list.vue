@@ -36,7 +36,6 @@
     },
     data() {
       return {
-        hint: '当前轮次没有数据，请上传',
         tableData: [],
         editNews: false,
         sMap: {},
