@@ -164,16 +164,7 @@
 
       cancelModify: function() {
         this.isModify = !this.isModify;
-        this.clearAll();
-      },
-
-      clearAll: function() {
-        this.studentForm.newPhone = '';
-        this.studentForm.newEmail = '';
-        this.studentForm.newCollege = '';
-        this.studentForm.newGraduate = '';
-        this.studentForm.newMajor = '';
-        this.studentForm.newExpect = '';
+        this.$refs['studentForm'].resetFields();
       },
 
       commitModify: function(formName) {
@@ -195,8 +186,7 @@
               .then((res) => {
                 console.log(res);
                 this.isModify = !this.isModify;
-                this.clearAll();
-                this.setStuInfo();
+                this.$refs['studentForm'].resetFields();
               })
               .catch((error) => {
                 console.log("stu info 有问题" + error);
