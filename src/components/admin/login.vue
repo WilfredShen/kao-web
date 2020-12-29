@@ -25,12 +25,6 @@
               :type="status.showPassword ? '' : 'password'"
               aria-placeholder="请输入密码"
             >
-            <i
-                      slot="suffix"
-                      :style="{ color: status.showPassword ? '#409EFF' : '' }"
-                      class="el-icon-view"
-                      @click="status.showPassword = !status.showPassword"
-              ></i>
             </el-input>
           </el-form-item>
           <el-form-item>

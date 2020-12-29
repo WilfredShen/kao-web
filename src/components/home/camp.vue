@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 0 12%" >
+  <div style="margin: 0 12%">
     <div>
       <el-card shadow="hover" v-for="(item,index) in camps" :key="index" style="margin-bottom: 10px">
         <div style="display: flex;flex-direction: row">
@@ -34,7 +34,12 @@
         allCamps: [],//全部夏令营信息
         currentPage: 1,
         currentTotal: 47,
-        pageSize: 4
+        pageSize: 4,
+        backgroundDiv: {
+          backgroundImage: 'url(' + require('@/assets/image/HNU.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
       }
     },
     methods: {

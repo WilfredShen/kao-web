@@ -26,12 +26,6 @@
                 :type="status.showPassword ? '' : 'password'"
                 aria-placeholder="请输入密码"
               >
-                <i
-                        slot="suffix"
-                        :style="{ color: status.showPassword ? '#409EFF' : '' }"
-                        class="el-icon-view"
-                        @click="status.showPassword = !status.showPassword"
-                ></i>
               </el-input>
             </el-form-item>
             <el-form-item>
@@ -69,8 +63,6 @@
 </template>
 
 <script>
-
-  import {getUserId} from '@/assets/lib/getAndSetSelf'
   import '@/assets/css/login.css'
 
   export default {
@@ -95,7 +87,7 @@
       };
     },
     methods: {
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/login", {
             username: this.loginForm.username,
@@ -110,12 +102,6 @@
                 callback = "/";
                 this.$message.success("登陆成功！即将跳转至主页...");
               }
-
-              //登录后即设置uid
-              getUserId()
-                .then((res) => {
-                  this.$store.commit("setuid", res);
-                });
 
               setTimeout(() => {
                 this.$router.push(callback.toString());
