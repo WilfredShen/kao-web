@@ -109,16 +109,19 @@
           if (valid) {
             this.$message.success("修改成功！");
             let postPhone, postEmail;
-            postPhone = this.infoForm.newPhone === '' ? null : this.infoForm.newPhone;
-            postEmail = this.infoForm.newEmail === '' ? null : this.infoForm.newEmail;
+            postPhone = this.infoForm.newPhone === '' ? this.items[2].content : this.infoForm.newPhone;
+            postEmail = this.infoForm.newEmail === '' ? this.items[3].content : this.infoForm.newEmail;
 
             updateUserInfo(postPhone, postEmail)
               .then((res) => {
                 console.log("修改成功", res);
+                this.$store.commit('setNewPhone',postPhone);
+                this.$store.commit('setNewEmail',postEmail);
+                this.items[2].content = postPhone;
+                this.items[3].content = postEmail;
+                this.$refs['infoForm'].resetFields();
                 this.isModify = !this.isModify;
-                this.infoForm.newPhone = '';
-                this.infoForm.newEmail = '';
-                this.setSelfInfo();
+                // this.setSelfInfo();
               });
           } else {
             this.$message.error("提交失败！请检查输入！");
@@ -128,8 +131,7 @@
 
       cancelModify: function() {
         this.isModify = !this.isModify;
-        this.infoForm.newPhone = '';
-        this.infoForm.newEmail = '';
+        this.$refs['infoForm'].resetFields();
       },
 
       setSelfInfo: function() {
@@ -204,11 +206,31 @@
           });
 
         location.reload();
+      },
+
+      fetchData: function() {
+        if (this.$store.state.newPhone!==''){
+          this.items[2].content = this.$store.state.newPhone;
+        }
+        if (this.$store.state.newEmail!==''){
+          this.items[3].content = this.$store.state.newEmail;
+        }
       }
     },
     created() {
       this.setSelfInfo();
     },
+    watch:{
+      "$route": {
+        handler(route) {
+          console.log(route.name);
+          const that = this;
+          if (route.name === 'Info') {
+            that.fetchData();
+          }
+        }
+      }
+    }
   }
 </script>
 

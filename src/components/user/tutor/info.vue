@@ -6,7 +6,7 @@
              style="display: flex;align-items: center;width: 100%;height: 40px">
           <div style="width: 40%;text-align: right"><span class="info">{{item.label}}</span></div>
           <div style="width: 60%;text-align: left;">
-            <span class="info"  style="padding-left: 15px">{{item.content}}</span>
+            <span class="info" style="padding-left: 15px">{{item.content}}</span>
           </div>
         </div>
 
@@ -156,16 +156,27 @@
         pMajor = this.tutorForm.newMajor === '' ? this.items[6].content : this.tutorForm.newMajor;
         pResearch = this.tutorForm.newResearch === '' ? this.items[7].content : this.tutorForm.newResearch;
         updateTeaInfo(pPhone, pEmail, pCollege, pMajor, pResearch)
-          .then((res) => {
-            console.log(res);
-            this.isModify = !this.isModify;
+          .then(() => {
+            this.$message.success("修改成功");
             this.$refs['tutorForm'].resetFields();
-            this.setTutorInfo();
+            this.items[0].content = pPhone;
+            this.items[1].content = pEmail;
+            this.items[5].content = pCollege;
+            this.items[6].content = pMajor;
+            this.items[7].content = pResearch;
+            this.isModify = !this.isModify;
+            console.log("pEmail = ",pEmail);
+          })
+          .catch((err) => {
+            this.$message.error("修改失败");
+            console.log("修改教师信息失败",err);
           });
 
         updateUserInfo(pPhone, pEmail)
           .then((res) => {
             console.log(res);
+            this.$store.commit('setNewPhone',pPhone);
+            this.$store.commit('setNewEmail',pEmail);
           })
           .catch((err) => {
             console.log("研究生秘书修改基本信息有问题" + err);

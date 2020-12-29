@@ -170,8 +170,6 @@
       commitModify: function(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$message.success("修改成功！");
-
             let pPhone, pEmail, pCollege, pMajor, pGraduate, pExpectMajor;
             pPhone = this.studentForm.newPhone === '' ? this.items[0].content : this.studentForm.newPhone;
             pEmail = this.studentForm.newEmail === '' ? this.items[1].content : this.studentForm.newEmail;
@@ -185,6 +183,13 @@
             updateStuInfo(uid, pPhone, pEmail, pCollege, pMajor, pExpectMajor, pGraduate)
               .then((res) => {
                 console.log(res);
+                this.$message.success("修改成功！");
+                this.items[0].content = pPhone;
+                this.items[1].content = pEmail;
+                this.items[5].content = pCollege;
+                this.items[6].content = pMajor;
+                this.items[7].content = pExpectMajor;
+                this.items[8].content = pGraduate;
                 this.isModify = !this.isModify;
                 this.$refs['studentForm'].resetFields();
               })
@@ -195,6 +200,8 @@
             updateUserInfo(pPhone, pEmail)
               .then((res) => {
                 console.log(res);
+                this.$store.commit('setNewPhone',pPhone);
+                this.$store.commit('setNewEmail',pEmail);
               })
               .catch((err) => {
                 console.log("学生修改基本信息有问题" + err);
