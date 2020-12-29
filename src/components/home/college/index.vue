@@ -1,12 +1,12 @@
 <template>
   <div>
     <div style="width: 20px">
-      <el-button class="row-style" type="text" @click="$router.push({ path: '/college/detail' })"
+      <el-button class="row-style" type="text" @click="clickBack()"
                  icon="el-icon-back" style="font-size: 15px;">返回
       </el-button>
     </div>
     <br>
-    <div class="sch-divstyle" style="padding: 5px 0;">
+    <div class="sch-divstyle" style="padding: 5px 0;margin-top:10px">
       <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
         <div style="background-color:#163172;height:60px;margin-left: 0;margin-right: 0">
           <p class="schoola">{{this.schoolDetails.cid}}
@@ -14,22 +14,22 @@
             {{this.schoolDetails.level}}
           </p>
         </div>
-        <div class="mess" style="padding: 5px">
+        <div class="mess" style="padding: 5px;margin-top: 5px">
           <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
+          <br>
           <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
         </div>
       </div>
-      <el-card class="box-card">
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">最新排名:</p>
         </div>
-        <table border="1" cellspacing="0"
-               style="margin-left: 10px;width:50%;margin-top: 10px;">
-          <tr style="line-height:50px">
+        <table class="tableStyle">
+          <thead style="line-height:50px">
             <th>数据来源</th>
             <th>排名</th>
             <th>更新日期</th>
-          </tr>
+          </thead>
           <tr v-for="(item, index) in ranks" :key="index"
               style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.rankFrom||'无数据'}}</td>
@@ -42,21 +42,20 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">近五年录取率:</p>
         </div>
-        <table border="1" cellspacing="0"
-               style="margin-left: 10px;width:60%;margin-top: 10px">
-          <tr style="line-height:50px">
+        <table class="tableStyle">
+          <thead style="line-height:50px">
             <th>年份</th>
             <th>考研人数</th>
             <th>录取人数</th>
             <th>保研人数</th>
             <th>保研率</th>
             <th>录取率</th>
-          </tr>
+          </thead>
           <tr v-for="(item, index) in rates" :key="index"
               style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.year}}</td>
@@ -72,18 +71,17 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">最新学科评估结果:</p>
         </div>
-        <table border="1" cellspacing="0"
-               style="margin-left: 10px;width:50%;margin-top: 10px">
-          <tr style="line-height:50px">
+        <table class="tableStyle">
+          <thead style="line-height:50px">
             <th>学科名称及代码</th>
             <th>评估结果</th>
             <th>参评轮次</th>
-          </tr>
+          </thead>
           <tr v-for="(item, index) in evaluation.slice(0,5)" :key="index"
               style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td>{{item.mid+getMajorName(item.mid)}}</td>
@@ -96,20 +94,19 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">导师信息:</p>
         </div>
-        <table border="1" cellspacing="0"
-               style="margin-left: 10px;;width:60%;margin-top: 10px">
-          <tr>
+        <table class="tableStyle">
+          <thead>
             <th>导师姓名</th>
             <th>招生专业</th>
             <th>研究方向</th>
             <th>联系电话</th>
             <th>邮箱地址</th>
-          </tr>
+          </thead>
           <tr v-for="(item, index) in tutors" :key="index"
               style="text-align:center;line-height:30px" :class="{table:index%2===0}">
             <td> {{item.name}}</td>
@@ -124,7 +121,7 @@
             </td>
           </tr>
         </table>
-      </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -222,6 +219,10 @@
             arr.tutors = res;
           });
       },
+      clickBack: function () {
+        this.$router.go(-1);//返回上一层
+      }
+
       /*
       setFavorTutor(cid, tid) {
         this.favorTutors = [];
@@ -271,7 +272,11 @@
     width: 3%;
     float: left;
   }
-
+   .box-card{
+     border-bottom: 3px solid #163172;
+     margin-top: 10px;
+     margin-bottom: 20px;
+   }
   .schoola {
     line-height: 60px;
     font-weight: bold;
@@ -288,14 +293,36 @@
 
   .pstylea {
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 5px;
+  }
+  /* Table Head */
+  .tableStyle thead th {
+    background-color: rgb(81, 130, 187);
+    color: #fff;
+    border-bottom-width: 0;
+    line-height: 30px;
   }
 
-  .table {
-    background: #d6e4f0;
+  /* Column Style */
+  .tableStyle td {
+    color: #000;
+  }
+  /* Heading and Column Style */
+  .tableStyle tr,.tableStyle th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(81, 130, 187);
   }
 
-  .box-card {
-    margin-top: 10px;
+  /* Padding and font style */
+  .tableStyle td, .tableStyle th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+  }
+  .tableStyle{
+    width: 70%;
+    margin-bottom: 10px;
   }
 </style>

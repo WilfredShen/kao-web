@@ -35,11 +35,6 @@
         currentPage: 1,
         currentTotal: 47,
         pageSize: 4,
-        backgroundDiv: {
-          backgroundImage: 'url(' + require('@/assets/image/HNU.jpg') + ')',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%'
-        },
       }
     },
     methods: {
