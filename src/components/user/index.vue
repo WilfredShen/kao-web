@@ -32,7 +32,6 @@
       </el-menu-item>
     </el-menu>
     <div style="width: 100%;height: 100vh;">
-      <!--      <div style="height: 10%;background-color:#163172;width: 100%"></div>-->
       <div style="height: 100%;width: 100%">
         <keep-alive>
           <router-view></router-view>
@@ -56,7 +55,8 @@
         username: '',
       }
     },
-    methods: {},
+    methods: {
+    },
     created() {
       getLimit()
         .then((res) => {
@@ -73,7 +73,7 @@
           console.log("获得的用户名" + res);
           this.username = res;
         });
-    }
+    },
   };
 </script>
 <style scoped>
