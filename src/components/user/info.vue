@@ -1,20 +1,40 @@
 <template>
-  <div :style="myBackground" class="center">
+  <div
+    :style="myBackground"
+    class="center"
+  >
     <div style="width: 35%;">
-      <el-card style="padding-left: 20px;padding-right: 20px;background-color: #ffffff22" shadow="hover">
-        <div v-for="(item,index) in items" :key="index"
-             style="display: flex;align-items: center;width: 100%;height: 50px;">
+      <el-card
+        style="padding-left: 20px;padding-right: 20px;background-color: #ffffff22"
+        shadow="hover"
+      >
+        <div
+          v-for="(item,index) in items"
+          :key="index"
+          style="display: flex;align-items: center;width: 100%;height: 50px;"
+        >
           <div style="width: 35%;text-align: right"><span class="info">{{item.label}}</span></div>
           <div style="width: 65%;text-align: left;">
-            <span class="info" style="padding-left: 15px">{{item.content}}</span>
+            <span
+              class="info"
+              style="padding-left: 15px"
+            >{{item.content}}</span>
           </div>
         </div>
 
-        <el-button class="func-btn" style="background-color: #1e56a0;color: white" @click="modify()">
+        <el-button
+          class="func-btn"
+          style="background-color: #1e56a0;color: white"
+          @click="modify()"
+        >
           修改信息
         </el-button>
 
-        <el-dropdown style="margin-left: 10px;" split-button @command="handleCommand">
+        <el-dropdown
+          style="margin-left: 10px;"
+          split-button
+          @command="handleCommand"
+        >
           {{identity}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="学生">学生</el-dropdown-item>
@@ -22,26 +42,48 @@
           </el-dropdown-menu>
         </el-dropdown>
 
-        <el-button id="verify" style="margin-left: 10px;background-color: #1e56a0;color: white"
-                   @click="verifyId()">
+        <el-button
+          id="verify"
+          style="margin-left: 10px;background-color: #1e56a0;color: white"
+          @click="verifyId()"
+        >
           实名与身份认证
         </el-button>
       </el-card>
-      <el-dialog :visible.sync="isModify" :width="width">
-        <el-form label-width="20%"
-                 label-position="right"
-                 :model="infoForm"
-                 :rules="infoRules"
-                 ref="infoForm">
-          <el-form-item label="手机号:" prop="newPhone">
+      <el-dialog
+        :visible.sync="isModify"
+        :width="width"
+      >
+        <el-form
+          label-width="20%"
+          label-position="right"
+          :model="infoForm"
+          :rules="infoRules"
+          ref="infoForm"
+        >
+          <el-form-item
+            label="手机号:"
+            prop="newPhone"
+          >
             <el-input v-model="infoForm.newPhone"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱:" prop="newEmail">
+          <el-form-item
+            label="邮箱:"
+            prop="newEmail"
+          >
             <el-input v-model="infoForm.newEmail"></el-input>
           </el-form-item>
           <div class="func-btn">
-            <el-button style="background-color: #1e56a0;color: white" @click="commitModify('infoForm')">确认修改</el-button>
-            <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
+            <el-button
+              style="background-color: #1e56a0;color: white"
+              @click="commitModify('infoForm')"
+            >确认修改
+            </el-button>
+            <el-button
+              style="background-color: #1e56a0;color: white"
+              @click="cancelModify()"
+            >取消修改
+            </el-button>
           </div>
         </el-form>
       </el-dialog>
@@ -51,6 +93,7 @@
 <script>
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
   import {getCookie} from "@/assets/lib/utils";
+
   export default {
     name: 'Info',
     props: {

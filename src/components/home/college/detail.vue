@@ -8,36 +8,66 @@
       </div>
       <div style="display: flex;align-items: center;margin: 20px 15px 10px 15px">
         <p class="spanb">模糊查找学校 : </p>
-        <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher()"
-                  @focus="cleanSearch()" clearable></el-input>
+        <el-input
+          size="mini"
+          style="width: 200px;"
+          v-model="input"
+          placeholder="请输入"
+          @change="fuzzySearcher()"
+          @focus="cleanSearch()"
+          clearable
+        ></el-input>
       </div>
-      <div style="display: flex;align-items: center;margin: 7px 15px">
+      <div style="display: flex;align-items: center;margin: 10px 15px">
         <p class="spanb">评价体系 : </p>
-        <el-dropdown style="margin-left: 28px;margin-right: 10px;" split-button size="mini"
-                     @command="handleCommand">
+        <el-dropdown
+          style="margin-left: 28px;margin-right: 10px;"
+          split-button
+          size="mini"
+          @command="handleCommand"
+        >
           {{rankSys}}
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="学科评估">学科评估</el-dropdown-item>
-            <el-dropdown-item command="软科" divided>软科</el-dropdown-item>
-            <el-dropdown-item command="QS" divided>QS</el-dropdown-item>
+            <el-dropdown-item
+              command="软科"
+              divided
+            >软科
+            </el-dropdown-item>
+            <el-dropdown-item
+              command="QS"
+              divided
+            >QS
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-      <div v-if="isNormal" style="display: flex;align-items: center;margin: 3px 15px">
+      <div
+        v-if="isNormal"
+        style="display: flex;align-items: center;margin: 10px 15px"
+      >
         <p class="spanb">评估结果 : </p>
-        <el-select v-model="level" multiple placeholder="请选择" size="mini" style="margin-left: 28px;width: 40%">
+        <el-select
+          v-model="level"
+          multiple
+          placeholder="请选择"
+          size="mini"
+          style="margin-left: 28px;width: 40%"
+        >
           <el-option
             v-for="item in option4"
             :key="item.value4"
             :label="item.value4"
             :value="item.label4"
-          >
-          </el-option>
+          ></el-option>
         </el-select>
       </div>
       <div style="text-align: right">
-        <el-button size="small" style="width: 100px;margin: 10px 20px 10px 0;font-weight: bold;font-size: 13px"
-                   @click="getSearch()">查询
+        <el-button
+          size="small"
+          style="width: 100px;margin: 10px 20px 10px 0;font-weight: bold;font-size: 13px"
+          @click="getSearch()"
+        >查询
         </el-button>
       </div>
     </div>
@@ -47,14 +77,20 @@
           筛选结果
         </span>
       </div>
-      <el-card style="margin-top: 10px;background-color: transparent" v-if="afterFilter.length">
+      <el-card
+        style="margin-top: 10px;background-color: transparent"
+        v-if="afterFilter.length"
+      >
         <div style="text-align: center;margin: 0 5%">
           <el-row style="margin: 8px 0;font-weight: bold;font-size: 20px">
             <el-col :span="8">
               <div>学校代码及名称</div>
             </el-col>
-            <el-col :span="8" v-if="isNormal">
-              <div>专业代码及名称</div>
+            <el-col
+              :span="8"
+              v-if="isNormal"
+            >
+              <div>学科代码及名称</div>
             </el-col>
             <el-col :span="8">
               <div>评估等级</div>
@@ -62,14 +98,28 @@
           </el-row>
 
           <el-scrollbar style="height: 600px">
-            <div v-for="(item, index) in afterFilter" :key="index">
-              <el-card shadow="hover" :class="{table:index%2===0}" :body-style="{ padding: '4px' }"
-                       style=" margin: 7px 0">
+            <div
+              v-for="(item, index) in afterFilter"
+              :key="index"
+            >
+              <el-card
+                shadow="hover"
+                :class="{table:index%2===0}"
+                :body-style="{ padding: '4px' }"
+                style=" margin: 7px 0"
+              >
                 <el-row style="margin: 0 4px;padding: 8px 0">
                   <el-col :span="8">
-                    <div @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cid+item.cname}}</div>
+                    <div
+                      @click="schoolClick(item.cid)"
+                      style="cursor: pointer"
+                    >{{item.cid+item.cname}}
+                    </div>
                   </el-col>
-                  <el-col :span="8" v-if="isNormal">
+                  <el-col
+                    :span="8"
+                    v-if="isNormal"
+                  >
                     <div>{{item.mid+item.mname}}</div>
                   </el-col>
                   <el-col :span="8">

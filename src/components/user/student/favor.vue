@@ -1,17 +1,49 @@
 <template xmlns:el-table="http://www.w3.org/1999/html">
-  <div :style="myBackground" class="center">
-    <div class="tableTransparent" style="width: 70%;height: 80%">
-      <el-table :data="schoolCollect" :height="height"
-                :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
-                style="font-size: 18px;font-weight: bold;color: #ffffff">
-        <el-table-column sortable prop="schoolID" align="center" label="高校代码"></el-table-column>
-        <el-table-column prop="schoolName" align="center" label="高校名称"></el-table-column>
-        <el-table-column sortable prop="majorID" align="center" label="专业代码"></el-table-column>
-        <el-table-column prop="majorName" align="center" label="专业名称"></el-table-column>
-        <el-table-column align="center" label="取消收藏">
+  <div
+    :style="myBackground"
+    class="center"
+  >
+    <div
+      class="tableTransparent"
+      style="width: 70%;height: 80%"
+    >
+      <el-table
+        :data="schoolCollect"
+        :height="height"
+        :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
+        style="font-size: 18px;font-weight: bold;color: #ffffff"
+      >
+        <el-table-column
+          sortable
+          prop="schoolID"
+          align="center"
+          label="高校代码"
+        ></el-table-column>
+        <el-table-column
+          prop="schoolName"
+          align="center"
+          label="高校名称"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="majorID"
+          align="center"
+          label="专业代码"
+        ></el-table-column>
+        <el-table-column
+          prop="majorName"
+          align="center"
+          label="专业名称"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          label="取消收藏"
+        >
           <template slot-scope="scope">
-            <el-button style="background-color: #1e56a0;color: white"
-                       @click="cancel(scope.$index,scope.row['schoolID'],scope.row['majorID'])">取消收藏
+            <el-button
+              style="background-color: #1e56a0;color: white"
+              @click="cancel(scope.$index,scope.row['schoolID'],scope.row['majorID'])"
+            >取消收藏
             </el-button>
           </template>
         </el-table-column>

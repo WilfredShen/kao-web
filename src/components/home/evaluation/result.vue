@@ -1,23 +1,35 @@
 <template>
   <div>
-    <div class="bor1" style="border-bottom: 3px solid #163172;margin: 0">
+    <div
+      class="bor1"
+      style="border-bottom: 3px solid #163172;margin: 0"
+    >
       <div style="background-color:#163172;height:50px;margin-left: 0;margin-right: 0">
         <span class="spana">
         筛选条件
         </span>
       </div>
       <!--      轮次-->
-      <div class="marg" style="margin-top: 20px">
+      <div
+        class="marg"
+        style="margin-top: 20px"
+      >
         <span class="spanb">
           轮次 :
         </span>
-        <el-select v-model="round" placeholder="请选择" size="mini" style="font-family: 宋体">
+        <el-select
+          v-model="round"
+          placeholder="请选择"
+          size="mini"
+          style="font-family: 宋体"
+        >
           <el-option
             v-for="item in options"
             :key="item.value"
             :label="item.label"
             :value="item.value"
-            :disabled="item.disabled">
+            :disabled="item.disabled"
+          >
           </el-option>
         </el-select>
       </div>
@@ -26,13 +38,19 @@
         <span class="spanb">
           学类 :
         </span>
-        <el-select v-model="disciplineCode" placeholder="请选择" size="mini" style="font-family: 宋体"
-                   @change="getMajorList(disciplineCode)">
+        <el-select
+          v-model="disciplineCode"
+          placeholder="请选择"
+          size="mini"
+          style="font-family: 宋体"
+          @change="getMajorList(disciplineCode)"
+        >
           <el-option
             v-for="item in disciplines"
             :key="item.did"
             :label="item.dname"
-            :value="item.did">
+            :value="item.did"
+          >
           </el-option>
         </el-select>
       </div>
@@ -41,12 +59,18 @@
         <span class="spanb">
           学科 :
         </span>
-        <el-select v-model="majorCode" placeholder="请选择" size="mini" style="font-family: 宋体">
+        <el-select
+          v-model="majorCode"
+          placeholder="请选择"
+          size="mini"
+          style="font-family: 宋体"
+        >
           <el-option
             v-for="item in majors"
             :key="item.mid"
             :label="item.mid+item.mname"
-            :value="item.mid">
+            :value="item.mid"
+          >
           </el-option>
         </el-select>
       </div>
@@ -55,7 +79,13 @@
         <span class="spanb">
           等级 :
         </span>
-        <el-select v-model="level" multiple placeholder="请选择" size="mini" style="font-family: 宋体">
+        <el-select
+          v-model="level"
+          multiple
+          placeholder="请选择"
+          size="mini"
+          style="font-family: 宋体"
+        >
           <el-option
             v-for="item in option4"
             :key="item.value4"
@@ -64,7 +94,13 @@
           >
           </el-option>
         </el-select>
-        <el-button size="small" round @click="getTmpResults()" style="margin-left:10px">确定</el-button>
+        <el-button
+          size="small"
+          round
+          @click="getTmpResults()"
+          style="margin-left:10px"
+        >确定
+        </el-button>
       </div>
     </div>
     <br>
@@ -82,10 +118,18 @@
               <th>高校名称及代码</th>
               <th>&nbsp;&nbsp;评估等级&nbsp;&nbsp;&nbsp;</th>
             </tr>
-            <tr v-for="(item, index) in resultList" :key="index"
-                style="text-align:center;line-height:50px;" :class="{table:index%2===0}">
+            <tr
+              v-for="(item, index) in resultList"
+              :key="index"
+              style="text-align:center;line-height:50px;"
+              :class="{table:index%2===0}"
+            >
               <td>{{item.mid+getMajorName(item.mid)}}</td>
-              <td @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cid+getSchoolName(item.cid)}}</td>
+              <td
+                @click="schoolClick(item.cid)"
+                style="cursor: pointer"
+              >{{item.cid+getSchoolName(item.cid)}}
+              </td>
               <td>{{item.result}}</td>
             </tr>
           </table>
@@ -95,12 +139,22 @@
       </div>
     </div>
     <div style="float:right;margin-top: 10px">
-      <el-button v-show="(!(isIdentity==null)&&!(isIdentity===''))" size="medium" round @click="setFavorMajor()"
-                 style="margin-left:10px">一键收藏
+      <el-button
+        v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+        size="medium"
+        round
+        @click="setFavorMajor()"
+        style="margin-left:10px"
+      >一键收藏
       </el-button>
     </div>
     <div style="float:right;margin-right:5px;margin-top:10px">
-      <el-button v-show="(!(isIdentity==null)&&!(isIdentity===''))" size="medium" round @click="exportExcel()">导出
+      <el-button
+        v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+        size="medium"
+        round
+        @click="exportExcel()"
+      >导出
       </el-button>
     </div>
   </div>

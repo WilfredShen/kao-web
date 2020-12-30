@@ -1,45 +1,89 @@
 <template>
-  <div :style="myBackground" class="center">
+  <div
+    :style="myBackground"
+    class="center"
+  >
     <div style="width: 30%">
-      <el-card style="padding-left: 20px;padding-right: 20px;background-color: #ffffff22" shadow="hover">
-        <div v-for="(item,index) in items" :key="index"
-             style="display: flex;align-items: center;width: 100%;height: 40px">
+      <el-card
+        style="padding-left: 20px;padding-right: 20px;background-color: #ffffff22"
+        shadow="hover"
+      >
+        <div
+          v-for="(item,index) in items"
+          :key="index"
+          style="display: flex;align-items: center;width: 100%;height: 40px"
+        >
           <div style="width: 40%;text-align: right"><span class="info">{{item.label}}</span></div>
           <div style="width: 60%;text-align: left;">
-            <span class="info" style="padding-left: 15px">{{item.content}}</span>
+            <span
+              class="info"
+              style="padding-left: 15px"
+            >{{item.content}}</span>
           </div>
         </div>
 
-        <el-button class="func-btn" style="background-color: #1e56a0;color: white" type="primary"
-                   @click="modify()">修改信息
+        <el-button
+          class="func-btn"
+          style="background-color: #1e56a0;color: white"
+          type="primary"
+          @click="modify()"
+        >修改信息
         </el-button>
       </el-card>
-      <el-dialog :visible.sync="isModify" :width="width">
-        <el-form label-width="20%"
-                 label-position="left"
-                 :model="tutorForm"
-                 :rules="tutorRules"
-                 ref="tutorForm">
-          <el-form-item label="联系电话" prop="newPhone">
+      <el-dialog
+        :visible.sync="isModify"
+        :width="width"
+      >
+        <el-form
+          label-width="20%"
+          label-position="left"
+          :model="tutorForm"
+          :rules="tutorRules"
+          ref="tutorForm"
+        >
+          <el-form-item
+            label="联系电话"
+            prop="newPhone"
+          >
             <el-input v-model="tutorForm.newPhone"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱地址" prop="newEmail">
+          <el-form-item
+            label="邮箱地址"
+            prop="newEmail"
+          >
             <el-input v-model="tutorForm.newEmail"></el-input>
           </el-form-item>
-          <el-form-item label="所属院校" prop="newCollege">
+          <el-form-item
+            label="所属院校"
+            prop="newCollege"
+          >
             <el-input v-model="tutorForm.newCollege"></el-input>
           </el-form-item>
-          <el-form-item label="所属专业" prop="newMajor">
+          <el-form-item
+            label="所属专业"
+            prop="newMajor"
+          >
             <el-input v-model="tutorForm.newMajor"></el-input>
           </el-form-item>
-          <el-form-item label="研究方向" prop="newResearch">
+          <el-form-item
+            label="研究方向"
+            prop="newResearch"
+          >
             <el-input v-model="tutorForm.newResearch"></el-input>
           </el-form-item>
         </el-form>
         <div class="func-btn">
-          <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify()">确认修改
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            type="primary"
+            @click="commitModify()"
+          >确认修改
           </el-button>
-          <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            @click="cancelModify()"
+          >取消修改
+          </el-button>
         </div>
       </el-dialog>
     </div>

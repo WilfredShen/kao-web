@@ -13,14 +13,22 @@
             label-position="left"
             label-width="80px"
           >
-            <el-form-item class="myLogin" label="用户名" prop="username">
+            <el-form-item
+              class="myLogin"
+              label="用户名"
+              prop="username"
+            >
               <el-input
                 v-model="loginForm.username"
                 aria-placeholder="请输入用户名"
               >
               </el-input>
             </el-form-item>
-            <el-form-item class="myLogin" label="密码" prop="password">
+            <el-form-item
+              class="myLogin"
+              label="密码"
+              prop="password"
+            >
               <el-input
                 v-model="loginForm.password"
                 :type="status.showPassword ? '' : 'password'"
@@ -29,7 +37,11 @@
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button style="width: 100%;background-color: #1e56a0" type="primary" @click="submit">
+              <el-button
+                style="width: 100%;background-color: #1e56a0"
+                type="primary"
+                @click="submit"
+              >
                 <span>登录</span>
               </el-button>
             </el-form-item>

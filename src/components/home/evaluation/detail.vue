@@ -1,19 +1,41 @@
 <template>
   <div>
-    <div style="padding: 20px 10px 30px 20px;" :style="backgroundDiv">
+    <div
+      style="padding: 20px 10px 30px 20px;"
+      :style="backgroundDiv"
+    >
       <span class="detail-title">
       高校评估结果快捷查询（第四轮）
       </span>
     </div>
-    <div style="padding: 0 10px 10px 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
-         :style="backgroundDiv2">
+    <div
+      style="padding: 0 10px 10px 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+      :style="backgroundDiv2"
+    >
       <el-container style="width: 100%">
         <el-aside style="padding: 1.6rem;width: 20%">
-          <div class="div-style" v-for="(item, index) in discipline" @click="setSelected(index)" :key="index">
-            <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
+          <div
+            class="div-style"
+            v-for="(item, index) in discipline"
+            @click="setSelected(index)"
+            :key="index"
+          >
+            <el-row
+              class="discipline-option"
+              style="margin-left: 13%;width: 90%"
+            >
               <el-col :span="24">
-                <img src="@/assets/image/点击.png" v-if="!(index-row)" width="17%" style="float: left;padding-right: 4px">
-                <div style="padding: 2px 4px" :class="{on:index==row}">{{item.dname}}</div>
+                <img
+                  src="@/assets/image/点击.png"
+                  v-if="!(index-row)"
+                  width="17%"
+                  style="float: left;padding-right: 4px"
+                >
+                <div
+                  style="padding: 2px 4px"
+                  :class="{on:index==row}"
+                >{{item.dname}}
+                </div>
               </el-col>
             </el-row>
           </div>
@@ -21,26 +43,42 @@
         <el-main style="padding: 0">
           <el-container>
             <el-aside
-              style="padding: 1.6rem; background-color: #FFFFFF4d ; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
+              style="padding: 1.6rem; background-color: #FFFFFF4d ; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+            >
               <el-scrollbar style="height: 650px">
-                <div class="major-options" v-for="(item, index) in getMajors"
-                     @click="selected.mindex = index;row2=index;"
-                     :key="index">
-                  <el-row class="discipline-option" style="margin-left: 13%">
-
+                <div
+                  class="major-options"
+                  v-for="(item, index) in getMajors"
+                  @click="selected.mindex = index;row2=index;"
+                  :key="index"
+                >
+                  <el-row
+                    class="discipline-option"
+                    style="margin-left: 13%"
+                  >
                     <el-col :span="28">
-                      <img src="@/assets/image/点击.png" v-if="!(index-row2)" width="13%"
-                           style="float: left;padding-right: 4px">
-                      <div style="padding: 2px 4px" :class="{on:index===row2}">{{ `${item.mid} ${item.mname}` }}</div>
+                      <img
+                        src="@/assets/image/点击.png"
+                        v-if="!(index-row2)"
+                        width="13%"
+                        style="float: left;padding-right: 4px"
+                      >
+                      <div
+                        style="padding: 2px 4px"
+                        :class="{on:index===row2}"
+                      >{{ `${item.mid} ${item.mname}` }}
+                      </div>
                     </el-col>
-
                   </el-row>
                 </div>
               </el-scrollbar>
             </el-aside>
             <el-main>
               <div style="text-align: center;">
-                <span style="font-size: 19px;font-weight: bold" v-if="this.getMajors[0]">
+                <span
+                  style="font-size: 19px;font-weight: bold"
+                  v-if="this.getMajors[0]"
+                >
                   {{ `${this.getMajors[this.selected.mindex].mid} ${this.getMajors[this.selected.mindex].mname}` }}
                 </span><br><br/>
                 <span style="font-family: 宋体">
@@ -59,10 +97,20 @@
                   <div>学校名称</div>
                 </el-col>
               </el-row>
-              <el-scrollbar style="height: 500px" v-if="showEvaluation">
-                <div v-for="(item, index) in showEvaluation" :key="index">
-                  <el-card shadow="hover" :class="{table:index%2===0}" :body-style="{ padding: '4px' }"
-                           style=" margin: 7px 0">
+              <el-scrollbar
+                style="height: 500px"
+                v-if="showEvaluation"
+              >
+                <div
+                  v-for="(item, index) in showEvaluation"
+                  :key="index"
+                >
+                  <el-card
+                    shadow="hover"
+                    :class="{table:index%2===0}"
+                    :body-style="{ padding: '4px' }"
+                    style=" margin: 7px 0"
+                  >
                     <el-row style="padding: 8px 0;text-align: center">
                       <el-col :span="8">
                         <div>{{item.result}}</div>
@@ -71,7 +119,11 @@
                         <div>{{item.cid}}</div>
                       </el-col>
                       <el-col :span="8">
-                        <div @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cname}}</div>
+                        <div
+                          @click="schoolClick(item.cid)"
+                          style="cursor: pointer"
+                        >{{item.cname}}
+                        </div>
                       </el-col>
                     </el-row>
                   </el-card>
@@ -248,7 +300,10 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style
+  lang="stylus"
+  scoped
+>
 
   .demo-wrapper {
     margin: auto;

@@ -1,17 +1,49 @@
 <template>
   <div>
     <el-scrollbar style="height: 550px">
-      <el-table :data="tableData" :header-cell-style="{background:'#1e56a0',color:'white'}" border stripe>
-        <el-table-column prop="upTime" label="上传时间" align="center"></el-table-column>
-        <el-table-column prop="adminId" label="管理员ID" align="center"></el-table-column>
-        <el-table-column prop="schoolName" label="高校名称" align="center"></el-table-column>
-        <el-table-column prop="title" label="标题" align="center"></el-table-column>
-        <el-table-column prop="edit" label="编辑" align="center">
-          <el-button size="small" @click="edit()">编辑</el-button>
+      <el-table
+        :data="tableData"
+        :header-cell-style="{background:'#1e56a0',color:'white'}"
+        border
+        stripe
+      >
+        <el-table-column
+          prop="upTime"
+          label="上传时间"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="adminId"
+          label="管理员ID"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="schoolName"
+          label="高校名称"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="title"
+          label="标题"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="edit"
+          label="编辑"
+          align="center"
+        >
+          <el-button
+            size="small"
+            @click="edit()"
+          >编辑
+          </el-button>
         </el-table-column>
       </el-table>
     </el-scrollbar>
-    <el-dialog :visible.sync="editNews" :width="width">
+    <el-dialog
+      :visible.sync="editNews"
+      :width="width"
+    >
       <news-update @eIfCommit="ifEdit($event)"></news-update>
     </el-dialog>
   </div>

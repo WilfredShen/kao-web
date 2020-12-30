@@ -1,34 +1,72 @@
 <template>
   <el-container class="container">
-    <el-menu :router="true"
-             style="background-color: #163172;">
+    <el-menu
+      :router="true"
+      style="background-color: #163172;"
+    >
       <el-menu-item index="/user/info">
         <i class="el-icon-document"></i>
-        <span class="itemContent" slot="title">基本信息</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >基本信息</span>
       </el-menu-item>
-      <el-menu-item index="/user/student/info" v-if="isStu">
+      <el-menu-item
+        index="/user/student/info"
+        v-if="isStu"
+      >
         <i class="el-icon-reading"></i>
-        <span class="itemContent" slot="title">学生信息</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >学生信息</span>
       </el-menu-item>
-      <el-menu-item index="/user/tutor/info" v-if="isTut">
+      <el-menu-item
+        index="/user/tutor/info"
+        v-if="isTut"
+      >
         <i class="el-icon-reading"></i>
-        <span class="itemContent" slot="title">导师信息</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >导师信息</span>
       </el-menu-item>
-      <el-menu-item index="/user/student/focus-news" v-if="isStu">
+      <el-menu-item
+        index="/user/student/focus-news"
+        v-if="isStu"
+      >
         <i class="el-icon-menu"></i>
-        <span class="itemContent" slot="title">最近消息</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >最近消息</span>
       </el-menu-item>
-      <el-menu-item index="/user/student/favor" v-if="isStu">
+      <el-menu-item
+        index="/user/student/favor"
+        v-if="isStu"
+      >
         <i class="el-icon-folder-opened"></i>
-        <span class="itemContent" slot="title">收藏夹</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >收藏夹</span>
       </el-menu-item>
-      <el-menu-item index="/user/tutor/query-student" v-if="isTut">
+      <el-menu-item
+        index="/user/tutor/query-student"
+        v-if="isTut"
+      >
         <i class="el-icon-search"></i>
-        <span class="itemContent" slot="title">查询学生</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >查询学生</span>
       </el-menu-item>
       <el-menu-item index="/">
         <i class="el-icon-s-home"></i>
-        <span class="itemContent" slot="title">返回首页</span>
+        <span
+          class="itemContent"
+          slot="title"
+        >返回首页</span>
       </el-menu-item>
     </el-menu>
     <div style="width: 100%;height: 100vh;">
@@ -55,8 +93,7 @@
         username: '',
       }
     },
-    methods: {
-    },
+    methods: {},
     created() {
       getLimit()
         .then((res) => {

@@ -1,26 +1,50 @@
 <template>
   <div style="width: 100%;height: 100%;margin-top: 10px">
     <div style="margin-left: 10px;margin-right: 10px;">
-      <el-form :model="queryFrom"
-               ref="queryForm"
-               :rules="queryRules"
-               class="items">
+      <el-form
+        :model="queryFrom"
+        ref="queryForm"
+        :rules="queryRules"
+        class="items"
+      >
         <el-row>
           <el-col :span="6">
-            <el-form-item label="入学时间" prop="beginY">
-              <el-date-picker type="date" placeholder="起" v-model="queryFrom.beginY"></el-date-picker>
+            <el-form-item
+              label="入学时间"
+              prop="beginY"
+            >
+              <el-date-picker
+                type="date"
+                placeholder="起"
+                v-model="queryFrom.beginY"
+              ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="毕业时间" prop="endY">
-              <el-date-picker type="date" placeholder="止" v-model="queryFrom.endY"></el-date-picker>
+            <el-form-item
+              label="毕业时间"
+              prop="endY"
+            >
+              <el-date-picker
+                type="date"
+                placeholder="止"
+                v-model="queryFrom.endY"
+              ></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-form-item label="高校类别" prop="schLevel">
-            <el-dropdown size="small" split-button trigger="click" @command="handleSchField">
+          <el-form-item
+            label="高校类别"
+            prop="schLevel"
+          >
+            <el-dropdown
+              size="small"
+              split-button
+              trigger="click"
+              @command="handleSchField"
+            >
               {{queryFrom.schLevel}}
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item :command="'985/211'">985/211</el-dropdown-item>
@@ -33,18 +57,42 @@
 
         <el-row>
           <el-col :span="6">
-            <el-form-item label="本科学类" prop="discipline">
-              <el-select v-model="queryFrom.discipline" collapse-tags filterable placeholder="请选择" @change="getMajors">
-                <el-option v-for="item in disciplines" :key="item.did" :value="item.did"
-                           :label="item.dname"></el-option>
+            <el-form-item
+              label="本科学类"
+              prop="discipline"
+            >
+              <el-select
+                v-model="queryFrom.discipline"
+                collapse-tags
+                filterable
+                placeholder="请选择"
+                @change="getMajors"
+              >
+                <el-option
+                  v-for="item in disciplines"
+                  :key="item.did"
+                  :value="item.did"
+                  :label="item.dname"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="本科专业" prop="major">
-              <el-select v-model="queryFrom.major" filterable placeholder="请选择">
-                <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
-                           :label="item.mid+item.mname"></el-option>
+            <el-form-item
+              label="本科专业"
+              prop="major"
+            >
+              <el-select
+                v-model="queryFrom.major"
+                filterable
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="item in majors"
+                  :key="item.mid"
+                  :value="item.mname"
+                  :label="item.mid+item.mname"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -52,19 +100,42 @@
 
         <el-row>
           <el-col :span="6">
-            <el-form-item label="预期学类" prop="exDiscipline">
-              <el-select v-model="queryFrom.exDiscipline" collapse-tags filterable placeholder="请选择"
-                         @change="getMajors">
-                <el-option v-for="item in disciplines" :key="item.did" :value="item.did"
-                           :label="item.dname"></el-option>
+            <el-form-item
+              label="预期学类"
+              prop="exDiscipline"
+            >
+              <el-select
+                v-model="queryFrom.exDiscipline"
+                collapse-tags
+                filterable
+                placeholder="请选择"
+                @change="getMajors"
+              >
+                <el-option
+                  v-for="item in disciplines"
+                  :key="item.did"
+                  :value="item.did"
+                  :label="item.dname"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="预期专业" prop="exMajor">
-              <el-select v-model="queryFrom.exMajor" filterable placeholder="请选择">
-                <el-option v-for="item in majors" :key="item.mid" :value="item.mname"
-                           :label="item.mid+item.mname"></el-option>
+            <el-form-item
+              label="预期专业"
+              prop="exMajor"
+            >
+              <el-select
+                v-model="queryFrom.exMajor"
+                filterable
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="item in majors"
+                  :key="item.mid"
+                  :value="item.mname"
+                  :label="item.mid+item.mname"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -74,14 +145,26 @@
 
       <div class="selection">
         <div style="width: 75%">
-          <el-button @click="myScreen('queryForm')" type="primary"
-                     style="min-width: 100px;margin-left: 20px;background-color: #1e56a0;color: white">筛选
+          <el-button
+            @click="myScreen('queryForm')"
+            type="primary"
+            style="min-width: 100px;margin-left: 20px;background-color: #1e56a0;color: white"
+          >筛选
           </el-button>
         </div>
-        <div class="selection" style="width: 20%">
-          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('xlsx','region')">导出为EXCEL
+        <div
+          class="selection"
+          style="width: 20%"
+        >
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            @click="exportEXCEL('xlsx','region')"
+          >导出为EXCEL
           </el-button>
-          <el-button style="background-color: #1e56a0;color: white" @click="exportEXCEL('csv','region')">导出为CSV
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            @click="exportEXCEL('csv','region')"
+          >导出为CSV
           </el-button>
           <el-button style="background-color: #1e56a0;color: white">打印</el-button>
         </div>
@@ -90,13 +173,42 @@
 
     <el-divider></el-divider>
     <div>
-      <el-table :data="stuInfo" :header-cell-style="{background:'#1e56a0',color:'#fff'}" border stripe>
-        <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-        <el-table-column prop="school" label="本科高校" align="center"></el-table-column>
-        <el-table-column prop="major" label="本科专业" align="center"></el-table-column>
-        <el-table-column prop="exMajor" label="预期专业" align="center"></el-table-column>
-        <el-table-column prop="tel" label="联系电话" align="center"></el-table-column>
-        <el-table-column prop="email" label="邮箱地址" align="center"></el-table-column>
+      <el-table
+        :data="stuInfo"
+        :header-cell-style="{background:'#1e56a0',color:'#fff'}"
+        border
+        stripe
+      >
+        <el-table-column
+          prop="name"
+          label="姓名"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="school"
+          label="本科高校"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="major"
+          label="本科专业"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="exMajor"
+          label="预期专业"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="tel"
+          label="联系电话"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="email"
+          label="邮箱地址"
+          align="center"
+        ></el-table-column>
       </el-table>
     </div>
   </div>
