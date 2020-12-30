@@ -135,11 +135,13 @@
           type: 'error'
         })
           .then(() => {
+            console.log("uid = ",uid);
             this.$axios.post("/api/admin/d/user", {
               uid: uid
             })
               .then((res) => {
                 if (res.data.status === 200) {
+                  console.log("成功请求")
                   this.$message.success("删除成功");
                   this.users.splice(index, 1);
                 }
