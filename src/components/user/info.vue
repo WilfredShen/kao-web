@@ -61,7 +61,7 @@
     },
     data() {
       return {
-        myBackground:{
+        myBackground: {
           backgroundImage: 'url(' + require('@/assets/image/userback.jpg') + ')',
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%'
@@ -115,8 +115,8 @@
             updateUserInfo(postPhone, postEmail)
               .then((res) => {
                 console.log("修改成功", res);
-                this.$store.commit('setNewPhone',postPhone);
-                this.$store.commit('setNewEmail',postEmail);
+                this.$store.commit('setNewPhone', postPhone);
+                this.$store.commit('setNewEmail', postEmail);
                 this.items[2].content = postPhone;
                 this.items[3].content = postEmail;
                 this.$refs['infoForm'].resetFields();
@@ -209,10 +209,10 @@
       },
 
       fetchData: function() {
-        if (this.$store.state.newPhone!==''){
+        if (this.$store.state.newPhone !== '') {
           this.items[2].content = this.$store.state.newPhone;
         }
-        if (this.$store.state.newEmail!==''){
+        if (this.$store.state.newEmail !== '') {
           this.items[3].content = this.$store.state.newEmail;
         }
       }
@@ -220,7 +220,7 @@
     created() {
       this.setSelfInfo();
     },
-    watch:{
+    watch: {
       "$route": {
         handler(route) {
           console.log(route.name);
@@ -245,7 +245,7 @@
     font-weight: bold;
   }
 
-  .center{
+  .center {
     width: 100%;
     height: 100%;
     display: flex;

@@ -1,6 +1,6 @@
 <template style="margin-left:12%;margin-right: 12%">
   <div class="div-style">
-    <div style="background-color: #163172">
+    <div :style="backgroundImage">
       <img class="img-style" style="float: left;cursor: pointer" src="@/assets/image/logo白(已去底).png" @click="toHome()">
       <div class="header-sty">
         <span class="span-style" style="cursor: pointer" @click="toHome()">教育部学科评估管理系统</span>
@@ -18,7 +18,7 @@
         <el-menu :default-active="$route.path"
                  :router="true" @select="handleSelect()"
                  class="el-menu-demo" mode="horizontal"
-                 background-color="#163172"
+                 background-color="transparent"
                  text-color="#ffffff"
                  style="font-weight: bold;width: 60%"
                  active-text-color="#E03E36">
@@ -41,7 +41,7 @@
 
 <script>
   import {getLimit} from "@/assets/lib/getAndSetSelf";
-  import {setCookie,getCookie} from "@/assets/lib/utils";
+  import {setCookie, getCookie} from "@/assets/lib/utils";
 
   export default {
     name: 'Header',
@@ -50,6 +50,11 @@
         isStu: false,
         isTut: false,
         hasLogin: false,
+        backgroundImage: {
+          backgroundImage: 'url(' + require('@/assets/image/header.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
       }
     },
     created() {

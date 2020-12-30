@@ -45,9 +45,9 @@
         <img src="@/assets/image/新闻.png" style="width: 5%;float: left;">
         <p class="p-style">{{ msg }}</p>
       </div>
-      <ul style="font-size: 13px;margin-top: 10px;margin-bottom: 7px;padding-left: 20px">
+      <ul style="font-size: 13px;margin-top: 8px;margin-bottom: 0;padding-left: 20px">
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -2px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-right: 2px">
           <a
             :href="this.latestNews[0].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[0].title}}
@@ -56,7 +56,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-left: 2px">
           <a
             :href="this.latestNews[1].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[1].title}}
@@ -65,7 +65,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-left: 2px">
           <a
             :href="this.latestNews[2].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[2].title}}
@@ -74,7 +74,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-left: 2px">
           <a
             :href="this.latestNews[3].officialLink"
             target="_Blank" class="news-title">&nbsp;{{latestNews[3].title}}
@@ -83,7 +83,7 @@
         </div>
         <br/>
         <div class="li-style" style="border-bottom: 1px solid #163172;">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-left: 2px">
           <a
             :href="this.latestNews[4].officialLink"
             target="_Blank" class="news-title">{{latestNews[4].title}}
@@ -92,7 +92,7 @@
         </div>
         <br/>
         <div class="li-style">
-          <img src="@/assets/image/1.png" width="3%" style="float: left;margin-top: -4px">
+          <img src="@/assets/image/1.png" width="2%" style="float: left;margin-left: 2px">
           <a
             :href="this.latestNews[5].officialLink"
             target="_Blank" class="news-title">{{latestNews[5].title}}
@@ -151,7 +151,7 @@
     margin-top: 0;
     text-align: center;
     font-size: 12px;
-    font-family: "宋体", serif;
+    font-family: "SimSun", serif;
     color: dimgray;
   }
 
@@ -186,8 +186,8 @@
   .p-style {
     font-weight: bold;
     font-size: 18px;
-    padding-left: 8%;
-    margin: 10px 0;
+    padding-left: 7%;
+    margin-bottom: 10px;
     /*padding-top: 4px;*/
   }
 
@@ -200,7 +200,8 @@
   .news-title {
     text-decoration: none;
     display: block;
-    font-family: "宋体";
-    font-weight: bold;
+    font-family: "SimSun";
+    font-size: 15px;
+    /*font-weight: bold;*/
   }
 </style>

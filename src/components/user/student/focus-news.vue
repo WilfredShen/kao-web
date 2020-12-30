@@ -1,7 +1,7 @@
 <template>
   <div :style="myBackground" class="center">
-<!--    <div style="width: 70%;height: 80%">-->
-      <div class="tableTransparent" style="width: 70%;height: 80%">
+    <!--    <div style="width: 70%;height: 80%">-->
+    <div class="tableTransparent" style="width: 70%;height: 80%">
       <el-table :data="tableData" :height="height"
                 :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
                 :row-style="{height:'60px'}"
@@ -15,9 +15,9 @@
           </template>
         </el-table-column>
       </el-table>
-      </div>
     </div>
-<!--  </div>-->
+  </div>
+  <!--  </div>-->
 </template>
 
 <script>
@@ -80,16 +80,16 @@
     align-items: center
   }
 
-  .tableTransparent /deep/  .el-table, .el-table__expanded-cell {
-    background-color:transparent;
+  .tableTransparent /deep/ .el-table, .el-table__expanded-cell {
+    background-color: transparent;
   }
 
   .tableTransparent /deep/ .el-table tr {
-    background-color: rgba(255, 255, 255, 0.25 ) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
   }
 
   .tableTransparent >>> .el-table tr:hover {
-    background: rgba(245,247,250, 0.1 ) !important;
+    background: rgba(245, 247, 250, 0.1) !important;
     color: black;
   }
 </style>

@@ -47,7 +47,7 @@
           'majorMid': majorID
         })
           .then((res) => {
-            if (res.data.status===200) {
+            if (res.data.status === 200) {
               this.$message.success("取消成功");
               this.schoolCollect.splice(index, 1);
             }

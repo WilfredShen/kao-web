@@ -1,17 +1,17 @@
 <template>
   <div>
     <div style="border-bottom: 3px solid #163172;display: flex;flex-direction: column;justify-content: space-around">
-      <div style="background-color:#163172;height:50px;margin-left: 0;margin-right: 0">
+      <div style="background-color:#0c336d;height:50px;margin-left: 0;margin-right: 0">
         <span class="spana">
         筛选条件
         </span>
       </div>
-      <div style="display: flex;align-items: center;margin: 3px 15px">
+      <div style="display: flex;align-items: center;margin: 20px 15px 10px 15px">
         <p class="spanb">模糊查找学校 : </p>
         <el-input size="mini" style="width: 200px;" v-model="input" placeholder="请输入" @change="fuzzySearcher()"
                   @focus="cleanSearch()" clearable></el-input>
       </div>
-      <div style="display: flex;align-items: center;margin: 3px 15px">
+      <div style="display: flex;align-items: center;margin: 7px 15px">
         <p class="spanb">评价体系 : </p>
         <el-dropdown style="margin-left: 28px;margin-right: 10px;" split-button size="mini"
                      @command="handleCommand">
@@ -42,14 +42,13 @@
       </div>
     </div>
     <div style="margin-top: 50px">
-      <div style="background-color:#163172;height:50px;margin:3px 0">
+      <div style="background-color:#0c336d;height:50px;margin:3px 0">
           <span class="spana">
           筛选结果
         </span>
       </div>
-      <el-card style="margin-top: 10px" v-if="afterFilter.length">
+      <el-card style="margin-top: 10px;background-color: transparent" v-if="afterFilter.length">
         <div style="text-align: center;margin: 0 5%">
-
           <el-row style="margin: 8px 0;font-weight: bold;font-size: 20px">
             <el-col :span="8">
               <div>学校代码及名称</div>
@@ -130,6 +129,11 @@
           value4: "C- / 60-65",
           label4: "C-"
         }],
+        backgroundCollege: {
+          backgroundImage: 'url(' + require('@/assets/image/背景图片2.png') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
         major: {},
         school: [],
         schoolMap: {},
@@ -163,18 +167,6 @@
           this.isQS = false;
         }
         this.afterFilter = [];
-      },
-      //修改对象的key
-      changeKeys(arr, key) {
-        let newArr = [];
-        arr.forEach(item => {
-          let obj = {};
-          for (var i = 0; i < key.length; i++) {
-            obj[key[i]] = item[Object.keys(item)[i]]
-          }
-          newArr.push(obj);
-        })
-        return newArr;
       },
       //模糊查询
       fuzzySearcher: function() {
@@ -506,14 +498,14 @@
 
   .spanb {
     font-size: 14px;
-    font-family: 宋体;
     font-weight: bold;
     margin-right: 10px;
     padding-left: 0;
   }
 
   .table {
-    background: #d6e4f0;
+    background: #274281;
+    color: gainsboro;
   }
 </style>
 <style>

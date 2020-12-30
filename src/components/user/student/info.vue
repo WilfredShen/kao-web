@@ -142,7 +142,7 @@
     methods: {
       modify: function() {
         this.isModify = !this.isModify;
-        if (this.major==null || this.major.length===0) {
+        if (this.major == null || this.major.length === 0) {
           majorList()
             .then((res) => {
               for (let i = 0; i < res.length; i++) {
@@ -151,7 +151,7 @@
               console.log(res);
             });
         }
-        if (this.schools==null || this.schools.length===0) {
+        if (this.schools == null || this.schools.length === 0) {
           schoolList()
             .then((res) => {
               for (let i = 0; i < res.length; i++) {
@@ -200,8 +200,8 @@
             updateUserInfo(pPhone, pEmail)
               .then((res) => {
                 console.log(res);
-                this.$store.commit('setNewPhone',pPhone);
-                this.$store.commit('setNewEmail',pEmail);
+                this.$store.commit('setNewPhone', pPhone);
+                this.$store.commit('setNewEmail', pEmail);
               })
               .catch((err) => {
                 console.log("学生修改基本信息有问题" + err);

@@ -15,7 +15,7 @@
       </el-row>
     </el-header>
     <el-container>
-      <div style="width: 15%;height: 100vh;">
+      <div style="width: 15%;">
         <el-menu class="el-menu-vertical-demo" :router="true">
           <el-menu-item index="/admin/users/list">
             <i class="el-icon-user-solid"></i>

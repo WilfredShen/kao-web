@@ -165,18 +165,18 @@
             this.items[6].content = pMajor;
             this.items[7].content = pResearch;
             this.isModify = !this.isModify;
-            console.log("pEmail = ",pEmail);
+            console.log("pEmail = ", pEmail);
           })
           .catch((err) => {
             this.$message.error("修改失败");
-            console.log("修改教师信息失败",err);
+            console.log("修改教师信息失败", err);
           });
 
         updateUserInfo(pPhone, pEmail)
           .then((res) => {
             console.log(res);
-            this.$store.commit('setNewPhone',pPhone);
-            this.$store.commit('setNewEmail',pEmail);
+            this.$store.commit('setNewPhone', pPhone);
+            this.$store.commit('setNewEmail', pEmail);
           })
           .catch((err) => {
             console.log("研究生秘书修改基本信息有问题" + err);
