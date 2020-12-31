@@ -25,20 +25,6 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="高校名称：">
-        <el-select
-          v-model="schIndex"
-          filterable
-          placeholder="模糊查询"
-        >
-          <el-option
-            v-for="(item,index) in schools"
-            :key="index"
-            :value="index"
-            :label="item"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item
         label="标题："
         prop="title"
@@ -71,16 +57,6 @@
         >
           <el-button>选择图片</el-button>
         </el-upload>
-      </el-form-item>
-      <el-form-item
-        label="时间："
-        prop="myTime"
-      >
-        <el-date-picker
-          v-model="updateForm.myTime"
-          type="date"
-          placeholder="选择日期"
-        ></el-date-picker>
       </el-form-item>
       <el-form-item
         label="官方链接："

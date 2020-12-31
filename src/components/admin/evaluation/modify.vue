@@ -34,7 +34,7 @@
       <el-divider></el-divider>
       <el-form
         label-width="100px"
-        style="margin-bottom: 60px;margin-left: -16px"
+        style="margin-bottom: 60px;margin-left: 0"
       >
         <el-form-item label="专业查询:">
           <el-input
@@ -69,7 +69,7 @@
           :header-cell-style="{background:'#1e56a0',color:'white'}"
           border
           stripe
-          style="font-size: 16px;overflow-x: hidden"
+          style="font-size: 16px"
           height="400px"
         >
           <el-table-column
@@ -141,6 +141,7 @@
         </el-form-item>
         <el-form-item label="学校名称">
           <el-input
+            @input="input"
             v-model="row.cname"
             :disabled="true"
           ></el-input>
@@ -157,6 +158,7 @@
         <el-button
           @click="confirmUpdate()"
           style="background-color: #2057a1;color: white"
+          :disabled="modifyFlag"
         >确 定
         </el-button>
       </div>
@@ -183,9 +185,14 @@
         majorMap: {},
         dialogFormVisible: false,
         row: [],
+        modifyFlag: false,
       }
     },
     methods: {
+      //有所修改
+      input() {
+        this.modifyFlag = true;
+      },
       getResult: function() {
         this.tableData = [];
         if (this.round === '') {
@@ -375,4 +382,9 @@
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
     overflow: scroll !important;
   }
+
+  /deep/ .el-table--scrollable-y ::-webkit-scrollbar {
+    display: none;
+  }
+
 </style>

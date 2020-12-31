@@ -19,7 +19,7 @@
           icon="el-icon-user"
           style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
           @click="$router.push('/login')"
-          v-if="!hasLogin"
+          v-if="!hasLogin && !isAdmin"
         >
           登录
         </el-button>
@@ -28,7 +28,7 @@
           icon="el-icon-circle-close"
           style="float: right;margin:2% 2% 0 0;background-color: transparent;color: white"
           @click="logOut()"
-          v-if="hasLogin"
+          v-if="hasLogin || isAdmin"
         >
           退出登录
         </el-button>
@@ -55,9 +55,14 @@
           </el-menu-item>
           <el-menu-item
             index="/user"
-            v-if="hasLogin"
+            v-if="hasLogin && !isAdmin"
           >
             个人主页
+          </el-menu-item>
+          <el-menu-item
+            index="/admin"
+            v-if="isAdmin"
+          >后台管理
           </el-menu-item>
         </el-menu>
       </div>
@@ -111,6 +116,8 @@
         setCookie("accessToken", "", 0);
         this.$store.commit('setUid', '');
         this.$router.push("/");
+        setTimeout(function() {
+        }, 1000);
         location.reload();
       },
       handleSelect(key, keyPath) {
