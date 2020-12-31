@@ -37,6 +37,7 @@
         :file-list="fileList"
         limit=1
         :on-exceed="overLimit"
+        ref="my-upload"
       >
         <el-button
           plain
@@ -109,7 +110,8 @@
         school: {},
         major: {},
         showFile: true,//显示文件列表
-        up: false
+        up: false,
+        fileList: [],
       }
     },
     methods: {
@@ -183,7 +185,7 @@
               this.round = '';
               this.excelDatas = [];
               flag = true;
-              this.handleRemove();
+              this.$refs['my-upload'].clearFiles();
             })
             .catch((err) => {
               console.log(err);
@@ -220,6 +222,7 @@
                     this.tableData = [];
                     this.showFile = false;
                     this.round = '';
+                    this.$refs['my-upload'].clearFiles();
                   })
                   .catch((err) => {
                     this.$message({

@@ -1,50 +1,56 @@
 <template>
-  <div>
-    <el-scrollbar style="height: 550px">
-      <el-table
-        :data="tableData"
-        :header-cell-style="{background:'#1e56a0',color:'white'}"
-        border
-        stripe
+  <div style="height: 82%">
+    <el-table
+      :data="tableData"
+      :height="height"
+      :header-cell-style="{background:'#1e56a0',color:'white',height:'70px'}"
+      style="font-size: 17px;font-weight: bold;"
+    >
+      <el-table-column
+        prop="upTime"
+        label="上传时间"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="adminId"
+        label="管理员ID"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="schoolName"
+        label="高校名称"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="title"
+        label="标题"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="edit"
+        label="编辑"
+        align="center"
       >
-        <el-table-column
-          prop="upTime"
-          label="上传时间"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="adminId"
-          label="管理员ID"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="schoolName"
-          label="高校名称"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="title"
-          label="标题"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="edit"
-          label="编辑"
-          align="center"
-        >
+        <template slot-scope="scope">
           <el-button
-            size="small"
-            @click="edit()"
+            @click="edit(scope.$index,scope.row)"
+            type="primary"
           >编辑
           </el-button>
-        </el-table-column>
-      </el-table>
-    </el-scrollbar>
+        </template>
+      </el-table-column>
+    </el-table>
+
     <el-dialog
       :visible.sync="editNews"
       :width="width"
     >
-      <news-update @eIfCommit="ifEdit($event)"></news-update>
+      <news-update
+        :cid="cid"
+        :up-time="uploadTime"
+        @eIfCommit="ifEdit($event)"
+        @newTitle="getNewTitle($event)"
+      ></news-update>
     </el-dialog>
   </div>
 </template>
@@ -99,7 +105,7 @@
         this.editIndex = editIndex;
         this.editNews = true;
         this.uploadTime = this.news['upTime'];
-        console.log("父组件获得的上传时间为",this.uploadTime);
+        console.log("父组件获得的上传时间为", this.uploadTime);
         const schMap = new Map();
         if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
           let sMap = this.$store.state.schoolMap;

@@ -194,7 +194,7 @@
           type: 'error'
         })
           .then(() => {
-            console.log("uid = ",uid);
+            console.log("uid = ", uid);
             this.$axios.post("/api/admin/d/user", {
               uid: uid
             })
@@ -246,7 +246,7 @@
     margin-top: 30px;
   }
 
-  /deep/.el-table--scrollable-y ::-webkit-scrollbar {
+  /deep/ .el-table--scrollable-y ::-webkit-scrollbar {
     display: none;
   }
 </style>
