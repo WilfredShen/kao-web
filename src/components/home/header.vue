@@ -8,11 +8,11 @@
         <el-button size="mini" icon="el-icon-user"
                    style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
                    @click="$router.push('/login')"
-                   v-if="!hasLogin">登录
+                   v-if="!hasLogin && !isAdmin">登录
         </el-button>
         <el-button size="mini" icon="el-icon-circle-close"
                    style="float: right;margin:2% 2% 0 0;background-color: transparent;color: white" @click="logOut()"
-                   v-if="hasLogin">
+                   v-if="hasLogin || isAdmin">
           退出登录
         </el-button>
         <el-menu :default-active="$route.path"
@@ -27,7 +27,8 @@
           <el-menu-item index="/college/detail">学校详情</el-menu-item>
           <el-menu-item index="/camp"> 夏令营</el-menu-item>
           <el-menu-item index="/analysis" v-if="isTut">生源分析</el-menu-item>
-          <el-menu-item index="/user" v-if="hasLogin">个人主页</el-menu-item>
+          <el-menu-item index="/user" v-if="hasLogin && !isAdmin">个人主页</el-menu-item>
+          <el-menu-item index="/admin" v-if="isAdmin">后台管理</el-menu-item>
         </el-menu>
       </div>
 
@@ -41,7 +42,7 @@
 
 <script>
   import {getLimit} from "@/assets/lib/getAndSetSelf";
-  import {setCookie,getCookie} from "@/assets/lib/utils";
+  import {setCookie, getCookie} from "@/assets/lib/utils";
 
   export default {
     name: 'Header',
@@ -50,11 +51,12 @@
         isStu: false,
         isTut: false,
         hasLogin: false,
+        isAdmin: false,
       }
     },
     created() {
       this.hasLogin = getCookie('uid');
-
+      this.isAdmin = getCookie('adminId');
       getLimit()
         .then((res) => {
           console.log("首页获得的权限" + res);
