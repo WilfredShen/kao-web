@@ -14,8 +14,8 @@ const store = new Vuex.Store({
     isStu: false,//是学生身份
     isTut: false,//是研究生身份
     isManager: false,//是管理员身份
-    newPhone:'',//老师新电话
-    newEmail:'',//老师新邮件
+    newPhone: '',//老师新电话
+    newEmail: '',//老师新邮件
     schoolMap: {},
   },
   mutations: {
@@ -39,16 +39,14 @@ const store = new Vuex.Store({
     setSchMap(state, data) {
       state.schoolMap[data.cid] = data.cname;
     },
-    setNewPhone(state,data){
+    setNewPhone(state, data) {
       state.newPhone = data;
     },
-    setNewEmail(state,data){
+    setNewEmail(state, data) {
       state.newEmail = data;
     }
   },
-  actions: {
-
-  },
+  actions: {},
 })
 
 export default store

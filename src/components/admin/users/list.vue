@@ -1,43 +1,102 @@
 <template>
   <div style="height: 82%">
-    <el-table :data="users" :height="height"
-              :header-cell-style="{background:'#3282B8',color:'#ffffff',height:'70px'}"
-              style="font-size: 17px;font-weight: bold;">
-      <el-table-column prop="uid" align="center" label="用户ID"></el-table-column>
-      <el-table-column prop="username" align="center" label="用户名"></el-table-column>
-      <el-table-column prop="phone" align="center" label="电话号码"></el-table-column>
-      <el-table-column prop="email" align="center" label="邮箱地址"></el-table-column>
-      <el-table-column prop="accountType" align="center" label="用户类型"></el-table-column>
-      <el-table-column prop="registerTime" align="center" label="注册时间"></el-table-column>
-      <el-table-column align="center" label="操作">
+    <el-table
+      :data="users"
+      :height="height"
+      :header-cell-style="{background:'#3282B8',color:'#ffffff',height:'70px'}"
+      style="font-size: 17px;font-weight: bold;"
+    >
+      <el-table-column
+        prop="uid"
+        align="center"
+        label="用户ID"
+      ></el-table-column>
+      <el-table-column
+        prop="username"
+        align="center"
+        label="用户名"
+      ></el-table-column>
+      <el-table-column
+        prop="phone"
+        align="center"
+        label="电话号码"
+      ></el-table-column>
+      <el-table-column
+        prop="email"
+        align="center"
+        label="邮箱地址"
+      ></el-table-column>
+      <el-table-column
+        prop="accountType"
+        align="center"
+        label="用户类型"
+      ></el-table-column>
+      <el-table-column
+        prop="registerTime"
+        align="center"
+        label="注册时间"
+      ></el-table-column>
+      <el-table-column
+        align="center"
+        label="操作"
+      >
         <template slot-scope="scope">
-          <el-button @click="editUser(scope.$index,scope.row)"
-                     type="primary">编辑
+          <el-button
+            @click="editUser(scope.$index,scope.row)"
+            type="primary"
+          >编辑
           </el-button>
-          <el-button @click="deleteUser(scope.$index,scope.row['uid'])" type="danger">删除</el-button>
+          <el-button
+            @click="deleteUser(scope.$index,scope.row['uid'])"
+            type="danger"
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :visible.sync="isEdit" :width="width">
-      <el-form label-width="20%" label-position="right"
-               :model="userForm"
-               :rules="userRules"
-               ref="userForm">
-        <el-form-item label="用户名" prop="username">
+    <el-dialog
+      :visible.sync="isEdit"
+      :width="width"
+    >
+      <el-form
+        label-width="20%"
+        label-position="right"
+        :model="userForm"
+        :rules="userRules"
+        ref="userForm"
+      >
+        <el-form-item
+          label="用户名"
+          prop="username"
+        >
           <el-input v-model="userForm.username"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" prop="phone">
+        <el-form-item
+          label="联系电话"
+          prop="phone"
+        >
           <el-input v-model="userForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱地址" prop="email">
+        <el-form-item
+          label="邮箱地址"
+          prop="email"
+        >
           <el-input v-model="userForm.email"></el-input>
         </el-form-item>
         <div class="func-btn">
-          <el-button style="background-color: #1e56a0;color: white" type="primary" @click="commitModify('userForm')">
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            type="primary"
+            @click="commitModify('userForm')"
+          >
             确认修改
           </el-button>
-          <el-button style="background-color: #1e56a0;color: white" @click="cancelModify()">取消修改</el-button>
+          <el-button
+            style="background-color: #1e56a0;color: white"
+            @click="cancelModify()"
+          >取消修改
+          </el-button>
         </div>
       </el-form>
     </el-dialog>

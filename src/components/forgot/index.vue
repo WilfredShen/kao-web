@@ -12,13 +12,21 @@
           label-position="left"
           label-width="80px"
         >
-          <el-form-item class="myLogin" label="用户名" prop="username">
+          <el-form-item
+            class="myLogin"
+            label="用户名"
+            prop="username"
+          >
             <el-input
               v-model="forgotForm.username"
               placeholder="请输入用户名"
             ></el-input>
           </el-form-item>
-          <el-form-item class="myLogin" label="新密码" prop="password">
+          <el-form-item
+            class="myLogin"
+            label="新密码"
+            prop="password"
+          >
             <el-input
               v-model="forgotForm.password"
               :type="status.showPassword ? '' : 'password'"
@@ -32,7 +40,11 @@
               ></i>
             </el-input>
           </el-form-item>
-          <el-form-item class="myLogin" label="确认密码" prop="confPass">
+          <el-form-item
+            class="myLogin"
+            label="确认密码"
+            prop="confPass"
+          >
             <el-input
               v-model="forgotForm.confPass"
               :type="status.showConfPass ? '' : 'password'"
@@ -46,8 +58,15 @@
               ></i>
             </el-input>
           </el-form-item>
-          <el-form-item class="myLogin" label="手机号" prop="phone">
-            <el-row justify="space-between" type="flex">
+          <el-form-item
+            class="myLogin"
+            label="手机号"
+            prop="phone"
+          >
+            <el-row
+              justify="space-between"
+              type="flex"
+            >
               <el-col :span="14">
                 <el-input
                   v-model="forgotForm.phone"
@@ -66,14 +85,22 @@
               </el-col>
             </el-row>
           </el-form-item>
-          <el-form-item class="myLogin" label="验证码" prop="code">
+          <el-form-item
+            class="myLogin"
+            label="验证码"
+            prop="code"
+          >
             <el-input
               v-model="forgotForm.code"
               placeholder="请输入验证码"
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button style="width: 100%" type="primary" @click="submit()">
+            <el-button
+              style="width: 100%"
+              type="primary"
+              @click="submit()"
+            >
               <span>注册</span>
             </el-button>
           </el-form-item>

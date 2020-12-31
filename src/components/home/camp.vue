@@ -1,14 +1,28 @@
 <template>
   <div style="margin: 0 12%">
     <div>
-      <el-card shadow="hover" v-for="(item,index) in camps" :key="index" style="margin-bottom: 10px">
+      <el-card
+        shadow="hover"
+        v-for="(item,index) in camps"
+        :key="index"
+        style="margin-bottom: 10px"
+      >
         <div style="display: flex;flex-direction: row">
-          <el-image style="width: 20%;margin-right: 10px" :src="item.image" fit="cover"></el-image>
+          <el-image
+            style="width: 20%;margin-right: 10px"
+            :src="item.image"
+            fit="cover"
+          ></el-image>
           <div style="width:80%;display: flex;flex-direction: column">
             <span class="title">{{item.title}}</span>
             <span>{{item.content}}</span>
             <span class="date">{{item.date}}</span>
-            <el-link type="primary" :href="item.link" target="_blank">新闻链接</el-link>
+            <el-link
+              type="primary"
+              :href="item.link"
+              target="_blank"
+            >新闻链接
+            </el-link>
           </div>
         </div>
       </el-card>
