@@ -20,7 +20,8 @@
         style="border-bottom: 3px solid #163172;margin: 0"
       >
         <div style="background-color:#163172;height:60px;margin-left: 0;margin-right: 0">
-          <p class="schoola">{{this.schoolDetails.cid}}
+          <p class="schoola">
+            {{this.schoolDetails.cid}}
             {{this.schoolDetails.cname}}
             {{this.schoolDetails.level}}
           </p>
@@ -215,32 +216,32 @@
       getSchoolDetail: function(cid) {
         const arr = this;
         schoolDetail(cid)
-          .then((res) => {
-            console.log("res", res);
-            arr.schoolDetails = res[0];
-            console.log("schoool_details" + this.schoolDetails.cname);
-          });
+                .then((res) => {
+                  console.log("res", res);
+                  arr.schoolDetails = res[0];
+                  console.log("schoool_details" + this.schoolDetails.cname);
+                });
       },
 
       getEvaluation: function(cid) {
         const arr = this;
         arr.evaluation = [];
         getEvaluationList(4)
-          .then((res) => {
-            for (let i = 0; i < res.length; i++) {
-              if (res[i].cid === cid) {
-                arr.evaluation.push(res[i]);
-              }
-            }
-          });
+                .then((res) => {
+                  for (let i = 0; i < res.length; i++) {
+                    if (res[i].cid === cid) {
+                      arr.evaluation.push(res[i]);
+                    }
+                  }
+                });
       },
 
       getMajorListAll: function() {
         const arr = this;
         majorList()
-          .then((res) => {
-            arr.allMajors = res;
-          });
+                .then((res) => {
+                  arr.allMajors = res;
+                });
       },
 
       getMajorName: function(mid) {
@@ -255,27 +256,27 @@
       getRank: function(cid) {
         const arr = this;
         rankList(cid)
-          .then((res) => {
-            arr.ranks = res;
-            console.log("rank", this.ranks);
-          });
+                .then((res) => {
+                  arr.ranks = res;
+                  console.log("rank", this.ranks);
+                });
       },
 
       getRates: function(cid) {
         const arr = this;
         rateList(cid)
-          .then((res) => {
-            arr.rates = res;
-            console.log("rate", this.rates);
-          });
+                .then((res) => {
+                  arr.rates = res;
+                  console.log("rate", this.rates);
+                });
       },
 
       getTutors: function(cid) {
         const arr = this;
         tutorList(cid)
-          .then((res) => {
-            arr.tutors = res;
-          });
+                .then((res) => {
+                  arr.tutors = res;
+                });
       },
       /*
       setFavorTutor(cid, tid) {
@@ -352,5 +353,6 @@
 
   .box-card {
     margin-top: 10px;
+    border-bottom: 3px solid #163172;
   }
 </style>

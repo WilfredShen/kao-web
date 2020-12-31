@@ -111,51 +111,73 @@
         </span>
       </div>
       <el-main>
-        <el-scrollbar style="height: 350px">
-          <table style="margin-left: 0;width: 1150px">
-            <tr style="font-size:20px;font-family: 微软雅黑">
-              <th>学科名称及代码</th>
-              <th>高校名称及代码</th>
-              <th>&nbsp;&nbsp;评估等级&nbsp;&nbsp;&nbsp;</th>
-            </tr>
-            <tr
-              v-for="(item, index) in resultList"
-              :key="index"
-              style="text-align:center;line-height:50px;"
-              :class="{table:index%2===0}"
-            >
-              <td>{{item.mid+getMajorName(item.mid)}}</td>
-              <td
-                @click="schoolClick(item.cid)"
-                style="cursor: pointer"
-              >{{item.cid+getSchoolName(item.cid)}}
-              </td>
-              <td>{{item.result}}</td>
-            </tr>
-          </table>
-        </el-scrollbar>
+        <el-card
+                style="margin-top: 10px;background-color: transparent"
+        >
+          <div style="text-align: center;margin: 0 5%">
+            <el-row style="margin: 8px 0;font-weight: bold;font-size: 20px">
+              <el-col :span="8">
+                <div>学科代码及名称</div>
+              </el-col>
+              <el-col :span="8">
+                <div>学校代码及名称</div>
+              </el-col>
+              <el-col :span="8">
+                <div>评估等级</div>
+              </el-col>
+            </el-row>
+
+            <el-scrollbar style="height: 600px">
+              <div
+                      v-for="(item, index) in resultList"
+                      :key="index"
+              >
+                <el-card
+                        shadow="hover"
+                        :class="{table:index%2===0}"
+                        :body-style="{ padding: '4px' }"
+                        style=" margin: 7px 0"
+                >
+                  <el-row style="margin: 0 4px;padding: 8px 0">
+                    <el-col :span="8">
+                      <div>{{item.mid+getMajorName(item.mid)}}</div>
+                    </el-col>
+                    <el-col :span="8">
+                      <div
+                              @click="schoolClick(item.cid)"
+                              style="cursor: pointer"
+                      >{{item.cid+getSchoolName(item.cid)}}
+                      </div>
+                    </el-col>
+                    <el-col :span="8">
+                      <div>{{item.result}}</div>
+                    </el-col>
+                  </el-row>
+                </el-card>
+              </div>
+            </el-scrollbar>
+          </div>
+          <div style="float:right;margin-bottom: 5px">
+            <el-button
+                    v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+                    size="medium"
+                    round
+                    @click="setFavorMajor()"
+                    style="margin-left:10px"
+            >一键收藏
+            </el-button>
+          </div>
+          <div style="float:right;margin-right:5px;margin-bottom: 5px">
+            <el-button
+                    v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+                    size="medium"
+                    round
+                    @click="exportExcel()"
+            >导出
+            </el-button>
+          </div>
+        </el-card>
       </el-main>
-      <div>
-      </div>
-    </div>
-    <div style="float:right;margin-top: 10px">
-      <el-button
-        v-show="(!(isIdentity==null)&&!(isIdentity===''))"
-        size="medium"
-        round
-        @click="setFavorMajor()"
-        style="margin-left:10px"
-      >一键收藏
-      </el-button>
-    </div>
-    <div style="float:right;margin-right:5px;margin-top:10px">
-      <el-button
-        v-show="(!(isIdentity==null)&&!(isIdentity===''))"
-        size="medium"
-        round
-        @click="exportExcel()"
-      >导出
-      </el-button>
     </div>
   </div>
 
@@ -455,7 +477,8 @@
   }
 
   .table {
-    background: #d6e4f0;
+    background: #274281;
+    color: gainsboro;
   }
 
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {

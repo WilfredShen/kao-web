@@ -128,7 +128,7 @@
     name: "Forgot",
     data() {
       const validatePass = (rule, value, callback) => {
-        if (value !== this.registerForm.password) {
+        if (value !== this.forgotForm.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -183,7 +183,7 @@
         }, 1000);
 
         this.$axios
-          .post("/api/getvfcode", {
+          .post("/api/visitor/getvfcode", {
             phoneNumber: this.phone,
           })
           .then((res) => {
