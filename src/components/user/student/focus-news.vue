@@ -1,23 +1,51 @@
 <template>
-  <div :style="myBackground" class="center">
-<!--    <div style="width: 70%;height: 80%">-->
-      <div class="tableTransparent" style="width: 70%;height: 80%">
-      <el-table :data="tableData" :height="height"
-                :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
-                :row-style="{height:'60px'}"
-                style="font-size: 18px;font-weight: bold;color: #ffffff">
-        <el-table-column prop="focusSchool" align="center" label="关注高校"></el-table-column>
-        <el-table-column prop="infoType" align="center" label="新闻类型"></el-table-column>
-        <el-table-column sortable prop="upDate" align="center" label="更新时间"></el-table-column>
-        <el-table-column align="center" label="链接">
+  <div
+    :style="myBackground"
+    class="center"
+  >
+    <!--    <div style="width: 70%;height: 80%">-->
+    <div
+      class="tableTransparent"
+      style="width: 70%;height: 80%"
+    >
+      <el-table
+        :data="tableData"
+        :height="height"
+        :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
+        :row-style="{height:'60px'}"
+        style="font-size: 18px;font-weight: bold;color: #ffffff"
+      >
+        <el-table-column
+          prop="focusSchool"
+          align="center"
+          label="关注高校"
+        ></el-table-column>
+        <el-table-column
+          prop="infoType"
+          align="center"
+          label="新闻类型"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="upDate"
+          align="center"
+          label="更新时间"
+        ></el-table-column>
+        <el-table-column
+          align="center"
+          label="链接"
+        >
           <template slot-scope="scope">
-            <span @click="skip(scope.row['linkTo'])" style="width: 50px;height: 20px;">链接</span>
+            <span
+              @click="skip(scope.row['linkTo'])"
+              style="width: 50px;height: 20px;"
+            >链接</span>
           </template>
         </el-table-column>
       </el-table>
-      </div>
     </div>
-<!--  </div>-->
+  </div>
+  <!--  </div>-->
 </template>
 
 <script>
@@ -80,16 +108,16 @@
     align-items: center
   }
 
-  .tableTransparent /deep/  .el-table, .el-table__expanded-cell {
-    background-color:transparent;
+  .tableTransparent /deep/ .el-table, .el-table__expanded-cell {
+    background-color: transparent;
   }
 
   .tableTransparent /deep/ .el-table tr {
-    background-color: rgba(255, 255, 255, 0.25 ) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
   }
 
   .tableTransparent >>> .el-table tr:hover {
-    background: rgba(245,247,250, 0.1 ) !important;
+    background: rgba(245, 247, 250, 0.1) !important;
     color: black;
   }
 </style>

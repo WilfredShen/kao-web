@@ -1,34 +1,64 @@
 <template style="margin-left:12%;margin-right: 12%">
   <div class="div-style">
-    <div style="background-color: #163172">
-      <img class="img-style" style="float: left;cursor: pointer" src="@/assets/image/logo白(已去底).png" @click="toHome()">
+    <div :style="backgroundImage">
+      <img
+        class="img-style"
+        style="float: left;cursor: pointer"
+        src="@/assets/image/logo白(已去底).png"
+        @click="toHome()"
+      >
       <div class="header-sty">
-        <span class="span-style" style="cursor: pointer" @click="toHome()">教育部学科评估管理系统</span>
+        <span
+          class="span-style"
+          style="cursor: pointer"
+          @click="toHome()"
+        >教育部学科评估管理系统</span>
         <!--        <img src="@/assets/image/登录.png" @click="$router.push('/login')" v-if="!hasLogin" width="3%" style="padding: 0;align-items: center">-->
-        <el-button size="mini" icon="el-icon-user"
-                   style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
-                   @click="$router.push('/login')"
-                   v-if="!hasLogin && !isAdmin">登录
+        <el-button
+          size="mini"
+          icon="el-icon-user"
+          style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
+          @click="$router.push('/login')"
+          v-if="!hasLogin"
+        >
+          登录
         </el-button>
-        <el-button size="mini" icon="el-icon-circle-close"
-                   style="float: right;margin:2% 2% 0 0;background-color: transparent;color: white" @click="logOut()"
-                   v-if="hasLogin || isAdmin">
+        <el-button
+          size="mini"
+          icon="el-icon-circle-close"
+          style="float: right;margin:2% 2% 0 0;background-color: transparent;color: white"
+          @click="logOut()"
+          v-if="hasLogin"
+        >
           退出登录
         </el-button>
-        <el-menu :default-active="$route.path"
-                 :router="true" @select="handleSelect()"
-                 class="el-menu-demo" mode="horizontal"
-                 background-color="#163172"
-                 text-color="#ffffff"
-                 style="font-weight: bold;width: 60%"
-                 active-text-color="#E03E36">
+        <el-menu
+          :default-active="$route.path"
+          :router="true"
+          @select="handleSelect()"
+          class="el-menu-demo"
+          mode="horizontal"
+          background-color="transparent"
+          text-color="#ffffff"
+          style="font-weight: bold;width: 60%"
+          active-text-color="#E03E36"
+        >
           <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="/evaluation/result">评估结果</el-menu-item>
           <el-menu-item index="/college/detail">学校详情</el-menu-item>
           <el-menu-item index="/camp"> 夏令营</el-menu-item>
-          <el-menu-item index="/analysis" v-if="isTut">生源分析</el-menu-item>
-          <el-menu-item index="/user" v-if="hasLogin && !isAdmin">个人主页</el-menu-item>
-          <el-menu-item index="/admin" v-if="isAdmin">后台管理</el-menu-item>
+          <el-menu-item
+            index="/analysis"
+            v-if="isTut"
+          >
+            生源分析
+          </el-menu-item>
+          <el-menu-item
+            index="/user"
+            v-if="hasLogin"
+          >
+            个人主页
+          </el-menu-item>
         </el-menu>
       </div>
 
@@ -52,6 +82,11 @@
         isTut: false,
         hasLogin: false,
         isAdmin: false,
+        backgroundImage: {
+          backgroundImage: 'url(' + require('@/assets/image/header.jpg') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%'
+        },
       }
     },
     created() {

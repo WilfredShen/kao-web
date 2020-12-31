@@ -2,43 +2,90 @@
   <div style="padding: 10px 20px 40px 20px;width: 90%;">
     <el-form>
       <el-form-item label="选择轮次：">
-        <el-select v-model="round" placeholder="请选择轮次">
-          <el-option label="1" value="1"></el-option>
-          <el-option label="2" value="2"></el-option>
-          <el-option label="3" value="3"></el-option>
-          <el-option label="4" value="4"></el-option>
+        <el-select
+          v-model="round"
+          placeholder="请选择轮次"
+        >
+          <el-option
+            label="1"
+            value="1"
+          ></el-option>
+          <el-option
+            label="2"
+            value="2"
+          ></el-option>
+          <el-option
+            label="3"
+            value="3"
+          ></el-option>
+          <el-option
+            label="4"
+            value="4"
+          ></el-option>
         </el-select>
       </el-form-item>
     </el-form>
     <div>
-      <el-upload action accept=".xlsx,.xls"
-                 :auto-upload="false"
-                 :on-change="handleChange"
-                 :on-preview="handlePreview"
-                 :show-file-list=showFile
-                 :before-remove="beforeRemove"
-                 :on-remove="handleRemove"
-                 :file-list="fileList"
+      <el-upload
+        action
+        accept=".xlsx,.xls"
+        :auto-upload="false"
+        :on-change="handleChange"
+        :show-file-list=showFile
+        :before-remove="beforeRemove"
+        :on-remove="handleRemove"
+        :file-list="fileList"
+        limit=1
+        :on-exceed="overLimit"
       >
-        <el-button plain style="background-color: #1e56a0;color: white">上传文件</el-button>
-        <!--          <a href="@/public/评估结果.xls" download="上传评估结果.xls">点击下载样例文件</a>-->
+        <el-button
+          plain
+          style="background-color: #1e56a0;color: white"
+        >上传文件
+        </el-button>
       </el-upload>
-
     </div>
     <el-divider></el-divider>
     <div>
-      <el-table :data="tableData"
-                :header-cell-style="{background:'#1e56a0',color:'white'}" border
-                stripe max-height="400px">
-        <el-table-column prop="mid" label="专业代码" align="center"></el-table-column>
-        <el-table-column prop="mname" label="专业名称" align="center"></el-table-column>
-        <el-table-column prop="cid" label="高校代码" align="center"></el-table-column>
-        <el-table-column prop="cname" label="高校名称" align="center"></el-table-column>
-        <el-table-column prop="result" label="评估结果" align="center"></el-table-column>
+      <el-table
+        :data="tableData"
+        :header-cell-style="{background:'#1e56a0',color:'white'}"
+        border
+        stripe
+        max-height="380px"
+      >
+        <el-table-column
+          prop="mid"
+          label="专业代码"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="mname"
+          label="专业名称"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="cid"
+          label="高校代码"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="cname"
+          label="高校名称"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="result"
+          label="评估结果"
+          align="center"
+        ></el-table-column>
       </el-table>
     </div>
-    <el-button style="min-width: 200px;margin-top: 50px;background-color: #456268;color: white" v-if="up"
-               @click="upLoad()">
+    <el-button
+      style="min-width: 200px;margin-top: 50px;background-color: #2057a1;color: white"
+      v-if="up"
+      @click="upLoad()"
+    >
       确认上传
     </el-button>
   </div>
@@ -59,7 +106,6 @@
         round: '',//选择更新第几轮的数据
         excelDatas: [],//表格内拿到的所有数据
         excelLength: '',
-        fileList: [],
         school: {},
         major: {},
         showFile: true,//显示文件列表
@@ -94,23 +140,23 @@
         }
         this.excelLength = data.length;
         this.excelDatas = data;
+        this.fileList = true;
         this.getExcel();
       },
-
       handleRemove: function(file) {
         this.excelDatas = [];
         this.tableData = [];
-        console.log(file);
-      },
-
-      handlePreview: function(file) {
+        this.fileList = false;
         console.log(file);
       },
 
       beforeRemove: function(file) {
         return this.$confirm(`确定移除 ${file.name}？`);
       },
-
+      overLimit: function() {
+        console.log(this.fileList);
+        this.$message.warning("只能选择一个文件，请先删除当前文件！");
+      },
       getExcel: function() {
         this.excelDatas.forEach((item) => {
           this.$set(item, 'cname', "");
@@ -133,15 +179,18 @@
             .then((res) => {
               console.log(res);
               this.tableData = [];
-              this.showFile = false;
+              // this.showFile = false;
               this.round = '';
+              this.excelDatas = [];
               flag = true;
+              this.handleRemove();
             })
             .catch((err) => {
               console.log(err);
             });
+        } else {
+          this.up = true;
         }
-        this.up = true;
       },
 
       upLoad: function() {
@@ -185,6 +234,7 @@
             .catch((err) => {
               console.log(err);
             });
+
         }
       },
     },

@@ -1,40 +1,84 @@
 <template>
   <div>
-    <div style="padding: 20px 10px 30px 20px;" :style="backgroundDiv">
+    <div
+      style="padding: 20px 10px 30px 20px;"
+      :style="backgroundDiv"
+    >
       <span class="detail-title">
       高校评估结果快捷查询（第四轮）
       </span>
     </div>
-    <div style="margin: 0 10px 10px 10px">
-
+    <div
+      style="padding: 0 10px 10px 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+      :style="backgroundDiv2"
+    >
       <el-container style="width: 100%">
-        <el-aside style="padding: 1.6rem; background-color: white;width: 20%">
-          <div class="div-style" v-for="(item, index) in discipline" @click="setSelected(index)" :key="index">
-            <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
+        <el-aside style="padding: 1.6rem;width: 20%">
+          <div
+            class="div-style"
+            v-for="(item, index) in discipline"
+            @click="setSelected(index)"
+            :key="index"
+          >
+            <el-row
+              class="discipline-option"
+              style="margin-left: 13%;width: 90%"
+            >
               <el-col :span="24">
-                <img src="@/assets/image/点击.png" v-if="!(index-row)" width="13%" style="float: left;padding-right: 4px">
-                <div style="padding: 2px 4px" :class="{on:index===row}">{{item.dname}}</div>
+                <img
+                  src="@/assets/image/点击.png"
+                  v-if="!(index-row)"
+                  width="17%"
+                  style="float: left;padding-right: 4px"
+                >
+                <div
+                  style="padding: 2px 4px"
+                  :class="{on:index==row}"
+                >{{item.dname}}
+                </div>
               </el-col>
             </el-row>
           </div>
         </el-aside>
         <el-main style="padding: 0">
           <el-container>
-            <el-aside style="padding: 1.6rem; background-color: #D6E4F0 ;width: 30%;">
-              <div class="major-options" v-for="(item, index) in getMajors" @click="selected.mindex = index;row2=index;"
-                   :key="index">
-                <el-row class="discipline-option" style="margin-left: 13%;width: 90%">
-                  <el-col :span="24">
-                    <img src="@/assets/image/点击.png" v-if="!(index-row2)" width="12%"
-                         style="float: left;padding-right: 4px">
-                    <div style="padding: 2px 4px" :class="{on:index===row2}">{{ `${item.mid} ${item.mname}` }}</div>
-                  </el-col>
-                </el-row>
-              </div>
+            <el-aside
+              style="padding: 1.6rem; background-color: #FFFFFF4d ; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"
+            >
+              <el-scrollbar style="height: 650px">
+                <div
+                  class="major-options"
+                  v-for="(item, index) in getMajors"
+                  @click="selected.mindex = index;row2=index;"
+                  :key="index"
+                >
+                  <el-row
+                    class="discipline-option"
+                    style="margin-left: 13%"
+                  >
+                    <el-col :span="28">
+                      <img
+                        src="@/assets/image/点击.png"
+                        v-if="!(index-row2)"
+                        width="13%"
+                        style="float: left;padding-right: 4px"
+                      >
+                      <div
+                        style="padding: 2px 4px"
+                        :class="{on:index===row2}"
+                      >{{ `${item.mid} ${item.mname}` }}
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-scrollbar>
             </el-aside>
             <el-main>
               <div style="text-align: center;">
-                <span style="font-size: 19px;font-weight: bold" v-if="this.getMajors[0]">
+                <span
+                  style="font-size: 19px;font-weight: bold"
+                  v-if="this.getMajors[0]"
+                >
                   {{ `${this.getMajors[this.selected.mindex].mid} ${this.getMajors[this.selected.mindex].mname}` }}
                 </span><br><br/>
                 <span style="font-family: 宋体">
@@ -42,7 +86,7 @@
                 </span>
                 <el-divider></el-divider>
               </div>
-              <el-row style="margin-bottom: 4px;font-weight: bold;text-align: center">
+              <el-row style="margin-bottom: 7px;font-weight: bold;text-align: center">
                 <el-col :span="8">
                   <div>评估结果</div>
                 </el-col>
@@ -53,11 +97,21 @@
                   <div>学校名称</div>
                 </el-col>
               </el-row>
-              <el-scrollbar style="height: 500px" v-if="showEvaluation">
-                <div v-for="(item, index) in showEvaluation" :key="index">
-                  <el-card shadow="hover" :class="{table:index%2===0}" :body-style="{ padding: '4px' }"
-                           style=" margin: 7px 0">
-                    <el-row style="margin: 0 8px;padding: 8px 0;text-align: center">
+              <el-scrollbar
+                style="height: 500px"
+                v-if="showEvaluation"
+              >
+                <div
+                  v-for="(item, index) in showEvaluation"
+                  :key="index"
+                >
+                  <el-card
+                    shadow="hover"
+                    :class="{table:index%2===0}"
+                    :body-style="{ padding: '4px' }"
+                    style=" margin: 7px 0"
+                  >
+                    <el-row style="padding: 8px 0;text-align: center">
                       <el-col :span="8">
                         <div>{{item.result}}</div>
                       </el-col>
@@ -65,7 +119,11 @@
                         <div>{{item.cid}}</div>
                       </el-col>
                       <el-col :span="8">
-                        <div @click="schoolClick(item.cid)" style="cursor: pointer">{{item.cname}}</div>
+                        <div
+                          @click="schoolClick(item.cid)"
+                          style="cursor: pointer"
+                        >{{item.cname}}
+                        </div>
                       </el-col>
                     </el-row>
                   </el-card>
@@ -99,6 +157,12 @@
         showIcon: false,
         backgroundDiv: {
           backgroundImage: 'url(' + require('@/assets/image/bg4.png') + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%',
+          opacity: 0.9
+        },
+        backgroundDiv2: {
+          backgroundImage: 'url(' + require('@/assets/image/幻灯片3.png') + ')',
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%'
         },
@@ -229,14 +293,17 @@
         this.selected.mindex = '0';
         this.background = true;
         this.row = index;
-        this.row2 = '0';
+        this.row2 = 0;
         this.showIcon = true;
       }
     }
   }
 </script>
 
-<style lang="stylus" scoped>
+<style
+  lang="stylus"
+  scoped
+>
 
   .demo-wrapper {
     margin: auto;
@@ -292,11 +359,13 @@
   }
 
   .on {
-    background: #D6E4F0;
+    font-weight bold
+    font-size 17px
   }
 
   .table {
-    background #d6e4f0
+    background: #274281
+    color gainsboro
   }
 </style>
 <style>

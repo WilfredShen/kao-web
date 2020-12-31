@@ -1,53 +1,92 @@
 <template xmlns:el-col="http://www.w3.org/1999/html">
   <div>
-    <el-form label-position="right"
-             :model="anaForm"
-             :rules="anaRules"
-             ref="anaForm"
-             class="items">
-      <el-row>
-        <el-col :span="5">
-          <el-form-item label="生源数据" prop="fileList">
-            <div style="display:flex;align-items: center">
-              <el-upload accept=".xlsx,.xls" :auto-upload="false" :show-file-list="false"
-                         ref="upload" :on-change="handleChange" action>
-                <el-button plain size="small" style="height: 30px;">选择文件</el-button>
-              </el-upload>
-            </div>
-          </el-form-item>
-        </el-col>
-      </el-row>
+    <!--    筛选框-->
+    <div
+      class="screen"
+      style="display: flex;flex-direction: column;justify-content: space-around"
+    >
+      <div id="source-data">
+        <p style="margin-right: 20px">生源数据:</p>
+        <div style="display:flex;align-items: center">
+          <el-upload
+            accept=".xlsx,.xls"
+            :auto-upload="false"
+            :show-file-list="false"
+            :on-change="handleChange"
+            action
+          >
+            <el-button
+              plain
+              size="small"
+              style="height: 30px;"
+            >选择文件
+            </el-button>
+          </el-upload>
+        </div>
+      </div>
+      <div id="data-scale">
+        <p style="margin-right: 20px">数据范围:</p>
+        <div style="display: flex;align-items: center;">
+          <el-input
+            v-model="rowBegin"
+            size="mini"
+            style="width: 150px"
+          ></el-input>
+          <p style="margin-right: 20px;margin-left: 20px">—</p>
+          <el-input
+            v-model="rowEnd"
+            size="mini"
+            style="width: 150px"
+          ></el-input>
+          <p style="margin-left: 20px">请输入 1-{{dataLen}} 之间的数字</p>
+        </div>
+      </div>
+      <div
+        id="field-map"
+        style="display: flex;align-items: center"
+      >
+        <p style="margin-right: 20px">字段映射:</p>
+        <el-dropdown
+          size="small"
+          split-button
+          trigger="click"
+          @command="handleSchField"
+        >
+          {{schFiled}}
+          <el-dropdown-menu
+            slot="dropdown"
+            id="school-filed"
+          >
+            <el-dropdown-item
+              v-for="(item,index) in schFields"
+              :key="index"
+              :command="item.field"
+            >{{item.field}}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
 
-      <el-row>
-        <el-col :span="5">
-          <el-form-item label="起始行" prop="rowBegin">
-            <el-input v-model="anaForm.rowBegin" size="mini" style="width: 150px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="`终止行（共${dataLen}）行`" prop="rowEnd">
-            <el-input v-model="anaForm.rowEnd" size="mini" style="width: 150px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-form-item label="字段映射" prop="fieldMap">
-          <el-dropdown size="small" split-button trigger="click" @command="handleSchField" v-model="anaForm.fieldMap">
-            {{anaForm.fieldMap}}
-            <el-dropdown-menu slot="dropdown" id="school-filed">
-              <el-dropdown-item v-for="(item,index) in schFields" :key="index" :command="item.field">{{item.field}}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-form-item>
-      </el-row>
-
-      <el-row>
-        <el-checkbox-group v-model="checkBoxGroup" size="medium">
-          <el-checkbox label="地区" border style="width: 100px;margin-right: 0"></el-checkbox>
-          <el-checkbox label="985" border style="width: 100px;margin-right: 0"></el-checkbox>
-          <el-checkbox label="211" border style="width: 100px"></el-checkbox>
+      <div id="conditions">
+        <el-checkbox-group
+          v-model="checkBoxGroup"
+          size="medium"
+        >
+          <el-checkbox
+            label="地区"
+            border
+            style="width: 100px;margin-right: 0"
+          ></el-checkbox>
+          <el-checkbox
+            label="985"
+            border
+            style="width: 100px;margin-right: 0"
+          ></el-checkbox>
+          <el-checkbox
+            label="211"
+            border
+            style="width: 100px"
+          ></el-checkbox>
         </el-checkbox-group>
       </el-row>
 
@@ -55,7 +94,15 @@
     </el-form>
     <el-row>
       <div style="margin-top: 15px;margin-bottom: 15px">
-        <el-button type="primary" size="medium" id="finish" plain @click="getResult('anaForm')">完成</el-button>
+        <el-button
+          type="primary"
+          size="medium"
+          id="finish"
+          plain
+          @click="getResult()"
+        >
+        完成
+        </el-button>
       </div>
     </el-row>
 
@@ -63,19 +110,55 @@
     <el-divider></el-divider>
 
     <!--        地图分析结果-->
-    <div class="map" style="width: 100%;display: flex">
-      <div id="region" style="width: 60%;height: 600px;">
+    <div
+      class="map"
+      style="width: 100%;display: flex"
+    >
+      <div
+        id="region"
+        style="width: 60%;height: 600px;"
+      >
       </div>
-      <div id="show" style="width: 40%;display: flex;flex-direction: column">
+      <div
+        id="show"
+        style="width: 40%;display: flex;flex-direction: column"
+      >
         <el-row style="display: flex;justify-content: space-around">
-          <el-button size="small" @click="exportEXCEL('xlsx','region')">导出为EXCEL</el-button>
-          <el-button size="small" @click="exportEXCEL('csv','region')">导出为CSV</el-button>
-          <!--          <el-button size="small" @click="printTest()">打印</el-button>-->
+          <el-button
+            size="small"
+            @click="exportEXCEL('xlsx','region')"
+          >
+            导出为EXCEL
+          </el-button>
+          <el-button
+            size="small"
+            @click="exportEXCEL('csv','region')"
+          >
+            导出为CSV
+          </el-button>
+          <el-button
+            size="small"
+            @click="printTest()"
+          >
+            打印
+          </el-button>
         </el-row>
         <el-scrollbar style="height: 500px">
-          <el-table :data="mapResult" stripe style="width: 100%">
-            <el-table-column label="地区" prop="name" align="center"></el-table-column>
-            <el-table-column label="人数" prop="value" align="center"></el-table-column>
+          <el-table
+            :data="mapResult"
+            stripe
+            style="width: 100%"
+          >
+            <el-table-column
+              label="地区"
+              prop="name"
+              align="center"
+            ></el-table-column>
+            <el-table-column
+              label="人数"
+              prop="value"
+              align="center"
+            ></el-table-column>
           </el-table>
         </el-scrollbar>
       </div>
@@ -88,18 +171,46 @@
       <div id="title">
         <p>其他数据</p>
       </div>
-      <div id="other_result" style="width: 100%;display: flex">
+      <div
+        id="other_result"
+        style="width: 100%;display: flex"
+      >
         <div style="width: 70%;margin-right: 50px">
-          <el-table :data="otherData" stripe>
-            <el-table-column label="字段" prop="depend" align="center"></el-table-column>
-            <el-table-column label="人数" prop="count" align="center"></el-table-column>
-            <el-table-column label="比例" prop="ratio" align="center"></el-table-column>
+          <el-table
+            :data="otherData"
+            stripe
+          >
+            <el-table-column
+              label="字段"
+              prop="depend"
+              align="center"
+            ></el-table-column>
+            <el-table-column
+              label="人数"
+              prop="count"
+              align="center"
+            ></el-table-column>
+            <el-table-column
+              label="比例"
+              prop="ratio"
+              align="center"
+            ></el-table-column>
           </el-table>
         </div>
         <div style="width: 20%;display: flex;flex-direction: column;justify-content: space-around">
-          <el-button style="width: 150px;margin-left: 10px" @click="exportEXCEL('xlsx','other')">导出为EXCEL</el-button>
-          <el-button style="width: 150px" @click="exportEXCEL('csv','ohter')">导出为CSV</el-button>
-          <!--          <el-button style="width: 100px">打印</el-button>-->
+          <el-button
+            style="width: 150px;margin-left: 10px"
+            @click="exportEXCEL('xlsx','other')"
+          >
+            导出为EXCEL
+          </el-button>
+          <el-button
+            style="width: 150px"
+            @click="exportEXCEL('csv','ohter')"
+          >
+            导出为CSV
+          </el-button>
+          <el-button style="width: 100px">打印</el-button>
         </div>
       </div>
     </div>
