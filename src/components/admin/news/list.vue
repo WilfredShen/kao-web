@@ -61,7 +61,11 @@
       width: {
         type: String,
         default: '34%'
-      }
+      },
+      height: {
+        type: String,
+        default: '100%'
+      },
     },
     components: {
       NewsUpdate,
@@ -71,7 +75,13 @@
         hint: '当前轮次没有数据，请上传',
         tableData: [],
         editNews: false,
+        news: {},//待修改的新闻
         sMap: {},
+        schools: [],
+        schoolIds: [],
+        uploadTime: '',
+        cid: "",
+        editIndex: -1,
       }
     },
     methods: {
@@ -79,9 +89,42 @@
         this.editNews = data;
       },
 
-      edit: function() {
-        this.editNews = true;
+      getNewTitle: function(data) {
+        this.news['title'] = data;
+        this.tableData.splice(this.editIndex, 1, this.news);
       },
+
+      edit: function(editIndex, row) {
+        this.news = row;
+        this.editIndex = editIndex;
+        this.editNews = true;
+        this.uploadTime = this.news['upTime'];
+        console.log("父组件获得的上传时间为",this.uploadTime);
+        const schMap = new Map();
+        if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
+          let sMap = this.$store.state.schoolMap;
+          for (const key in sMap) {
+            schMap.set(sMap[key], key);
+          }
+        } else {
+          schoolList()
+            .then((res) => {
+              res.forEach(row => {
+                schMap.set(row.cname, row.cid);
+                this.$store.commit("setSchMap", {
+                  cname: row.cname,
+                  cid: row.cid
+                });
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+        }
+        this.cid = schMap.get(this.news['schoolName']);
+      },
+
       setNewsList: function(items) {
         const adminId = getCookie("adminId");
         for (let i = 0; i < items.length; i++) {
@@ -118,8 +161,6 @@
                 console.log(err);
               });
           }
-
-
         })
         .catch((error) => {
           console.log("获取新闻列表有错误", error);
@@ -129,5 +170,7 @@
 </script>
 
 <style scoped>
-
+  /deep/ .el-table--scrollable-y ::-webkit-scrollbar {
+    display: none;
+  }
 </style>

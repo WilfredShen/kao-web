@@ -109,10 +109,10 @@
 </template>
 
 <script>
-  import {schoolList} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'UpdateNews',
+    props: ['msgVal', 'upTime', 'cid'],
     data() {
       return {
         updateForm: {
@@ -121,6 +121,8 @@
           content: '',
           myTime: '',
           link: '',
+          chCid: '',//子组件cid
+          chUpTime: '',//子组件上传时间
         },
         updateRules: {
           title: [
@@ -138,12 +140,7 @@
           image: [
             {required: true, message: "请上传图片"}
           ],
-          myTime: [
-            {required: true, message: "请选择时间"}
-          ]
         },
-        schools: [],
-        schoolIds: [],
         schIndex: '',
         posterURL: '',
         ifCommit: true,
@@ -156,15 +153,18 @@
         let file = this.$refs.upload.uploadFiles.pop().raw;
         let formData = new FormData();
         formData.append("image", file);
-
+        console.log("传过来的cid为", this.chCid);
+        console.log("传过来的cid为1", this.cid);
+        console.log("传过来的时间为", this.chUpTime);
+        console.log("传过来的时间为1", this.upTime);
         this.$axios.post("/api/admin/p/image", formData)
           .then((res) => {
             console.log("请求成功", res);
             this.posterURL = res.data.data;
             console.log("图片路径为", this.posterURL);
             this.$axios.post("/api/admin/u/news", {
-              cid: this.schoolIds[this.schIndex],
-              date: this.updateForm.myTime,
+              cid: this.cid,
+              date: this.upTime,
               title: this.updateForm.title,
               content: this.updateForm.content,
               image: this.posterURL,
@@ -172,15 +172,11 @@
             })
               .then((res) => {
                 console.log(res);
-                this.$message("成功更新新闻");
-                this.updateForm.title = '';
-                this.updateForm.myTime = null;
-                this.updateForm.content = '';
-                this.updateForm.newsType = '';
-                this.updateForm.link = '';
+                this.$message.success("成功更新新闻");
                 this.schIndex = 0;
                 this.cancel();
-                location.reload();
+                this.$emit('newTitle', this.updateForm.title);
+                this.$refs['updateForm'].resetFields();
               })
               .catch((error) => {
                 console.log("上传图片有误", error);
@@ -194,32 +190,9 @@
       cancel: function() {
         this.ifCommit = false;
         this.$emit('eIfCommit', this.ifCommit);
+        this.$refs['updateForm'].resetFields();
       }
     },
-    created() {
-      if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
-        let sMap = this.$store.state.schoolMap;
-        for (const key in sMap) {
-          this.schoolIds.push(key);
-          this.schools.push(sMap[key]);
-        }
-      } else {
-        schoolList()
-          .then((res) => {
-            res.forEach(row => {
-              this.schoolIds.push(row.cid);
-              this.schools.push(row.cname);
-              this.$store.commit("setSchMap", {
-                cname: row.cname,
-                cid: row.cid
-              });
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
   }
 </script>
 

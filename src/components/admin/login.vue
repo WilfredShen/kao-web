@@ -98,7 +98,7 @@
               if (callback) {
                 this.$message.success("登录成功！即将跳转至原界面...");
               } else {
-                callback = "/admin";
+                callback = "/";
                 this.$message.success("登录成功！即将跳转至主页...");
               }
               setTimeout(() => {

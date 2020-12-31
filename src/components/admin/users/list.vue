@@ -245,4 +245,8 @@
   .func-btn {
     margin-top: 30px;
   }
+
+  /deep/.el-table--scrollable-y ::-webkit-scrollbar {
+    display: none;
+  }
 </style>

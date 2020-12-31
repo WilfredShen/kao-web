@@ -20,7 +20,8 @@
           style="float: right;margin:2% 2% 0 0;background-color: transparent;color: #ffffff"
           @click="$router.push('/login')"
           v-if="!hasLogin"
-        >登录
+        >
+          登录
         </el-button>
         <el-button
           size="mini"
@@ -49,12 +50,14 @@
           <el-menu-item
             index="/analysis"
             v-if="isTut"
-          >生源分析
+          >
+            生源分析
           </el-menu-item>
           <el-menu-item
             index="/user"
             v-if="hasLogin"
-          >个人主页
+          >
+            个人主页
           </el-menu-item>
         </el-menu>
       </div>
@@ -78,6 +81,7 @@
         isStu: false,
         isTut: false,
         hasLogin: false,
+        isAdmin: false,
         backgroundImage: {
           backgroundImage: 'url(' + require('@/assets/image/header.jpg') + ')',
           backgroundRepeat: 'no-repeat',
@@ -87,7 +91,7 @@
     },
     created() {
       this.hasLogin = getCookie('uid');
-
+      this.isAdmin = getCookie('adminId');
       getLimit()
         .then((res) => {
           console.log("首页获得的权限" + res);
