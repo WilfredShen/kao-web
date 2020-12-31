@@ -1,5 +1,4 @@
-<template>
-
+<template xmlns:el-col="http://www.w3.org/1999/html">
   <div>
     <!--    筛选框-->
     <div
@@ -89,7 +88,11 @@
             style="width: 100px"
           ></el-checkbox>
         </el-checkbox-group>
-      </div>
+      </el-row>
+
+
+    </el-form>
+    <el-row>
       <div style="margin-top: 15px;margin-bottom: 15px">
         <el-button
           type="primary"
@@ -97,10 +100,15 @@
           id="finish"
           plain
           @click="getResult()"
-        >完成
+        >
+        完成
         </el-button>
       </div>
-    </div>
+    </el-row>
+
+
+    <el-divider></el-divider>
+
     <!--        地图分析结果-->
     <div
       class="map"
@@ -119,17 +127,20 @@
           <el-button
             size="small"
             @click="exportEXCEL('xlsx','region')"
-          >导出为EXCEL
+          >
+            导出为EXCEL
           </el-button>
           <el-button
             size="small"
             @click="exportEXCEL('csv','region')"
-          >导出为CSV
+          >
+            导出为CSV
           </el-button>
           <el-button
             size="small"
             @click="printTest()"
-          >打印
+          >
+            打印
           </el-button>
         </el-row>
         <el-scrollbar style="height: 500px">
@@ -152,6 +163,9 @@
         </el-scrollbar>
       </div>
     </div>
+
+    <el-divider></el-divider>
+
     <!--其他数据分析-->
     <div class="other_data">
       <div id="title">
@@ -187,18 +201,19 @@
           <el-button
             style="width: 150px;margin-left: 10px"
             @click="exportEXCEL('xlsx','other')"
-          >导出为EXCEL
+          >
+            导出为EXCEL
           </el-button>
           <el-button
             style="width: 150px"
             @click="exportEXCEL('csv','ohter')"
-          >导出为CSV
+          >
+            导出为CSV
           </el-button>
           <el-button style="width: 100px">打印</el-button>
         </div>
       </div>
     </div>
-    <!--limit:最大上传数，on-exceed：超过最大上传数量时的操作  -->
   </div>
 </template>
 
@@ -212,13 +227,57 @@
   export default {
     name: 'Analysis',
     data() {
+      const validateFileList = (rule, value, callback) => {
+        if (this.$refs.upload.uploadFiles.length > 0) {
+          callback();
+        } else {
+          callback(new Error("请上传文件"));
+        }
+      };
+      const validateRowBegin = (rule, value, callback) => {
+        if (value < 1) {
+          callback(new Error("起始行应不小于1"));
+        } else if (value > this.anaForm.rowEnd) {
+          callback(new Error("起始行不应大于终止行"));
+        } else {
+          callback();
+        }
+      };
+      const validateRowEnd = (rule, value, callback) => {
+        if (value > this.dataLen) {
+          callback(new Error("不应大于最大值"));
+        } else if (value < this.anaForm.rowBegin) {
+          callback(new Error("终止行不应小于起始行"));
+        } else {
+          callback();
+        }
+      };
       return {
+        anaForm: {
+          rowBegin: 0,//开始行
+          rowEnd: 0,//结束行
+          fileList: [],//文件上传列表
+          fieldMap: '请选择映射字段',
+        },
+        anaRules: {
+          rowBegin: [
+            {required: true, message: "不能为空", trigger: "blur"},
+            {validator: validateRowBegin}
+          ],
+          rowEnd: [
+            {required: true, message: "不能为空", trigger: "blur"},
+            {validator: validateRowEnd}
+          ],
+          fileList: [
+            {required: true, validator: validateFileList}
+          ],
+          fieldMap: [
+            {required: true, message: "请选择映射字段", trigger: "change"}
+          ]
+        },
         checkBoxGroup: [],
-        dataLen: 1,//表格有多少行数据
+        dataLen: 0,//表格有多少行数据
         schFields: [],//可能是学校的字段
-        schFiled: '选择学校名称字段',//用户选择的学校字段
-        rowBegin: 0,//开始行
-        rowEnd: 0,//结束行
         mapResult: [],//地图分析结果
         otherData: [],//其他（学校等级）分析结果
         schNames: [],//待分析学校名列表
@@ -230,12 +289,8 @@
       }
     },
     methods: {
-      printTest: function() {
-        this.$message("test!");
-        this.$message("box group" + this.checkBoxGroup);
-      },
       handleSchField: function(command) {
-        this.schFiled = command;
+        this.anaForm.fieldMap = command;
       },
       //根据选项选择展示内容
       contains: function(arr, obj) {
@@ -247,6 +302,7 @@
         }
         return false;
       },
+
       checkShow: function() {
         let sum;
         sum = 0;
@@ -262,97 +318,109 @@
         console.log("sum = " + sum);
         return sum;
       },
-      getResult: function() {
-        const showWhat = this.checkShow();//判断显示内容
-        this.schNames = [];
-        this.mapResult = [];
-        this.schIDs = [];
-        this.otherData = [];
-        if (this.rowBegin > this.rowEnd || this.rowBegin === 0) {
-          this.$message("左侧行数应小于右侧行数");
-          return;
-        }
-        let index = 0;
-        //将选中行区间的学校名加入schNames
-        for (let i = this.rowBegin - 1; i < this.rowEnd; i++) {
-          this.schNames.push(this.excelData[i][this.schFiled]);
-          this.schIDs.push(this.nameId[this.schNames[index++]]);
-        }
-        //将学校ID进行排序 方便后续tempID直接记录上一个ID
-        this.schIDs = this.schIDs.sort();
-        let tempID = this.schIDs[0];
-        const stuCount = new Map();//学校学生人数统计
-        let beginIndex = 0;
-        const analysisID = [];
-        let regionIndex = 0;
-        //相同学校名是同个地区
-        for (; regionIndex < this.schIDs.length; regionIndex++) {
-          if (this.schIDs[regionIndex] !== tempID) {//如果是新ID
-            let tid = this.schIDs[beginIndex];//保持老ID
-            tempID = this.schIDs[regionIndex]//记录当前的id，即下一个id
-            stuCount.set(tid, 0);//初始化学校ID对应人数为0
-            analysisID.push(tid);//将之前的加入待分析id中
-            stuCount.set(tid, regionIndex - beginIndex);//学校人数统计加入
-            beginIndex = regionIndex;//更换新起始坐标
-          }
-        }
-        analysisID.push(this.schIDs[beginIndex]);//处理最后一个
-        stuCount.set(this.schIDs[beginIndex], regionIndex - beginIndex);
 
-        //anaID相同学校已过滤
-        schoolDetail(analysisID)
-          .then((res) => {
-            this.schInfo = res;
-            const regionDict = new Map(), regionSet = new Set();
+      getResult: function(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            const showWhat = this.checkShow();//判断显示内容
+            this.schNames = [];
+            this.mapResult = [];
+            this.schIDs = [];
+            this.otherData = [];
 
-            const schInfoLen = this.schInfo.length;
-            for (let i = 0; i < schInfoLen; i++) {//初始化set
-              let loc = this.schInfo[i].location;
-              regionDict.set(loc, 0)
-              regionSet.add(loc);
+            let index = 0;
+            //将选中行区间的学校名加入schNames
+            for (let i = this.anaForm.rowBegin - 1; i < this.anaForm.rowEnd; i++) {
+              this.schNames.push(this.excelData[i][this.anaForm.fieldMap]);
+              this.schIDs.push(this.nameId[this.schNames[index++]]);
             }
-            for (let i = 0; i < schInfoLen; i++) {//对于每个学校ID对应的地址
-              let loc = this.schInfo[i].location;
-              regionDict.set(loc, regionDict.get(loc) + stuCount.get(this.schInfo[i].cid));//加上学校人数
-            }
-            if (showWhat % 2 === 1) {
-              for (let s of regionSet) {
-                this.mapResult.push({name: s, value: regionDict.get(s)});
+            console.log("学校ID数量", this.schIDs.length);
+            //将学校ID进行排序 方便后续tempID直接记录上一个ID
+            this.schIDs = this.schIDs.sort();
+            let tempID = this.schIDs[0];
+            const stuCount = new Map();//学校学生人数统计
+            let beginIndex = 0;
+            const analysisID = [];
+            let regionIndex = 0;
+            //相同学校名是同个地区
+            for (; regionIndex < this.schIDs.length; regionIndex++) {
+              if (this.schIDs[regionIndex] !== tempID) {//如果是新ID
+                let tid = this.schIDs[beginIndex];//保持老ID
+                tempID = this.schIDs[regionIndex]//记录当前的id，即下一个id
+                stuCount.set(tid, 0);//初始化学校ID对应人数为0
+                analysisID.push(tid);//将之前的加入待分析id中
+                stuCount.set(tid, regionIndex - beginIndex);//学校人数统计加入
+                beginIndex = regionIndex;//更换新起始坐标
               }
-              getMap(this.mapResult);
-            } else {
-              getMap([]);
             }
+            analysisID.push(this.schIDs[beginIndex]);//处理最后一个
+            stuCount.set(this.schIDs[beginIndex], regionIndex - beginIndex);
 
-            let nine = 0, two = 0;//nine为985/211 two为211
-            for (let i = 0; i < schInfoLen; i++) {
-              if (this.schInfo[i].level != null) {
-                if (this.schInfo[i].level.length > 3) {
-                  nine += stuCount.get(this.schInfo[i].cid);
-                } else {
-                  two += stuCount.get(this.schInfo[i].cid);
+            console.log("analysisID = ", analysisID);
+
+            //anaID相同学校已过滤
+            schoolDetail(analysisID)
+              .then((res) => {
+                this.schInfo = res;
+                const regionDict = new Map(), regionSet = new Set();
+
+                const schInfoLen = this.schInfo.length;
+                for (let i = 0; i < schInfoLen; i++) {//初始化set
+                  let loc = this.schInfo[i].location;
+                  regionDict.set(loc, 0)
+                  regionSet.add(loc);
                 }
-              }
-            }
-            if (showWhat >= 10 && showWhat !== 100 && showWhat !== 101) {
-              this.otherData.push({
-                depend: '985/211',
-                count: nine,
-                ratio: (nine / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
+                for (let i = 0; i < schInfoLen; i++) {//对于每个学校ID对应的地址
+                  let loc = this.schInfo[i].location;
+                  regionDict.set(loc, regionDict.get(loc) + stuCount.get(this.schInfo[i].cid));//加上学校人数
+                }
+                if (showWhat % 2 === 1) {
+                  for (let s of regionSet) {
+                    this.mapResult.push({name: s, value: regionDict.get(s)});
+                  }
+                  getMap(this.mapResult);
+                } else {
+                  getMap([]);
+                }
+
+                let nine = 0, two = 0;//nine为985/211 two为211
+                for (let i = 0; i < schInfoLen; i++) {
+                  if (this.schInfo[i].level != null) {
+                    if (this.schInfo[i].level.length > 3) {
+                      nine += stuCount.get(this.schInfo[i].cid);
+                    } else {
+                      two += stuCount.get(this.schInfo[i].cid);
+                    }
+                  }
+                }
+                if (showWhat >= 10 && showWhat !== 100 && showWhat !== 101) {
+                  this.otherData.push({
+                    depend: '985/211',
+                    count: nine,
+                    ratio: (nine / (this.anaForm.rowEnd - this.anaForm.rowBegin + 1)).toFixed(2)
+                  });
+                }
+                if (showWhat >= 100) {
+                  this.otherData.push({
+                    depend: '211',
+                    count: two,
+                    ratio: (two / (this.anaForm.rowEnd - this.anaForm.rowBegin + 1)).toFixed(2)
+                  });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                this.$message.error("请检查数据是否符合要求！");
+                this.mapResult = [];
+                this.otherData = [];
+                getMap([]);
               });
-            }
-            if (showWhat >= 100) {
-              this.otherData.push({
-                depend: '211',
-                count: two,
-                ratio: (two / (this.rowEnd - this.rowBegin + 1)).toFixed(2)
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+          } else {
+            this.$message.error("请检查输入！");
+          }
+        });
       },
+
       exportEXCEL: function(type, isRegion) {
         console.log("进入了导出EXCEL函数")
         let arr;
@@ -383,6 +451,7 @@
         }
 
       },
+
       handleChange: async function(ev) {
         let file = ev.raw;
         if (!file) {
@@ -430,21 +499,14 @@
 
 </script>
 
-<style scoped>
-  .screen {
-    width: 100%;
-    height: 300px;
-    border: 1px solid darkgrey;
-  }
-
-  #source-data, #data-scale, #field-map, #finish, #conditions {
-    display: flex;
-    justify-content: start;
-    margin-left: 20px;
-  }
-
+<style>
   #finish {
     width: 120px;
-    padding-left: 46px;
+    margin-top: 10px;
+  }
+
+  .items .el-form-item__label {
+    font-size: 16px;
+    font-weight: bold;
   }
 </style>

@@ -311,6 +311,7 @@
               }
             })
               .then((res) => {
+                console.log(res);
                 if (res.data.status === 200) {
                   this.$message.success("查询成功！");
                   let items = res.data.data;
