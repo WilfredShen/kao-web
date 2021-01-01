@@ -177,3 +177,18 @@ export function getLastestCollegeRank() {
       });
   });
 }
+
+//获取所有轮次
+export function getAllRound() {
+  return new Promise((resolve, reject) => {
+    axios.get("/api/meta/round")
+      .then((res) => {
+        console.log(resolve);
+        resolve(res.data.data);
+      })
+      .catch((err) => {
+        reject(err.data);
+        console.log(err);
+      });
+  });
+}

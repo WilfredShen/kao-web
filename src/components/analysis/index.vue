@@ -82,7 +82,8 @@
                 v-for="(item,index) in schFields"
                 :key="index"
                 :command="item.field"
-              >{{item.field}}
+              >
+                {{item.field}}
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -122,12 +123,11 @@
           id="finish"
           plain
           @click="getResult('anaForm')"
-        >完成
+        >
+          完成
         </el-button>
       </div>
     </el-row>
-
-
     <el-divider></el-divider>
 
     <!--        地图分析结果-->
@@ -138,8 +138,7 @@
       <div
         id="region"
         style="width: 60%;height: 600px;"
-      >
-      </div>
+      ></div>
       <div
         id="show"
         style="width: 40%;display: flex;flex-direction: column"
@@ -148,12 +147,14 @@
           <el-button
             size="small"
             @click="exportEXCEL('xlsx','region')"
-          >导出为EXCEL
+          >
+            导出为EXCEL
           </el-button>
           <el-button
             size="small"
             @click="exportEXCEL('csv','region')"
-          >导出为CSV
+          >
+            导出为CSV
           </el-button>
           <!--          <el-button size="small" @click="printTest()">打印</el-button>-->
         </el-row>
@@ -215,12 +216,14 @@
           <el-button
             style="width: 150px;margin-left: 10px"
             @click="exportEXCEL('xlsx','other')"
-          >导出为EXCEL
+          >
+            导出为EXCEL
           </el-button>
           <el-button
             style="width: 150px"
             @click="exportEXCEL('csv','ohter')"
-          >导出为CSV
+          >
+            导出为CSV
           </el-button>
           <!--          <el-button style="width: 100px">打印</el-button>-->
         </div>

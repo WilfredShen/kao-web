@@ -5,23 +5,14 @@
         <el-select
           v-model="round"
           placeholder="请选择轮次"
+          size="small"
         >
           <el-option
-            label="1"
-            value="1"
-          ></el-option>
-          <el-option
-            label="2"
-            value="2"
-          ></el-option>
-          <el-option
-            label="3"
-            value="3"
-          ></el-option>
-          <el-option
-            label="4"
-            value="4"
-          ></el-option>
+            v-for="item in rounds"
+            :key="item.r"
+            :value="item.r"
+          >
+          </el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -96,7 +87,7 @@
   import {readFile} from "@/assets/lib/utils";
   import xlsx from "xlsx";
   import {uploadEvaluation} from "@/assets/lib/setManager";
-  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
+  import {majorList, schoolList, getAllRound} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'AssessEval',
@@ -112,6 +103,7 @@
         showFile: true,//显示文件列表
         up: false,
         fileList: [],
+        rounds: [],
       }
     },
     methods: {
@@ -262,6 +254,17 @@
         })
         .catch((err) => {
           console.log(err);
+        });
+
+      getAllRound()
+        .then((res) => {
+          res.sort();
+          for (let i = 0; i < res.length; i++) {
+            var obj = {}; //集合对象
+            obj.r = res[i]; //对象属性
+            this.rounds.push(obj); //对象放入集合
+          }
+          console.log(this.rounds);
         });
     }
   }
