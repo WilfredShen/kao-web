@@ -92,7 +92,7 @@
       };
     },
     methods: {
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/admin/login", {
             username: this.loginForm.username,

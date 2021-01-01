@@ -38,7 +38,6 @@
           @select="handleSelect()"
           class="el-menu-demo"
           mode="horizontal"
-          background-color="transparent"
           text-color="#ffffff"
           style="font-weight: bold;width: 60%"
           active-text-color="#E03E36"
@@ -165,5 +164,22 @@
 
   .el-menu-item {
     font-size: 15px;
+  }
+
+  .el-submenu__title:hover {
+    background-color: #2057a1 !important;
+  }
+
+  .el-menu-item:hover {
+    background-color: #2057a1 !important;
+  }
+
+  .el-menu {
+    background-color: transparent !important;
+  }
+
+  .el-menu-item.is-active {
+    background-color: transparent !important;
+    font-size: 17px;
   }
 </style>

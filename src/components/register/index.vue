@@ -170,7 +170,7 @@
       };
     },
     methods: {
-      getCode: function () {
+      getCode: function() {
         if (this.registerForm.phone == null || this.registerForm.phone === "") {
           this.$alert('请输入手机号！', '提示', {
             confirmButtonText: '确定',
@@ -210,7 +210,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {

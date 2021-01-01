@@ -13,21 +13,11 @@
             @change="getEvaluation()"
           >
             <el-option
-              label="1"
-              value="1"
-            ></el-option>
-            <el-option
-              label="2"
-              value="2"
-            ></el-option>
-            <el-option
-              label="3"
-              value="3"
-            ></el-option>
-            <el-option
-              label="4"
-              value="4"
-            ></el-option>
+              v-for="item in rounds"
+              :key="item.r"
+              :value="item.r"
+            >
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -61,16 +51,14 @@
           </el-button>
           <span style="margin-left: 10px;color: dimgray">(多个学校模糊查询关键字，以空格相隔，查找同时存在这些关键字的学校)</span>
         </el-form-item>
-
       </el-form>
       <div>
         <el-table
           :data="tableData"
           :header-cell-style="{background:'#1e56a0',color:'white'}"
-          border
           stripe
           style="font-size: 16px"
-          height="400px"
+          max-height="400px"
         >
           <el-table-column
             prop="mid"
@@ -100,7 +88,6 @@
           <el-table-column
             fixed="right"
             label="操作"
-            width="100px"
             align="center"
           >
             <template slot-scope="scope">
@@ -141,13 +128,15 @@
         </el-form-item>
         <el-form-item label="学校名称">
           <el-input
-            @input="input"
             v-model="row.cname"
             :disabled="true"
           ></el-input>
         </el-form-item>
         <el-form-item label="评估结果">
-          <el-input v-model="row.result"></el-input>
+          <el-input
+            @input="input()"
+            v-model="row.result"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div
@@ -158,7 +147,7 @@
         <el-button
           @click="confirmUpdate()"
           style="background-color: #2057a1;color: white"
-          :disabled="modifyFlag"
+          :disabled="!modifyFlag"
         >确 定
         </el-button>
       </div>
@@ -168,7 +157,7 @@
 
 <script>
   import {updateEvaluation} from "@/assets/lib/setManager";
-  import {majorList, schoolList} from "@/assets/lib/getResultLjm";
+  import {majorList, schoolList, getAllRound} from "@/assets/lib/getResultLjm";
 
   export default {
     name: 'Modify',
@@ -186,6 +175,7 @@
         dialogFormVisible: false,
         row: [],
         modifyFlag: false,
+        rounds: [],
       }
     },
     methods: {
@@ -328,10 +318,11 @@
       },
 
       confirmUpdate: function() {
+        this.modifyFlag = false;
         this.dialogFormVisible = false;
         updateEvaluation(this.row.cid, this.row.mid, this.row.result, this.round)
           .then((res) => {
-            console.log(res);
+            console.log("res", res);
             this.$message({
               showClose: true,
               message: '修改成功！',
@@ -374,6 +365,17 @@
         .catch((err) => {
           console.log(err);
         });
+//获取所有轮次
+      getAllRound()
+        .then((res) => {
+          res.sort();
+          for (let i = 0; i < res.length; i++) {
+            var obj = {}; //集合对象
+            obj.r = res[i]; //对象属性
+            this.rounds.push(obj); //对象放入集合
+          }
+          console.log(this.rounds);
+        });
     }
   }
 </script>
@@ -382,9 +384,4 @@
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
     overflow: scroll !important;
   }
-
-  /deep/ .el-table--scrollable-y ::-webkit-scrollbar {
-    display: none;
-  }
-
 </style>

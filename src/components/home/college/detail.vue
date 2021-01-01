@@ -6,7 +6,7 @@
         筛选条件
         </span>
       </div>
-      <div style="display: flex;align-items: center;margin: 20px 15px 10px 15px">
+      <div style="display: flex;align-items: center;margin: 20px 15px 5px 15px">
         <p class="spanb">模糊查找学校 : </p>
         <el-input
           size="mini"
@@ -18,10 +18,10 @@
           clearable
         ></el-input>
       </div>
-      <div style="display: flex;align-items: center;margin: 10px 15px">
+      <div style="display: flex;align-items: center;margin: 0 15px 10px 15px">
         <p class="spanb">评价体系 : </p>
         <el-dropdown
-          style="margin-left: 28px;margin-right: 10px;"
+          style="margin-left: 28px;margin-right: 20px;"
           split-button
           size="mini"
           @command="handleCommand"
@@ -41,18 +41,17 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      </div>
-      <div
-        v-if="isNormal"
-        style="display: flex;align-items: center;margin: 10px 15px"
-      >
-        <p class="spanb">评估结果 : </p>
+        <p
+          class="spanb"
+          v-if="isNormal"
+        >评估结果 : </p>
         <el-select
+          v-if="isNormal"
           v-model="level"
           multiple
           placeholder="请选择"
           size="mini"
-          style="margin-left: 28px;width: 40%"
+          style="margin-left: 10px"
         >
           <el-option
             v-for="item in option4"
@@ -61,11 +60,10 @@
             :value="item.label4"
           ></el-option>
         </el-select>
-      </div>
-      <div style="text-align: right">
         <el-button
           size="small"
-          style="width: 100px;margin: 10px 20px 10px 0;font-weight: bold;font-size: 13px"
+          round
+          style="margin: 10px 0 10px 20px;font-weight: bold"
           @click="getSearch()"
         >查询
         </el-button>
