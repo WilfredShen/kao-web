@@ -4,7 +4,7 @@
       <el-button
         class="row-style"
         type="text"
-        @click="$router.push({ path: '/college/detail' })"
+        @click="clickBack()"
         icon="el-icon-back"
         style="font-size: 15px;"
       >返回
@@ -13,7 +13,7 @@
     <br>
     <div
       class="sch-divstyle"
-      style="padding: 5px 0;"
+      style="padding: 5px 0;margin-top:10px"
     >
       <div
         class="bor1"
@@ -31,23 +31,20 @@
           style="padding: 5px"
         >
           <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
+          <br>
           <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
         </div>
       </div>
-      <el-card class="box-card">
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">最新排名:</p>
         </div>
-        <table
-          border="1"
-          cellspacing="0"
-          style="margin-left: 10px;width:50%;margin-top: 10px;"
-        >
-          <tr style="line-height:50px">
-            <th>数据来源</th>
-            <th>排名</th>
-            <th>更新日期</th>
-          </tr>
+        <table class="tableStyle">
+          <thead style="line-height:50px">
+          <th>数据来源</th>
+          <th>排名</th>
+          <th>更新日期</th>
+          </thead>
           <tr
             v-for="(item, index) in ranks"
             :key="index"
@@ -67,24 +64,20 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">近五年录取率:</p>
         </div>
-        <table
-          border="1"
-          cellspacing="0"
-          style="margin-left: 10px;width:60%;margin-top: 10px"
-        >
-          <tr style="line-height:50px">
-            <th>年份</th>
-            <th>考研人数</th>
-            <th>录取人数</th>
-            <th>保研人数</th>
-            <th>保研率</th>
-            <th>录取率</th>
-          </tr>
+        <table class="tableStyle">
+          <thead style="line-height:50px">
+          <th>年份</th>
+          <th>考研人数</th>
+          <th>录取人数</th>
+          <th>保研人数</th>
+          <th>保研率</th>
+          <th>录取率</th>
+          </thead>
           <tr
             v-for="(item, index) in rates"
             :key="index"
@@ -108,21 +101,17 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div class="box-card">
         <div class="title">
           <p class="pstylea">最新学科评估结果:</p>
         </div>
-        <table
-          border="1"
-          cellspacing="0"
-          style="margin-left: 10px;width:50%;margin-top: 10px"
-        >
-          <tr style="line-height:50px">
-            <th>学科名称及代码</th>
-            <th>评估结果</th>
-            <th>参评轮次</th>
-          </tr>
+        <table class="tableStyle">
+          <thead style="line-height:50px">
+          <th>学科名称及代码</th>
+          <th>评估结果</th>
+          <th>参评轮次</th>
+          </thead>
           <tr
             v-for="(item, index) in evaluation.slice(0,5)"
             :key="index"
@@ -142,23 +131,19 @@
             </td>
           </tr>
         </table>
-      </el-card>
-      <el-card class="box-card">
+      </div>
+      <div style="margin-top: 10px;">
         <div class="title">
           <p class="pstylea">导师信息:</p>
         </div>
-        <table
-          border="1"
-          cellspacing="0"
-          style="margin-left: 10px;;width:60%;margin-top: 10px"
-        >
-          <tr>
-            <th>导师姓名</th>
-            <th>招生专业</th>
-            <th>研究方向</th>
-            <th>联系电话</th>
-            <th>邮箱地址</th>
-          </tr>
+        <table class="tableStyle">
+          <thead>
+          <th>导师姓名</th>
+          <th>招生专业</th>
+          <th>研究方向</th>
+          <th>联系电话</th>
+          <th>邮箱地址</th>
+          </thead>
           <tr
             v-for="(item, index) in tutors"
             :key="index"
@@ -180,7 +165,7 @@
             </td>
           </tr>
         </table>
-      </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -347,5 +332,38 @@
   .box-card {
     margin-top: 10px;
     border-bottom: 3px solid #163172;
+  }
+
+  /* Table Head */
+  .tableStyle thead th {
+    background-color: rgb(81, 130, 187);
+    color: #fff;
+    border-bottom-width: 0;
+    line-height: 30px;
+  }
+
+  /* Column Style */
+  .tableStyle td {
+    color: #000;
+  }
+
+  /* Heading and Column Style */
+  .tableStyle tr, .tableStyle th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(81, 130, 187);
+  }
+
+  /* Padding and font style */
+  .tableStyle td, .tableStyle th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+  }
+
+  .tableStyle {
+    width: 60%;
+    margin-bottom: 10px;
   }
 </style>

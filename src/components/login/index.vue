@@ -36,9 +36,9 @@
               >
                 <i
                   slot="suffix"
-                  :style="{ color: status.showConfPass ? '#409EFF' : '' }"
+                  :style="{ color: status.showPassword ? '#409EFF' : '' }"
                   class="el-icon-view"
-                  @click="status.showConfPass = !status.showConfPass"
+                  @click="status.showPassword = !status.showPassword"
                 ></i>
               </el-input>
             </el-form-item>
