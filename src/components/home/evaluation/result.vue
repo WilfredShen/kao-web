@@ -127,14 +127,14 @@
 
             <el-scrollbar style="height: 600px">
               <div
-                      v-for="(item, index) in resultList"
-                      :key="index"
+                v-for="(item, index) in resultList"
+                :key="index"
               >
                 <el-card
-                        shadow="hover"
-                        :class="{table:index%2===0}"
-                        :body-style="{ padding: '4px' }"
-                        style=" margin: 7px 0"
+                  shadow="hover"
+                  :class="{table:index%2===0}"
+                  :body-style="{ padding: '4px' }"
+                  style=" margin: 7px 0"
                 >
                   <el-row style="margin: 0 4px;padding: 8px 0">
                     <el-col :span="8">
@@ -142,8 +142,8 @@
                     </el-col>
                     <el-col :span="8">
                       <div
-                              @click="schoolClick(item.cid)"
-                              style="cursor: pointer"
+                        @click="schoolClick(item.cid)"
+                        style="cursor: pointer"
                       >{{item.cid+getSchoolName(item.cid)}}
                       </div>
                     </el-col>
@@ -157,20 +157,20 @@
           </div>
           <div style="float:right;margin-bottom: 5px">
             <el-button
-                    v-show="(!(isIdentity==null)&&!(isIdentity===''))"
-                    size="medium"
-                    round
-                    @click="setFavorMajor()"
-                    style="margin-left:10px"
+              v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+              size="medium"
+              round
+              @click="setFavorMajor()"
+              style="margin-left:10px"
             >一键收藏
             </el-button>
           </div>
           <div style="float:right;margin-right:5px;margin-bottom: 5px">
             <el-button
-                    v-show="(!(isIdentity==null)&&!(isIdentity===''))"
-                    size="medium"
-                    round
-                    @click="exportExcel()"
+              v-show="(!(isIdentity==null)&&!(isIdentity===''))"
+              size="medium"
+              round
+              @click="exportExcel()"
             >导出
             </el-button>
           </div>
@@ -260,14 +260,14 @@
       }
     },
     methods: {
-      getSchoolList: function() {
+      getSchoolList: function () {
         schoolList()
           .then((res) => {
             this.schools = res;
           });
       },
 
-      getDisciplineList: function() {
+      getDisciplineList: function () {
         disciplineList()
           .then((res) => {
             this.disciplines = res;
@@ -275,7 +275,7 @@
           });
       },
 
-      getMajorListAll: function() {
+      getMajorListAll: function () {
         majorList()
           .then((res) => {
             this.allMajors = res;
@@ -283,7 +283,7 @@
           });
       },
 
-      getMajorList: function(id) {
+      getMajorList: function (id) {
         this.majors = [];
         majorList()
           .then((res) => {
@@ -295,7 +295,7 @@
           });
       },
 
-      getSchoolName: function(cid) {
+      getSchoolName: function (cid) {
         for (let i = 0; i < this.schools.length; i++) {
           if (this.schools[i].cid === cid) {
             return this.schools[i].cname;
@@ -303,7 +303,7 @@
         }
       },
 
-      getMajorName: function(mid) {
+      getMajorName: function (mid) {
         for (let i = 0; i < this.allMajors.length; i++) {
           if (this.allMajors[i].mid === mid) {
             return this.allMajors[i].mname;
@@ -311,7 +311,7 @@
         }
       },
 
-      getTmpResults: function() {
+      getTmpResults: function () {
         getEvaluationList(this.round)
           .then((res) => {
             this.resultList = [];
@@ -395,7 +395,7 @@
           });
       },
 
-      setFavorMajor: function() {
+      setFavorMajor: function () {
         console.log("进入一键收藏")
         setFavouriteMajor(this.favorMajors)
           .then((res) => {
@@ -415,13 +415,13 @@
           });
       },
 
-      schoolClick: function(cid) {
+      schoolClick: function (cid) {
         //localStorage.setItem('schoolcid', cid);
         this.$store.commit('setcid', cid);
         this.$router.push({path: '/college'});
       },
 
-      exportExcel: function() {
+      exportExcel: function () {
         console.log("进入了导出EXCEL函数");
         let arr;
         arr = this.resultList.map((item) => {
