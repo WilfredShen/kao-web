@@ -254,8 +254,8 @@
         rankList(cid)
           .then((res) => {
             arr.ranks = res;
-              console.log("rank", this.ranks);
-            });
+            console.log("rank", this.ranks);
+          });
       },
       getRates: function(cid) {
         const arr = this;
@@ -263,14 +263,14 @@
           .then((res) => {
             arr.rates = res;
             console.log("rate", this.rates);
-            });
+          });
       },
       getTutors: function(cid) {
         const arr = this;
         tutorList(cid)
-            .then((res) => {
-              arr.tutors = res;
-            });
+          .then((res) => {
+            arr.tutors = res;
+          });
       },
       /*
       setFavorTutor(cid, tid) {
