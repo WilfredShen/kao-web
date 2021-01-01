@@ -101,7 +101,7 @@
               type="primary"
               @click="submit()"
             >
-              <span>注册</span>
+              <span>提交</span>
             </el-button>
           </el-form-item>
         </el-form>
@@ -171,6 +171,19 @@
     },
     methods: {
       getCode: function() {
+        if(this.forgotForm.phone==null||this.forgotForm.phone===""){
+          this.$alert('请输入手机号！', '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+        var regu=/^1[0-9]{10}$/;
+        if(!regu.test(this.forgotForm.phone)){
+          this.$alert('请输入格式正确的手机号！', '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
         if (this.status.resend > 0) {
           return;
         }
@@ -184,7 +197,7 @@
 
         this.$axios
           .post("/api/visitor/getvfcode", {
-            phoneNumber: this.phone,
+            phoneNumber: this.forgotForm.phone,
           })
           .then((res) => {
             if (res.data.state === 200) {
@@ -212,7 +225,7 @@
                 this.$router.push("/login");
               }, 3000);
             } else {
-              this.$message.error("注册失败！");
+              this.$message.error("修改失败！");
             }
           })
           .catch((err) => {

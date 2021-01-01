@@ -171,6 +171,19 @@
     },
     methods: {
       getCode: function() {
+        if(this.registerForm.phone==null||this.registerForm.phone===""){
+          this.$alert('请输入手机号！', '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+        var regu=/^1[0-9]{10}$/;
+        if(!regu.test(this.registerForm.phone)){
+          this.$alert('请输入格式正确的手机号！', '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
         if (this.status.resend > 0) {
           return;
         }
@@ -184,7 +197,7 @@
 
         this.$axios
           .post("/api/visitor/getvfcode", {
-            phoneNumber: this.phone,
+            phoneNumber: this.registerForm.phone,
           })
           .then((res) => {
             if (res.data.state === 200) {

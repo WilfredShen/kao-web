@@ -111,9 +111,7 @@
         </span>
       </div>
       <el-main>
-        <el-card
-                style="margin-top: 10px;background-color: transparent"
-        >
+        <el-card style="margin-top: 10px;background-color: transparent">
           <div style="text-align: center;margin: 0 5%">
             <el-row style="margin: 8px 0;font-weight: bold;font-size: 20px">
               <el-col :span="8">
