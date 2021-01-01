@@ -179,11 +179,6 @@
           value4: "C- / 60-65",
           label4: "C-"
         }],
-        backgroundCollege: {
-          backgroundImage: 'url(' + require('@/assets/image/背景图片2.png') + ')',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%'
-        },
         major: {},
         school: [],
         schoolMap: {},
