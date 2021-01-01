@@ -224,8 +224,14 @@
               setTimeout(() => {
                 this.$router.push("/login");
               }, 3000);
-            } else {
+            } else if(res.data.status===3040){
               this.$message.error("修改失败！");
+            }
+            else if(res.data.status===403){
+              this.$message.error("该用户不存在！");
+            }
+            else if(res.data.status===422){
+              this.$message.error("手机号与该用户不匹配")
             }
           })
           .catch((err) => {

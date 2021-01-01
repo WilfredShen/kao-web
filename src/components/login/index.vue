@@ -105,7 +105,7 @@
       };
     },
     methods: {
-      submit: function() {
+      submit: function () {
         this.$axios
           .post("/api/visitor/login", {
             username: this.loginForm.username,
@@ -124,8 +124,10 @@
               setTimeout(() => {
                 this.$router.push(callback.toString());
               }, 3000);
-            } else {
-              this.$message.error("用户名或密码错误！");
+            } else if (res.data.status === 410) {
+              this.$message.error("用户名错误！");
+            } else if (res.data.status === 414) {
+              this.$message.error("密码错误！");
             }
           })
           .catch((err) => {

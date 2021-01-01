@@ -225,8 +225,15 @@
               setTimeout(() => {
                 this.$router.push("/login");
               }, 3000);
-            } else {
-              this.$message.error("注册失败！");
+            } else if (res.data.status === 421) {
+              this.$message.error("注册失败！该手机号已经注册过");
+            } else if (res.data.status === 413) {
+              this.$message.error("注册失败！该用户名已经存在")
+            } else if (res.data.status === 425) {
+              this.$message.error("注册失败！验证码错误")
+            }
+            else{
+              this.$message.error("注册失败！")
             }
           })
           .catch((err) => {
