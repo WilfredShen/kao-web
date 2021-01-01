@@ -198,7 +198,7 @@
       }
     },
     methods: {
-      getSchoolDetail: function(cid) {
+      getSchoolDetail: function (cid) {
         const arr = this;
         schoolDetail(cid)
           .then((res) => {
@@ -207,7 +207,7 @@
             console.log("schoool_details" + this.schoolDetails.cname);
           });
       },
-      getEvaluation: function(cid) {
+      getEvaluation: function (cid) {
         const arr = this;
         arr.evaluation = [];
         getEvaluationList(4)
@@ -219,14 +219,14 @@
             }
           });
       },
-      getMajorListAll: function() {
+      getMajorListAll: function () {
         const arr = this;
         majorList()
           .then((res) => {
             arr.allMajors = res;
           });
       },
-      getMajorName: function(mid) {
+      getMajorName: function (mid) {
         const arr = this;
         for (let i = 0; i < arr.allMajors.length; i++) {
           if (arr.allMajors[i].mid === mid) {
@@ -234,7 +234,7 @@
           }
         }
       },
-      getRank: function(cid) {
+      getRank: function (cid) {
         const arr = this;
         rankList(cid)
           .then((res) => {
@@ -242,7 +242,7 @@
             console.log("rank", this.ranks);
           });
       },
-      getRates: function(cid) {
+      getRates: function (cid) {
         const arr = this;
         rateList(cid)
           .then((res) => {
@@ -250,7 +250,7 @@
             console.log("rate", this.rates);
           });
       },
-      getTutors: function(cid) {
+      getTutors: function (cid) {
         const arr = this;
         tutorList(cid)
           .then((res) => {
