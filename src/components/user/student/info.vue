@@ -274,7 +274,7 @@
             this.items[1].content = item.email;
             this.items[2].content = item.name;
             this.items[3].content = item.age;
-            this.items[4].content = item.sex ? '男' : '女';
+            this.items[4].content = item.sex ? '女' : '男';
             this.items[5].content = item.college;
             this.items[6].content = item.major;
             this.items[7].content = item.graduationDate;

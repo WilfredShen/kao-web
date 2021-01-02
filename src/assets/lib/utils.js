@@ -1,3 +1,5 @@
+import {schoolList} from './getResultLjm'
+
 export function readFile(file) {
   return new Promise(resolve => {
     let reader = new FileReader();
@@ -18,7 +20,6 @@ export function getCookie(value) {
   return null;
 }
 
-
 export function setCookie(cname, cValue, exDays) {
   const d = new Date();
   d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));
@@ -31,4 +32,28 @@ export function checkMobile(str) {
   return re.test(str);
 }
 
+export function getSchMap(self) {
+  const schMap = new Map();
+  if (JSON.stringify(self.$store.state.schoolMap) !== '{}') {
+    let sMap = self.$store.state.schoolMap;
+    for (const key in sMap) {
+      schMap.set(sMap[key], key);
+    }
+  } else {
+    schoolList()
+      .then((res) => {
+        res.forEach(row => {
+          schMap.set(row.cname, row.cid);
+          this.$store.commit("setSchMap", {
+            cname: row.cname,
+            cid: row.cid
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  return schMap;
+}
 
