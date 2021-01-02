@@ -183,7 +183,8 @@
 </template>
 <script>
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
-
+  import {getSchMap} from '@/assets/lib/utils'
+  // import {schoolList} from '@/assets/lib/getResultLjm'
   export default {
     name: 'Info',
     props: {
@@ -370,17 +371,18 @@
       },
 
       verifyACType: function(formName) {
+        const schMap = getSchMap(this);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             console.log(this.typeForm.collegeName);
             console.log(this.typeForm.jobNumber);
             if (this.identity === '学生') {
               this.$axios.post("/api/vf/student", {
-                cid: '10001',
+                cid: schMap.get(this.typeForm.collegeName),
                 sid: this.typeForm.jobNumber
               })
                 .then((res) => {
-                  console.log(res);
+                  console.log("认证学生请求成功",res);
                   if (res.data.status === 200) {
                     this.$message.success("认证学生成功!");
                     this.items[5].content = '学生';
