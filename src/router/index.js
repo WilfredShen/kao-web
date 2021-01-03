@@ -47,7 +47,7 @@ export default new VueRouter({
           component: () => import('@/components/home/college/detail'),
         },
         {
-          path: 'college',
+          path: 'college/:cid',
           name: 'College',
           component: () => import('@/components/home/college/index')
         },
