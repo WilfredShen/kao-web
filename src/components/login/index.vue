@@ -1,11 +1,12 @@
 <template>
-  <div id="total">
+  <body>
+  <div
+    class="container"
+    id="container"
+  >
     <div id="login-wrapper">
       <el-container>
-        <el-header style="text-align: left;font-weight: bold;font-size: 30px">
-          <span>登录</span>
-        </el-header>
-        <el-main>
+        <el-main style="width: 80%;margin-left: 20px;margin-top: 80px">
           <el-form
             ref="loginForm"
             :model="loginForm"
@@ -56,20 +57,23 @@
         <el-footer>
           <div style="text-align: right">
             <router-link
+              class="link"
               :to="{ path: '/admin/login'}"
-              style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
+              style="margin-right: 1.5rem;cursor: pointer;"
             >
               管理员登录
             </router-link>
             <router-link
+              class="link"
               :to="{ path: '/register'}"
-              style="margin-right: 1.4rem; text-decoration: underline; cursor: pointer;"
+              style="margin-right: 1.5rem;cursor: pointer;"
             >
               注册账号
             </router-link>
             <router-link
+              class="link"
               :to="{ path: '/pwd' }"
-              style="text-decoration: underline; cursor: pointer;"
+              style="margin-right: 1.5rem;cursor: pointer;"
             >
               忘记密码
             </router-link>
@@ -77,7 +81,18 @@
         </el-footer>
       </el-container>
     </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <h1>welcome back!</h1>
+        <br>
+        <p>
+          To keep connected with us please login with your personal info
+        </p>
+      </div>
+    </div>
   </div>
+
+  </body>
 </template>
 
 <script>
@@ -139,10 +154,76 @@
 </script>
 
 <style scoped>
-
-  #login-wrapper {
-    width: 25%;
-    margin: auto;
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F6F5F7;
   }
 
+  .container {
+    position: relative;
+    width: 900px;
+    max-width: 100%;
+    min-height: 480px;
+    background-color: white;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  #login-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 100%;
+    width: 50%;
+    padding: 0 35px;
+    transform: translateX(80%);
+  }
+
+  .link {
+    height: 20px;
+    color: #9AA9B7;
+    text-decoration: none;
+    margin: 5px 0 15px;
+    font-size: 15px;
+    text-transform: capitalize;
+  }
+
+  h1 {
+    text-transform: capitalize;
+    font-size: 35px;
+    text-align: center;
+  }
+
+  p {
+    margin: 10px 0 30px;
+  }
+
+  .overlay-container {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #163172;
+    overflow: hidden;
+    transform: translateX(-100%);
+  }
+
+  .overlay {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+  }
 </style>
