@@ -1,16 +1,5 @@
 <template>
   <div>
-    <div style="width: 20px">
-      <el-button
-        class="row-style"
-        type="text"
-        @click="clickBack()"
-        icon="el-icon-back"
-        style="font-size: 15px;"
-      >返回
-      </el-button>
-    </div>
-    <br>
     <div
       class="sch-divstyle"
       style="padding: 5px 0;margin-top:10px"
@@ -19,20 +8,36 @@
         class="bor1"
         style="border-bottom: 3px solid #163172;margin: 0"
       >
-        <div style="background-color:#163172;height:60px;margin-left: 0;margin-right: 0">
-          <p class="schoola">
-            {{this.schoolDetails.cid}}
-            {{this.schoolDetails.cname}}
-            {{this.schoolDetails.level}}
-          </p>
+        <div style="background-color:#163172;height:60px;margin-left: 0;margin-right: 0;">
+          <div>
+            <el-button
+              class="row-style"
+              type="text"
+              @click="clickBack()"
+              icon="el-icon-back"
+              style="float: left;background-color: transparent;color: #ffffff;font-size: 22px;height: 60px;font-weight: bold;"
+            >
+            </el-button>
+          </div>
+          <div style="margin-left: 15px">
+            <p
+              class="schoola"
+              style="margin-left: 20px"
+            >
+              {{this.schoolDetails.cid}}
+              {{this.schoolDetails.cname}}
+              {{this.schoolDetails.level}}
+            </p>
+          </div>
         </div>
         <div
           class="mess"
-          style="padding: 5px"
+          style="padding: 5px;margin-top: 10px"
         >
           <p style="font-family: 宋体;font-weight:bold;">地区:{{this.schoolDetails.location}}</p>
           <br>
           <p style="font-family: 宋体;font-weight:bold;">简介:{{this.schoolDetails.introduction}}</p>
+          <br>
         </div>
       </div>
       <div class="box-card">
@@ -64,6 +69,7 @@
             </td>
           </tr>
         </table>
+        <br>
       </div>
       <div class="box-card">
         <div class="title">
@@ -101,6 +107,7 @@
             </td>
           </tr>
         </table>
+        <br>
       </div>
       <div class="box-card">
         <div class="title">
@@ -131,8 +138,9 @@
             </td>
           </tr>
         </table>
+        <br>
       </div>
-      <div style="margin-top: 10px;">
+      <div style="margin-top: 30px;">
         <div class="title">
           <p class="pstylea">导师信息:</p>
         </div>
@@ -165,6 +173,7 @@
             </td>
           </tr>
         </table>
+        <br>
       </div>
     </div>
   </div>
@@ -257,7 +266,7 @@
             arr.tutors = res;
           });
       },
-      clickBack: function() {
+      clickBack: function () {
         this.$router.go(-1);//返回上一层
       }
       /*
@@ -290,7 +299,8 @@
     activated() {
       const self = this;
       self.schoolCid = [];
-      self.schoolCid.push(self.$store.state.cid);
+      self.schoolCid.push(self.$route.params.cid);
+      // self.schoolCid.push(self.$store.state.cid);
       self.getSchoolDetail(self.schoolCid);
       self.getRank(self.schoolCid[0]);
       self.getRates(self.schoolCid[0]);
@@ -326,6 +336,7 @@
   .pstylea {
     font-weight: bold;
     margin-left: 10px;
+    font-size: 18px;
   }
 
   .table {
@@ -333,7 +344,7 @@
   }
 
   .box-card {
-    margin-top: 10px;
+    margin-top: 30px;
     border-bottom: 3px solid #163172;
   }
 
@@ -343,6 +354,7 @@
     color: #fff;
     border-bottom-width: 0;
     line-height: 30px;
+    font-weight: bold;
   }
 
   /* Column Style */
@@ -362,11 +374,13 @@
     padding: 5px 10px;
     font-size: 12px;
     font-family: Verdana;
-    font-weight: bold;
+
   }
 
   .tableStyle {
     width: 60%;
     margin-bottom: 10px;
+    margin-left: 80px;
+    margin-top: 20px;
   }
 </style>
