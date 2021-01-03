@@ -38,7 +38,7 @@
           <template slot-scope="scope">
             <span
               @click="skip(scope.row['linkTo'])"
-              style="width: 50px;height: 20px;"
+              style="width: 50px;height: 20px;cursor: pointer"
             >链接</span>
           </template>
         </el-table-column>

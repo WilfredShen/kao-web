@@ -99,7 +99,7 @@
       <ul style="font-size: 13px;margin-top: 8px;margin-bottom: 0;padding-left: 20px">
         <div
           class="li-style"
-          style="border-bottom: 1px solid #163172;"
+          style="border-bottom: 1px solid #163172;margin-top: 12px"
         >
           <img
             src="@/assets/image/1.png"
@@ -117,7 +117,7 @@
         <br/>
         <div
           class="li-style"
-          style="border-bottom: 1px solid #163172;"
+          style="border-bottom: 1px solid #163172"
         >
           <img
             src="@/assets/image/1.png"

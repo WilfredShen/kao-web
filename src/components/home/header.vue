@@ -1,6 +1,9 @@
-<template style="margin-left:12%;margin-right: 12%">
+<template>
   <div class="div-style">
-    <div :style="backgroundImage">
+    <div
+      :style="backgroundImage"
+      class="header"
+    >
       <img
         class="img-style"
         style="float: left;cursor: pointer"
@@ -68,18 +71,29 @@
 
     </div>
     <br>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <div class="section">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
+    <div style="flex: 0">
+      <Footer></Footer>
+    </div>
   </div>
+
+
 </template>
 
 <script>
   import {getLimit} from "@/assets/lib/getAndSetSelf";
   import {setCookie, getCookie} from "@/assets/lib/utils";
+  import Footer from "@/components/home/footer";
 
   export default {
     name: 'Header',
+    components: {
+      Footer,
+    },
     data() {
       return {
         isStu: false,
@@ -116,8 +130,8 @@
         this.$store.commit('setUid', '');
         this.$router.push("/");
         setTimeout(function() {
+          location.reload();
         }, 1000);
-        location.reload();
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
@@ -160,6 +174,11 @@
     width: 80%;
     background: white;
     margin: 0 9%;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
   }
 
   .el-menu-item {
@@ -182,4 +201,19 @@
     background-color: transparent !important;
     font-size: 17px;
   }
+
+  html, body {
+    height: 100%;
+  }
+
+  .header {
+    flex: 0;
+  }
+
+  .section {
+    flex: 1;
+    margin-bottom: 20px
+  }
+
+
 </style>

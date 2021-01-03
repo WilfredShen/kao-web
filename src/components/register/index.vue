@@ -1,145 +1,154 @@
 <template>
-  <body>
-  <div
-    class="container"
-    id="container"
-  >
-    <div id="register-wrapper">
-      <el-container>
-        <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
-          <el-form
-            ref="registerForm"
-            :model="registerForm"
-            :rules="registerRules"
-            label-position="left"
-            label-width="80px"
-          >
-            <el-form-item
-              class="myLogin"
-              label="用户名"
-              prop="username"
+  <div>
+    <body>
+    <div
+      class="container"
+      id="container"
+    >
+      <div id="register-wrapper">
+        <el-container>
+          <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
+            <el-form
+              ref="registerForm"
+              :model="registerForm"
+              :rules="registerRules"
+              label-position="left"
+              label-width="80px"
             >
-              <el-input
-                v-model="registerForm.username"
-                placeholder="请输入用户名"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              class="myLogin"
-              label="密码"
-              prop="password"
-            >
-              <el-input
-                v-model="registerForm.password"
-                :type="status.showPassword ? '' : 'password'"
-                placeholder="请输入密码"
+              <el-form-item
+                class="myLogin"
+                label="用户名"
+                prop="username"
               >
-                <i
-                  slot="suffix"
-                  :style="{ color: status.showPassword ? '#409EFF' : '' }"
-                  class="el-icon-view"
-                  @click="status.showPassword = !status.showPassword"
-                ></i>
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              class="myLogin"
-              label="确认密码"
-              prop="confPass"
-            >
-              <el-input
-                v-model="registerForm.confPass"
-                :type="status.showConfPass ? '' : 'password'"
-                placeholder="请再次输入密码"
+                <el-input
+                  v-model="registerForm.username"
+                  placeholder="请输入用户名"
+                ></el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="密码"
+                prop="password"
               >
-                <i
-                  slot="suffix"
-                  :style="{ color: status.showConfPass ? '#409EFF' : '' }"
-                  class="el-icon-view"
-                  @click="status.showConfPass = !status.showConfPass"
-                ></i>
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              class="myLogin"
-              label="手机号"
-              prop="phone"
-            >
-              <el-row
-                justify="space-between"
-                type="flex"
+                <el-input
+                  v-model="registerForm.password"
+                  :type="status.showPassword ? '' : 'password'"
+                  placeholder="请输入密码"
+                >
+                  <i
+                    slot="suffix"
+                    :style="{ color: status.showPassword ? '#409EFF' : '' }"
+                    class="el-icon-view"
+                    @click="status.showPassword = !status.showPassword"
+                  ></i>
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="确认密码"
+                prop="confPass"
               >
-                <el-col :span="14">
-                  <el-input
-                    v-model="registerForm.phone"
-                    placeholder="请输入手机号码"
-                  ></el-input>
-                </el-col>
-                <el-col :span="9">
-                  <el-button
-                    style="width: 100%; padding-left: 0; padding-right: 0; text-align: center"
-                    @click="getCode()"
-                  >
-                    <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
-                    <span v-if="status.resend === -1">获取验证码</span>
-                    <span v-else>重新获取</span>
-                  </el-button>
-                </el-col>
-              </el-row>
-            </el-form-item>
-            <el-form-item
-              class="myLogin"
-              label="验证码"
-              prop="code"
-            >
-              <el-input
-                v-model="registerForm.code"
-                placeholder="请输入验证码"
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                style="width: 100%;background-color: #1e56a0"
-                type="primary"
-                @click="submit()"
+                <el-input
+                  v-model="registerForm.confPass"
+                  :type="status.showConfPass ? '' : 'password'"
+                  placeholder="请再次输入密码"
+                >
+                  <i
+                    slot="suffix"
+                    :style="{ color: status.showConfPass ? '#409EFF' : '' }"
+                    class="el-icon-view"
+                    @click="status.showConfPass = !status.showConfPass"
+                  ></i>
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="手机号"
+                prop="phone"
               >
-                <span>注册</span>
-              </el-button>
-            </el-form-item>
-          </el-form>
-        </el-main>
-        <el-footer style="margin-bottom: 10px">
-          <div style="text-align: right;">
-            <router-link
-              class="link"
-              :to="{ path: '/login'}"
-              style="cursor: pointer"
-            >
-              前往登录
-            </router-link>
-          </div>
-        </el-footer>
-      </el-container>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <h1>Hello Friend!</h1>
-        <br>
-        <p>
-          Enter your personal details and start journey with us!
-        </p>
+                <el-row
+                  justify="space-between"
+                  type="flex"
+                >
+                  <el-col :span="14">
+                    <el-input
+                      v-model="registerForm.phone"
+                      placeholder="请输入手机号码"
+                    ></el-input>
+                  </el-col>
+                  <el-col :span="9">
+                    <el-button
+                      style="width: 100%; padding-left: 0; padding-right: 0; text-align: center"
+                      @click="getCode()"
+                    >
+                      <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
+                      <span v-if="status.resend === -1">获取验证码</span>
+                      <span v-else>重新获取</span>
+                    </el-button>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="验证码"
+                prop="code"
+              >
+                <el-input
+                  v-model="registerForm.code"
+                  placeholder="请输入验证码"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  style="width: 100%;background-color: #1e56a0"
+                  type="primary"
+                  @click="submit()"
+                >
+                  <span>注册</span>
+                </el-button>
+              </el-form-item>
+            </el-form>
+          </el-main>
+          <el-footer style="margin-bottom: 10px">
+            <div style="text-align: right;">
+              <router-link
+                class="link"
+                :to="{ path: '/login'}"
+                style="cursor: pointer"
+              >
+                前往登录
+              </router-link>
+            </div>
+          </el-footer>
+        </el-container>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <h1>Hello Friend!</h1>
+          <br>
+          <p>
+            Enter your personal details and start journey with us!
+          </p>
+        </div>
       </div>
     </div>
+    </body>
+    <div style="display: block;bottom: 0;background-color: #f6f5f7; ">
+      <Footer></Footer>
+    </div>
   </div>
-  </body>
 </template>
 
 <script>
 
-  import '../../assets/css/login.css'
+  import '@/assets/css/login.css';
+  import Footer from "@/components/home/footer";
 
   export default {
     name: "Register",
+    components: {
+      Footer,
+    },
     data() {
       const validatePass = (rule, value, callback) => {
         if (value !== this.registerForm.password) {
@@ -184,7 +193,7 @@
       };
     },
     methods: {
-      getCode: function () {
+      getCode: function() {
         if (this.registerForm.phone == null || this.registerForm.phone === "") {
           this.$alert('请输入手机号！', '提示', {
             confirmButtonText: '确定',
@@ -224,7 +233,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {
@@ -274,7 +283,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #F6F5F7;
   }
 
