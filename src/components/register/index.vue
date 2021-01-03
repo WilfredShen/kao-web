@@ -28,6 +28,7 @@
               class="myLogin"
               label="密码"
               prop="password"
+              style="margin-top: 25px"
             >
               <el-input
                 v-model="registerForm.password"
@@ -46,6 +47,7 @@
               class="myLogin"
               label="确认密码"
               prop="confPass"
+              style="margin-top: 28px"
             >
               <el-input
                 v-model="registerForm.confPass"
@@ -64,28 +66,24 @@
               class="myLogin"
               label="手机号"
               prop="phone"
+              style="margin-top: 25px"
             >
-              <el-row
-                justify="space-between"
-                type="flex"
-              >
-                <el-col :span="14">
-                  <el-input
-                    v-model="registerForm.phone"
-                    placeholder="请输入手机号码"
-                  ></el-input>
-                </el-col>
-                <el-col :span="9">
-                  <el-button
-                    style="width: 100%; padding-left: 0; padding-right: 0; text-align: center"
-                    @click="getCode()"
-                  >
-                    <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
-                    <span v-if="status.resend === -1">获取验证码</span>
-                    <span v-else>重新获取</span>
-                  </el-button>
-                </el-col>
-              </el-row>
+              <el-col :span="14">
+                <el-input
+                  v-model="registerForm.phone"
+                  placeholder="请输入手机号码"
+                ></el-input>
+              </el-col>
+              <el-col :span="9">
+                <el-button
+                  style="width: 100%; padding-left: 0; padding-right: 0; margin-left:8px;text-align: center"
+                  @click="getCode()"
+                >
+                  <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
+                  <span v-if="status.resend === -1">获取验证码</span>
+                  <span v-else>重新获取</span>
+                </el-button>
+              </el-col>
             </el-form-item>
             <el-form-item
               class="myLogin"
@@ -108,7 +106,7 @@
             </el-form-item>
           </el-form>
         </el-main>
-        <el-footer style="margin-bottom: 10px">
+        <el-footer style="margin-bottom: 25px">
           <div style="text-align: right;">
             <router-link
               class="link"
@@ -266,7 +264,7 @@
     background-color: white;
     height: 100%;
     width: 50%;
-    padding: 0 35px;
+    padding: 0 40px;
     transform: translateX(-5%);
   }
 

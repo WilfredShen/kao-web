@@ -58,13 +58,6 @@
           <div style="text-align: right">
             <router-link
               class="link"
-              :to="{ path: '/admin/login'}"
-              style="margin-right: 1.5rem;cursor: pointer;"
-            >
-              管理员登录
-            </router-link>
-            <router-link
-              class="link"
               :to="{ path: '/register'}"
               style="margin-right: 1.5rem;cursor: pointer;"
             >

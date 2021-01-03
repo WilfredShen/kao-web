@@ -28,6 +28,7 @@
               class="myLogin"
               label="新密码"
               prop="password"
+              style="margin-top: 25px"
             >
               <el-input
                 v-model="forgotForm.password"
@@ -46,6 +47,7 @@
               class="myLogin"
               label="确认密码"
               prop="confPass"
+              style="margin-top: 28px"
             >
               <el-input
                 v-model="forgotForm.confPass"
@@ -64,6 +66,7 @@
               class="myLogin"
               label="手机号"
               prop="phone"
+              style="margin-top: 25px"
             >
               <el-col :span="14">
                 <el-input
@@ -104,7 +107,7 @@
             </el-form-item>
           </el-form>
         </el-main>
-        <el-footer style="margin-bottom: 10px">
+        <el-footer style="margin-bottom: 20px">
           <div style="text-align: right">
             <router-link
               class="link"
