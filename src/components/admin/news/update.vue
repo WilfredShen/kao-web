@@ -32,7 +32,7 @@
         <el-input
           class="input"
           v-model="updateForm.title"
-          placeholder="单行输入"
+          :placeholder="newsTitle"
         ></el-input>
       </el-form-item>
       <el-form-item
@@ -71,7 +71,7 @@
     </el-form>
     <el-button
       style="min-width: 150px;margin-top: 50px;background-color: #1e56a0;color: white"
-      @click="commit()"
+      @click="commit('updateForm')"
     >
       确认修改
     </el-button>
@@ -88,8 +88,15 @@
 
   export default {
     name: 'UpdateNews',
-    props: ['msgVal', 'upTime', 'cid'],
+    props: ['upTime', 'cid', 'newsTitle'],
     data() {
+      const validateFileList = (rule, value, callback) => {
+        if (this.$refs.upload.uploadFiles.length > 0) {
+          callback();
+        } else {
+          callback(new Error("请上传文件"));
+        }
+      };
       return {
         updateForm: {
           title: '',
@@ -97,15 +104,13 @@
           content: '',
           myTime: '',
           link: '',
-          chCid: '',//子组件cid
-          chUpTime: '',//子组件上传时间
         },
         updateRules: {
           title: [
             {required: true, message: "标题不能为空",}
           ],
           newsType: [
-            {required: true, message: "请选择类型",}
+            {required: true, message: "请选择类型", trigger: "change"}
           ],
           content: [
             {required: true, message: "内容不能为空",}
@@ -114,7 +119,8 @@
             {required: true, message: "请填写新闻链接，注意格式正确"}
           ],
           image: [
-            {required: true, message: "请上传图片"}
+            {required: true, message: "请上传图片"},
+            {validator: validateFileList}
           ],
         },
         schIndex: '',
@@ -124,43 +130,46 @@
       }
     },
     methods: {
-      commit: function() {
-        //上传图片
-        let file = this.$refs.upload.uploadFiles.pop().raw;
-        let formData = new FormData();
-        formData.append("image", file);
-        console.log("传过来的cid为", this.chCid);
-        console.log("传过来的cid为1", this.cid);
-        console.log("传过来的时间为", this.chUpTime);
-        console.log("传过来的时间为1", this.upTime);
-        this.$axios.post("/api/admin/p/image", formData)
-          .then((res) => {
-            console.log("请求成功", res);
-            this.posterURL = res.data.data;
-            console.log("图片路径为", this.posterURL);
-            this.$axios.post("/api/admin/u/news", {
-              cid: this.cid,
-              date: this.upTime,
-              title: this.updateForm.title,
-              content: this.updateForm.content,
-              image: this.posterURL,
-              officialLink: this.updateForm.link
-            })
+      commit: function(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //上传图片
+            let file = this.$refs.upload.uploadFiles.pop().raw;
+            let formData = new FormData();
+            formData.append("image", file);
+            this.$axios.post("/api/admin/p/image", formData)
               .then((res) => {
-                console.log(res);
-                this.$message.success("成功更新新闻");
-                this.schIndex = 0;
-                this.cancel();
-                this.$emit('newTitle', this.updateForm.title);
-                this.$refs['updateForm'].resetFields();
+                console.log("请求成功", res);
+                this.posterURL = res.data.data;
+                console.log("图片路径为", this.posterURL);
+                this.$axios.post("/api/admin/u/news", {
+                  cid: this.cid,
+                  date: this.upTime,
+                  title: this.updateForm.title,
+                  content: this.updateForm.content,
+                  image: this.posterURL,
+                  officialLink: this.updateForm.link
+                })
+                  .then((res) => {
+                    console.log(res);
+                    this.$message.success("成功更新新闻");
+                    this.schIndex = 0;
+                    this.cancel();
+                    this.$emit('hasEdit', true);
+                    this.$refs['updateForm'].resetFields();
+                  })
+                  .catch((error) => {
+                    console.log("上传图片有误", error);
+                  });
               })
               .catch((error) => {
-                console.log("上传图片有误", error);
+                console.log("更新新闻有误", error);
               });
-          })
-          .catch((error) => {
-            console.log("更新新闻有误", error);
-          });
+          }else {
+            this.$message.error("请检查输入!");
+          }
+        })
+
       },
 
       cancel: function() {

@@ -11,7 +11,7 @@
         :data="schoolCollect"
         :height="height"
         :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
-        style="font-size: 18px;font-weight: bold;color: #ffffff"
+        style="font-size: 18px;color: #ffffff"
       >
         <el-table-column
           sortable
@@ -81,7 +81,9 @@
           .then((res) => {
             if (res.data.status === 200) {
               this.$message.success("取消成功");
-              this.schoolCollect.splice(index, 1);
+              this.setCollectInfo();
+            }else {
+              this.$message.error("取消失败");
             }
           })
           .catch((err) => {
@@ -90,18 +92,21 @@
       },
 
       setCollectInfo: function() {
+        let tempSchCollect = [];
         this.$axios.get("/api/favor/q/major")
           .then((res) => {
             console.log(res.data);
+            this.schoolCollect = [];
             let item = res.data.data;
             for (let i = 0; i < item.length; i++) {
-              this.schoolCollect.push({
+              tempSchCollect.push({
                 'schoolID': item[i].cid,
                 'schoolName': item[i].cname,
                 'majorID': item[i].mid,
                 'majorName': item[i].mname
               });
             }
+            this.schoolCollect = tempSchCollect;
           })
           .catch((error) => {
             console.log(error);

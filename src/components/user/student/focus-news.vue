@@ -13,7 +13,7 @@
         :height="height"
         :header-cell-style="{background:'#163172',color:'#ffffff',height:'70px'}"
         :row-style="{height:'60px'}"
-        style="font-size: 18px;font-weight: bold;color: #ffffff"
+        style="font-size: 18px;color: #ffffff"
       >
         <el-table-column
           prop="focusSchool"
@@ -68,32 +68,54 @@
       }
     },
     created() {
-      this.$axios.get("/api/favor/q/news")
-        .then((res) => {
-          let item = res.data.data;
-          for (let i = 0; i < item.length; i++) {
-            let type = item[i].type;
-            if (type === 'summer_camp') {
-              type = "夏令营";
-            } else {
-              type = "新闻";
-            }
-            this.tableData.push({
-              'focusSchool': item[i].cname,
-              'infoType': type,
-              'linkTo': item[i].officialLink,
-              'upDate': item[i].updateTime.substring(0, 10)
-            })
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.queryFocusNews();
     },
     methods: {
-      skip(e) {
+      queryFocusNews:function(){
+        let tempFocus = [];
+        this.$axios.get("/api/favor/q/news")
+          .then((res) => {
+            let item = res.data.data;
+            console.log(item);
+            for (let i = 0; i < item.length; i++) {
+              let type = item[i].type;
+              if (type === 'summer_camp') {
+                type = "夏令营";
+              } else {
+                type = "新闻";
+              }
+              tempFocus.push({
+                'focusSchool': item[i].cname,
+                'infoType': type,
+                'linkTo': item[i].officialLink,
+                'upDate': item[i].updateTime.substring(0, 10)
+              });
+            }
+            this.tableData = tempFocus;
+          })
+          .catch((error) => {
+            this.$message("暂无数据！");
+            console.log(error);
+          });
+      },
+
+      skip: function(e) {
         window.open(e);
       },
+
+      fetchFocusNews: function() {
+        this.queryFocusNews();
+      }
+    },
+    watch: {
+      "$route": {
+        handler(route) {
+          const that = this;
+          if (route.name === 'FocusNews') {
+            that.fetchFocusNews();
+          }
+        }
+      }
     }
   }
 </script>

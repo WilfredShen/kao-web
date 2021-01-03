@@ -21,21 +21,22 @@
               type="primary"
               :href="item.link"
               target="_blank"
-            >新闻链接
+            >
+              新闻链接
             </el-link>
           </div>
         </div>
       </el-card>
       <div class="center">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="prev,pager,next"
-        background
-        :total=currentTotal
-        :page-size=pageSize
-      >
-      </el-pagination>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="prev,pager,next"
+          background
+          :total=currentTotal
+          :page-size=pageSize
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -90,6 +91,10 @@
 </script>
 
 <style scoped>
+  .el-link{
+    width: 10%;
+  }
+
   .title {
     font-size: 20px;
     font-weight: bold;

@@ -4,7 +4,7 @@
       :data="tableData"
       :height="height"
       :header-cell-style="{background:'#1e56a0',color:'white',height:'70px'}"
-      style="font-size: 17px;font-weight: bold;"
+      style="font-size: 17px;"
     >
       <el-table-column
         prop="upTime"
@@ -35,7 +35,8 @@
           <el-button
             @click="edit(scope.$index,scope.row)"
             type="primary"
-          >编辑
+          >
+            编辑
           </el-button>
         </template>
       </el-table-column>
@@ -48,8 +49,9 @@
       <news-update
         :cid="cid"
         :up-time="uploadTime"
+        :newsTitle="newsTitle"
         @eIfCommit="ifEdit($event)"
-        @newTitle="getNewTitle($event)"
+        @hasEdit="hasEdit($event)"
       ></news-update>
     </el-dialog>
   </div>
@@ -57,7 +59,7 @@
 
 <script>
 
-  import {getCookie} from "@/assets/lib/utils";
+  import {getCookie, getSchMap} from "@/assets/lib/utils";
   import NewsUpdate from "./update"
   import {schoolList} from "@/assets/lib/getResultLjm";
 
@@ -86,6 +88,7 @@
         schools: [],
         schoolIds: [],
         uploadTime: '',
+        newsTitle: '',//标题
         cid: "",
         editIndex: -1,
       }
@@ -95,9 +98,10 @@
         this.editNews = data;
       },
 
-      getNewTitle: function(data) {
-        this.news['title'] = data;
-        this.tableData.splice(this.editIndex, 1, this.news);
+      hasEdit: function(data) {
+        if (data) {
+          this.queryNewsList();
+        }
       },
 
       edit: function(editIndex, row) {
@@ -105,72 +109,59 @@
         this.editIndex = editIndex;
         this.editNews = true;
         this.uploadTime = this.news['upTime'];
-        console.log("父组件获得的上传时间为", this.uploadTime);
-        const schMap = new Map();
-        if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
-          let sMap = this.$store.state.schoolMap;
-          for (const key in sMap) {
-            schMap.set(sMap[key], key);
-          }
-        } else {
-          schoolList()
-            .then((res) => {
-              res.forEach(row => {
-                schMap.set(row.cname, row.cid);
-                this.$store.commit("setSchMap", {
-                  cname: row.cname,
-                  cid: row.cid
-                });
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-
-        }
+        this.newsTitle = this.news['title'];
+        // NewsUpdate.methods.setTitle(this.newsTitle);
+        const schMap = getSchMap(this);
         this.cid = schMap.get(this.news['schoolName']);
       },
 
       setNewsList: function(items) {
         const adminId = getCookie("adminId");
+        let tempData = [];
+        console.log("items=", items);
         for (let i = 0; i < items.length; i++) {
-          this.tableData.push({
+          tempData.push({
             upTime: items[i].date,
             adminId: adminId,
             schoolName: this.sMap[items[i].cid],
             title: items[i].title
-          })
+          });
         }
+        this.tableData = tempData;
+      },
+
+      queryNewsList: function() {
+        this.$axios.get("/api/admin/q/news")
+          .then((res) => {
+            console.log("获取新闻列表无误", res);
+            let items = res.data.data;
+            if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
+              this.sMap = this.$store.state.schoolMap;
+              this.setNewsList(items);
+            } else {
+              schoolList()
+                .then((res) => {
+                  res.forEach((row) => {
+                    this.$store.commit("setSchMap", {
+                      cname: row.cname,
+                      cid: row.cid
+                    });
+                    this.sMap[row.cid] = row.cname;
+                  });
+                  this.setNewsList(items);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((error) => {
+            console.log("获取新闻列表有错误", error);
+          });
       }
     },
     created() {
-      this.$axios.get("/api/admin/q/news")
-        .then((res) => {
-          console.log("获取新闻列表无误", res);
-          let items = res.data.data;
-          if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
-            this.sMap = this.$store.state.schoolMap;
-            this.setNewsList(items);
-          } else {
-            schoolList()
-              .then((res) => {
-                res.forEach((row) => {
-                  this.$store.commit("setSchMap", {
-                    cname: row.cname,
-                    cid: row.cid
-                  });
-                  this.sMap[row.cid] = row.cname;
-                });
-                this.setNewsList(items);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        })
-        .catch((error) => {
-          console.log("获取新闻列表有错误", error);
-        });
+      this.queryNewsList();
     }
   }
 </script>

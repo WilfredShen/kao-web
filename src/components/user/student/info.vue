@@ -27,7 +27,8 @@
           style="background-color: #1e56a0;color: white"
           type="primary"
           @click="modify()"
-        >修改信息
+        >
+          修改信息
         </el-button>
 
       </el-card>
@@ -158,25 +159,32 @@
         ],
         studentRules: {
           newPhone: [
+            {required: true, message: "手机号不为空", trigger: "blur"},
             {pattern: /^1[0-9]{10}$/, message: "请输入格式正确的手机号", trigger: "blur",}
           ],
           newEmail: [
+            {required: true, message: "邮箱不为空", trigger: "blur"},
             {
+              required: true,
               pattern: /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
               message: "请输入格式正确的邮箱",
               trigger: "blur"
             },
           ],
           newCollege: [
+            {required: true, message: "本科高校不为空", trigger: "blur"},
             {validator: validateCollege, trigger: "blur"},
           ],
           newMajor: [
+            {required: true, message: "专业不为空", trigger: "blur"},
             {validator: validateMajor, trigger: "blur"}
           ],
           newExpect: [
+            {required: true, message: "预期专业不为空", trigger: "blur"},
             {validator: validateMajor, trigger: "blur"}
           ],
           newGraduate: [
+            {required: true, message: "毕业时间不为空", trigger: "blur"},
             {
               pattern: /^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$/,
               message: "请输入格式正确的时间yyyy-mm-dd",
@@ -207,6 +215,13 @@
               console.log(res);
             });
         }
+
+        this.studentForm.newPhone = this.items[0].content;
+        this.studentForm.newEmail = this.items[1].content;
+        this.studentForm.newCollege = this.items[5].content;
+        this.studentForm.newMajor = this.items[6].content;
+        this.studentForm.newGraduate = this.items[7].content;
+        this.studentForm.newExpect = this.items[8].content;
       },
 
       cancelModify: function() {
@@ -217,51 +232,36 @@
       commitModify: function(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let pPhone, pEmail, pCollege, pMajor, pGraduate, pExpectMajor;
-            pPhone = this.studentForm.newPhone === '' ? this.items[0].content : this.studentForm.newPhone;
-            pEmail = this.studentForm.newEmail === '' ? this.items[1].content : this.studentForm.newEmail;
-            pCollege = this.studentForm.newCollege === '' ? this.items[5].content : this.studentForm.newCollege;
-            pMajor = this.studentForm.newMajor === '' ? this.items[6].content : this.studentForm.newMajor;
-            pGraduate = this.studentForm.newGraduate === '' ? this.items[7].content : this.studentForm.newGraduate;
-            pExpectMajor = this.studentForm.newExpect === '' ? this.items[8].content : this.studentForm.newExpect;
             let uid = getCookie('uid');
-            console.log("uid = " + uid);
-
-            updateStuInfo(uid, pPhone, pEmail, pCollege, pMajor, pExpectMajor, pGraduate)
+            updateStuInfo(uid, this.studentForm.newPhone, this.studentForm.newEmail,
+              this.studentForm.newCollege, this.studentForm.newMajor,
+              this.studentForm.newGraduate, this.studentForm.newExpect)
               .then((res) => {
                 console.log(res);
                 this.$message.success("修改成功！");
-                this.items[0].content = pPhone;
-                this.items[1].content = pEmail;
-                this.items[5].content = pCollege;
-                this.items[6].content = pMajor;
-                this.items[7].content = pExpectMajor;
-                this.items[8].content = pGraduate;
+                this.queryStuInfo();
                 this.isModify = !this.isModify;
                 this.$refs['studentForm'].resetFields();
               })
               .catch((error) => {
+                this.$refs['studentForm'].resetFields();
                 console.log("stu info 有问题" + error);
               });
 
-            updateUserInfo(pPhone, pEmail)
+            updateUserInfo(this.studentForm.newPhone, this.studentForm.newEmail)
               .then((res) => {
                 console.log(res);
-                this.$store.commit('setNewPhone', pPhone);
-                this.$store.commit('setNewEmail', pEmail);
               })
               .catch((err) => {
                 console.log("学生修改基本信息有问题" + err);
               });
-
-            // location.reload();
           } else {
             this.$message.error("提交失败！请检查输入！");
           }
         });
       },
 
-      setStuInfo: function() {
+      queryStuInfo: function() {
         this.$axios.get("/api/stu/q/stu-info", {
           params: {
             uid: getCookie('uid')
@@ -286,7 +286,7 @@
       },
     },
     created() {
-      this.setStuInfo();
+      this.queryStuInfo();
     }
   }
 </script>

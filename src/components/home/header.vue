@@ -94,18 +94,21 @@
       }
     },
     created() {
-      this.hasLogin = getCookie('uid');
-      this.isAdmin = getCookie('adminId');
-      getLimit()
-        .then((res) => {
-          console.log("首页获得的权限" + res);
-          if (res === 'student') {
-            this.isStu = true;
-          } else if (res === 'tutor') {
-            this.isTut = true;
-          }
-        });
+      this.hasLogin = getCookie('uid') != null;
+      this.isAdmin = getCookie('adminId') != null;
 
+      console.log("是否登录？", this.hasLogin);
+      if (this.hasLogin) {
+        getLimit()
+          .then((res) => {
+            console.log("首页获得的权限" + res);
+            if (res === 'student') {
+              this.isStu = true;
+            } else if (res === 'tutor') {
+              this.isTut = true;
+            }
+          });
+      }
     },
     methods: {
       logOut() {

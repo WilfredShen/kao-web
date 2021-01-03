@@ -39,12 +39,6 @@ const store = new Vuex.Store({
     setSchMap(state, data) {
       state.schoolMap[data.cid] = data.cname;
     },
-    setNewPhone(state, data) {
-      state.newPhone = data;
-    },
-    setNewEmail(state, data) {
-      state.newEmail = data;
-    }
   },
   actions: {},
 })
