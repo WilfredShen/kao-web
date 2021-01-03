@@ -17,6 +17,6 @@
     text-align: center;
     font-size: 14px;
     color: rgba(76, 72, 72, 0.74);
-    margin-top: 10px;
+    padding-top: 10px;
   }
 </style>
