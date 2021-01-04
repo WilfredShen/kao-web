@@ -27,15 +27,15 @@
         </div>
       </el-card>
       <div class="center">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="prev,pager,next"
-        background
-        :total=currentTotal
-        :page-size=pageSize
-      >
-      </el-pagination>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="prev,pager,next"
+          background
+          :total=currentTotal
+          :page-size=pageSize
+        >
+        </el-pagination>
       </div>
     </div>
   </div>
