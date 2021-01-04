@@ -103,7 +103,6 @@
     >
       确认上传
     </el-button>
-    <el-button @click="mytest()">test</el-button>
   </div>
 </template>
 
@@ -191,6 +190,7 @@
                     this.$refs['uploadForm'].resetFields();
                   })
                   .catch((error) => {
+                    this.$message.error("上传新闻失败");
                     console.log(error);
                   });
               })

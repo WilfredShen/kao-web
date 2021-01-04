@@ -184,7 +184,6 @@
 <script>
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
   import {getSchMap} from '@/assets/lib/utils'
-  // import {schoolList} from '@/assets/lib/getResultLjm'
   export default {
     name: 'Info',
     props: {
@@ -207,8 +206,8 @@
         isModify: false,//身份修改弹框
         isVerify: false,//身份验证弹框
         isVerifyType: false,//用户类型弹框
-        hasVerifyID: false,//是否已实名验证
-        hasVerifyType: false,//是否已验证身份
+        hasVerifyID: true,//是否已实名验证
+        hasVerifyType: true,//是否已验证身份
         infoForm: {
           newPhone: '',
           newEmail: '',
@@ -266,6 +265,8 @@
     methods: {
       modify: function() {
         this.isModify = !this.isModify;
+        this.infoForm.newPhone = this.items[2].content;
+        this.infoForm.newEmail = this.items[3].content;
       },
 
       verifyID: function() {
@@ -286,8 +287,6 @@
             updateUserInfo(postPhone, postEmail)
               .then((res) => {
                 console.log("修改成功", res);
-                this.$store.commit('setNewPhone', postPhone);
-                this.$store.commit('setNewEmail', postEmail);
                 this.items[2].content = postPhone;
                 this.items[3].content = postEmail;
                 this.$refs['infoForm'].resetFields();
@@ -314,7 +313,7 @@
         this.$refs['typeForm'].resetFields();
       },
 
-      setSelfInfo: function() {
+      querySelfInfo: function() {
         this.$axios.get("/api/user/q/user-info")
           .then((res) => {
             let item = res.data.data;
@@ -333,6 +332,7 @@
               this.hasVerifyType = true;
             } else {
               this.items[5].content = '尚未验证';
+              this.hasVerifyType = false;
             }
           })
           .catch((err) => {
@@ -359,6 +359,9 @@
                   this.items[4].content = '已实名认证';
                   this.isVerify = !this.isVerify;
                   this.hasVerifyID = true;
+                }else {
+                  this.$message.error("实名认证失败！");
+                  this.isVerify = !this.isVerify;
                 }
               })
               .catch((err) => {
@@ -374,8 +377,6 @@
         const schMap = getSchMap(this);
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.typeForm.collegeName);
-            console.log(this.typeForm.jobNumber);
             if (this.identity === '学生') {
               this.$axios.post("/api/vf/student", {
                 cid: schMap.get(this.typeForm.collegeName),
@@ -414,17 +415,12 @@
         })
       },
 
-      fetchData: function() {
-        if (this.$store.state.newPhone !== '') {
-          this.items[2].content = this.$store.state.newPhone;
-        }
-        if (this.$store.state.newEmail !== '') {
-          this.items[3].content = this.$store.state.newEmail;
-        }
+      fetchSelfInfo: function() {
+        this.querySelfInfo();
       }
     },
     created() {
-      this.setSelfInfo();
+      this.querySelfInfo();
     },
     watch: {
       "$route": {
@@ -432,7 +428,7 @@
           console.log(route.name);
           const that = this;
           if (route.name === 'Info') {
-            that.fetchData();
+            that.fetchSelfInfo();
           }
         }
       }

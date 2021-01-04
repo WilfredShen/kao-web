@@ -21,7 +21,8 @@
               type="primary"
               :href="item.link"
               target="_blank"
-            >新闻链接
+            >
+              新闻链接
             </el-link>
           </div>
         </div>
@@ -90,6 +91,10 @@
 </script>
 
 <style scoped>
+  .el-link{
+    width: 10%;
+  }
+
   .title {
     font-size: 20px;
     font-weight: bold;

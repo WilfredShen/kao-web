@@ -27,7 +27,8 @@
           style="background-color: #1e56a0;color: white"
           type="primary"
           @click="modify()"
-        >修改信息
+        >
+          修改信息
         </el-button>
       </el-card>
       <el-dialog
@@ -76,7 +77,7 @@
           <el-button
             style="background-color: #1e56a0;color: white"
             type="primary"
-            @click="commitModify()"
+            @click="commitModify('tutorForm')"
           >确认修改
           </el-button>
           <el-button
@@ -146,9 +147,11 @@
         ],
         tutorRules: {
           newPhone: [
+            {required: true, message: "手机号不为空", trigger: "blur"},
             {pattern: /^1[0-9]{10}$/, message: "请输入格式正确的手机号", trigger: "blur",}
           ],
           newEmail: [
+            {required: true, message: "邮箱不为空", trigger: "blur"},
             {
               pattern: /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
               message: "请输入格式正确的邮箱",
@@ -156,11 +159,16 @@
             },
           ],
           newCollege: [
+            {required: true, message: "所属不为空", trigger: "blur"},
             {validator: validateCollege, trigger: "blur"},
           ],
           newMajor: [
+            {required: true, message: "所属专业不为空", trigger: "blur"},
             {validator: validateMajor, trigger: "blur"}
           ],
+          newResearch: [
+            {required: true, message: "研究不为空", trigger: "blur"},
+          ]
         }
       }
     },
@@ -185,6 +193,12 @@
               console.log(res);
             });
         }
+
+        this.tutorForm.newPhone = this.items[0].content;
+        this.tutorForm.newEmail = this.items[1].content;
+        this.tutorForm.newCollege = this.items[5].content;
+        this.tutorForm.newResearch = this.items[7].content;
+        this.tutorForm.newMajor = this.items[6].content;
       },
 
       cancelModify: function() {
@@ -192,42 +206,38 @@
         this.$refs['tutorForm'].resetFields();
       },
 
-      commitModify: function() {
-        let pPhone, pEmail, pCollege, pMajor, pResearch;
-        pPhone = this.tutorForm.newPhone === '' ? this.items[0].content : this.tutorForm.newPhone;
-        pEmail = this.tutorForm.newEmail === '' ? this.items[1].content : this.tutorForm.newEmail;
-        pCollege = this.tutorForm.newCollege === '' ? this.items[5].content : this.tutorForm.newCollege;
-        pMajor = this.tutorForm.newMajor === '' ? this.items[6].content : this.tutorForm.newMajor;
-        pResearch = this.tutorForm.newResearch === '' ? this.items[7].content : this.tutorForm.newResearch;
-        updateTeaInfo(pPhone, pEmail, pCollege, pMajor, pResearch)
-          .then(() => {
-            this.$message.success("修改成功");
-            this.$refs['tutorForm'].resetFields();
-            this.items[0].content = pPhone;
-            this.items[1].content = pEmail;
-            this.items[5].content = pCollege;
-            this.items[6].content = pMajor;
-            this.items[7].content = pResearch;
-            this.isModify = !this.isModify;
-            console.log("pEmail = ", pEmail);
-          })
-          .catch((err) => {
-            this.$message.error("修改失败");
-            console.log("修改教师信息失败", err);
-          });
+      commitModify: function(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            updateTeaInfo(this.tutorForm.newPhone, this.tutorForm.newEmail,
+              this.tutorForm.newCollege, this.tutorForm.newMajor,
+              this.tutorForm.newResearch)
+              .then(() => {
+                this.$message.success("修改成功");
+                this.$refs['tutorForm'].resetFields();
+                this.queryTutorInfo();
+                this.isModify = !this.isModify;
+              })
+              .catch((err) => {
+                this.$message.error("修改失败");
+                this.$refs['tutorForm'].resetFields();
+                console.log("修改教师信息失败", err);
+              });
 
-        updateUserInfo(pPhone, pEmail)
-          .then((res) => {
-            console.log(res);
-            this.$store.commit('setNewPhone', pPhone);
-            this.$store.commit('setNewEmail', pEmail);
-          })
-          .catch((err) => {
-            console.log("研究生秘书修改基本信息有问题" + err);
-          });
+            updateUserInfo(this.tutorForm.newPhone, this.tutorForm.newEmail)
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log("研究生秘书修改基本信息有问题" + err);
+              });
+          }else {
+            this.$message.error("提交失败！请检查输入！");
+          }
+        });
       },
 
-      setTutorInfo: function() {
+      queryTutorInfo: function() {
         this.$axios.get("/api/tutor/q/tutor-info")
           .then((res) => {
             let item = res.data.data;
@@ -246,7 +256,7 @@
       }
     },
     created() {
-      this.setTutorInfo();
+      this.queryTutorInfo();
     }
   }
 </script>
