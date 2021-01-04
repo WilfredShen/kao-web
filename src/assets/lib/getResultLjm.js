@@ -153,7 +153,8 @@ export function getLatestNews() {
   return new Promise((resolve, reject) => {
     axios.get("/api/base/latest-news")
       .then((res) => {
-        console.log(resolve);
+        // console.log(resolve);
+        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
