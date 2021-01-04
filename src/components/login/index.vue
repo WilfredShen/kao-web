@@ -69,38 +69,34 @@
                 :to="{ path: '/'}"
                 style="margin-right: 1.5rem;cursor: pointer;"
               >
-                <span>登录</span>
-              </el-button>
-            </el-form-item>
-          </el-form>
-        </el-main>
-        <el-footer>
-          <div style="text-align: right">
-            <router-link
-              class="link"
-              :to="{ path: '/register'}"
-              style="margin-right: 1.5rem;cursor: pointer;"
-            >
-              注册账号
-            </router-link>
-            <router-link
-              class="link"
-              :to="{ path: '/pwd' }"
-              style="margin-right: 1.5rem;cursor: pointer;"
-            >
-              忘记密码
-            </router-link>
-          </div>
-        </el-footer>
-      </el-container>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <h1>welcome back!</h1>
-        <br>
-        <p>
-          To keep connected with us please login with your personal info
-        </p>
+                回到首页
+              </router-link>
+              <router-link
+                class="link"
+                :to="{ path: '/register'}"
+                style="margin-right: 1.5rem;cursor: pointer;"
+              >
+                注册账号
+              </router-link>
+              <router-link
+                class="link"
+                :to="{ path: '/pwd' }"
+                style="margin-right: 1.5rem;cursor: pointer;"
+              >
+                忘记密码
+              </router-link>
+            </div>
+          </el-footer>
+        </el-container>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <h1>welcome back!</h1>
+          <br>
+          <p>
+            To keep connected with us please login with your personal info
+          </p>
+        </div>
       </div>
     </div>
     </body>
