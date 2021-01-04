@@ -15,21 +15,56 @@
               label-position="left"
               label-width="80px"
             >
-              <el-form-item
-                class="myLogin"
-                label="用户名"
-                prop="username"
+              <el-input
+                v-model="forgotForm.username"
+                placeholder="请输入用户名"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              class="myLogin"
+              label="新密码"
+              prop="password"
+              style="margin-top: 25px"
+            >
+              <el-input
+                v-model="forgotForm.password"
+                :type="status.showPassword ? '' : 'password'"
+                placeholder="请输入新密码"
               >
-                <el-input
-                  v-model="forgotForm.username"
-                  placeholder="请输入用户名"
-                ></el-input>
-              </el-form-item>
-              <el-form-item
-                class="myLogin"
-                label="新密码"
-                prop="password"
+                <i
+                  slot="suffix"
+                  :style="{ color: status.showPassword ? '#409EFF' : '' }"
+                  class="el-icon-view"
+                  @click="status.showPassword = !status.showPassword"
+                ></i>
+              </el-input>
+            </el-form-item>
+            <el-form-item
+              class="myLogin"
+              label="确认密码"
+              prop="confPass"
+              style="margin-top: 28px"
+            >
+              <el-input
+                v-model="forgotForm.confPass"
+                :type="status.showConfPass ? '' : 'password'"
+                placeholder="请再次输入密码"
               >
+                <i
+                  slot="suffix"
+                  :style="{ color: status.showConfPass ? '#409EFF' : '' }"
+                  class="el-icon-view"
+                  @click="status.showConfPass = !status.showConfPass"
+                ></i>
+              </el-input>
+            </el-form-item>
+            <el-form-item
+              class="myLogin"
+              label="手机号"
+              prop="phone"
+              style="margin-top: 25px"
+            >
+              <el-col :span="14">
                 <el-input
                   v-model="forgotForm.password"
                   :type="status.showPassword ? '' : 'password'"
@@ -112,11 +147,31 @@
                 :to="{ path: '/login'}"
                 style="cursor: pointer"
               >
-                前往登录
-              </router-link>
-            </div>
-          </el-footer>
-        </el-container>
+                <span>提交</span>
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </el-main>
+        <el-footer style="margin-bottom: 20px">
+          <div style="text-align: right">
+            <router-link
+              class="link"
+              :to="{ path: '/login'}"
+              style="cursor: pointer"
+            >
+              前往登录
+            </router-link>
+          </div>
+        </el-footer>
+      </el-container>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <h1>Change Password!</h1>
+        <br>
+        <p>
+          Silly goose,To keep connected with us please change your password!
+        </p>
       </div>
       <div class="overlay-container">
         <div class="overlay">

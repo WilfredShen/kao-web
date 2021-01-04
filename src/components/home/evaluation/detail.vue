@@ -170,7 +170,7 @@
     },
     computed: {
       //获取所选学科的专业
-      getMajors: function() {
+      getMajors: function () {
         let list
         list = this.major.filter((item) => {
           return item.did === this.selected.did;
@@ -179,7 +179,7 @@
       },
 
       //获取所选专业的评估结果，学校代码对应的学校名称
-      showEvaluation: function() {
+      showEvaluation: function () {
         let Myeval = this.evaluation.filter((item) => {
           return item.mid === this.getMajors[this.selected.mindex].mid;
         });
@@ -190,7 +190,7 @@
         for (let i in Myeval) {
           Myeval[i].cname = this.schoolMap[Myeval[i].cid].cname;
         }
-        let compare = function(obj1, obj2) {
+        let compare = function (obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -229,7 +229,7 @@
       }
     },
     watch: {
-      selected: function() {
+      selected: function () {
         console.log("selected", this.selected);
       },
     },
@@ -284,9 +284,12 @@
       console.log(this.$store.state.identify);
     },
     methods: {
-      schoolClick: function(cid) {
-        this.$store.commit('setcid', cid);
-        this.$router.push({path: '/college'});
+      schoolClick: function (cid) {
+        //this.$store.commit('setcid', cid);
+        //this.$router.push({path: '/college'});
+        this.$router.push({
+          path: `/college/${cid}`,
+        })
       },
       setSelected(index) {
         this.selected.did = this.discipline[index].did;
