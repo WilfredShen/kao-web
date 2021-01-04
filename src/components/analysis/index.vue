@@ -121,6 +121,7 @@
           type="primary"
           size="medium"
           id="finish"
+          style="background-color: #1e56a0;color: white"
           plain
           @click="getResult('anaForm')"
         >
@@ -140,29 +141,41 @@
         style="width: 60%;height: 600px;"
       ></div>
       <div
-        id="show"
         style="width: 40%;display: flex;flex-direction: column"
       >
         <el-row style="display: flex;justify-content: space-around">
           <el-button
-            size="small"
+            type="primary"
+            size="medium"
+            style="background-color: #1e56a0;color: white"
             @click="exportEXCEL('xlsx','region')"
           >
             导出为EXCEL
           </el-button>
           <el-button
-            size="small"
+            type="primary"
+            size="medium"
+            style="background-color: #1e56a0;color: white"
             @click="exportEXCEL('csv','region')"
           >
             导出为CSV
           </el-button>
-          <!--          <el-button size="small" @click="printTest()">打印</el-button>-->
+          <el-button
+            type="primary"
+            size="medium"
+            style="background-color: #1e56a0;color: white"
+            v-print="'#printRegion'"
+          >
+            打印
+          </el-button>
         </el-row>
         <el-scrollbar style="height: 500px">
           <el-table
             :data="mapResult"
+            :header-cell-style="{background:'#1e56a0',color:'#fff'}"
             stripe
-            style="width: 100%"
+            style="width: 100%;margin-top: 20px"
+            id="printRegion"
           >
             <el-table-column
               label="地区"
@@ -183,16 +196,17 @@
 
     <!--其他数据分析-->
     <div class="other_data">
-      <div id="title">
-        <p>其他数据</p>
-      </div>
       <div
         id="other_result"
         style="width: 100%;display: flex"
       >
-        <div style="width: 70%;margin-right: 50px">
+        <div
+          style="width: 70%;margin-right: 50px"
+        >
           <el-table
             :data="otherData"
+            id="printOther"
+            :header-cell-style="{background:'#1e56a0',color:'#fff'}"
             stripe
           >
             <el-table-column
@@ -214,24 +228,34 @@
         </div>
         <div style="width: 20%;display: flex;flex-direction: column;justify-content: space-around">
           <el-button
-            style="width: 150px;margin-left: 10px"
+            style="width: 150px;margin-left: 10px;margin-bottom: 10px;background-color: #1e56a0;color: white"
+            type="primary"
+            size="medium"
             @click="exportEXCEL('xlsx','other')"
           >
             导出为EXCEL
           </el-button>
           <el-button
-            style="width: 150px"
+            style="width: 150px;margin-left: 10px;margin-bottom: 10px;background-color: #1e56a0;color: white"
+            type="primary"
+            size="medium"
             @click="exportEXCEL('csv','ohter')"
           >
             导出为CSV
           </el-button>
-          <!--          <el-button style="width: 100px">打印</el-button>-->
+          <el-button
+            style="width: 150px;margin-left: 10px;margin-bottom: 10px;background-color: #1e56a0;color: white"
+            type="primary"
+            size="medium"
+            v-print="'#printOther'"
+          >
+            打印
+          </el-button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
   import {readFile} from '@/assets/lib/utils'
   import {getMap} from '@/assets/lib/ChinaMapShow'
@@ -524,4 +548,5 @@
     font-size: 16px;
     font-weight: bold;
   }
+
 </style>

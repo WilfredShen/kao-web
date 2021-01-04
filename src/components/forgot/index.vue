@@ -1,23 +1,19 @@
 <template>
-  <body>
-  <div
-    class="container"
-    id="container"
-  >
-    <div id="forgot-wrapper">
-      <el-container>
-        <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
-          <el-form
-            ref="forgotForm"
-            :model="forgotForm"
-            :rules="forgotRules"
-            label-position="left"
-            label-width="80px"
-          >
-            <el-form-item
-              class="myLogin"
-              label="用户名"
-              prop="username"
+  <div>
+    <body>
+    <div
+      class="container"
+      id="container"
+    >
+      <div id="forgot-wrapper">
+        <el-container>
+          <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
+            <el-form
+              ref="forgotForm"
+              :model="forgotForm"
+              :rules="forgotRules"
+              label-position="left"
+              label-width="80px"
             >
               <el-input
                 v-model="forgotForm.username"
@@ -70,37 +66,86 @@
             >
               <el-col :span="14">
                 <el-input
-                  v-model="forgotForm.phone"
-                  placeholder="请输入手机号码"
-                ></el-input>
-              </el-col>
-              <el-col :span="9">
-                <el-button
-                  style="width: 100%; padding-left: 0; padding-right: 0; margin-left:8px;text-align: center"
-                  @click="getCode()"
+                  v-model="forgotForm.password"
+                  :type="status.showPassword ? '' : 'password'"
+                  placeholder="请输入新密码"
                 >
-                  <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
-                  <span v-if="status.resend === -1">获取验证码</span>
-                  <span v-else>重新获取</span>
+                  <i
+                    slot="suffix"
+                    :style="{ color: status.showPassword ? '#409EFF' : '' }"
+                    class="el-icon-view"
+                    @click="status.showPassword = !status.showPassword"
+                  ></i>
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="确认密码"
+                prop="confPass"
+              >
+                <el-input
+                  v-model="forgotForm.confPass"
+                  :type="status.showConfPass ? '' : 'password'"
+                  placeholder="请再次输入密码"
+                >
+                  <i
+                    slot="suffix"
+                    :style="{ color: status.showConfPass ? '#409EFF' : '' }"
+                    class="el-icon-view"
+                    @click="status.showConfPass = !status.showConfPass"
+                  ></i>
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="手机号"
+                prop="phone"
+              >
+                <el-col :span="14">
+                  <el-input
+                    v-model="forgotForm.phone"
+                    placeholder="请输入手机号码"
+                  ></el-input>
+                </el-col>
+                <el-col :span="9">
+                  <el-button
+                    style="width: 100%; padding-left: 0; padding-right: 0; margin-left:8px;text-align: center"
+                    @click="getCode()"
+                  >
+                    <span v-if="status.resend > 0">{{ status.resend }} 秒后</span>
+                    <span v-if="status.resend === -1">获取验证码</span>
+                    <span v-else>重新获取</span>
+                  </el-button>
+                </el-col>
+              </el-form-item>
+              <el-form-item
+                show-message
+                class="myLogin"
+                label="验证码"
+                prop="code"
+              >
+                <el-input
+                  v-model="forgotForm.code"
+                  placeholder="请输入验证码"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  style="width: 100%;background-color: #1e56a0"
+                  type="primary"
+                  @click="submit()"
+                >
+                  <span>提交</span>
                 </el-button>
-              </el-col>
-            </el-form-item>
-            <el-form-item
-              show-message
-              class="myLogin"
-              label="验证码"
-              prop="code"
-            >
-              <el-input
-                v-model="forgotForm.code"
-                placeholder="请输入验证码"
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                style="width: 100%;background-color: #1e56a0"
-                type="primary"
-                @click="submit()"
+              </el-form-item>
+            </el-form>
+          </el-main>
+          <el-footer style="margin-bottom: 10px">
+            <div style="text-align: right">
+              <router-link
+                class="link"
+                :to="{ path: '/login'}"
+                style="cursor: pointer"
               >
                 <span>提交</span>
               </el-button>
@@ -128,17 +173,34 @@
           Silly goose,To keep connected with us please change your password!
         </p>
       </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <h1>Change Password!</h1>
+          <br>
+          <p>
+            Silly goose,To keep connected with us please change your password!
+          </p>
+        </div>
+      </div>
+    </div>
+    </body>
+    <div style="display: block;bottom: 0;background-color: #f6f5f7; ">
+      <Footer></Footer>
     </div>
   </div>
-  </body>
+
 </template>
 
 <script>
 
-  import '../../assets/css/login.css'
+  import '@/assets/css/login.css';
+  import Footer from "@/components/home/footer";
 
   export default {
     name: "Forgot",
+    components: {
+      Footer,
+    },
     data() {
       const validatePass = (rule, value, callback) => {
         if (value !== this.forgotForm.password) {
@@ -183,7 +245,7 @@
       };
     },
     methods: {
-      getCode: function () {
+      getCode: function() {
         if (this.forgotForm.phone == null || this.forgotForm.phone === "") {
           this.$alert('请输入手机号！', '提示', {
             confirmButtonText: '确定',
@@ -223,7 +285,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/update-password", {
             username: this.forgotForm.username,
@@ -270,7 +332,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #F6F5F7;
   }
 

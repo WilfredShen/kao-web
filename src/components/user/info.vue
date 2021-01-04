@@ -382,7 +382,7 @@
                 sid: this.typeForm.jobNumber
               })
                 .then((res) => {
-                  console.log("认证学生请求成功",res);
+                  console.log("认证学生请求成功", res);
                   if (res.data.status === 200) {
                     this.$message.success("认证学生成功!");
                     this.items[5].content = '学生';

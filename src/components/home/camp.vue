@@ -26,15 +26,17 @@
           </div>
         </div>
       </el-card>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="prev,pager,next"
-        background
-        :total=currentTotal
-        :page-size=pageSize
-      >
-      </el-pagination>
+      <div class="center">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="prev,pager,next"
+          background
+          :total=currentTotal
+          :page-size=pageSize
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -104,8 +106,12 @@
     margin-bottom: 5px;
   }
 
-  .el-link {
-    width: 10%;
-
+  .center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
   }
 </style>

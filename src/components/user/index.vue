@@ -70,11 +70,12 @@
       </el-menu-item>
     </el-menu>
     <div style="width: 100%;height: 100vh;">
-      <div style="height: 100%;width: 100%">
+      <div style="height: 90%;width: 100%">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
       </div>
+      <Footer style="background-color: #163172;color: white"></Footer>
     </div>
   </el-container>
 </template>
@@ -82,9 +83,13 @@
 <script>
 
   import {getLimit, getUsername} from "@/assets/lib/getAndSetSelf";
+  import Footer from "@/components/home/footer";
 
   export default {
     name: 'User',
+    components: {
+      Footer,
+    },
     data() {
       return {
         selected: 2,

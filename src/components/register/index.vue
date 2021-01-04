@@ -1,23 +1,19 @@
 <template>
-  <body>
-  <div
-    class="container"
-    id="container"
-  >
-    <div id="register-wrapper">
-      <el-container>
-        <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
-          <el-form
-            ref="registerForm"
-            :model="registerForm"
-            :rules="registerRules"
-            label-position="left"
-            label-width="80px"
-          >
-            <el-form-item
-              class="myLogin"
-              label="用户名"
-              prop="username"
+  <div>
+    <body>
+    <div
+      class="container"
+      id="container"
+    >
+      <div id="register-wrapper">
+        <el-container>
+          <el-main style="width: 80%;margin-left: 20px;margin-top: 60px">
+            <el-form
+              ref="registerForm"
+              :model="registerForm"
+              :rules="registerRules"
+              label-position="left"
+              label-width="80px"
             >
               <el-input
                 v-model="registerForm.username"
@@ -128,16 +124,23 @@
         </p>
       </div>
     </div>
+    </body>
+    <div style="display: block;bottom: 0;background-color: #f6f5f7; ">
+      <Footer></Footer>
+    </div>
   </div>
-  </body>
 </template>
 
 <script>
 
-  import '../../assets/css/login.css'
+  import '@/assets/css/login.css';
+  import Footer from "@/components/home/footer";
 
   export default {
     name: "Register",
+    components: {
+      Footer,
+    },
     data() {
       const validatePass = (rule, value, callback) => {
         if (value !== this.registerForm.password) {
@@ -182,7 +185,7 @@
       };
     },
     methods: {
-      getCode: function () {
+      getCode: function() {
         if (this.registerForm.phone == null || this.registerForm.phone === "") {
           this.$alert('请输入手机号！', '提示', {
             confirmButtonText: '确定',
@@ -222,7 +225,7 @@
             console.log(err.data);
           });
       },
-      submit: function () {
+      submit: function() {
         console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {
@@ -272,7 +275,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #F6F5F7;
   }
 

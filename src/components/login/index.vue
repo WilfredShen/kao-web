@@ -1,53 +1,73 @@
 <template>
-  <body>
-  <div
-    class="container"
-    id="container"
-  >
-    <div id="login-wrapper">
-      <el-container>
-        <el-main style="width: 80%;margin-left: 20px;margin-top: 80px">
-          <el-form
-            ref="loginForm"
-            :model="loginForm"
-            :rules="loginRules"
-            label-position="left"
-            label-width="80px"
-          >
-            <el-form-item
-              class="myLogin"
-              label="用户名"
-              prop="username"
+  <div>
+    <body>
+    <div
+      class="container"
+      id="container"
+    >
+      <div id="login-wrapper">
+        <el-container>
+          <el-main style="width: 80%;margin-left: 20px;margin-top: 80px">
+            <el-form
+              ref="loginForm"
+              :model="loginForm"
+              :rules="loginRules"
+              label-position="left"
+              label-width="80px"
             >
-              <el-input
-                v-model="loginForm.username"
-                aria-placeholder="请输入用户名"
+              <el-form-item
+                class="myLogin"
+                label="用户名"
+                prop="username"
               >
-              </el-input>
-            </el-form-item>
-            <el-form-item
-              class="myLogin"
-              label="密码"
-              prop="password"
-            >
-              <el-input
-                v-model="loginForm.password"
-                :type="status.showPassword ? '' : 'password'"
-                aria-placeholder="请输入密码"
+                <el-input
+                  v-model="loginForm.username"
+                  aria-placeholder="请输入用户名"
+                >
+                </el-input>
+              </el-form-item>
+              <el-form-item
+                class="myLogin"
+                label="密码"
+                prop="password"
               >
-                <i
-                  slot="suffix"
-                  :style="{ color: status.showPassword ? '#409EFF' : '' }"
-                  class="el-icon-view"
-                  @click="status.showPassword = !status.showPassword"
-                ></i>
-              </el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                style="width: 100%;background-color: #1e56a0"
-                type="primary"
-                @click="submit"
+                <el-input
+                  v-model="loginForm.password"
+                  :type="status.showPassword ? '' : 'password'"
+                  aria-placeholder="请输入密码"
+                >
+                  <i
+                    slot="suffix"
+                    :style="{ color: status.showPassword ? '#409EFF' : '' }"
+                    class="el-icon-view"
+                    @click="status.showPassword = !status.showPassword"
+                  ></i>
+                </el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  style="width: 100%;background-color: #1e56a0"
+                  type="primary"
+                  @click="submit"
+                >
+                  <span>登录</span>
+                </el-button>
+              </el-form-item>
+            </el-form>
+          </el-main>
+          <el-footer>
+            <div style="text-align: right">
+              <!--            <router-link-->
+              <!--              class="link"-->
+              <!--              :to="{ path: '/admin/login'}"-->
+              <!--              style="margin-right: 1.5rem;cursor: pointer;"-->
+              <!--            >-->
+              <!--              管理员登录-->
+              <!--            </router-link>-->
+              <router-link
+                class="link"
+                :to="{ path: '/'}"
+                style="margin-right: 1.5rem;cursor: pointer;"
               >
                 <span>登录</span>
               </el-button>
@@ -83,16 +103,22 @@
         </p>
       </div>
     </div>
+    </body>
+    <div style="display: block;bottom: 0;background-color: #f6f5f7; ">
+      <Footer></Footer>
+    </div>
   </div>
-
-  </body>
 </template>
 
 <script>
-  import '@/assets/css/login.css'
+  import '@/assets/css/login.css';
+  import Footer from "@/components/home/footer";
 
   export default {
     name: "Login",
+    components: {
+      Footer,
+    },
     data() {
       return {
         loginForm: {
@@ -113,7 +139,7 @@
       };
     },
     methods: {
-      submit: function () {
+      submit: function() {
         this.$axios
           .post("/api/visitor/login", {
             username: this.loginForm.username,
@@ -151,7 +177,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #F6F5F7;
   }
 
