@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import {getCookie} from "@/assets/lib/utils";
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -136,3 +137,54 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  let authority = getCookie("authority");
+  let tutorReg = /\/user\/tutor/i;
+  let studentReg = /\/user\/student/i;
+  let adminReg = /\/admin/i;
+  if (to.path === '/analysis') {
+    if (authority === 'tutor') {
+      next();
+    } else {
+      next('/');
+    }
+  }
+
+  if (to.path === '/user/info') {
+    if (authority === null) {
+      next('/');
+    } else {
+      next();
+    }
+  }
+
+  if (adminReg.test(to.path)) {
+    if (getCookie("adminId") == null && to.path!=='/admin/login') {
+      next('/');
+    } else {
+      next();
+    }
+  }
+
+  if (tutorReg.test(to.path)) {
+    if (authority === 'tutor') {
+      next();
+    } else {
+      next('/');
+    }
+  }
+
+  if (studentReg.test(to.path)) {
+    if (authority === 'student') {
+      next();
+    } else {
+      next('/');
+    }
+  }
+
+
+  next();
+});
+
+export default router;

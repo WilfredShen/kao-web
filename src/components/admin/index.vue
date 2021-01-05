@@ -112,9 +112,6 @@
       }
     },
     methods: {
-      clearAll: function(val) {
-        this.selected = val;
-      },
     },
   }
 </script>
