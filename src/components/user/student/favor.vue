@@ -82,7 +82,7 @@
             if (res.data.status === 200) {
               this.$message.success("取消成功");
               this.setCollectInfo();
-            }else {
+            } else {
               this.$message.error("取消失败");
             }
           })

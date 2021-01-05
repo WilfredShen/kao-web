@@ -80,7 +80,7 @@
 
     </div>
     </body>
-    <div style="display: block;bottom: 0;background-color: #f6f5f7; ">
+    <div style="display: block;bottom: 0;background-color:  #f6f5f7; ">
       <Footer></Footer>
     </div>
   </div>

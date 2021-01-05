@@ -1,7 +1,10 @@
 <template>
   <div style="padding: 10px 20px 40px 20px;width: 90%;">
     <el-form>
-      <el-form-item label="选择轮次：">
+      <el-form-item
+        class="item"
+        label="选择轮次："
+      >
         <el-select
           v-model="round"
           placeholder="请选择轮次"
@@ -44,7 +47,7 @@
         :header-cell-style="{background:'#1e56a0',color:'white'}"
         border
         stripe
-        max-height="380px"
+        max-height="300px"
       >
         <el-table-column
           prop="mid"
@@ -74,7 +77,7 @@
       </el-table>
     </div>
     <el-button
-      style="min-width: 200px;margin-top: 50px;background-color: #2057a1;color: white"
+      style="min-width: 200px;margin-top: 20px;background-color: #2057a1;color: white"
       v-if="up"
       @click="upLoad()"
     >
@@ -275,7 +278,7 @@
     overflow-x: hidden;
   }
 
-  .el-form-item__label {
+  .item .el-form-item__label {
     font-size: 17px;
     font-weight: bold;
     color: black;

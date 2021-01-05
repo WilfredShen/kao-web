@@ -118,12 +118,12 @@
             console.log("首页获得的权限" + res);
             if (res === 'student') {
               this.isStu = true;
-              setCookie("authority","student");
+              setCookie("authority", "student");
             } else if (res === 'tutor') {
               this.isTut = true;
-              setCookie("authority","tutor");
-            }else {
-              setCookie("authority","visitor");
+              setCookie("authority", "tutor");
+            } else {
+              setCookie("authority", "visitor");
             }
           });
       }
@@ -134,12 +134,13 @@
         setCookie("uid", "", 0);
         setCookie("adminId", "", 0);
         setCookie("accessToken", "", 0);
-        setCookie("authority","",0);
+        setCookie("authority", "", 0);
         this.$store.commit('setUid', '');
-        this.$router.push("/");
-        setTimeout(function() {
-          location.reload();
-        }, 1000);
+        this.$router.replace({path: '/'});
+        location.reload();
+        // setTimeout(function() {
+        //   location.reload();
+        // }, 2000);
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);

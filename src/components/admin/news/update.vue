@@ -10,6 +10,7 @@
       <el-form-item
         label="类型："
         prop="newsType"
+        class="item"
       >
         <el-select
           placeholder="高校新闻"
@@ -165,7 +166,7 @@
               .catch((error) => {
                 console.log("更新新闻有误", error);
               });
-          }else {
+          } else {
             this.$message.error("请检查输入!");
           }
         })
@@ -181,8 +182,14 @@
   }
 </script>
 
-<style scoped>
+<style>
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
     overflow: scroll !important;
+  }
+
+  .item .el-form-item__label {
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
   }
 </style>

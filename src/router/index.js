@@ -160,7 +160,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (adminReg.test(to.path)) {
-    if (getCookie("adminId") == null && to.path!=='/admin/login') {
+    if (getCookie("adminId") == null && to.path !== '/admin/login') {
       next('/');
     } else {
       next();
