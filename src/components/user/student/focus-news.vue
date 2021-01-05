@@ -71,7 +71,7 @@
       this.queryFocusNews();
     },
     methods: {
-      queryFocusNews:function(){
+      queryFocusNews: function() {
         let tempFocus = [];
         this.$axios.get("/api/favor/q/news")
           .then((res) => {

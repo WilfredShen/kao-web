@@ -63,7 +63,7 @@
         <el-button
           size="small"
           round
-          style="margin: 10px 0 10px 20px;font-weight: bold"
+          style="margin: 10px 0 10px 35px;"
           @click="getSearch()"
         >查询
         </el-button>
@@ -140,7 +140,7 @@
 
   export default {
     name: 'CollegeDetail',
-    data: function () {
+    data: function() {
       return {
         input: '',
         rankSys: '请选择评价体系',
@@ -193,7 +193,7 @@
     },
     methods: {
       //评选方法
-      handleCommand: function (command) {
+      handleCommand: function(command) {
         this.rankSys = command;
         if (command === '软科') {
           this.isARWU = true;
@@ -211,7 +211,7 @@
         this.afterFilter = [];
       },
       //模糊查询
-      fuzzySearcher: function () {
+      fuzzySearcher: function() {
         let fsInput = this.input.trim().split(/\s+/);
         // console.log("fsinput", fsInput);
         this.fsResult = [];
@@ -234,9 +234,9 @@
       },
 
       //查询按钮
-      getSearch: async function () {
+      getSearch: async function() {
         //sort函数
-        let compare = function (obj1, obj2) {
+        let compare = function(obj1, obj2) {
           let val1 = obj1.result;
           let val2 = obj2.result;
           let result;
@@ -458,11 +458,11 @@
           });
         }
       },
-      cleanSearch: function () {
+      cleanSearch: function() {
         this.fsResult = this.school;
         this.input = '';
       },
-      schoolClick: function (cid) {
+      schoolClick: function(cid) {
         //this.$store.commit('setcid', cid);
         //this.$router.push({path: '/college'});
         this.$router.push({

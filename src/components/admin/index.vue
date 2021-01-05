@@ -111,8 +111,7 @@
         img: require("@/assets/image/logo11.png")
       }
     },
-    methods: {
-    },
+    methods: {},
   }
 </script>
 

@@ -3,6 +3,7 @@
     <div style="padding: 10px 20px 40px 20px;width: 90%;">
       <el-form>
         <el-form-item
+          class="item"
           label="选择轮次:"
           style="margin-left: 12px"
         >
@@ -24,9 +25,12 @@
       <el-divider></el-divider>
       <el-form
         label-width="100px"
-        style="margin-bottom: 60px;margin-left: 0"
+        style="margin-bottom: 40px;margin-left: 0"
       >
-        <el-form-item label="专业查询:">
+        <el-form-item
+          class="item"
+          label="专业查询:"
+        >
           <el-input
             v-model="searchMajor"
             size="small"
@@ -36,7 +40,10 @@
           ></el-input>
           <span style="margin-left: 10px;color: dimgray">(多个专业查询，以空格相隔)</span>
         </el-form-item>
-        <el-form-item label="学校查询:">
+        <el-form-item
+          class="item"
+          label="学校查询:"
+        >
           <el-input
             v-model="searchSchool"
             size="small"
@@ -58,7 +65,7 @@
           :header-cell-style="{background:'#1e56a0',color:'white'}"
           stripe
           style="font-size: 16px"
-          max-height="400px"
+          max-height="300px"
         >
           <el-table-column
             prop="mid"
@@ -380,8 +387,14 @@
   }
 </script>
 
-<style scoped>
+<style>
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
     overflow: scroll !important;
+  }
+
+  .item .el-form-item__label {
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
   }
 </style>

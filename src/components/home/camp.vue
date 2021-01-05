@@ -91,7 +91,7 @@
 </script>
 
 <style scoped>
-  .el-link{
+  .el-link {
     width: 10%;
   }
 

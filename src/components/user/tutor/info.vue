@@ -231,7 +231,7 @@
               .catch((err) => {
                 console.log("研究生秘书修改基本信息有问题" + err);
               });
-          }else {
+          } else {
             this.$message.error("提交失败！请检查输入！");
           }
         });

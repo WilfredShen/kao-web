@@ -184,6 +184,7 @@
 <script>
   import {updateUserInfo, getLimit} from '@/assets/lib/getAndSetSelf'
   import {getSchMap} from '@/assets/lib/utils'
+
   export default {
     name: 'Info',
     props: {
@@ -359,7 +360,7 @@
                   this.items[4].content = '已实名认证';
                   this.isVerify = !this.isVerify;
                   this.hasVerifyID = true;
-                }else {
+                } else {
                   this.$message.error("实名认证失败！");
                   this.isVerify = !this.isVerify;
                 }

@@ -171,13 +171,13 @@
               email: email
             })
               .then((res) => {
-                console.log("用户修改信息res",res);
+                console.log("用户修改信息res", res);
                 if (res.data.status === 200) {
                   this.isEdit = false;
                   this.$refs['userForm'].resetFields();
                   this.$message.success("修改成功");
                   this.queryUserList();
-                }else {
+                } else {
                   this.isEdit = false;
                   this.$refs['userForm'].resetFields();
                   this.$message.error("修改失败");
