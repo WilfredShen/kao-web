@@ -154,7 +154,7 @@ export function getLatestNews() {
     axios.get("/api/base/latest-news")
       .then((res) => {
         // console.log(resolve);
-        console.log(res);
+        // console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
@@ -169,7 +169,6 @@ export function getLastestCollegeRank() {
   return new Promise((resolve, reject) => {
     axios.get("/api/base/college-rank")
       .then((res) => {
-        console.log(resolve);
         resolve(res.data.data);
       })
       .catch((err) => {

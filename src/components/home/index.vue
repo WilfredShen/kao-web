@@ -7,10 +7,11 @@
         indicator-position="outside"
         :interval="3000"
         arrow="always"
+        v-if="latestNews[0]"
       >
         <el-carousel-item>
           <a
-            :href="this.latestNews[0].officialLink"
+            :href="latestNews[0].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -23,7 +24,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <a
-            :href="this.latestNews[1].officialLink"
+            :href="latestNews[1].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -36,7 +37,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <a
-            :href="this.latestNews[2].officialLink"
+            :href="latestNews[2].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -49,7 +50,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <a
-            :href="this.latestNews[3].officialLink"
+            :href="latestNews[3].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -62,7 +63,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <a
-            :href="this.latestNews[4].officialLink"
+            :href="latestNews[4].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -75,7 +76,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <a
-            :href="this.latestNews[5].officialLink"
+            :href="latestNews[5].officialLink"
             style="text-decoration: none"
             target="_Blank"
           >
@@ -88,7 +89,10 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="b2">
+    <div
+      class="b2"
+      v-if="latestNews[0]"
+    >
       <div style="border-bottom: 3px solid #163172;margin: 0">
         <img
           src="@/assets/image/新闻.png"
@@ -228,7 +232,7 @@
       getLatestNews()
         .then((res) => {
           this.latestNews = res.data;
-          // console.log("latenews",this.latenews);
+          // console.log("latenews",this.latestNews);
         })
         .catch((err) => {
           console.log(err);
