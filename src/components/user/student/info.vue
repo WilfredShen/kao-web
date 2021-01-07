@@ -234,8 +234,8 @@
           if (valid) {
             let uid = getCookie('uid');
             updateStuInfo(uid, this.studentForm.newPhone, this.studentForm.newEmail,
-              this.studentForm.newCollege, this.studentForm.newMajor,
-              this.studentForm.newGraduate, this.studentForm.newExpect)
+              this.studentForm.newCollege, this.studentForm.newMajor,this.studentForm.newExpect,
+              this.studentForm.newGraduate )
               .then((res) => {
                 console.log(res);
                 this.$message.success("修改成功！");

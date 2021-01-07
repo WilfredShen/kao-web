@@ -134,6 +134,11 @@ const router = new VueRouter({
           component: () => import('@/components/user/tutor/query-student')
         }
       ]
+    },
+    {
+      path: '*',
+      name: 'Fail',
+      component: () => import('@/components/fail')
     }
   ]
 })
