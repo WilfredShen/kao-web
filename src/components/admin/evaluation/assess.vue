@@ -107,6 +107,7 @@
         up: false,
         fileList: [],
         rounds: [],
+        isAlarm: false
       }
     },
     methods: {
@@ -139,6 +140,7 @@
         this.excelDatas = data;
         this.fileList = true;
         this.getExcel();
+        this.isAlarm = false;
       },
       handleRemove: function(file) {
         this.excelDatas = [];
@@ -209,11 +211,15 @@
                 uploadEvaluation(this.tableData[i].cid, this.tableData[i].mid, this.tableData[i].result, parseInt(this.round))
                   .then((res) => {
                     console.log("上传成功", res);
-                    this.$message({
-                      showClose: true,
-                      message: '上传成功！',
-                      type: 'success'
-                    });
+                    if (!this.isAlarm) {
+                      this.$message({
+                        showClose: true,
+                        message: '上传成功！',
+                        type: 'success'
+                      });
+                      this.isAlarm = true;
+                    }
+
                     this.tableData = [];
                     this.showFile = false;
                     this.round = '';
