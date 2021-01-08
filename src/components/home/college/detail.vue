@@ -184,11 +184,6 @@
         otherEvalResult: [],//软科和qs的评估结果
         fsResult: [], //模糊查询的学校名
         afterFilter: [], //筛选后的结果
-        test: {
-          "111": 1,
-          "222": 2,
-          "333": 3
-        }
       }
     },
     methods: {

@@ -130,17 +130,17 @@
     },
     methods: {
       logOut() {
-        this.$message("退出登录");
         setCookie("uid", "", 0);
         setCookie("adminId", "", 0);
         setCookie("accessToken", "", 0);
         setCookie("authority", "", 0);
         this.$store.commit('setUid', '');
         this.$router.replace({path: '/'});
-        location.reload();
-        // setTimeout(function() {
-        //   location.reload();
-        // }, 2000);
+        // location.reload();
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
+        this.$message("退出登录");
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
