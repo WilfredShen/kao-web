@@ -91,12 +91,13 @@
                 'upDate': item[i].updateTime.substring(0, 10)
               });
             }
-            this.tableData = tempFocus;
           })
           .catch((error) => {
             this.$message("暂无数据！");
+
             console.log(error);
           });
+        this.tableData = tempFocus;
       },
 
       skip: function(e) {

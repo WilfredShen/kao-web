@@ -1,7 +1,7 @@
 <template>
   <el-container class="container">
     <el-menu
-      default-active="/user/info"
+      :default-active="$route.path"
       :router="true"
       style="background-color: #163172;"
     >
