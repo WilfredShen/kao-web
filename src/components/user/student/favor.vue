@@ -116,6 +116,18 @@
 
     created() {
       this.setCollectInfo();
+    },
+
+    watch: {
+      "$route": {
+        handler(route) {
+          console.log(route.name);
+          const that = this;
+          if (route.name === 'Favor') {
+            that.setCollectInfo();
+          }
+        }
+      }
     }
   }
 </script>
