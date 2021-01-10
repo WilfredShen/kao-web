@@ -26,7 +26,7 @@
               class="grid-content bg-purple-light"
               style="margin-top: 15px"
             >
-              <span style="font-size: 20px;color: black;font-weight: bold">欢迎管理员！</span>
+              <span style="font-size: 20px;color: white;font-weight: bold">欢迎管理员！</span>
             </div>
           </el-col>
         </el-row>
@@ -122,8 +122,8 @@
   }
 
   .header {
-    background: #d6e4f0;
-    color: #000;
+    background: #163172;
+    color: #ffffff;
   }
 
   .main {

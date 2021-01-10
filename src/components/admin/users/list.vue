@@ -3,7 +3,7 @@
     <el-table
       :data="users"
       :height="height"
-      :header-cell-style="{background:'#3282B8',color:'#ffffff',height:'70px'}"
+      :header-cell-style="{background:'#2057a1',color:'#ffffff',height:'70px'}"
       style="font-size: 17px;"
     >
       <el-table-column

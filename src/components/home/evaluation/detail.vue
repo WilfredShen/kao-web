@@ -99,8 +99,11 @@
               </el-row>
               <el-scrollbar
                 style="height: 500px"
-                v-if="showEvaluation"
               >
+                <span
+                  v-if="showEvaluation.length===0"
+                  style="display: block;text-align: center;margin: 9px;font-size: 16px;color: darkgray"
+                > 无数据 </span>
                 <div
                   v-for="(item, index) in showEvaluation"
                   :key="index"
@@ -110,6 +113,7 @@
                     :class="{table:index%2===0}"
                     :body-style="{ padding: '4px' }"
                     style=" margin: 7px 0"
+                    v-if="showEvaluation"
                   >
                     <el-row style="padding: 8px 0;text-align: center">
                       <el-col :span="8">
@@ -159,7 +163,6 @@
           backgroundImage: 'url(' + require('@/assets/image/bg4.png') + ')',
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%',
-          opacity: 0.9
         },
         backgroundDiv2: {
           backgroundImage: 'url(' + require('@/assets/image/幻灯片3.png') + ')',
