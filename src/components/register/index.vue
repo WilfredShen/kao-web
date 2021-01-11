@@ -15,10 +15,16 @@
               label-position="left"
               label-width="80px"
             >
-              <el-input
-                v-model="registerForm.username"
-                placeholder="请输入用户名"
-              ></el-input>
+              <el-form-item
+                class="myLogin"
+                label="用户名"
+                prop="username"
+              >
+                <el-input
+                  v-model="registerForm.username"
+                  placeholder="请输入用户名"
+                ></el-input>
+              </el-form-item>
               <el-form-item
                 class="myLogin"
                 label="密码"
@@ -185,7 +191,7 @@
       };
     },
     methods: {
-      getCode: function() {
+      getCode: function () {
         if (this.registerForm.phone == null || this.registerForm.phone === "") {
           this.$alert('请输入手机号！', '提示', {
             confirmButtonText: '确定',
@@ -225,7 +231,7 @@
             console.log(err.data);
           });
       },
-      submit: function() {
+      submit: function () {
         console.log(this.registerForm);
         this.$axios
           .post("/api/visitor/register", {
