@@ -2,6 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getCookie} from "@/assets/lib/utils";
 
+const originalPush = VueRouter.prototype.replace
+VueRouter.prototype.replace = function replace(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -143,6 +148,8 @@ const router = new VueRouter({
   ]
 })
 
+
+
 router.beforeEach((to, from, next) => {
   let authority = getCookie("authority");
   let tutorReg = /\/user\/tutor/i;
@@ -187,7 +194,6 @@ router.beforeEach((to, from, next) => {
       next('/');
     }
   }
-
 
   next();
 });

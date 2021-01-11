@@ -130,11 +130,10 @@
     },
     methods: {
       logOut() {
-        setCookie("uid", "", 0);
         setCookie("adminId", "", 0);
+        setCookie("uid", "", 0);
         setCookie("accessToken", "", 0);
         setCookie("authority", "", 0);
-        this.$store.commit('setUid', '');
         this.$router.replace({path: '/'});
         // location.reload();
         setTimeout(function() {

@@ -25,9 +25,6 @@ const store = new Vuex.Store({
     setrealname(state, msg) {
       state.realName = msg;
     },
-    setuid(state, id) {
-      state.uid = id;
-    },
     setcid(state, cid) {
       state.cid = cid;
       console.log('state', state.cid);
