@@ -121,8 +121,7 @@
             {required: true, message: "请填写新闻链接，注意格式正确"}
           ],
           image: [
-            {required: true, message: "请上传图片"},
-            {validator: validateFileList}
+            {required: true, validator: validateFileList},
           ],
         },
         schIndex: '',
@@ -180,6 +179,7 @@
         this.$refs['updateForm'].resetFields();
       }
     },
+
   }
 </script>
 

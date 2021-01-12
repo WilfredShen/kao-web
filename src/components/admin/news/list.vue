@@ -135,25 +135,20 @@
           .then((res) => {
             console.log("获取新闻列表无误", res);
             let items = res.data.data;
-            if (JSON.stringify(this.$store.state.schoolMap) !== '{}') {
-              this.sMap = this.$store.state.schoolMap;
-              this.setNewsList(items);
-            } else {
-              schoolList()
-                .then((res) => {
-                  res.forEach((row) => {
-                    this.$store.commit("setSchMap", {
-                      cname: row.cname,
-                      cid: row.cid
-                    });
-                    this.sMap[row.cid] = row.cname;
+            schoolList()
+              .then((res) => {
+                res.forEach((row) => {
+                  this.$store.commit("setSchMap", {
+                    cname: row.cname,
+                    cid: row.cid
                   });
-                  this.setNewsList(items);
-                })
-                .catch((err) => {
-                  console.log(err);
+                  this.sMap[row.cid] = row.cname;
                 });
-            }
+                this.setNewsList(items);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           })
           .catch((error) => {
             console.log("获取新闻列表有错误", error);
@@ -162,6 +157,17 @@
     },
     created() {
       this.queryNewsList();
+    },
+    watch: {
+      "$route": {
+        handler(route) {
+          console.log(route.name);
+          const that = this;
+          if (route.name === 'ShowList') {
+            that.queryNewsList();
+          }
+        }
+      }
     }
   }
 </script>
