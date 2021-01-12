@@ -6,11 +6,12 @@
       ref="updateForm"
       :model="updateForm"
       :rules="updateRules"
+      class="item"
     >
       <el-form-item
         label="类型："
         prop="newsType"
-        class="item"
+
       >
         <el-select
           placeholder="高校新闻"

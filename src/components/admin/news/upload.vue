@@ -6,6 +6,7 @@
       ref="uploadForm"
       :model="uploadForm"
       :rules="uploadRules"
+      class="item"
     >
       <el-form-item
         label="类型："
@@ -238,5 +239,10 @@
 
   .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
     overflow: scroll !important;
+  }
+
+  .item .el-form-item__label{
+    font-size: 17px;
+    font-weight: bold;
   }
 </style>

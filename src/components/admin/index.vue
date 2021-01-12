@@ -14,7 +14,7 @@
               <img
                 class="img-style"
                 style="float: left"
-                src="@/assets/image/logo11.png"
+                src="@/assets/image/logo白(已去底).png"
               >
             </div>
           </el-col>
